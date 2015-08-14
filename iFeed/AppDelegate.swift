@@ -7,21 +7,24 @@
 //
 
 import UIKit
-
 @UIApplicationMain
 
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    var window: UIWindow? //wtf
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        var feedListViewController = FeedListViewController (nibName: nil, bundle: nil) //wtf
+        
+        var navigationViewController             = UINavigationController ()
+        navigationViewController.viewControllers = [feedListViewController]
+        
+        window?.rootViewController = navigationViewController
+        window?.makeKeyAndVisible()
+        
         return true
     }
-
-
-    
-
 }
 

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		DE763D1A1B7E841300C8B54A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D191B7E841300C8B54A /* AppDelegate.swift */; };
-		DE763D1C1B7E841300C8B54A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D1B1B7E841300C8B54A /* ViewController.swift */; };
-		DE763D1F1B7E841300C8B54A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE763D1D1B7E841300C8B54A /* Main.storyboard */; };
 		DE763D211B7E841300C8B54A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE763D201B7E841300C8B54A /* Images.xcassets */; };
 		DE763D241B7E841300C8B54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE763D221B7E841300C8B54A /* LaunchScreen.xib */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
+		DE763D3A1B7E88B300C8B54A /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D391B7E88B300C8B54A /* FeedListViewController.swift */; };
+		DE763D3C1B7E8EC700C8B54A /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +29,13 @@
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D181B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D191B7E841300C8B54A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DE763D1B1B7E841300C8B54A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DE763D1E1B7E841300C8B54A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE763D201B7E841300C8B54A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE763D231B7E841300C8B54A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
+		DE763D391B7E88B300C8B54A /* FeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
+		DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedListView.swift; path = ../FeedListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +77,8 @@
 		DE763D161B7E841300C8B54A /* iFeed */ = {
 			isa = PBXGroup;
 			children = (
+				DE763D3D1B7E9C2C00C8B54A /* UI */,
 				DE763D191B7E841300C8B54A /* AppDelegate.swift */,
-				DE763D1B1B7E841300C8B54A /* ViewController.swift */,
-				DE763D1D1B7E841300C8B54A /* Main.storyboard */,
 				DE763D201B7E841300C8B54A /* Images.xcassets */,
 				DE763D221B7E841300C8B54A /* LaunchScreen.xib */,
 				DE763D171B7E841300C8B54A /* Supporting Files */,
@@ -110,6 +109,15 @@
 				DE763D2E1B7E841300C8B54A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE763D3D1B7E9C2C00C8B54A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */,
+				DE763D391B7E88B300C8B54A /* FeedListViewController.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,7 +200,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE763D1F1B7E841300C8B54A /* Main.storyboard in Resources */,
 				DE763D241B7E841300C8B54A /* LaunchScreen.xib in Resources */,
 				DE763D211B7E841300C8B54A /* Images.xcassets in Resources */,
 			);
@@ -212,7 +219,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE763D1C1B7E841300C8B54A /* ViewController.swift in Sources */,
+				DE763D3C1B7E8EC700C8B54A /* FeedListView.swift in Sources */,
+				DE763D3A1B7E88B300C8B54A /* FeedListViewController.swift in Sources */,
 				DE763D1A1B7E841300C8B54A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,14 +244,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DE763D1D1B7E841300C8B54A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DE763D1E1B7E841300C8B54A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DE763D221B7E841300C8B54A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
