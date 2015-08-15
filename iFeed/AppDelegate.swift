@@ -12,17 +12,22 @@ import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow? //wtf
+    //MARK: - properties
+    var window: UIWindow?
+    
 
+    //MARK: - UIApplicationDelegate API
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         var feedListViewController = FeedListViewController (nibName: nil, bundle: nil) //wtf
         
         var navigationViewController             = UINavigationController ()
         navigationViewController.viewControllers = [feedListViewController]
         
-        window?.rootViewController = navigationViewController
-        window?.makeKeyAndVisible()
+        self.window?.rootViewController = navigationViewController
+        self.window?.makeKeyAndVisible()
         
         return true
     }

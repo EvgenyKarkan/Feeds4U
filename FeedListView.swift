@@ -11,6 +11,7 @@ import UIKit
 
 class FeedListView: UIView {
 
+    //MAR: - Initializers
     override init(frame: CGRect) {
         
         super.init(frame: frame)

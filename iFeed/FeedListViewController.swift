@@ -11,12 +11,30 @@ import UIKit
 
 class FeedListViewController: UIViewController {
 
-    var feedView: FeedListView! {
-        return self.view as! FeedListView
+    //MARK: - property    
+    var feedView: FeedListView
+    
+    
+    //MARK: - Initializers
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        
+        feedView = FeedListView()
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    //MARK: - Life cycle
     override func loadView() {
-        self.view = FeedListView(frame: UIScreen.mainScreen().bounds)
+        
+        var aView = FeedListView (frame: UIScreen.mainScreen().bounds)
+        
+        feedView = aView
+        self.view = aView
     }
     
     override func viewDidLoad() {
