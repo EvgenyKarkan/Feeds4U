@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE763D1A1B7E841300C8B54A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D191B7E841300C8B54A /* AppDelegate.swift */; };
+		DE763D1A1B7E841300C8B54A /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D191B7E841300C8B54A /* EVKAppDelegate.swift */; };
 		DE763D211B7E841300C8B54A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE763D201B7E841300C8B54A /* Images.xcassets */; };
 		DE763D241B7E841300C8B54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE763D221B7E841300C8B54A /* LaunchScreen.xib */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
-		DE763D3A1B7E88B300C8B54A /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D391B7E88B300C8B54A /* FeedListViewController.swift */; };
-		DE763D3C1B7E8EC700C8B54A /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */; };
+		DE763D3A1B7E88B300C8B54A /* EVKFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D391B7E88B300C8B54A /* EVKFeedListViewController.swift */; };
+		DE763D3C1B7E8EC700C8B54A /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D3B1B7E8EC700C8B54A /* EVKFeedListView.swift */; };
+		DE763D3F1B7F22A000C8B54A /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D3E1B7F22A000C8B54A /* EVKFeedItemsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +29,15 @@
 /* Begin PBXFileReference section */
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D181B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE763D191B7E841300C8B54A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DE763D191B7E841300C8B54A /* EVKAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVKAppDelegate.swift; sourceTree = "<group>"; };
 		DE763D201B7E841300C8B54A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE763D231B7E841300C8B54A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
-		DE763D391B7E88B300C8B54A /* FeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
-		DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedListView.swift; path = ../FeedListView.swift; sourceTree = "<group>"; };
+		DE763D391B7E88B300C8B54A /* EVKFeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListViewController.swift; sourceTree = "<group>"; };
+		DE763D3B1B7E8EC700C8B54A /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EVKFeedListView.swift; path = ../EVKFeedListView.swift; sourceTree = "<group>"; };
+		DE763D3E1B7F22A000C8B54A /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				DE763D3D1B7E9C2C00C8B54A /* UI */,
-				DE763D191B7E841300C8B54A /* AppDelegate.swift */,
+				DE763D191B7E841300C8B54A /* EVKAppDelegate.swift */,
 				DE763D201B7E841300C8B54A /* Images.xcassets */,
 				DE763D221B7E841300C8B54A /* LaunchScreen.xib */,
 				DE763D171B7E841300C8B54A /* Supporting Files */,
@@ -114,8 +116,9 @@
 		DE763D3D1B7E9C2C00C8B54A /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				DE763D3B1B7E8EC700C8B54A /* FeedListView.swift */,
-				DE763D391B7E88B300C8B54A /* FeedListViewController.swift */,
+				DE763D3B1B7E8EC700C8B54A /* EVKFeedListView.swift */,
+				DE763D391B7E88B300C8B54A /* EVKFeedListViewController.swift */,
+				DE763D3E1B7F22A000C8B54A /* EVKFeedItemsView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 		DE763D0C1B7E841300C8B54A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = EVK;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Evgeny Karkan";
 				TargetAttributes = {
@@ -219,9 +223,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE763D3C1B7E8EC700C8B54A /* FeedListView.swift in Sources */,
-				DE763D3A1B7E88B300C8B54A /* FeedListViewController.swift in Sources */,
-				DE763D1A1B7E841300C8B54A /* AppDelegate.swift in Sources */,
+				DE763D3C1B7E8EC700C8B54A /* EVKFeedListView.swift in Sources */,
+				DE763D3A1B7E88B300C8B54A /* EVKFeedListViewController.swift in Sources */,
+				DE763D1A1B7E841300C8B54A /* EVKAppDelegate.swift in Sources */,
+				DE763D3F1B7F22A000C8B54A /* EVKFeedItemsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

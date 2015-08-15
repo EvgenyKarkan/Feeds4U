@@ -9,16 +9,16 @@
 import UIKit
 
 
-class FeedListViewController: UIViewController {
+class EVKFeedListViewController: UIViewController {
 
     //MARK: - property    
-    var feedView: FeedListView
+    var feedView: EVKFeedListView
     
     
     //MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
-        feedView = FeedListView()
+        feedView = EVKFeedListView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -31,7 +31,7 @@ class FeedListViewController: UIViewController {
     //MARK: - Life cycle
     override func loadView() {
         
-        var aView = FeedListView (frame: UIScreen.mainScreen().bounds)
+        var aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
         
         feedView = aView
         self.view = aView

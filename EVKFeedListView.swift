@@ -9,7 +9,7 @@
 import UIKit
 
 
-class FeedListView: UIView {
+class EVKFeedListView: UIView {
 
     //MAR: - Initializers
     override init(frame: CGRect) {

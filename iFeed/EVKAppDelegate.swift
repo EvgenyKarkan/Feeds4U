@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        var feedListViewController = FeedListViewController (nibName: nil, bundle: nil) //wtf
+        var feedListViewController = EVKFeedListViewController (nibName: nil, bundle: nil) //wtf
         
         var navigationViewController             = UINavigationController ()
         navigationViewController.viewControllers = [feedListViewController]
