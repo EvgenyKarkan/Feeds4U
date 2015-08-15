@@ -1,5 +1,5 @@
 //
-//  FeedListView.swift
+//  EVKFeedListView.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/15/15.
@@ -11,7 +11,7 @@ import UIKit
 
 class EVKFeedListView: UIView {
 
-    //MAR: - Initializers
+    //MARK: - Initializers
     override init(frame: CGRect) {
         
         super.init(frame: frame)

@@ -1,5 +1,5 @@
 //
-//  FeedItemsView.swift
+//  EVKFeedItemsView.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/15/15.

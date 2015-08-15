@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  EVKAppDelegate.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/14/15.

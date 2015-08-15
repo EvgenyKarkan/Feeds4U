@@ -1,5 +1,5 @@
 //
-//  FeedListViewController.swift
+//  EVKFeedListViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/14/15.
