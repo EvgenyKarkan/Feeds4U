@@ -79,9 +79,9 @@
 		DE763D161B7E841300C8B54A /* iFeed */ = {
 			isa = PBXGroup;
 			children = (
+				DEFB0CB61B80D2FA001425A3 /* Sources */,
 				DEFB0CAE1B80D2FA001425A3 /* Project */,
 				DEFB0CB31B80D2FA001425A3 /* Resources */,
-				DEFB0CB61B80D2FA001425A3 /* Sources */,
 			);
 			name = iFeed;
 			path = ..;
