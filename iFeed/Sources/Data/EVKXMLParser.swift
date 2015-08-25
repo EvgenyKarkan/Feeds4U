@@ -12,9 +12,18 @@ import UIKit
 class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
     //MARK: - properties
-    var channel: String?
+    var channel: String = ""
     
-    var topLevelTitle = ""
+    var topLevelTitle: String = ""
+    
+    
+    var allFeedItemsArray = [Dictionary<String, String>]()
+    
+    var currentItemDictionary = Dictionary<String, String>()
+    
+    var currentElement = ""
+    
+    var foundedCharacters = ""
     
     
     //MARK: - public API
@@ -33,7 +42,16 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
                                              qualifiedName qName: String?,
                                         attributes attributeDict: [NSObject : AnyObject]) {
         
-        self.channel = elementName
+                                            if  self.channel.isEmpty {
+                                                
+                                                if elementName == "title" {
+                                                    self.channel = elementName
+                                                }
+                                                
+                                                println(self.channel)
+                                                
+                                            }
+        
                                             
                                             //println(elementName)
     }
@@ -47,9 +65,16 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
                 println(self.topLevelTitle)
             }
         }
-        
-        
     }
 
    
+    
+    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
+        println(parseError.description)
+    }
+    
+    
+    func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
+        println(validationError.description)
+    }
 }

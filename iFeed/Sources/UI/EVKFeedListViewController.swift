@@ -49,9 +49,9 @@ class EVKFeedListViewController: UIViewController {
         
         let parser = EVKXMLParser()
         
-        //parser.beginParseURL(NSURL(string: "http://douua.org/lenta/feed/")!)
+        parser.beginParseURL(NSURL(string: "http://douua.org/lenta/feed/")!)
         
-        parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
+//        parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
         
         //http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
     }
