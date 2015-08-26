@@ -11,10 +11,7 @@ import UIKit
 
 class EVKFeedItem: NSObject {
 
-    var title: String!
-    
-    var link: String!
-    
-    var publicDate: NSDate!
-    
+    var title: String      = ""
+    var link: String       = ""
+    var publicDate: String = ""
 }

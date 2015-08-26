@@ -12,11 +12,13 @@ import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    //MARK: - properties
+//MARK: - properties
+    
     var window: UIWindow?
     
 
-    //MARK: - UIApplicationDelegate API
+//MARK: - UIApplicationDelegate API
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -29,12 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navigationViewController
         self.window?.makeKeyAndVisible()
         
-        
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         UIApplication.sharedApplication().statusBarHidden = false
-        
-        
-        
         
         return true
     }

@@ -11,9 +11,7 @@ import UIKit
 
 class EVKFeed: NSObject {
    
-    var feedURL: String!
-    
-    var feedTitle: String!
-    
+    var feedURL: String               = ""
+    var feedTitle: String             = ""
     var feedItemsArray: [EVKFeedItem] = []
 }

@@ -11,11 +11,13 @@ import UIKit
 
 class EVKFeedListViewController: UIViewController {
 
-    //MARK: - property    
+//MARK: - property
+    
     var feedView: EVKFeedListView
     
     
-    //MARK: - Initializers
+//MARK: - Initializers
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         feedView = EVKFeedListView()
@@ -28,7 +30,8 @@ class EVKFeedListViewController: UIViewController {
     }
     
     
-    //MARK: - Life cycle
+//MARK: - Life cycle
+    
     override func loadView() {
         
         var aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
@@ -44,14 +47,15 @@ class EVKFeedListViewController: UIViewController {
     }
     
     
-    //MARK: - Private
+//MARK: - Private
+    
     private func startParsing() {
         
         let parser = EVKXMLParser()
         
         parser.beginParseURL(NSURL(string: "http://douua.org/lenta/feed/")!)
         
-//        parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
+        //parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
         
         //http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
     }

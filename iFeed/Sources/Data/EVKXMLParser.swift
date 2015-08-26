@@ -11,25 +11,22 @@ import UIKit
 
 class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
-    //MARK: - properties
-    var channel: String = ""
+//MARK: - properties
     
-    var topLevelTitle: String = ""
-    
-    
-    var allFeedItemsArray = [Dictionary<String, String>]()
-    
+    var feedChannel: EVKFeed  = EVKFeed()
+    var allFeedItemsArray     = [Dictionary<String, String>]()
     var currentItemDictionary = Dictionary<String, String>()
+    var currentElement        = ""
+    var foundedCharacters     = ""
+    var feedItem: EVKFeedItem?
     
-    var currentElement = ""
+//MARK: - public API
     
-    var foundedCharacters = ""
-    
-    
-    //MARK: - public API
     func beginParseURL(rssURL: NSURL) {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
+        
+        self.feedChannel.feedURL = rssURL.absoluteString!
         
         let parser       = NSXMLParser(contentsOfURL: rssURL)
         parser!.delegate = self
@@ -37,44 +34,68 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
         parser!.parse()
     }
     
-    //MARL: - NSXMLParserDelegate API
+//MARK: - NSXMLParserDelegate API
+    
+    func parserDidEndDocument(parser: NSXMLParser) {
+        
+        println(self.feedChannel.feedItemsArray)
+    }
+    
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?,
                                              qualifiedName qName: String?,
                                         attributes attributeDict: [NSObject : AnyObject]) {
-        
-                                            if  self.channel.isEmpty {
-                                                
-                                                if elementName == "title" {
-                                                    self.channel = elementName
-                                                }
-                                                
-                                                println(self.channel)
-                                                
-                                            }
-        
-                                            
-                                            //println(elementName)
+        //proxing the element
+        self.currentElement = elementName
     }
     
     func parser(parser: NSXMLParser, foundCharacters string: String?) {
         
-        if (self.channel == "title") {
-            if (self.topLevelTitle.isEmpty) {
-                self.topLevelTitle = string!
-                
-                println(self.topLevelTitle)
-            }
+        if (self.currentElement == "title" && self.feedChannel.feedTitle.isEmpty) {
+            
+            self.feedChannel.feedTitle = string!
+        }
+        
+        if (self.currentElement == "title" && string != self.feedChannel.feedTitle) ||
+            self.currentElement == "link" ||
+            self.currentElement == "pubDate" {
+
+            foundedCharacters += string!
         }
     }
-
-   
     
-    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-        println(parseError.description)
+    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+        if !self.foundedCharacters.isEmpty && self.foundedCharacters != self.feedChannel.feedTitle {
+
+                if self.currentElement == "title" {
+                    self.feedItem        = EVKFeedItem()
+                    self.feedItem?.title = self.foundedCharacters
+                }
+            
+                if (self.feedItem != nil) {
+                    if self.currentElement == "link" {
+                        
+                        self.feedItem?.link = self.foundedCharacters
+                        
+                        self.feedChannel.feedItemsArray.append(self.feedItem!)
+                        
+                        self.feedItem = nil
+                        
+                        self.foundedCharacters = ""
+                    }
+                    
+                    if self.currentElement == "pubDate" {
+                        //self.feedItem?.publicDate = foundedCharacters
+                    }
+                }
+        }
     }
     
+    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
+        println(parseError.localizedDescription)
+    }
     
     func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
-        println(validationError.description)
+        println(validationError.localizedDescription)
     }
 }

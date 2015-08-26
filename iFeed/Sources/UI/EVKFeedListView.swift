@@ -11,12 +11,13 @@ import UIKit
 
 class EVKFeedListView: UIView {
 
-    //MARK: - Initializers
+//MARK: - Initializers
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.brownColor()
+        self.backgroundColor = UIColor.lightGrayColor()
     }
 
     required init(coder aDecoder: NSCoder) {
