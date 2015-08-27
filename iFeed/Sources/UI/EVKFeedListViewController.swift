@@ -9,14 +9,14 @@
 import UIKit
 
 
-class EVKFeedListViewController: UIViewController {
+class EVKFeedListViewController: EVKBaseViewController {
 
-//MARK: - property
+    //MARK: - property
     
     var feedView: EVKFeedListView
     
     
-//MARK: - Initializers
+    //MARK: - Initializers
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
@@ -30,7 +30,7 @@ class EVKFeedListViewController: UIViewController {
     }
     
     
-//MARK: - Life cycle
+    //MARK: - Life cycle
     
     override func loadView() {
         
@@ -44,10 +44,16 @@ class EVKFeedListViewController: UIViewController {
         super.viewDidLoad()
         
         startParsing()
+        
+        var addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
+                                                                     target: self,
+                                                                     action: "addPressed:")
+        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
+        
     }
     
     
-//MARK: - Private
+    //MARK: - Private
     
     private func startParsing() {
         
@@ -58,5 +64,21 @@ class EVKFeedListViewController: UIViewController {
         //parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
         
         //http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+    }
+    
+    //MARK: - Actions
+    
+    func addPressed (sender:UIButton) {
+        
+        assert(!sender.isEqual(nil), "sender is nil")
+        
+        showAlertView(sender);
+    }
+    
+    //MARK: - Inherited from base
+    
+    override func addOnAlertViewPressed () {
+        
+        println("add pressed")
     }
 }

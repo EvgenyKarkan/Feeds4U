@@ -12,22 +12,24 @@ import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-//MARK: - properties
+    //MARK: - properties
     
     var window: UIWindow?
     
 
-//MARK: - UIApplicationDelegate API
+    //MARK: - UIApplicationDelegate API
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
         var feedListViewController = EVKFeedListViewController (nibName: nil, bundle: nil) //wtf
         
-        var navigationViewController             = UINavigationController ()
-        navigationViewController.viewControllers = [feedListViewController]
+        var navigationViewController                               = UINavigationController ()
+        navigationViewController.viewControllers                   = [feedListViewController]
+        navigationViewController.navigationBar.barTintColor        = UIColor.blackColor()
+        navigationViewController.navigationBar.tintColor           = UIColor.whiteColor()
+        navigationViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
+        self.window                     = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = navigationViewController
         self.window?.makeKeyAndVisible()
         

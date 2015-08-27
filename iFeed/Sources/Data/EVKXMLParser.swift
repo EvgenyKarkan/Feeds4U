@@ -11,16 +11,15 @@ import UIKit
 
 class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
-//MARK: - properties
+    //MARK: - properties
     
-    var feedChannel: EVKFeed  = EVKFeed()
-    var allFeedItemsArray     = [Dictionary<String, String>]()
-    var currentItemDictionary = Dictionary<String, String>()
-    var currentElement        = ""
-    var foundedCharacters     = ""
-    var feedItem: EVKFeedItem?
+   var feedChannel: EVKFeed  = EVKFeed()
+
+   private var currentElement        = ""
+   private var foundedCharacters     = ""
+   private var feedItem: EVKFeedItem?
     
-//MARK: - public API
+    //MARK: - public API
     
     func beginParseURL(rssURL: NSURL) {
         
@@ -34,7 +33,7 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
         parser!.parse()
     }
     
-//MARK: - NSXMLParserDelegate API
+    //MARK: - NSXMLParserDelegate API
     
     func parserDidEndDocument(parser: NSXMLParser) {
         
