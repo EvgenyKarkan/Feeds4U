@@ -15,9 +15,12 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
    var feedChannel: EVKFeed  = EVKFeed()
 
+   var parserDelegate: EVKXMLParserProtocol?
+    
    private var currentElement        = ""
    private var foundedCharacters     = ""
    private var feedItem: EVKFeedItem?
+    
     
     //MARK: - public API
     
@@ -33,11 +36,12 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
         parser!.parse()
     }
     
+    
     //MARK: - NSXMLParserDelegate API
     
     func parserDidEndDocument(parser: NSXMLParser) {
         
-        println(self.feedChannel.feedItemsArray)
+        self.parserDelegate?.didEndParsingFeed(self.feedChannel)
     }
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?,
@@ -97,4 +101,10 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
         println(validationError.localizedDescription)
     }
+}
+
+
+protocol EVKXMLParserProtocol {
+    
+    func didEndParsingFeed(feed: EVKFeed)
 }

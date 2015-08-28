@@ -9,7 +9,7 @@
 import UIKit
 
 
-class EVKFeedListViewController: EVKBaseViewController {
+class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol {
 
     //MARK: - property
     
@@ -41,30 +41,30 @@ class EVKFeedListViewController: EVKBaseViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        startParsing()
+        super.viewDidLoad()
         
         var addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
                                                                      target: self,
                                                                      action: "addPressed:")
         self.navigationItem.setRightBarButtonItems([addButton], animated: false)
-        
     }
     
     
     //MARK: - Private
     
-    private func startParsing() {
+    private func startParsingURL(URL: String) {
         
-        let parser = EVKXMLParser()
+        let parser            = EVKXMLParser()
+        parser.parserDelegate = self
         
-        parser.beginParseURL(NSURL(string: "http://douua.org/lenta/feed/")!)
+        parser.beginParseURL(NSURL(string: URL)!)
         
         //parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
         
         //http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
     }
+    
     
     //MARK: - Actions
     
@@ -75,10 +75,21 @@ class EVKFeedListViewController: EVKBaseViewController {
         showAlertView(sender);
     }
     
+    
     //MARK: - Inherited from base
     
-    override func addOnAlertViewPressed () {
+    override func addFeedPressed (URL: String) {
         
-        println("add pressed")
+        startParsingURL(URL)
+    }
+    
+    
+    //MARK: - EVKXMLParserProtocol API
+    
+    func didEndParsingFeed(feed: EVKFeed) {
+        
+        println(feed)
+        
+        println(feed.feedItemsArray)
     }
 }

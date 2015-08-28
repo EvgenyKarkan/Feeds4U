@@ -22,12 +22,9 @@ class EVKFeedListView: UIView {
         
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.lightGrayColor()
-        
-        
-        self.tableView = UITableView()
-        self.addSubview(self.tableView)
+        self.tableView                 = UITableView()
         self.tableView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
+        self.addSubview(self.tableView)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -41,7 +38,7 @@ class EVKFeedListView: UIView {
         
         super.layoutSubviews()
         
-        let yPoint: CGFloat = 0.0
+        let yPoint: CGFloat  = 0.0
         self.tableView.frame = CGRectMake(0.0, yPoint, self.bounds.size.width, self.bounds.size.height - yPoint)
     }
 }

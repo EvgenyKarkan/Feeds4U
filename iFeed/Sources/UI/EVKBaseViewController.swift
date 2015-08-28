@@ -22,28 +22,37 @@ class EVKBaseViewController: UIViewController {
     
     func showAlertView(sender: AnyObject) {
         
-        let actionSheetController: UIAlertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)
+        let alertController: UIAlertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
             self.view.endEditing(true)
         }
         
-        actionSheetController.addAction(cancelAction)
+        alertController.addAction(cancelAction)
         
         let nextAction: UIAlertAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
-            self.addOnAlertViewPressed()
+            
+            if let textField = alertController.textFields?.first as? UITextField {
+                
+                if !textField.text.isEmpty {
+                    self.addFeedPressed(textField.text)
+                }
+            }
         }
         
-        actionSheetController.addAction(nextAction)
+        alertController.addAction(nextAction)
         
-        actionSheetController.addTextFieldWithConfigurationHandler { textField -> Void in
+        alertController.addTextFieldWithConfigurationHandler { textField -> Void in
+      
             textField.placeholder = "http://www.something.com/rss"
+            
+            textField.text = "http://douua.org/lenta/feed/"
         }
         
-        self.presentViewController(actionSheetController, animated: true, completion: nil)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    func addOnAlertViewPressed() {
+    func addFeedPressed(URL: String) {
         //to override in sublasses
     }
 }
