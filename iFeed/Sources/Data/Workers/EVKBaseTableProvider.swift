@@ -24,12 +24,13 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         
         println("Delegate obj is \(self.delegate)")
         
-        //assert(!injectedDelegate.isEqual(nil), "Delegate can't be nil")
+        //assert(!self.delegate.isEqual(nil), "Delegate can't be nil")
     }
     
     
     //MARK: - UITableViewDelegate & UITableViewDatasource API
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
         return 1
     }
     

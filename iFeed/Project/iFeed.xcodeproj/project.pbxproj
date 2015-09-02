@@ -9,16 +9,20 @@
 /* Begin PBXBuildFile section */
 		DE2CC6451B8FA67B00ABB50D /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2CC6441B8FA67B00ABB50D /* EVKBaseViewController.swift */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
-		DE8FC4FE1B96295600EC8800 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8FC4FD1B96295600EC8800 /* EVKBaseTableProvider.swift */; };
-		DECC70D71B8D156000419BFC /* EVKFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC70D61B8D156000419BFC /* EVKFeed.swift */; };
-		DECC70D91B8D161000419BFC /* EVKFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECC70D81B8D161000419BFC /* EVKFeedItem.swift */; };
+		DE7D1E2C1B978ED9002330A2 /* iFeed.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */; };
+		DE7D1E3F1B97958A002330A2 /* EVKFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E371B97958A002330A2 /* EVKFeed.swift */; };
+		DE7D1E401B97958A002330A2 /* EVKFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */; };
+		DE7D1E411B97958A002330A2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E391B97958A002330A2 /* Feed.swift */; };
+		DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3A1B97958A002330A2 /* FeedItem.swift */; };
+		DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */; };
+		DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */; };
+		DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */; };
 		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
 		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
 		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
 		DEFB0CC21B80D2FA001425A3 /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CBB1B80D2FA001425A3 /* EVKFeedItemsView.swift */; };
 		DEFB0CC31B80D2FA001425A3 /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CBC1B80D2FA001425A3 /* EVKFeedListView.swift */; };
 		DEFB0CC41B80D2FA001425A3 /* EVKFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CBD1B80D2FA001425A3 /* EVKFeedListViewController.swift */; };
-		DEFB0CCB1B80E90A001425A3 /* EVKXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CCA1B80E90A001425A3 /* EVKXMLParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,9 +41,14 @@
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
-		DE8FC4FD1B96295600EC8800 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
-		DECC70D61B8D156000419BFC /* EVKFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeed.swift; sourceTree = "<group>"; };
-		DECC70D81B8D161000419BFC /* EVKFeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItem.swift; sourceTree = "<group>"; };
+		DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
+		DE7D1E371B97958A002330A2 /* EVKFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeed.swift; sourceTree = "<group>"; };
+		DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItem.swift; sourceTree = "<group>"; };
+		DE7D1E391B97958A002330A2 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		DE7D1E3A1B97958A002330A2 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
+		DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
+		DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKXMLParser.swift; sourceTree = "<group>"; };
 		DEFB0CB21B80D2FA001425A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEFB0CB41B80D2FA001425A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -47,7 +56,6 @@
 		DEFB0CBB1B80D2FA001425A3 /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
 		DEFB0CBC1B80D2FA001425A3 /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
 		DEFB0CBD1B80D2FA001425A3 /* EVKFeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListViewController.swift; sourceTree = "<group>"; };
-		DEFB0CCA1B80E90A001425A3 /* EVKXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKXMLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DE7D1E361B97958A002330A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DE7D1E371B97958A002330A2 /* EVKFeed.swift */,
+				DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */,
+				DE7D1E391B97958A002330A2 /* Feed.swift */,
+				DE7D1E3A1B97958A002330A2 /* FeedItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DE7D1E3B1B97958A002330A2 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */,
+				DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */,
+				DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
 		DEFB0CAE1B80D2FA001425A3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +155,7 @@
 		DEFB0CB31B80D2FA001425A3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */,
 				DEFB0CB41B80D2FA001425A3 /* Images.xcassets */,
 				DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */,
 			);
@@ -164,10 +194,8 @@
 		DEFB0CC91B80E90A001425A3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DEFB0CCA1B80E90A001425A3 /* EVKXMLParser.swift */,
-				DECC70D61B8D156000419BFC /* EVKFeed.swift */,
-				DECC70D81B8D161000419BFC /* EVKFeedItem.swift */,
-				DE8FC4FD1B96295600EC8800 /* EVKBaseTableProvider.swift */,
+				DE7D1E361B97958A002330A2 /* Models */,
+				DE7D1E3B1B97958A002330A2 /* Workers */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -272,15 +300,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7D1E2C1B978ED9002330A2 /* iFeed.xcdatamodel in Sources */,
+				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
+				DE7D1E3F1B97958A002330A2 /* EVKFeed.swift in Sources */,
 				DEFB0CC31B80D2FA001425A3 /* EVKFeedListView.swift in Sources */,
-				DE8FC4FE1B96295600EC8800 /* EVKBaseTableProvider.swift in Sources */,
 				DEFB0CC21B80D2FA001425A3 /* EVKFeedItemsView.swift in Sources */,
-				DECC70D71B8D156000419BFC /* EVKFeed.swift in Sources */,
 				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
-				DEFB0CCB1B80E90A001425A3 /* EVKXMLParser.swift in Sources */,
+				DE7D1E401B97958A002330A2 /* EVKFeedItem.swift in Sources */,
+				DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */,
+				DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */,
 				DEFB0CC41B80D2FA001425A3 /* EVKFeedListViewController.swift in Sources */,
+				DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */,
+				DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */,
 				DE2CC6451B8FA67B00ABB50D /* EVKBaseViewController.swift in Sources */,
-				DECC70D91B8D161000419BFC /* EVKFeedItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,10 +422,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -401,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
