@@ -78,4 +78,28 @@ class EVKCoreDataManager: NSObject {
             }
         }
     }
+    
+    // MARK: - Public
+    
+    func allFeeds() -> [Feed] {
+        
+        var request: NSFetchRequest = NSFetchRequest()
+        
+        var description: NSEntityDescription!
+        description = NSEntityDescription.entityForName("Feed", inManagedObjectContext: self.managedObjectContext!)!
+        
+        if description != nil {
+            request.entity = description
+        }
+        
+        var result: [Feed]?
+        
+        var error: NSError?
+        
+        result = self.managedObjectContext?.executeFetchRequest(request, error: &error) as? [Feed]
+        
+        assert(result != nil, "Found nil")
+        
+        return result!
+    }
 }
