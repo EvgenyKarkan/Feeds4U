@@ -87,14 +87,13 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     //MARK: - EVKXMLParserProtocol API
     func didEndParsingFeed(feed: Feed) {
         
-        println(feed)
+        assert(!feed.isEqual(nil), "nil feed param")
         
-        println(feed.feedItems)
+        println(feed.feedItems.allObjects.count)
         
         self.provider?.dataSource.append(feed)
-        
         self.feedListView.tableView.reloadData()
         
-        
+        EVKBrain.brain.coreDater.saveContext()
     }
 }

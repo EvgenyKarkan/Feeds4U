@@ -86,7 +86,11 @@ class EVKCoreDataManager: NSObject {
     
     func createEntity(#name: String) -> NSManagedObject {
         
-        return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) as! NSManagedObject
+        var foo = NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) as! NSManagedObject
+        
+        println(" Entity = \(foo) ")
+        
+        return foo
     }
     
     func allFeeds() -> [Feed] {

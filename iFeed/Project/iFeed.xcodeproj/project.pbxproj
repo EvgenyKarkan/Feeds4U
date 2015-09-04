@@ -9,15 +9,13 @@
 /* Begin PBXBuildFile section */
 		DE2CC6451B8FA67B00ABB50D /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2CC6441B8FA67B00ABB50D /* EVKBaseViewController.swift */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
-		DE7D1E2C1B978ED9002330A2 /* iFeed.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */; };
-		DE7D1E3F1B97958A002330A2 /* EVKFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E371B97958A002330A2 /* EVKFeed.swift */; };
-		DE7D1E401B97958A002330A2 /* EVKFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */; };
 		DE7D1E411B97958A002330A2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E391B97958A002330A2 /* Feed.swift */; };
 		DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3A1B97958A002330A2 /* FeedItem.swift */; };
 		DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */; };
 		DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */; };
 		DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */; };
 		DE826C4D1B99EE7F0062FE2A /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C4C1B99EE7F0062FE2A /* EVKBrain.swift */; };
+		DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */; };
 		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
 		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
 		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
@@ -42,15 +40,13 @@
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
-		DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
-		DE7D1E371B97958A002330A2 /* EVKFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeed.swift; sourceTree = "<group>"; };
-		DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItem.swift; sourceTree = "<group>"; };
 		DE7D1E391B97958A002330A2 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		DE7D1E3A1B97958A002330A2 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
 		DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
 		DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKXMLParser.swift; sourceTree = "<group>"; };
 		DE826C4C1B99EE7F0062FE2A /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
+		DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		DEFB0CB21B80D2FA001425A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEFB0CB41B80D2FA001425A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -128,8 +124,6 @@
 		DE7D1E361B97958A002330A2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DE7D1E371B97958A002330A2 /* EVKFeed.swift */,
-				DE7D1E381B97958A002330A2 /* EVKFeedItem.swift */,
 				DE7D1E391B97958A002330A2 /* Feed.swift */,
 				DE7D1E3A1B97958A002330A2 /* FeedItem.swift */,
 			);
@@ -158,9 +152,9 @@
 		DEFB0CB31B80D2FA001425A3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DE7D1E2B1B978ED9002330A2 /* iFeed.xcdatamodel */,
 				DEFB0CB41B80D2FA001425A3 /* Images.xcassets */,
 				DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */,
+				DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -303,16 +297,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE7D1E2C1B978ED9002330A2 /* iFeed.xcdatamodel in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
-				DE7D1E3F1B97958A002330A2 /* EVKFeed.swift in Sources */,
 				DEFB0CC31B80D2FA001425A3 /* EVKFeedListView.swift in Sources */,
 				DEFB0CC21B80D2FA001425A3 /* EVKFeedItemsView.swift in Sources */,
 				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
-				DE7D1E401B97958A002330A2 /* EVKFeedItem.swift in Sources */,
 				DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */,
 				DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */,
 				DE826C4D1B99EE7F0062FE2A /* EVKBrain.swift in Sources */,
+				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
 				DEFB0CC41B80D2FA001425A3 /* EVKFeedListViewController.swift in Sources */,
 				DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */,
 				DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */,
@@ -512,6 +504,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */,
+			);
+			currentVersion = DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */;
+			path = iFeed.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DE763D0C1B7E841300C8B54A /* Project object */;
 }

@@ -41,9 +41,9 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        println(self.dataSource.count)
+        //println(self.dataSource.count)
         
-        return self.dataSource.count
+        return EVKBrain.brain.coreDater.allFeeds().count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
