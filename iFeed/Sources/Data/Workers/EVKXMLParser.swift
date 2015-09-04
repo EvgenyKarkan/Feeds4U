@@ -13,7 +13,7 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
     //MARK: - properties
     
-   var feedChannel: EVKFeed  = EVKFeed()
+   var feedChannel: EVKFeed = EVKFeed()
 
    var parserDelegate: EVKXMLParserProtocol?
     
@@ -22,13 +22,18 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
    private var feedItem: EVKFeedItem?
     
     
+    var feedCD : Feed = EVKBrain.brain.createEntity(name: kFeed) as! Feed
+    var feedItemCD: FeedItem?
+    
     //MARK: - public API
     
     func beginParseURL(rssURL: NSURL) {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
         
-        self.feedChannel.feedURL = rssURL.absoluteString!
+//        self.feedChannel.feedURL = rssURL.absoluteString!
+        
+        self.feedCD.rssURL = rssURL.absoluteString!
         
         let parser       = NSXMLParser(contentsOfURL: rssURL)
         parser!.delegate = self
@@ -41,7 +46,9 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
     func parserDidEndDocument(parser: NSXMLParser) {
         
-        self.parserDelegate?.didEndParsingFeed(self.feedChannel)
+        if false {println("CHECK HOW TO HANDLE RESPONDING TO SELECTOR")}
+        
+        self.parserDelegate?.didEndParsingFeed(self.feedCD)
     }
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?,
@@ -53,12 +60,14 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser, foundCharacters string: String?) {
         
-        if (self.currentElement == "title" && self.feedChannel.feedTitle.isEmpty) {
+        if (self.currentElement == "title" && self.feedCD.title.isEmpty) {
             
-            self.feedChannel.feedTitle = string!
+//            self.feedChannel.feedTitle = string!
+            
+            self.feedCD.title = string!
         }
         
-        if (self.currentElement == "title" && string != self.feedChannel.feedTitle) ||
+        if (self.currentElement == "title" && string != self.feedCD.title) ||
             self.currentElement == "link" ||
             self.currentElement == "pubDate" {
 
@@ -68,21 +77,27 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         
-        if !self.foundedCharacters.isEmpty && self.foundedCharacters != self.feedChannel.feedTitle {
+        if !self.foundedCharacters.isEmpty && self.foundedCharacters != self.feedCD.title {
 
                 if self.currentElement == "title" {
-                    self.feedItem        = EVKFeedItem()
-                    self.feedItem?.title = self.foundedCharacters
+//                    self.feedItem        = EVKFeedItem()
+//                    self.feedItem?.title = self.foundedCharacters
+                    
+                    self.feedItemCD        = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
+                    self.feedItemCD?.title = self.foundedCharacters
                 }
             
-                if (self.feedItem != nil) {
+                if (self.feedItemCD != nil) {
                     if self.currentElement == "link" {
                         
-                        self.feedItem?.link = self.foundedCharacters
+                        self.feedItemCD?.link = self.foundedCharacters
                         
-                        self.feedChannel.feedItemsArray.append(self.feedItem!)
+                        //self.feedChannel.feedItemsArray.append(self.feedItem!)
                         
-                        self.feedItem = nil
+                        self.feedItemCD?.feed = self.feedCD
+                        
+                        
+                        self.feedItemCD = nil
                         
                         self.foundedCharacters = ""
                     }
@@ -106,5 +121,5 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
 
 protocol EVKXMLParserProtocol {
     
-    func didEndParsingFeed(feed: EVKFeed)
+    func didEndParsingFeed(feed: Feed)
 }

@@ -65,10 +65,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
         parser.beginParseURL(NSURL(string: URL)!)
         
         //parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
-        
-        //http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
-        
-       
     }
     
     
@@ -89,11 +85,11 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     
     
     //MARK: - EVKXMLParserProtocol API
-    func didEndParsingFeed(feed: EVKFeed) {
+    func didEndParsingFeed(feed: Feed) {
         
         println(feed)
         
-        println(feed.feedItemsArray)
+        println(feed.feedItems)
         
         self.provider?.dataSource.append(feed)
         

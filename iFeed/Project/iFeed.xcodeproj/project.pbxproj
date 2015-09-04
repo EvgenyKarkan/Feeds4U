@@ -17,6 +17,7 @@
 		DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */; };
 		DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */; };
 		DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */; };
+		DE826C4D1B99EE7F0062FE2A /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C4C1B99EE7F0062FE2A /* EVKBrain.swift */; };
 		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
 		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
 		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
 		DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
 		DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKXMLParser.swift; sourceTree = "<group>"; };
+		DE826C4C1B99EE7F0062FE2A /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
 		DEFB0CB21B80D2FA001425A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEFB0CB41B80D2FA001425A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				DE7D1E3C1B97958A002330A2 /* EVKBaseTableProvider.swift */,
 				DE7D1E3D1B97958A002330A2 /* EVKCoreDataManager.swift */,
 				DE7D1E3E1B97958A002330A2 /* EVKXMLParser.swift */,
+				DE826C4C1B99EE7F0062FE2A /* EVKBrain.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				DE7D1E401B97958A002330A2 /* EVKFeedItem.swift in Sources */,
 				DE7D1E441B97958A002330A2 /* EVKCoreDataManager.swift in Sources */,
 				DE7D1E451B97958A002330A2 /* EVKXMLParser.swift in Sources */,
+				DE826C4D1B99EE7F0062FE2A /* EVKBrain.swift in Sources */,
 				DEFB0CC41B80D2FA001425A3 /* EVKFeedListViewController.swift in Sources */,
 				DE7D1E431B97958A002330A2 /* EVKBaseTableProvider.swift in Sources */,
 				DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */,

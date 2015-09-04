@@ -11,7 +11,7 @@ import CoreData
 
 class Feed: NSManagedObject {
 
+    @NSManaged var rssURL: String
     @NSManaged var title: String
     @NSManaged var feedItems: NSSet
-
 }

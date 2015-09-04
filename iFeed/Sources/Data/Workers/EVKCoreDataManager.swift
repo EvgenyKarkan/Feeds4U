@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+let kFeed     = "Feed"
+let kFeedItem = "FeedItem"
+
 
 class EVKCoreDataManager: NSObject {
  
@@ -81,12 +84,17 @@ class EVKCoreDataManager: NSObject {
     
     // MARK: - Public
     
+    func createEntity(#name: String) -> NSManagedObject {
+        
+        return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) as! NSManagedObject
+    }
+    
     func allFeeds() -> [Feed] {
         
         var request: NSFetchRequest = NSFetchRequest()
         
         var description: NSEntityDescription!
-        description = NSEntityDescription.entityForName("Feed", inManagedObjectContext: self.managedObjectContext!)!
+        description = NSEntityDescription.entityForName(kFeed, inManagedObjectContext: self.managedObjectContext!)!
         
         if description != nil {
             request.entity = description
