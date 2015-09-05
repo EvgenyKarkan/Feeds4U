@@ -9,7 +9,7 @@
 import UIKit
 
 
-class EVKFeedItemsView: UIView {
+class EVKFeedItemsView: EVKBaseView {
 
-
+    
 }

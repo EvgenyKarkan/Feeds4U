@@ -88,8 +88,6 @@ class EVKCoreDataManager: NSObject {
         
         var foo = NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) as! NSManagedObject
         
-        println(" Entity = \(foo) ")
-        
         return foo
     }
     
@@ -110,7 +108,7 @@ class EVKCoreDataManager: NSObject {
         
         result = self.managedObjectContext?.executeFetchRequest(request, error: &error) as? [Feed]
         
-        assert(result != nil, "Found nil")
+        assert(result != nil, "Found nil feed array")
         
         return result!
     }

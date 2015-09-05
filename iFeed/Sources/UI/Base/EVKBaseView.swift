@@ -1,38 +1,38 @@
 //
-//  EVKFeedListView.swift
+//  EVKBaseView.swift
 //  iFeed
 //
-//  Created by Evgeny Karkan on 8/15/15.
+//  Created by Evgeny Karkan on 9/5/15.
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
 import UIKit
 
 
-class EVKFeedListView: UIView {
+class EVKBaseView: UIView {
 
-    //MARK: - Properties
-
+    // MARK: - Properties
+    
     var tableView: UITableView!
     
     
-    //MARK: - Initializers
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
         self.tableView                 = UITableView()
-        self.tableView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
+        self.tableView.backgroundColor = UIColor.grayColor()
         self.addSubview(self.tableView)
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
     
-    //MARK: - UIView override
+    
+    // MARK: - UIView override
     
     override func layoutSubviews() {
         

@@ -11,7 +11,7 @@ import UIKit
 
 class EVKBaseViewController: UIViewController {
 
-    //MARK: - Life cycle
+    // MARK: - Life cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class EVKBaseViewController: UIViewController {
     }
     
     
-    //MARK: - Public API
+    // MARK: - Public API
     func showAlertView(sender: AnyObject) {
         
         let alertController: UIAlertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)

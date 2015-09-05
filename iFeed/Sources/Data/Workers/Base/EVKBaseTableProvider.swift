@@ -11,24 +11,24 @@ import UIKit
 
 class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
    
-    //MARK: - properties
+    // MARK: - properties
     var dataSource: [AnyObject] = []
     
-    var delegate: EVKTableProviderProtocol?
+    weak var delegate: EVKTableProviderProtocol?
     
     
-    //MARK: - Designated init
+    // MARK: - Designated init
     init (delegateObject: EVKTableProviderProtocol) {
         
-        self.delegate   = delegateObject
+        self.delegate = delegateObject
+
+        super.init()
         
-        println("Delegate obj is \(self.delegate)")
-        
-        //assert(!self.delegate.isEqual(nil), "Delegate can't be nil")
+        assert(self.delegate != nil, "Delegate can't be nil")
     }
     
     
-    //MARK: - UITableViewDelegate & UITableViewDatasource API
+    // MARK: - UITableViewDelegate & UITableViewDatasource API
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return 1
@@ -36,26 +36,27 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        return 50.0
+        return 60.0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        //println(self.dataSource.count)
-        
-        return EVKBrain.brain.coreDater.allFeeds().count
+        return 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = UITableViewCell()
+        return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        return cell
+        self.delegate?.cellDidPress(atIndexPath: indexPath)
     }
 }
 
-
-protocol EVKTableProviderProtocol {
+// MARK: - EVKTableProviderProtocol
+protocol EVKTableProviderProtocol : class {
     
-    
+    func cellDidPress(#atIndexPath: NSIndexPath)
 }

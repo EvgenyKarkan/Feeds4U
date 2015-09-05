@@ -11,21 +11,19 @@ import UIKit
 
 class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EVKTableProviderProtocol {
 
-    //MARK: - property
+    // MARK: - property
     var feedListView: EVKFeedListView
-    var provider: EVKBaseTableProvider?
+    var provider: EVKFeedListTableProvider?
     
     
-    //MARK: - Initializers
+    // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         self.feedListView = EVKFeedListView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.provider = EVKBaseTableProvider(delegateObject: self);
-        
-        println(self.provider)
+        self.provider = EVKFeedListTableProvider(delegateObject: self);
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -33,7 +31,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     
-    //MARK: - Life cycle
+    // MARK: - Life cycle
     override func loadView() {
         
         var aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
@@ -56,7 +54,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     
-    //MARK: - Private
+    // MARK: - Private
     private func startParsingURL(URL: String) {
         
         let parser            = EVKXMLParser()
@@ -68,7 +66,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     
-    //MARK: - Actions
+    // MARK: - Actions
     func addPressed (sender: UIButton) {
         
         assert(!sender.isEqual(nil), "sender is nil")
@@ -77,14 +75,14 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     
-    //MARK: - Inherited from base
+    // MARK: - Inherited from base
     override func addFeedPressed (URL: String) {
         
         startParsingURL(URL)
     }
     
     
-    //MARK: - EVKXMLParserProtocol API
+    // MARK: - EVKXMLParserProtocol API
     func didEndParsingFeed(feed: Feed) {
         
         assert(!feed.isEqual(nil), "nil feed param")
@@ -95,5 +93,16 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
         self.feedListView.tableView.reloadData()
         
         EVKBrain.brain.coreDater.saveContext()
+    }
+    
+    
+    // MARK: - EVKTableProviderProtocol
+    
+    func cellDidPress(#atIndexPath: NSIndexPath) {
+
+        var itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
+        itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+        
+        self.navigationController?.pushViewController(itemsVC, animated: true)
     }
 }

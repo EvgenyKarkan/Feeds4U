@@ -11,20 +11,19 @@ import UIKit
 
 class EVKXMLParser: NSObject, NSXMLParserDelegate {
     
-    //MARK: - properties
+    // MARK: - properties
 
-   var parserDelegate: EVKXMLParserProtocol?
+   weak var parserDelegate: EVKXMLParserProtocol?
     
    private var currentElement    = ""
    private var foundedCharacters = ""
 
+   private var feedCD : Feed!
+   private var feedItemCD: FeedItem?
     
-   var feedCD : Feed!
-   var feedItemCD: FeedItem?
+    // MARK: - public API
     
-    //MARK: - public API
-    
-    func beginParseURL(rssURL: NSURL) {
+   func beginParseURL(rssURL: NSURL) {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
 
@@ -37,11 +36,9 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
         parser!.parse()
     }
     
-    
-    //MARK: - NSXMLParserDelegate API
+    // MARK: - NSXMLParserDelegate API
     
     func parserDidEndDocument(parser: NSXMLParser) {
-        //if false {println("CHECK HOW TO HANDLE RESPONDING TO SELECTOR")}
         self.parserDelegate?.didEndParsingFeed(self.feedCD!)
     }
     
@@ -59,8 +56,7 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
         }
         
         if (self.currentElement == "title" && string != self.feedCD!.title) ||
-            self.currentElement == "link" ||
-            self.currentElement == "pubDate" {
+            self.currentElement == "link" {
 
             foundedCharacters += string!
         }
@@ -79,16 +75,10 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
                     if self.currentElement == "link" {
                         
                         self.feedItemCD?.link = self.foundedCharacters
-                        
                         self.feedItemCD?.feed = self.feedCD!
-                        
                         self.feedItemCD = nil
                         
                         self.foundedCharacters = ""
-                    }
-                    
-                    if self.currentElement == "pubDate" {
-                        //self.feedItem?.publicDate = foundedCharacters
                     }
                 }
         }
@@ -104,7 +94,7 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
 }
 
 
-protocol EVKXMLParserProtocol {
+protocol EVKXMLParserProtocol: class {
     
     func didEndParsingFeed(feed: Feed)
 }

@@ -39,4 +39,21 @@ class EVKBrain: NSObject {
         
         return self.coreDater.createEntity(name: name)
     }
+    
+    func feedForIndexPath(#indexPath: NSIndexPath) -> Feed {
+        
+        assert(!indexPath.isEqual(nil), "Index path param is nil")
+        
+        var feed: Feed?
+        
+        var feedsCount = self.coreDater.allFeeds().count
+        
+        if feedsCount > 0 && indexPath.row < feedsCount {
+            feed = self.coreDater.allFeeds()[indexPath.row]
+        }
+        
+        assert(feed != nil, "Feed for index path is nil")
+        
+        return feed!
+    }
 }
