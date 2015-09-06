@@ -16,5 +16,20 @@ class Feed: NSManagedObject {
 
     @NSManaged var rssURL: String
     @NSManaged var title: String!
+    @NSManaged var summary: String
     @NSManaged var feedItems: NSSet
+    
+    //sorted 'feedItems' by publish date
+    func sortedItems() -> [FeedItem] {
+        
+        var unsortedItems: [FeedItem] = (self.feedItems.allObjects as? [FeedItem])!
+        
+        let sortedArray = sorted(unsortedItems, {
+            (item1: FeedItem, item2: FeedItem) -> Bool in
+            
+            return item1.publishDate.timeIntervalSince1970 > item2.publishDate.timeIntervalSince1970
+        })
+        
+        return sortedArray
+    }
 }

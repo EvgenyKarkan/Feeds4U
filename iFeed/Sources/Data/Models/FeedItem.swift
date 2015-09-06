@@ -16,5 +16,8 @@ class FeedItem: NSManagedObject {
 
     @NSManaged var title: String
     @NSManaged var link: String
+    @NSManaged var publishDate: NSDate
+    @NSManaged var wasRead: NSNumber
+    
     @NSManaged var feed: Feed
 }

@@ -11,7 +11,10 @@ import UIKit
 
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
+    // MARK: - Constant
+    
     let kItemsCell = "ItemsCell"
+    
     
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,12 +41,16 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         }
 
         if item != nil {
+
+            //println("Summary ==== \(item)")
             
-            println("Title ==== \(item?.title)")
-            println("Link ==== \(item?.link)")
+            var dateFormatter        = NSDateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
+            
+            var dateString = dateFormatter.stringFromDate(item!.publishDate)
             
             cell!.textLabel?.text       = item?.title
-            cell!.detailTextLabel?.text = item?.link
+            cell!.detailTextLabel?.text = dateString
         }
         
         return cell!

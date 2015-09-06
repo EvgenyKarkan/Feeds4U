@@ -37,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         UIApplication.sharedApplication().statusBarHidden = false
         
+        //web cache setup
+        NSURLProtocol.registerClass(RNCachingURLProtocol)
+        
         return true
     }
 }

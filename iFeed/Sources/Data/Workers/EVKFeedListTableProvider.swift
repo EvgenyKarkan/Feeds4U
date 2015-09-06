@@ -36,7 +36,7 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
 
         if feed != nil {
             cell!.textLabel?.text       = feed?.title
-            cell!.detailTextLabel?.text = feed?.rssURL
+            cell!.detailTextLabel?.text = feed?.summary
         }
         
         return cell!

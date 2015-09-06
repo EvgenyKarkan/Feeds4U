@@ -14,11 +14,7 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     // MARK: - properties
 
    weak var parserDelegate: EVKXMLParserProtocol?
-    
-   private var currentElement    = ""
-   private var foundedCharacters = ""
-
-   private var feedCD : Feed!
+   private var feed : Feed!
    
     
     // MARK: - public API
@@ -26,51 +22,38 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
    func beginParseURL(rssURL: NSURL) {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
-
-        self.feedCD         = EVKBrain.brain.createEntity(name: kFeed) as? Feed
-        self.feedCD!.rssURL = rssURL.absoluteString!
     
-        var parser2            = MWFeedParser(feedURL: rssURL)
-        parser2.delegate       = self
-        parser2.feedParseType  = ParseTypeFull
-        parser2.connectionType = ConnectionTypeAsynchronously
-        parser2.parse()
+        var parser            = MWFeedParser(feedURL: rssURL)
+        parser.delegate       = self
+        parser.feedParseType  = ParseTypeFull
+        parser.connectionType = ConnectionTypeAsynchronously
+        parser.parse()
     }
 
     // MARK: - MWFeedParserDelegate API
     
     func feedParserDidStart(parser: MWFeedParser!) {
         
+        self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
-        
-        println("TITLE  ------- \(info.title)")
-        println("LINK  ------- \(info.link)")
-        println("SUMMARY  ------- \(info.summary)")
-        println("URL  ------- \(info.url)")
-        
-        self.feedCD!.title = info.title
-        
+
+        self.feed!.title  = info.title
+        self.feed!.rssURL = info.url.absoluteString!
+        self.feed.summary = info.summary
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        println("ITEM ------- \(item)")
         
-//        NSString *identifier; // Item identifier
-//        NSString *title; // Item title
-//        NSString *link; // Item URL
-//        NSDate *date; // Date the item was published
-//        NSDate *updated; // Date the item was updated if available
-//        NSString *summary; // Description of item
-//        NSString *content; // More detailed content (if available)
-//        NSString *author; // Item author
-        
-        var feedItemCD: FeedItem?
-        feedItemCD = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
-        
+        var feedItem: FeedItem?
+        feedItem              = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
+        feedItem?.title       = item.title
+        feedItem?.link        = item.link
+        feedItem?.publishDate = item.date
+                
         //relationship
-        feedItemCD?.feed = self.feedCD!
+        feedItem?.feed = self.feed!
     }
     
     func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
@@ -79,11 +62,11 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     
     func feedParserDidFinish(parser: MWFeedParser!) {
         
-        //self.parserDelegate?.didEndParsingFeed(self.feedCD!)
+        self.parserDelegate?.didEndParsingFeed(self.feed!)
     }
-    
 }
 
+// MARK: - EVKXMLParserProtocol
 
 protocol EVKXMLParserProtocol: class {
     

@@ -50,7 +50,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         // populate table view
         if self.feed != nil && self.feed?.feedItems.allObjects.count > 0 {
             
-            var items = self.feed?.feedItems.allObjects
+            var items = self.feed?.sortedItems()
             
             self.provider?.dataSource = items!
             
@@ -61,6 +61,12 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(#atIndexPath: NSIndexPath) {
         
+        var item = self.feed?.sortedItems()[atIndexPath.row]
+        
         var webVC: KINWebBrowserViewController = KINWebBrowserViewController()
+        
+        webVC.loadURLString(item?.link)
+        
+        self.navigationController?.pushViewController(webVC, animated: true)
     }
 }
