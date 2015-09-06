@@ -752,6 +752,8 @@
 	// Debug Log
 	MWLog(@"MWFeedParser: Parsing started");
 	
+    NSLog(@"DELEGATE %@ ", delegate);
+    
 	// Inform delegate
 	if ([delegate respondsToSelector:@selector(feedParserDidStart:)])
 		[delegate feedParserDidStart:self];

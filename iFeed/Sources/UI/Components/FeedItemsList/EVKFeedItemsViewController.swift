@@ -61,6 +61,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(#atIndexPath: NSIndexPath) {
         
-        
+        var webVC: KINWebBrowserViewController = KINWebBrowserViewController()
     }
 }

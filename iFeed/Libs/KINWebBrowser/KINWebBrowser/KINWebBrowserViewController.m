@@ -380,13 +380,15 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 
 - (void) setupToolbarItems
 {
+    CGFloat screenW = CGRectGetWidth([UIScreen mainScreen].bounds);
+    
 	self.refreshButton        = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemRefresh target: self action: @selector(refreshButtonPressed:)];
 	self.stopButton           = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemStop target: self action: @selector(stopButtonPressed:)];
 	self.backButton           = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"backbutton"] style: UIBarButtonItemStylePlain target: self action: @selector(backButtonPressed:)];
 	self.forwardButton        = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"forwardbutton"] style: UIBarButtonItemStylePlain target: self action: @selector(forwardButtonPressed:)];
 	self.actionButton         = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemAction target: self action: @selector(actionButtonPressed:)];
 	self.fixedSeparator       = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFixedSpace target: nil action: nil];
-	self.fixedSeparator.width = self.view.frame.size.width / ((screenWidth() > 320.0f) ? 7.5f : 8.85f);
+	self.fixedSeparator.width = self.view.frame.size.width / ((screenW > 320.0f) ? 7.5f : 8.85f);
 	self.flexibleSeparator    = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemFlexibleSpace target: nil action: nil];
 }
 

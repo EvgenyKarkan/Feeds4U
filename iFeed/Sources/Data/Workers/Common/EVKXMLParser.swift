@@ -9,7 +9,7 @@
 import UIKit
 
 
-class EVKXMLParser: NSObject, NSXMLParserDelegate {
+class EVKXMLParser: NSObject, MWFeedParserDelegate {
     
     // MARK: - properties
 
@@ -19,7 +19,7 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
    private var foundedCharacters = ""
 
    private var feedCD : Feed!
-   private var feedItemCD: FeedItem?
+   
     
     // MARK: - public API
     
@@ -29,68 +29,59 @@ class EVKXMLParser: NSObject, NSXMLParserDelegate {
 
         self.feedCD         = EVKBrain.brain.createEntity(name: kFeed) as? Feed
         self.feedCD!.rssURL = rssURL.absoluteString!
-        
-        let parser       = NSXMLParser(contentsOfURL: rssURL)
-        parser!.delegate = self
-        
-        parser!.parse()
+    
+        var parser2            = MWFeedParser(feedURL: rssURL)
+        parser2.delegate       = self
+        parser2.feedParseType  = ParseTypeFull
+        parser2.connectionType = ConnectionTypeAsynchronously
+        parser2.parse()
     }
-    
-    // MARK: - NSXMLParserDelegate API
-    
-    func parserDidEndDocument(parser: NSXMLParser) {
-        self.parserDelegate?.didEndParsingFeed(self.feedCD!)
-    }
-    
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?,
-                                             qualifiedName qName: String?,
-                                        attributes attributeDict: [NSObject : AnyObject]) {
-        //proxing the element
-        self.currentElement = elementName
-    }
-    
-    func parser(parser: NSXMLParser, foundCharacters string: String?) {
-        
-        if (self.currentElement == "title" && self.feedCD?.title == nil) {
-            self.feedCD!.title = string!
-        }
-        
-        if (self.currentElement == "title" && string != self.feedCD!.title) ||
-            self.currentElement == "link" {
 
-            foundedCharacters += string!
-        }
-    }
+    // MARK: - MWFeedParserDelegate API
     
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    func feedParserDidStart(parser: MWFeedParser!) {
         
-        if !self.foundedCharacters.isEmpty && self.foundedCharacters != self.feedCD!.title {
-
-                if self.currentElement == "title" {
-                    self.feedItemCD        = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
-                    self.feedItemCD?.title = self.foundedCharacters
-                }
-            
-                if (self.feedItemCD != nil) {
-                    if self.currentElement == "link" {
-                        
-                        self.feedItemCD?.link = self.foundedCharacters
-                        self.feedItemCD?.feed = self.feedCD!
-                        self.feedItemCD = nil
-                        
-                        self.foundedCharacters = ""
-                    }
-                }
-        }
     }
     
-    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-        println(parseError.localizedDescription)
+    func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
+        
+        println("TITLE  ------- \(info.title)")
+        println("LINK  ------- \(info.link)")
+        println("SUMMARY  ------- \(info.summary)")
+        println("URL  ------- \(info.url)")
+        
+        self.feedCD!.title = info.title
+        
     }
     
-    func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
-        println(validationError.localizedDescription)
+    func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
+        println("ITEM ------- \(item)")
+        
+//        NSString *identifier; // Item identifier
+//        NSString *title; // Item title
+//        NSString *link; // Item URL
+//        NSDate *date; // Date the item was published
+//        NSDate *updated; // Date the item was updated if available
+//        NSString *summary; // Description of item
+//        NSString *content; // More detailed content (if available)
+//        NSString *author; // Item author
+        
+        var feedItemCD: FeedItem?
+        feedItemCD = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
+        
+        //relationship
+        feedItemCD?.feed = self.feedCD!
     }
+    
+    func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
+        println("Error on parsing ------- \(error)")
+    }
+    
+    func feedParserDidFinish(parser: MWFeedParser!) {
+        
+        //self.parserDelegate?.didEndParsingFeed(self.feedCD!)
+    }
+    
 }
 
 

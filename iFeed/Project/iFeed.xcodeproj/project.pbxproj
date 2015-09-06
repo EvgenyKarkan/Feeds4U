@@ -95,6 +95,7 @@
 		DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsViewController.swift; sourceTree = "<group>"; };
 		DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
 		DE176AB21B9CA0AD0046EDED /* EVKFeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListViewController.swift; sourceTree = "<group>"; };
+		DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iFeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,8 +234,8 @@
 		DE176AAC1B9CA0AD0046EDED /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				DE176AAD1B9CA0AD0046EDED /* FeedItemsList */,
 				DE176AB01B9CA0AD0046EDED /* FeedList */,
+				DE176AAD1B9CA0AD0046EDED /* FeedItemsList */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -338,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				DEFB0CB21B80D2FA001425A3 /* Info.plist */,
+				DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -635,6 +637,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -648,6 +651,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 			};
 			name = Release;
 		};

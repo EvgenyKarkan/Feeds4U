@@ -44,10 +44,19 @@ class EVKBaseViewController: UIViewController {
         alertController.addAction(nextAction)
         
         alertController.addTextFieldWithConfigurationHandler { textField -> Void in
-      
+    
             textField.placeholder = "http://www.something.com/rss"
-            
             textField.text = "http://douua.org/lenta/feed/"
+            
+            textField.text = "http://www.objc.io/feed.xml"
+            
+            //textField.text = "http://weblog.bignerdranch.com/feed"
+            
+           textField.text = "http://techcrunch.com/feed/"
+            
+           textField.text = "http://feeds.mashable.com/Mashable"
+            
+            textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)

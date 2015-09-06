@@ -57,12 +57,9 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     // MARK: - Private
     private func startParsingURL(URL: String) {
         
-        let parser            = EVKXMLParser()
+        let parser            = EVKBrain.brain.parser
         parser.parserDelegate = self
-        
         parser.beginParseURL(NSURL(string: URL)!)
-        
-        //parser.beginParseURL(NSURL(string: "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml")!)
     }
     
     
@@ -85,7 +82,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     // MARK: - EVKXMLParserProtocol API
     func didEndParsingFeed(feed: Feed) {
         
-        assert(!feed.isEqual(nil), "nil feed param")
+        assert(!feed.isEqual(nil), "'feed' param is nil")
         
         println(feed.feedItems.allObjects.count)
         
