@@ -71,18 +71,21 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 	self = [super init];
 	
 	if (self) {
-		if ([WKWebView class]) {
-			if (configuration) {
-				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
-			}
-			else {
-				self.wkWebView = [[WKWebView alloc] init];
-			}
-		}
-		else {
-			self.uiWebView = [[UIWebView alloc] init];
-		}
+            //commented to have only UIWebView instance
+//		if ([WKWebView class]) {
+//			if (configuration) {
+//				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
+//			}
+//			else {
+//				self.wkWebView = [[WKWebView alloc] init];
+//			}
+//		}
+//		else {
+//			self.uiWebView = [[UIWebView alloc] init];
+//		}
 
+        self.uiWebView = [[UIWebView alloc] init];
+        
 		self.actionButtonHidden = NO;
 		self.showsURLInNavigationBar = NO;
 		self.showsPageTitleInNavigationBar = YES;
@@ -183,15 +186,15 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 {
 	_tintColor = tintColor;
 	[self.progressView setTintColor: tintColor];
-	[self.navigationController.navigationBar setTintColor: tintColor];
-	[self.navigationController.toolbar setTintColor: tintColor];
+        //[self.navigationController.navigationBar setTintColor: tintColor];
+    [self.navigationController.toolbar setTintColor: tintColor];
 }
 
 - (void) setBarTintColor: (UIColor*) barTintColor
 {
 	_barTintColor = barTintColor;
-	[self.navigationController.navigationBar setBarTintColor: barTintColor];
-	[self.navigationController.toolbar setBarTintColor: barTintColor];
+        //[self.navigationController.navigationBar setBarTintColor: barTintColor];
+        //[self.navigationController.toolbar setBarTintColor: barTintColor];
 }
 
 - (void) setActionButtonHidden: (BOOL) actionButtonHidden
@@ -560,7 +563,7 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 - (void) launchExternalAppWithURL: (NSURL*) URL
 {
 	self.URLToLaunchWithPermission = URL;
-	[self.externalAppPermissionAlertView show];
+    [self.externalAppPermissionAlertView show];
 }
 
 #pragma mark - UIAlertViewDelegate

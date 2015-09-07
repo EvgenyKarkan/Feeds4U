@@ -63,7 +63,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         
         var item = self.feed?.sortedItems()[atIndexPath.row]
         
-        var webVC: KINWebBrowserViewController = KINWebBrowserViewController()
+        var webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
         
         webVC.loadURLString(item?.link)
         
