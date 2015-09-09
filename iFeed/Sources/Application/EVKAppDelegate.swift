@@ -13,12 +13,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - properties
-    
     var window: UIWindow?
     
 
     // MARK: - UIApplicationDelegate API
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         var feedListViewController = EVKFeedListViewController()

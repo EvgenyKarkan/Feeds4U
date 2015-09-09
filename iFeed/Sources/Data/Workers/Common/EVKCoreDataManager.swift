@@ -15,9 +15,7 @@ let kFeedItem = "FeedItem"
 
 class EVKCoreDataManager: NSObject {
  
-    
     // MARK: - Core Data stack
-    
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.EvgenyKarkan.iFeed" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -69,7 +67,6 @@ class EVKCoreDataManager: NSObject {
     
     
     // MARK: - Core Data Saving support
-    
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
@@ -83,7 +80,6 @@ class EVKCoreDataManager: NSObject {
     }
     
     // MARK: - Public
-    
     func createEntity(#name: String) -> NSManagedObject {
         
         var foo = NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) as! NSManagedObject

@@ -12,7 +12,6 @@ import UIKit
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
     // MARK: - Constant
-    
     let kItemsCell = "ItemsCell"
     
     
@@ -24,14 +23,11 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(kItemsCell) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(kItemsCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                             = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kItemsCell)
-            cell?.accessoryType              = UITableViewCellAccessoryType.DisclosureIndicator
-            cell?.backgroundColor            = UIColor.lightGrayColor()
-            //            cell?.textLabel?.textColor       = UIColor.whiteColor()
-            //            cell?.detailTextLabel?.textColor = UIColor.whiteColor()
+            cell                = EVKFeedCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kItemsCell)
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         
         var item: FeedItem?
@@ -41,16 +37,14 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         }
 
         if item != nil {
-
-            //println("Summary ==== \(item)")
-            
             var dateFormatter        = NSDateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
             
             var dateString = dateFormatter.stringFromDate(item!.publishDate)
-            
-            cell!.textLabel?.text       = item?.title
-            cell!.detailTextLabel?.text = dateString
+
+            cell!.wasReadCell  = item!.wasRead.boolValue
+            cell!.titleText    = item!.title
+            cell!.subTitleText = dateString
         }
         
         return cell!

@@ -44,13 +44,18 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         var addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
                                                                      target: self,
                                                                      action: "addPressed:")
         self.navigationItem.setRightBarButtonItems([addButton], animated: false)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.feedListView.tableView.reloadData()
     }
     
     

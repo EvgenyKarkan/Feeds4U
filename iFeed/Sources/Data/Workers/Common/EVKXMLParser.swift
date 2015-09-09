@@ -11,14 +11,12 @@ import UIKit
 
 class EVKXMLParser: NSObject, MWFeedParserDelegate {
     
-    // MARK: - properties
-
+   // MARK: - properties
    weak var parserDelegate: EVKXMLParserProtocol?
    private var feed : Feed!
    
     
-    // MARK: - public API
-    
+   // MARK: - public API
    func beginParseURL(rssURL: NSURL) {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
@@ -31,7 +29,6 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     }
 
     // MARK: - MWFeedParserDelegate API
-    
     func feedParserDidStart(parser: MWFeedParser!) {
         
         self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
@@ -67,7 +64,6 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
 }
 
 // MARK: - EVKXMLParserProtocol
-
 protocol EVKXMLParserProtocol: class {
     
     func didEndParsingFeed(feed: Feed)

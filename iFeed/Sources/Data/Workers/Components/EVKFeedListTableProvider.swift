@@ -21,22 +21,20 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(kFeedCell) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(kFeedCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                             = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kFeedCell)
-            cell?.accessoryType              = UITableViewCellAccessoryType.DisclosureIndicator
-            cell?.backgroundColor            = UIColor.lightGrayColor()
-            //            cell?.textLabel?.textColor       = UIColor.whiteColor()
-            //            cell?.detailTextLabel?.textColor = UIColor.whiteColor()
+            cell                = EVKFeedCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kFeedCell)
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         
         var feed: Feed?
         feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
 
-        if feed != nil {
-            cell!.textLabel?.text       = feed?.title
-            cell!.detailTextLabel?.text = feed?.summary
+        if feed != nil {            
+            cell!.titleText      = feed?.title
+            cell!.subTitleText   = feed?.summary
+            cell!.itemsCountText = (feed?.unreadItems().count)?.description
         }
         
         return cell!

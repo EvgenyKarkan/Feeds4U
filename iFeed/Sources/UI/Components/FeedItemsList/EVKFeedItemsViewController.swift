@@ -12,10 +12,8 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
 
     // MARK: - property
     var feedItemsView: EVKFeedItemsView
-    var provider: EVKFeedItemsTableProvider?
-    
-    // MARK: - Property setter, getter
-    var feed: Feed?
+    var provider:      EVKFeedItemsTableProvider?
+    var feed:          Feed?
     
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -44,7 +42,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         // populate table view
@@ -61,7 +58,10 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(#atIndexPath: NSIndexPath) {
         
-        var item = self.feed?.sortedItems()[atIndexPath.row]
+        var item      = self.feed?.sortedItems()[atIndexPath.row]
+        item?.wasRead = true
+        
+        EVKBrain.brain.coreDater.saveContext()
         
         var webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
         

@@ -28,7 +28,6 @@ class EVKBrowserViewController: KINWebBrowserViewController {
     
     // MARK: - Life cycle
     override func viewWillAppear(animated: Bool) {
-        
         super.viewWillAppear(animated)
         
         self.tintColor = self.navigationController?.navigationBar.barTintColor
@@ -37,7 +36,6 @@ class EVKBrowserViewController: KINWebBrowserViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        
         super.viewWillDisappear(animated)
         
         self.navigationController?.setToolbarHidden(true, animated: true)

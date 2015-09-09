@@ -12,18 +12,16 @@ import UIKit
 class EVKBaseView: UIView {
 
     // MARK: - Properties
-    
     var tableView: UITableView!
     
     
     // MARK: - Initializers
-    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
         self.tableView                 = UITableView()
-        self.tableView.backgroundColor = UIColor.grayColor()
+        self.tableView.backgroundColor = UIColor.whiteColor()
         self.addSubview(self.tableView)
     }
     
@@ -33,7 +31,6 @@ class EVKBaseView: UIView {
     
     
     // MARK: - UIView override
-    
     override func layoutSubviews() {
         
         super.layoutSubviews()

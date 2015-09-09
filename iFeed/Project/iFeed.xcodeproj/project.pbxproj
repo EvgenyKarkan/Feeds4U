@@ -35,6 +35,7 @@
 		DE176AED1B9DFD150046EDED /* EVKBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AEC1B9DFD150046EDED /* EVKBrowserViewController.swift */; };
 		DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */; };
 		DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */; };
+		DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF31BA089290046EDED /* EVKFeedCell.swift */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
 		DE7D1E411B97958A002330A2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E391B97958A002330A2 /* Feed.swift */; };
 		DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3A1B97958A002330A2 /* FeedItem.swift */; };
@@ -98,6 +99,7 @@
 		DE176AEC1B9DFD150046EDED /* EVKBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrowserViewController.swift; sourceTree = "<group>"; };
 		DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsTableProvider.swift; sourceTree = "<group>"; };
 		DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListTableProvider.swift; sourceTree = "<group>"; };
+		DE176AF31BA089290046EDED /* EVKFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedCell.swift; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			children = (
 				DE826C591B9B5B570062FE2A /* EVKBaseView.swift */,
 				DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */,
+				DE176AF31BA089290046EDED /* EVKFeedCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				DE176A891B9C9A920046EDED /* GTMNSString+HTML.m in Sources */,
 				DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */,
 				DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */,
+				DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */,
 				DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */,
 				DE176A6D1B9B706F0046EDED /* EVKXMLParser.swift in Sources */,
 				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
