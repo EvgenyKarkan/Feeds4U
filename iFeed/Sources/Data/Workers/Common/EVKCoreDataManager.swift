@@ -102,10 +102,15 @@ class EVKCoreDataManager: NSObject {
         
         var error: NSError?
         
-        result = self.managedObjectContext?.executeFetchRequest(request, error: &error) as? [Feed]
+        result = self.managedObjectContext!.executeFetchRequest(request, error: &error) as? [Feed]
         
         assert(result != nil, "Found nil feed array")
         
         return result!
+    }
+    
+    func deleteObject(entityObject: NSManagedObject) {
+        
+        self.managedObjectContext?.deleteObject(entityObject)
     }
 }

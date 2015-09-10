@@ -38,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //web cache setup
         NSURLProtocol.registerClass(RNCachingURLProtocol)
         
+        
+        println("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
+        
         return true
     }
 }

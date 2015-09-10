@@ -13,13 +13,10 @@ class EVKBaseViewController: UIViewController {
 
     // MARK: - Life cycle
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-
-//        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 14.0)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
         self.title = "Feeds4U"
     }
-    
     
     // MARK: - Public API
     func showAlertView(sender: AnyObject) {
@@ -53,9 +50,11 @@ class EVKBaseViewController: UIViewController {
             
             //textField.text = "http://techcrunch.com/feed/"
             
-            //textField.text = "http://feeds.mashable.com/Mashable"
+            textField.text = "http://feeds.mashable.com/Mashable"
             
-            textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
+            //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
+            
+            textField.text = "http://www.techbargains.com/rss.xml"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)

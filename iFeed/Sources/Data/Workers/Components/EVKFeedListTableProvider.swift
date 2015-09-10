@@ -16,7 +16,7 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return EVKBrain.brain.coreDater.allFeeds().count
+        return self.dataSource.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -29,9 +29,11 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
         }
         
         var feed: Feed?
-        feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
+        //feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
+        
+        feed = self.dataSource[indexPath.row] as? Feed
 
-        if feed != nil {            
+        if feed != nil {
             cell!.titleText      = feed?.title
             cell!.subTitleText   = feed?.summary
             cell!.itemsCountText = (feed?.unreadItems().count)?.description

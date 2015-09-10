@@ -106,7 +106,7 @@ class EVKFeedCell: UITableViewCell {
                                         self.itemsCountLabel!.frame.size.width,
                                         self.itemsCountLabel!.frame.size.height))
 
-        var dotSide: CGFloat = 5.0
+        let dotSide: CGFloat = 5.0
         
         self.dot?.frame = CGRectMake(screenW - 40.0, self.bounds.size.height / 2 - dotSide / 2, dotSide, dotSide)
         

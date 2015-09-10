@@ -13,6 +13,7 @@ class EVKFeedListView: EVKBaseView {
 
     // MARK: - Property
     var refreshControl: UIRefreshControl!
+    weak var feedListDelegate: EVKFeedListViewProtocol?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -29,8 +30,15 @@ class EVKFeedListView: EVKBaseView {
     }
     
     // MARK: - Action
-    @objc private func refresh(sender: AnyObject) {
+    @objc private func refresh(sender: UIRefreshControl) {
         // Code to refresh table view
+        
+        self.feedListDelegate?.didPullToRefresh(sender)
     }
 }
 
+// MARK: - EVKXMLParserProtocol
+protocol EVKFeedListViewProtocol: class {
+    
+    func didPullToRefresh(sender: UIRefreshControl)
+}
