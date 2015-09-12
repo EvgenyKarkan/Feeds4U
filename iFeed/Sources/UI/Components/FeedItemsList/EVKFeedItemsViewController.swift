@@ -97,11 +97,18 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             var incomingFeed:  Feed       = feed
             var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
             
+            //delete temporary incoming 'feed'
+            EVKBrain.brain.coreDater.deleteObject(feed)
+            
+            println("Incoming count \(incomingItems.count)")
+            
             //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
             for item: FeedItem in incomingItems {
                 if !contains(refreshDatesArr, item.publishDate.timeIntervalSince1970) {
                     //create relationship
                     item.feed = self.feed!
+                    
+                    EVKBrain.brain.coreDater.saveContext()
                     
                     println("Added item \(item.title)")
                 }
@@ -109,10 +116,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
 
             self.feedItemsView.refreshControl.endRefreshing()
         }
-        
-        //delete temporary incoming 'feed'
-        EVKBrain.brain.coreDater.deleteObject(feed)
-        EVKBrain.brain.coreDater.saveContext()
         
         self.provider?.dataSource = self.feed!.sortedItems()
         self.feedItemsView.tableView.reloadData()

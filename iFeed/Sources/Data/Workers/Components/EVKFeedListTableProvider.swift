@@ -28,7 +28,7 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
             cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         
-        var feed: Feed?        
+        var feed: Feed?
         feed = self.dataSource[indexPath.row] as? Feed
 
         if feed != nil {
