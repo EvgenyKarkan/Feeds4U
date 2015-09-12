@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol {
+class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewProtocol {
 
     // MARK: - property
     var feedItemsView: EVKFeedItemsView
@@ -39,6 +39,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         
         self.feedItemsView.tableView.delegate   = self.provider!
         self.feedItemsView.tableView.dataSource = self.provider!
+        self.feedItemsView.feedListDelegate     = self
     }
 
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         if self.feed != nil && self.feed?.feedItems.allObjects.count > 0 {
             
             var items = self.feed?.sortedItems()
-            
+    
             self.provider?.dataSource = items!
             
             self.feedItemsView.tableView.reloadData()
@@ -64,9 +65,56 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         EVKBrain.brain.coreDater.saveContext()
         
         var webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
-        
         webVC.loadURLString(item?.link)
         
         self.navigationController?.pushViewController(webVC, animated: true)
+    }
+    
+    // MARK: - EVKFeedListViewProtocol API
+    func didPullToRefresh(sender: UIRefreshControl) {
+        
+        assert(!sender.isEqual(nil), "Sender is nil")
+
+        let URL: String = self.feed!.rssURL
+                
+        self.startParsingURL(URL)
+    }
+    
+    // MARK: - EVKXMLParserProtocol API
+    override func didEndParsingFeed(feed: Feed) {
+        
+        if !feed.isEqual(nil) && self.feed != nil {
+            
+            // self feed
+            var existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
+            
+            //array from of all feed items 'publish dates'
+            var refreshDatesArr: [NSTimeInterval] = existFeedItems.map {
+                return $0.publishDate.timeIntervalSince1970
+            }
+            
+            //incoming feed
+            var incomingFeed:  Feed       = feed
+            var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
+            
+            //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
+            for item: FeedItem in incomingItems {
+                if !contains(refreshDatesArr, item.publishDate.timeIntervalSince1970) {
+                    //create relationship
+                    item.feed = self.feed!
+                    
+                    println("Added item \(item.title)")
+                }
+            }
+
+            self.feedItemsView.refreshControl.endRefreshing()
+        }
+        
+        //delete temporary incoming 'feed'
+        EVKBrain.brain.coreDater.deleteObject(feed)
+        EVKBrain.brain.coreDater.saveContext()
+        
+        self.provider?.dataSource = self.feed!.sortedItems()
+        self.feedItemsView.tableView.reloadData()
     }
 }

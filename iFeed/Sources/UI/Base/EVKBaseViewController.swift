@@ -9,7 +9,7 @@
 import UIKit
 
 
-class EVKBaseViewController: UIViewController {
+class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -18,10 +18,10 @@ class EVKBaseViewController: UIViewController {
         self.title = "Feeds4U"
     }
     
-    // MARK: - Public API
-    func showAlertView(sender: AnyObject) {
+    // MARK: - Public API - Alerts
+    func showEnterFeedAlertView(sender: AnyObject) {
         
-        let alertController: UIAlertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
             self.view.endEditing(true)
@@ -36,6 +36,9 @@ class EVKBaseViewController: UIViewController {
                 if !textField.text.isEmpty {
                     self.addFeedPressed(textField.text)
                 }
+                else {
+                    self.showInvalidRSSAlert()
+                }
             }
         }
         
@@ -48,9 +51,9 @@ class EVKBaseViewController: UIViewController {
             
             //textField.text = "http://www.objc.io/feed.xml"
             
-            //textField.text = "http://techcrunch.com/feed/"
+            textField.text = "http://techcrunch.com/feed/"
             
-            textField.text = "http://feeds.mashable.com/Mashable"
+            //textField.text = "http://feeds.mashable.com/Mashable"
             
             //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
@@ -60,7 +63,39 @@ class EVKBaseViewController: UIViewController {
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func showInvalidRSSAlert() {
+        
+        let alertController = UIAlertController(title: "Oops...", message: "RSS feed can't be parsed", preferredStyle: .Alert)
+
+        let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Default) { action -> Void in
+            self.view.endEditing(true)
+        }
+        
+        alertController.addAction(okAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Public API - Add feed
     func addFeedPressed(URL: String) {
         //to override in sublasses
+    }
+    
+    // MARK: - Public API - Parsing
+    func startParsingURL(URL: String) {
+        
+        let parser            = EVKBrain.brain.parser
+        parser.parserDelegate = self
+        parser.beginParseURL(NSURL(string: URL)!)
+    }
+    
+    // MARK: - EVKXMLParserProtocol API
+    func didEndParsingFeed(feed: Feed) {
+        //to override in subclasses
+    }
+    
+    func didFailParsingFeed() {
+        
+        showInvalidRSSAlert()
     }
 }

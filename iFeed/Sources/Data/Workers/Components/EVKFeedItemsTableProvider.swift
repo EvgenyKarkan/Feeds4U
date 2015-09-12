@@ -49,4 +49,8 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         
         return cell!
     }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
 }

@@ -9,26 +9,16 @@
 import UIKit
 
 
-class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EVKTableProviderProtocol, EVKFeedListViewProtocol {
+class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol {
 
     // MARK: - properties
-    var feedListView:   EVKFeedListView
-    var provider:       EVKFeedListTableProvider?
-    
-    private var refreshedFeed:  Feed?
-    private var refreshCounter: Int!
-    
-    private var proxyFeeds: [Feed]
-    
+    var feedListView: EVKFeedListView
+    var provider:     EVKFeedListTableProvider?
     
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         self.feedListView = EVKFeedListView()
-        
-        self.refreshCounter = EVKBrain.brain.coreDater.allFeeds().count
-        
-        self.proxyFeeds = []
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -39,27 +29,32 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK: - Life cycle
     override func loadView() {
         
         var aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
         
         self.feedListView = aView
-        self.view = aView
+        self.view         = aView
         
         self.feedListView.tableView.delegate   = self.provider!
         self.feedListView.tableView.dataSource = self.provider!
-        self.feedListView.feedListDelegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
-                                                                     target: self,
-                                                                     action: "addPressed:")
-        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
+        var addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
+                                                                      target: self,
+                                                                      action: "addPressed:")
+        self.navigationItem.setRightBarButtonItems([addButton], animated: true)
+        
+        if EVKBrain.brain.coreDater.allFeeds().count > 0 {
+            addTrashButton(true)
+        }
+        else {
+            self.feedListView.tableView.alpha = 0.0
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,79 +65,19 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
         self.feedListView.tableView.reloadData()
     }
     
-    
-    // MARK: - Private
-    private func startParsingURL(URL: String) {
-        
-        let parser            = EVKBrain.brain.parser
-        parser.parserDelegate = self
-        parser.beginParseURL(NSURL(string: URL)!)
-    }
-    
-    private func parseRefreshedData(feeds: [Feed]) {
-        //delete incoming 'feed' objects from CD context
-        for feed: Feed in self.proxyFeeds {
-            EVKBrain.brain.coreDater.deleteObject(feed)
-        }
-        
-        self.proxyFeeds.removeAll(keepCapacity: false)
-        
-        assert(feeds.count == self.provider?.dataSource.count, "Counts not equal")
-        
-        if feeds.count == self.provider?.dataSource.count {
-            
-            var loopCounter = feeds.count
-            
-            //incoming array
-            for feed1: Feed in feeds {  //println("Feed 1 title \(feed1.title)")
-                //existed array
-                var existArray = self.provider?.dataSource as! [Feed]
-                
-                for feed2: Feed in existArray {   //println("Feed 2 title \(feed2.title)")
-                    //found matching of 2 feeds
-                    if feed1.rssURL == feed2.rssURL {
-                        println(feed1.title)
-                        
-                        //feed items from matched feed
-                        var existFeedItems: [FeedItem] = feed2.feedItems.allObjects as! [FeedItem]
-                        
-                        //'publish date' array of all feed items
-                        var refreshDatesArr: [NSTimeInterval] = existFeedItems.map {
-                            return $0.publishDate.timeIntervalSince1970
-                        }
-                        
-                        //incoming feed to compare it items with existed feed
-                        var incomingFeedItems: [FeedItem] = feed1.feedItems.allObjects as! [FeedItem]
-                        
-                        //iterate over each incoming feed item to find new item - which 'publish date' is not exists yet
-                        for item: FeedItem in incomingFeedItems {
-                            if !contains(refreshDatesArr, item.publishDate.timeIntervalSince1970) {
-                                //relationship
-                                item.feed = self.refreshedFeed!
-                                EVKBrain.brain.coreDater.saveContext()
-                            }
-                        }
-                        
-                        loopCounter--
-                        
-                        if loopCounter == 0 {
-                            self.feedListView.tableView.reloadData()
-                            self.feedListView.refreshControl.endRefreshing()
-                        }
-                        
-                        break
-                    }
-                }
-            }
-        }
-    }
-    
     // MARK: - Actions
     func addPressed (sender: UIButton) {
         
         assert(!sender.isEqual(nil), "sender is nil")
         
-        showAlertView(sender);
+        showEnterFeedAlertView(sender);
+    }
+    
+    func trashPressed (sender: UIButton) {
+
+        var needsEdit: Bool = !self.feedListView.tableView.editing
+        
+        self.feedListView.tableView.setEditing(needsEdit, animated: true)
     }
     
     // MARK: - Inherited from base
@@ -152,58 +87,69 @@ class EVKFeedListViewController: EVKBaseViewController, EVKXMLParserProtocol, EV
     }
     
     // MARK: - EVKXMLParserProtocol API
-    func didEndParsingFeed(feed: Feed) {
-        //println("CALLED END")
-        
-        if self.feedListView.refreshControl.refreshing {
-            
-            self.proxyFeeds.append(feed)
-            
-            self.refreshCounter!--
-            
-            if self.refreshCounter == 0 {
-                self.refreshCounter = EVKBrain.brain.coreDater.allFeeds().count
-                
-                parseRefreshedData(self.proxyFeeds)
-            }
-        }
-        else {
+    override func didEndParsingFeed(feed: Feed) {
+
+        if !feed.isEqual(nil) {
             self.provider?.dataSource.append(feed)
             EVKBrain.brain.coreDater.saveContext()
+            
             self.feedListView.tableView.reloadData()
+            
+            //add 'trash' only if there is no leftBarButtonItem
+            if self.navigationItem.leftBarButtonItems == nil {
+                addTrashButton(true)
+                self.feedListView.tableView.alpha = 1.0
+            }
         }
     }
-    
     
     // MARK: - EVKTableProviderProtocol
     func cellDidPress(#atIndexPath: NSIndexPath) {
 
-        var itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
-        itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
-        
-        self.navigationController?.pushViewController(itemsVC, animated: true)
+        if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
+            var itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
+            itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+            
+            self.navigationController?.pushViewController(itemsVC, animated: true)
+        }
     }
     
-    // MARK: - EVKFeedListViewProtocol API
-    func didPullToRefresh(sender: UIRefreshControl) {
+    func cellNeedsDelete(#atIndexPath: NSIndexPath) {
         
-        assert(!sender.isEqual(nil), "Sender is nil")
+        if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
+            var feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+            
+            EVKBrain.brain.coreDater.deleteObject(feedToDelete)
+            EVKBrain.brain.coreDater.saveContext()
+            
+            self.provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
         
-        var allFeeds: [Feed] = EVKBrain.brain.coreDater.allFeeds()
-        var counter: Int     = allFeeds.count
-        self.refreshCounter  = counter
-        
-        if counter > 0 {
-            for (index: Int, feed: Feed) in enumerate(allFeeds) {
+            self.feedListView.tableView.beginUpdates()
+            self.feedListView.tableView.deleteRowsAtIndexPaths([atIndexPath], withRowAnimation: .Automatic)
+            self.feedListView.tableView.endUpdates()
+            
+            //hide 'trash' for no data source
+            if self.provider?.dataSource.count == 0 {
+                addTrashButton(false)
                 
-                self.refreshedFeed = feed
-                
-                println("TITLE IN LOOP \(self.refreshedFeed!.title)")
-                
-                let URL: String = self.refreshedFeed!.rssURL
-
-                self.startParsingURL(URL)
+                self.feedListView.tableView.setEditing(false, animated: false)
+                self.feedListView.tableView.alpha = 0.0
             }
+        }
+    }
+    
+    // MARK: - Helpers
+    func addTrashButton(add: Bool) {
+        
+        if add {
+            var trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
+                                                                            target: self,
+                                                                            action: "trashPressed:")
+            
+            self.navigationItem.setLeftBarButtonItems([trashButton], animated: true)
+        }
+        else {
+            self.navigationItem.setLeftBarButtonItems(nil, animated: true)
         }
     }
 }

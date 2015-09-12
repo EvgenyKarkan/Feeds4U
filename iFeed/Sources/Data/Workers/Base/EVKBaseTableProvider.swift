@@ -13,7 +13,6 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
    
     // MARK: - properties
     var dataSource: [AnyObject] = []
-    
     weak var delegate: EVKTableProviderProtocol?
     
     
@@ -26,7 +25,6 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         
         assert(self.delegate != nil, "Delegate can't be nil")
     }
-    
     
     // MARK: - UITableViewDelegate & UITableViewDatasource API
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -53,10 +51,17 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         
         self.delegate?.cellDidPress(atIndexPath: indexPath)
     }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.delegate?.cellNeedsDelete!(atIndexPath: indexPath)
+    }
 }
 
 // MARK: - EVKTableProviderProtocol
-protocol EVKTableProviderProtocol : class {
+@objc protocol EVKTableProviderProtocol : class {
     
     func cellDidPress(#atIndexPath: NSIndexPath)
+    
+    optional func cellNeedsDelete(#atIndexPath: NSIndexPath)
 }

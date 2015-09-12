@@ -83,7 +83,6 @@ class EVKFeedCell: UITableViewCell {
     
     // MARK: - UIView override
     override func layoutSubviews() {
-        
         super.layoutSubviews()
         
         var screenW: CGFloat = UIScreen.mainScreen().bounds.size.width
@@ -101,7 +100,7 @@ class EVKFeedCell: UITableViewCell {
                                                                           self.bottomLabel!.frame.size.height))
         
         self.itemsCountLabel?.sizeToFit()
-        self.itemsCountLabel?.frame = CGRectIntegral(CGRectMake(screenW - self.itemsCountLabel!.frame.size.width - 30.0,
+        self.itemsCountLabel?.frame = CGRectIntegral(CGRectMake(screenW - self.itemsCountLabel!.frame.size.width - 40.0,
                                         self.bounds.size.height / 2 - self.itemsCountLabel!.frame.size.height / 2,
                                         self.itemsCountLabel!.frame.size.width,
                                         self.itemsCountLabel!.frame.size.height))
@@ -109,7 +108,6 @@ class EVKFeedCell: UITableViewCell {
         let dotSide: CGFloat = 5.0
         
         self.dot?.frame = CGRectMake(screenW - 40.0, self.bounds.size.height / 2 - dotSide / 2, dotSide, dotSide)
-        
         self.dot?.layer.cornerRadius  = dotSide / 2
         self.dot?.layer.masksToBounds = true
     }

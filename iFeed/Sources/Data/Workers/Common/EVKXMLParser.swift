@@ -55,6 +55,8 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     
     func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
         println("Error on parsing ------- \(error)")
+        
+        self.parserDelegate?.didFailParsingFeed()
     }
     
     func feedParserDidFinish(parser: MWFeedParser!) {
@@ -67,4 +69,5 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
 protocol EVKXMLParserProtocol: class {
     
     func didEndParsingFeed(feed: Feed)
+    func didFailParsingFeed()
 }

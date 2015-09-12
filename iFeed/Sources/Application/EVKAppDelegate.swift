@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - properties
     var window: UIWindow?
     
-
     // MARK: - UIApplicationDelegate API
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -37,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //web cache setup
         NSURLProtocol.registerClass(RNCachingURLProtocol)
-        
         
         println("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
         

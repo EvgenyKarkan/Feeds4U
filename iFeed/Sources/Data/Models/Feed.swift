@@ -42,8 +42,6 @@ class Feed: NSManagedObject {
             return item.wasRead.boolValue == false
         })
         
-        println("===UNREAD ITEMS=== \(unReadItem.count)")
-        
         return unReadItem
     }
 }
