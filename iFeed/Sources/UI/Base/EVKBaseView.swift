@@ -27,7 +27,7 @@ class EVKBaseView: UIView {
         self.bottomLabel.textAlignment   = NSTextAlignment.Center
         self.bottomLabel.numberOfLines   = 0
         self.bottomLabel.text            = "You don't have any RSS feed yet"
-        self.bottomLabel.textColor       = UIColor.orangeColor()
+        self.bottomLabel.textColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         self.addSubview(self.bottomLabel)
         
         self.tableView                 = UITableView()

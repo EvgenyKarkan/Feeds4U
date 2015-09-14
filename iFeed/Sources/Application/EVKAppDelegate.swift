@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var navigationViewController                               = UINavigationController()
         navigationViewController.viewControllers                   = [feedListViewController]
         navigationViewController.navigationBar.translucent         = false
-        navigationViewController.navigationBar.barTintColor        = UIColor(red:0.98, green:0.64, blue:0.15, alpha:1)
+        navigationViewController.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         navigationViewController.navigationBar.tintColor           = UIColor.whiteColor()
         navigationViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         

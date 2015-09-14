@@ -74,7 +74,7 @@ class EVKFeedCell: UITableViewCell {
         self.contentView.addSubview(self.itemsCountLabel!)
         
         self.dot                  = UIView()
-        self.dot?.backgroundColor = UIColor.orangeColor()
+        self.dot?.backgroundColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
     }
 
     required init(coder aDecoder: NSCoder) {
