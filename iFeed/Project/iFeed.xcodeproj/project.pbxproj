@@ -37,6 +37,7 @@
 		DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */; };
 		DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF31BA089290046EDED /* EVKFeedCell.swift */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
+		DE7752CD1BA7689400A82EFE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7752CC1BA7689400A82EFE /* Crashlytics.framework */; };
 		DE7D1E411B97958A002330A2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E391B97958A002330A2 /* Feed.swift */; };
 		DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3A1B97958A002330A2 /* FeedItem.swift */; };
 		DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */; };
@@ -104,6 +105,7 @@
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
+		DE7752CC1BA7689400A82EFE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DE7D1E391B97958A002330A2 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		DE7D1E3A1B97958A002330A2 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7752CD1BA7689400A82EFE /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +157,7 @@
 		DE176A771B9C9A910046EDED /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				DE7752CC1BA7689400A82EFE /* Crashlytics.framework */,
 				DE176A781B9C9A910046EDED /* MWFeedParser */,
 				DE176A901B9CA04B0046EDED /* KINWebBrowser */,
 				DE176A9B1B9CA04B0046EDED /* RNCachingURLProtocol */,
@@ -422,6 +426,7 @@
 				DE763D101B7E841300C8B54A /* Sources */,
 				DE763D111B7E841300C8B54A /* Frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
+				DE7752CB1BA7684900A82EFE /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -512,6 +517,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#if [ \"$CONFIGURATION\" == \"Release\" ]; then\n\n#fi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DE763D101B7E841300C8B54A /* Sources */ = {
@@ -657,9 +679,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../Libs",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					__DEBUG__,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)",
+				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D __DEBUG__";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -671,9 +707,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../Libs",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)",
+				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 			};

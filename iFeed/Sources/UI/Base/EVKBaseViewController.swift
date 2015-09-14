@@ -15,7 +15,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Feeds4U"
+        self.title                            = "Feeds4U"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     // MARK: - Public API - Alerts
@@ -65,15 +66,12 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
     func showInvalidRSSAlert() {
         
-        let alertController = UIAlertController(title: "Oops...", message: "RSS feed can't be parsed", preferredStyle: .Alert)
-
-        let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Default) { action -> Void in
-            self.view.endEditing(true)
-        }
+        showAlertMessage("RSS feed can't be parsed")
+    }
+    
+    func showDuplicateRSSAlert() {
         
-        alertController.addAction(okAction)
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
+        showAlertMessage("RSS feed already exists,\n try another one")
     }
     
     // MARK: - Public API - Add feed
@@ -98,4 +96,20 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         
         showInvalidRSSAlert()
     }
+    
+    // MARK: - Private - Common alert
+    
+   private func showAlertMessage(message : String) {
+    
+       let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
+
+           let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) {
+           action->Void in
+           self.view.endEditing(true)
+       }
+
+       alertController.addAction(okAction)
+
+       self.presentViewController(alertController, animated: true, completion: nil)
+   }
 }

@@ -83,7 +83,12 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - Inherited from base
     override func addFeedPressed (URL: String) {
         
-        startParsingURL(URL)
+        if EVKBrain.brain.isDuplicateURL(URL) {
+            showDuplicateRSSAlert()
+        }
+        else {
+            startParsingURL(URL)
+        }
     }
     
     // MARK: - EVKXMLParserProtocol API
@@ -110,7 +115,9 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             var itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
-            self.navigationController?.pushViewController(itemsVC, animated: true)
+            if itemsVC.feed?.feedItems.count > 0 {
+                self.navigationController?.pushViewController(itemsVC, animated: true)
+            }
         }
     }
     

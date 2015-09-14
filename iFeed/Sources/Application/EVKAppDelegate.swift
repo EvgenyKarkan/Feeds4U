@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 @UIApplicationMain
 
 
@@ -38,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSURLProtocol.registerClass(RNCachingURLProtocol)
         
         println("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
+        
+        #if __RELEASE__
+            
+        #endif
         
         return true
     }

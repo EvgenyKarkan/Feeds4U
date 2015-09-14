@@ -56,4 +56,20 @@ class EVKBrain: NSObject {
         
         return feed!
     }
+    
+    func isDuplicateURL(rssURL: String) -> Bool {
+        
+        var returnValue: Bool = false
+        
+        var allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
+        
+        for item: Feed in allItems {
+            
+            if rssURL == item.rssURL {
+                returnValue = true
+            }
+        }
+        
+        return returnValue
+    }
 }
