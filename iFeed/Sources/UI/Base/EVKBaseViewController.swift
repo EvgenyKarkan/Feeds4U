@@ -22,7 +22,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     // MARK: - Public API - Alerts
     func showEnterFeedAlertView(sender: AnyObject) {
         
-        let alertController = UIAlertController(title: nil, message: "Enter new feed", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
             self.view.endEditing(true)
@@ -48,17 +48,17 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         alertController.addTextFieldWithConfigurationHandler { textField -> Void in
     
             textField.placeholder = "http://www.something.com/rss"
-            textField.text = "http://douua.org/lenta/feed/"
+            //textField.text = "http://douua.org/lenta/feed/"
             
             //textField.text = "http://www.objc.io/feed.xml"
             
-            textField.text = "http://techcrunch.com/feed/"
+            //textField.text = "http://techcrunch.com/feed/"
             
             //textField.text = "http://feeds.mashable.com/Mashable"
             
             //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
-            textField.text = "http://www.techbargains.com/rss.xml"
+            //textField.text = "http://www.techbargains.com/rss.xml"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -103,9 +103,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
 
-           let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) {
-           action->Void in
-           self.view.endEditing(true)
+       let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) { action-> Void in
+            self.view.endEditing(true)
        }
 
        alertController.addAction(okAction)

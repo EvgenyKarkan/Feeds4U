@@ -90,7 +90,7 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 		self.showsURLInNavigationBar = NO;
 		self.showsPageTitleInNavigationBar = YES;
 
-		self.externalAppPermissionAlertView = [[UIAlertView alloc] initWithTitle: @"Leave this app?" message: @"This web page is trying to open an outside app. Are you sure you want to open it?" delegate: self cancelButtonTitle: @"Cancel" otherButtonTitles: @"Open App", nil];
+//		self.externalAppPermissionAlertView = [[UIAlertView alloc] initWithTitle: @"Leave this app?" message: @"This web page is trying to open an outside app. Are you sure you want to open it?" delegate: self cancelButtonTitle: @"Cancel" otherButtonTitles: @"Open App", nil];
 	}
 
 	return self;
@@ -208,7 +208,7 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 - (BOOL) webView: (UIWebView*) webView shouldStartLoadWithRequest: (NSURLRequest*) request navigationType: (UIWebViewNavigationType) navigationType
 {
 	if (webView == self.uiWebView) {
-		if (![self externalAppRequiredToOpenURL: request.URL]) {
+            //if (![self externalAppRequiredToOpenURL: request.URL]) {
 			self.uiWebViewCurrentURL = request.URL;
 			self.uiWebViewIsLoading = YES;
 			[self updateToolbarState];
@@ -219,11 +219,11 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 				[self.delegate webBrowser: self didStartLoadingURL: request.URL];
 			}
 			return YES;
-		}
-		else {
-			[self launchExternalAppWithURL: request.URL];
-			return NO;
-		}
+//		}
+//		else {
+//			[self launchExternalAppWithURL: request.URL];
+//			return NO;
+//		}
 	}
 	return NO;
 }
