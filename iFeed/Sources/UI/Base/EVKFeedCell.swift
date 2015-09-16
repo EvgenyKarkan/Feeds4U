@@ -77,7 +77,7 @@ class EVKFeedCell: UITableViewCell {
         self.dot?.backgroundColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -85,7 +85,7 @@ class EVKFeedCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        var screenW: CGFloat = UIScreen.mainScreen().bounds.size.width
+        let screenW: CGFloat = UIScreen.mainScreen().bounds.size.width
         
         self.topLabel?.sizeToFit()
         self.topLabel?.frame = CGRectIntegral(CGRectMake(15.0,

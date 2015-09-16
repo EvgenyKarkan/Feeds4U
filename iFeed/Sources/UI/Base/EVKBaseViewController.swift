@@ -32,10 +32,10 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         
         let nextAction: UIAlertAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
             
-            if let textField = alertController.textFields?.first as? UITextField {
+            if let textField = alertController.textFields?.first {
                 
-                if !textField.text.isEmpty {
-                    self.addFeedPressed(textField.text)
+                if !textField.text!.isEmpty {
+                    self.addFeedPressed(textField.text!)
                 }
                 else {
                     self.showInvalidRSSAlert()
@@ -56,7 +56,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             
             //textField.text = "http://feeds.mashable.com/Mashable"
             
-            //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
+            textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
             //textField.text = "http://www.techbargains.com/rss.xml"
         }
@@ -84,7 +84,15 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         
         let parser            = EVKBrain.brain.parser
         parser.parserDelegate = self
-        parser.beginParseURL(NSURL(string: URL)!)
+        
+        let url = NSURL(string: URL)
+        
+        if url != nil {
+            parser.beginParseURL(NSURL(string: URL)!)
+        }
+        else {
+            showInvalidRSSAlert()
+        }
     }
     
     // MARK: - EVKXMLParserProtocol API

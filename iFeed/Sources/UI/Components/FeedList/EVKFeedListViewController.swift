@@ -25,14 +25,14 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         self.provider = EVKFeedListTableProvider(delegateObject: self);
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Life cycle
     override func loadView() {
         
-        var aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
+        let aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
         
         self.feedListView = aView
         self.view         = aView
@@ -44,7 +44,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
+        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
                                                                       target: self,
                                                                       action: "addPressed:")
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
@@ -75,7 +75,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     func trashPressed (sender: UIButton) {
 
-        var needsEdit: Bool = !self.feedListView.tableView.editing
+        let needsEdit: Bool = !self.feedListView.tableView.editing
         
         self.feedListView.tableView.setEditing(needsEdit, animated: true)
     }
@@ -109,10 +109,10 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - EVKTableProviderProtocol
-    func cellDidPress(#atIndexPath: NSIndexPath) {
+    func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
 
         if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
-            var itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
+            let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
             if itemsVC.feed?.feedItems.count > 0 {
@@ -121,10 +121,10 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         }
     }
     
-    func cellNeedsDelete(#atIndexPath: NSIndexPath) {
+    func cellNeedsDelete(atIndexPath atIndexPath: NSIndexPath) {
         
         if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
-            var feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+            let feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
             EVKBrain.brain.coreDater.deleteObject(feedToDelete)
             EVKBrain.brain.coreDater.saveContext()
@@ -149,7 +149,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     func addTrashButton(add: Bool) {
         
         if add {
-            var trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
+            let trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
                                                                             target: self,
                                                                             action: "trashPressed:")
             

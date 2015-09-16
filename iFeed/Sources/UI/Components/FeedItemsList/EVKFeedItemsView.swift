@@ -25,7 +25,7 @@ class EVKFeedItemsView: EVKBaseView {
         self.tableView.addSubview(refreshControl)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -25,14 +25,14 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         self.provider = EVKFeedItemsTableProvider(delegateObject: self);
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Life cycle
     override func loadView() {
         
-        var aView = EVKFeedItemsView (frame: UIScreen.mainScreen().bounds)
+        let aView = EVKFeedItemsView (frame: UIScreen.mainScreen().bounds)
         
         self.feedItemsView = aView
         self.view = aView
@@ -48,7 +48,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         // populate table view
         if self.feed != nil && self.feed?.feedItems.allObjects.count > 0 {
             
-            var items = self.feed?.sortedItems()
+            let items = self.feed?.sortedItems()
     
             self.provider?.dataSource = items!
             
@@ -57,14 +57,14 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
     
     // MARK: - EVKTableProviderProtocol API
-    func cellDidPress(#atIndexPath: NSIndexPath) {
+    func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
         
-        var item      = self.feed?.sortedItems()[atIndexPath.row]
+        let item      = self.feed?.sortedItems()[atIndexPath.row]
         item?.wasRead = true
         
         EVKBrain.brain.coreDater.saveContext()
         
-        var webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
+        let webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
         webVC.loadURLString(item?.link)
         
         self.navigationController?.pushViewController(webVC, animated: true)
@@ -86,31 +86,31 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         if !feed.isEqual(nil) && self.feed != nil {
             
             // self feed
-            var existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
+            let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
             
             //array from of all feed items 'publish dates'
-            var refreshDatesArr: [NSTimeInterval] = existFeedItems.map {
+            let refreshDatesArr: [NSTimeInterval] = existFeedItems.map {
                 return $0.publishDate.timeIntervalSince1970
             }
             
             //incoming feed
-            var incomingFeed:  Feed       = feed
-            var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
+            let incomingFeed:  Feed       = feed
+            let incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
             
             //delete temporary incoming 'feed'
             EVKBrain.brain.coreDater.deleteObject(feed)
             
-            println("Incoming count \(incomingItems.count)")
+            print("Incoming count \(incomingItems.count)", terminator: "")
             
             //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
             for item: FeedItem in incomingItems {
-                if !contains(refreshDatesArr, item.publishDate.timeIntervalSince1970) {
+                if !refreshDatesArr.contains(item.publishDate.timeIntervalSince1970) {
                     //create relationship
                     item.feed = self.feed!
                     
                     EVKBrain.brain.coreDater.saveContext()
                     
-                    println("Added item \(item.title)")
+                    print("Added item \(item.title)", terminator: "")
                 }
             }
 

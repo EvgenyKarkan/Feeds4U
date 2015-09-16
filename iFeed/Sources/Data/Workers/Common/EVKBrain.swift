@@ -35,18 +35,18 @@ class EVKBrain: NSObject {
     }
     
     // MARK: - Public API
-    func createEntity(#name: String) -> NSManagedObject {
+    func createEntity(name name: String) -> NSManagedObject {
         
         return self.coreDater.createEntity(name: name)
     }
     
-    func feedForIndexPath(#indexPath: NSIndexPath) -> Feed {
+    func feedForIndexPath(indexPath indexPath: NSIndexPath) -> Feed {
         
         assert(!indexPath.isEqual(nil), "Index path param is nil")
         
         var feed: Feed?
         
-        var feedsCount = self.coreDater.allFeeds().count
+        let feedsCount = self.coreDater.allFeeds().count
         
         if feedsCount > 0 && indexPath.row < feedsCount {
             feed = self.coreDater.allFeeds()[indexPath.row]
@@ -61,7 +61,7 @@ class EVKBrain: NSObject {
         
         var returnValue: Bool = false
         
-        var allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
+        let allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
         
         for item: Feed in allItems {
             

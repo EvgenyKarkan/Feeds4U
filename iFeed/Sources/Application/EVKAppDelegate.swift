@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - UIApplicationDelegate API
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        var feedListViewController = EVKFeedListViewController()
+        let feedListViewController = EVKFeedListViewController()
         
-        var navigationViewController                               = UINavigationController()
+        let navigationViewController                               = UINavigationController()
         navigationViewController.viewControllers                   = [feedListViewController]
         navigationViewController.navigationBar.translucent         = false
         navigationViewController.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //web cache setup
         NSURLProtocol.registerClass(RNCachingURLProtocol)
         
-        println("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
+        print("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
         
         #if __RELEASE__
             

@@ -37,10 +37,10 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         }
 
         if item != nil {
-            var dateFormatter        = NSDateFormatter()
+            let dateFormatter        = NSDateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
             
-            var dateString = dateFormatter.stringFromDate(item!.publishDate)
+            let dateString = dateFormatter.stringFromDate(item!.publishDate)
 
             cell!.wasReadCell  = item!.wasRead.boolValue
             cell!.titleText    = item!.title

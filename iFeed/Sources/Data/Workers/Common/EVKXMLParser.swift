@@ -21,7 +21,7 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
         
         assert(!rssURL.isEqual(nil), "URL is nil");
     
-        var parser            = MWFeedParser(feedURL: rssURL)
+        let parser            = MWFeedParser(feedURL: rssURL)
         parser.delegate       = self
         parser.feedParseType  = ParseTypeFull
         parser.connectionType = ConnectionTypeAsynchronously
@@ -37,7 +37,7 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
 
         self.feed!.title  = info.title
-        self.feed!.rssURL = info.url.absoluteString!
+        self.feed!.rssURL = info.url.absoluteString
         self.feed.summary = info.summary
     }
     
@@ -54,7 +54,7 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     }
     
     func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
-        println("Error on parsing ------- \(error)")
+        print("Error on parsing ------- \(error)")
         
         self.parserDelegate?.didFailParsingFeed()
     }
