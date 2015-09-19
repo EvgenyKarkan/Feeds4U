@@ -56,6 +56,12 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.feedItemsView.tableView.reloadData()
+    }
+    
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
         

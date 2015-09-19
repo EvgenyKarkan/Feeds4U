@@ -15,7 +15,7 @@ class EVKBrowserViewController: KINWebBrowserViewController {
     override init!(configuration: WKWebViewConfiguration!) {
         super.init(configuration: configuration)
         
-        self.actionButtonHidden = true
+        self.actionButtonHidden = false
     }
         
     required init?(coder aDecoder: NSCoder) {
