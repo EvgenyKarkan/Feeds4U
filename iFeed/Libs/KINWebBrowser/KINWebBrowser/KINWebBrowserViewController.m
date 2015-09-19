@@ -72,19 +72,17 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 	
 	if (self) {
             //commented to have only UIWebView instance
-//		if ([WKWebView class]) {
-//			if (configuration) {
-//				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
-//			}
-//			else {
-//				self.wkWebView = [[WKWebView alloc] init];
-//			}
-//		}
-//		else {
-//			self.uiWebView = [[UIWebView alloc] init];
-//		}
-
-        self.uiWebView = [[UIWebView alloc] init];
+		if ([WKWebView class]) {
+			if (configuration) {
+				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
+			}
+			else {
+				self.wkWebView = [[WKWebView alloc] init];
+			}
+		}
+		else {
+			self.uiWebView = [[UIWebView alloc] init];
+		}
         
 		self.actionButtonHidden = NO;
 		self.showsURLInNavigationBar = NO;
@@ -307,18 +305,18 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 {
 	if (webView == self.wkWebView) {
 		NSURL* URL = navigationAction.request.URL;
-		if (![self externalAppRequiredToOpenURL: URL]) {
+            //if (![self externalAppRequiredToOpenURL: URL]) {
 			if (!navigationAction.targetFrame) {
 				[self loadURL: URL];
 				decisionHandler(WKNavigationActionPolicyCancel);
 				return;
 			}
-		}
-		else if ([[UIApplication sharedApplication] canOpenURL: URL]) {
-			[self launchExternalAppWithURL: URL];
-			decisionHandler(WKNavigationActionPolicyCancel);
-			return;
-		}
+            //}
+//		else if ([[UIApplication sharedApplication] canOpenURL: URL]) {
+//			[self launchExternalAppWithURL: URL];
+//			decisionHandler(WKNavigationActionPolicyCancel);
+//			return;
+//		}
 	}
 	decisionHandler(WKNavigationActionPolicyAllow);
 }
@@ -451,15 +449,15 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 - (void) actionButtonPressed: (id) sender
 {
 	NSURL* URLForActivityItem;
-	//NSString* URLTitle;
+	NSString* URLTitle;
 	
 	if (self.wkWebView) {
 		URLForActivityItem = self.wkWebView.URL;
-		//URLTitle = self.wkWebView.title;
+		URLTitle = self.wkWebView.title;
 	}
 	else if (self.uiWebView) {
 		URLForActivityItem = self.uiWebView.request.URL;
-		//URLTitle = [self.uiWebView stringByEvaluatingJavaScriptFromString: @"document.title"];
+		URLTitle = [self.uiWebView stringByEvaluatingJavaScriptFromString: @"document.title"];
 	}
 	dispatch_async(dispatch_get_main_queue(), ^{
 //        TUSafariActivity *safariActivity = [[TUSafariActivity alloc] init];
@@ -473,6 +471,10 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 		    [activities addObjectsFromArray: self.customActivityItems];
 		}
 
+        if (URLForActivityItem == nil) {
+            return;
+        }
+        
 		UIActivityViewController* controller = [[UIActivityViewController alloc] initWithActivityItems: @[URLForActivityItem] applicationActivities: activities];
 
 		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

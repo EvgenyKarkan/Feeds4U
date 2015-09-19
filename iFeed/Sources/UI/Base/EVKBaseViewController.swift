@@ -58,7 +58,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             
             textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
-            //textField.text = "http://www.techbargains.com/rss.xml"
+            textField.text = "http://www.techbargains.com/rss.xml"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)

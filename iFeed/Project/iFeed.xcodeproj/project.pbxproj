@@ -25,9 +25,6 @@
 		DE176AA61B9CA04B0046EDED /* forwardbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A961B9CA04B0046EDED /* forwardbutton@2x.png */; };
 		DE176AA71B9CA04B0046EDED /* forwardbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A971B9CA04B0046EDED /* forwardbutton@3x.png */; };
 		DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */; };
-		DE176AA91B9CA04B0046EDED /* NSString+Sha1.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A9D1B9CA04B0046EDED /* NSString+Sha1.m */; };
-		DE176AAA1B9CA04B0046EDED /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A9F1B9CA04B0046EDED /* Reachability.m */; };
-		DE176AAB1B9CA04B0046EDED /* RNCachingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176AA11B9CA04B0046EDED /* RNCachingURLProtocol.m */; };
 		DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */; };
 		DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */; };
 		DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */; };
@@ -86,12 +83,6 @@
 		DE176A971B9CA04B0046EDED /* forwardbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardbutton@3x.png"; sourceTree = "<group>"; };
 		DE176A991B9CA04B0046EDED /* KINWebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KINWebBrowserViewController.h; sourceTree = "<group>"; };
 		DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KINWebBrowserViewController.m; sourceTree = "<group>"; };
-		DE176A9C1B9CA04B0046EDED /* NSString+Sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Sha1.h"; sourceTree = "<group>"; };
-		DE176A9D1B9CA04B0046EDED /* NSString+Sha1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sha1.m"; sourceTree = "<group>"; };
-		DE176A9E1B9CA04B0046EDED /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		DE176A9F1B9CA04B0046EDED /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		DE176AA01B9CA04B0046EDED /* RNCachingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCachingURLProtocol.h; sourceTree = "<group>"; };
-		DE176AA11B9CA04B0046EDED /* RNCachingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCachingURLProtocol.m; sourceTree = "<group>"; };
 		DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
 		DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsViewController.swift; sourceTree = "<group>"; };
 		DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
@@ -160,7 +151,6 @@
 				DE7752CC1BA7689400A82EFE /* Crashlytics.framework */,
 				DE176A781B9C9A910046EDED /* MWFeedParser */,
 				DE176A901B9CA04B0046EDED /* KINWebBrowser */,
-				DE176A9B1B9CA04B0046EDED /* RNCachingURLProtocol */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -224,19 +214,6 @@
 				DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */,
 			);
 			path = KINWebBrowser;
-			sourceTree = "<group>";
-		};
-		DE176A9B1B9CA04B0046EDED /* RNCachingURLProtocol */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A9C1B9CA04B0046EDED /* NSString+Sha1.h */,
-				DE176A9D1B9CA04B0046EDED /* NSString+Sha1.m */,
-				DE176A9E1B9CA04B0046EDED /* Reachability.h */,
-				DE176A9F1B9CA04B0046EDED /* Reachability.m */,
-				DE176AA01B9CA04B0046EDED /* RNCachingURLProtocol.h */,
-				DE176AA11B9CA04B0046EDED /* RNCachingURLProtocol.m */,
-			);
-			path = RNCachingURLProtocol;
 			sourceTree = "<group>";
 		};
 		DE176AAC1B9CA0AD0046EDED /* Components */ = {
@@ -543,17 +520,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE176AAA1B9CA04B0046EDED /* Reachability.m in Sources */,
 				DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */,
 				DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */,
 				DE176AED1B9DFD150046EDED /* EVKBrowserViewController.swift in Sources */,
 				DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */,
 				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
-				DE176AA91B9CA04B0046EDED /* NSString+Sha1.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
 				DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */,
-				DE176AAB1B9CA04B0046EDED /* RNCachingURLProtocol.m in Sources */,
 				DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
 				DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */,
@@ -635,7 +609,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "4561631f-f756-490e-8613-5d8a16634d7c";
+				PROVISIONING_PROFILE = "7b35ab6e-d369-4c7c-8f20-1591392be633";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -659,7 +633,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -674,6 +649,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -717,8 +693,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
 					"$(inherited)",
@@ -735,7 +712,7 @@
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 			};
 			name = Release;

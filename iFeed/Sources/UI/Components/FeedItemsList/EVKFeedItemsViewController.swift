@@ -101,7 +101,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             
             //incoming feed
             let incomingFeed:  Feed       = feed
-            let incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
+            var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
             
             //delete temporary incoming 'feed'
             EVKBrain.brain.coreDater.deleteObject(feed)
@@ -114,12 +114,20 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
                     //create relationship
                     item.feed = self.feed!
                     
-                    EVKBrain.brain.coreDater.saveContext()
+                    //EVKBrain.brain.coreDater.saveContext()
                     
                     print("Added item \(item.title)", terminator: "")
                 }
+                else {
+                    EVKBrain.brain.coreDater.deleteObject(item)
+                    //EVKBrain.brain.coreDater.saveContext()
+                }
             }
-
+            
+            EVKBrain.brain.coreDater.saveContext()
+            
+            incomingItems.removeAll()
+            
             self.feedItemsView.refreshControl.endRefreshing()
         }
         

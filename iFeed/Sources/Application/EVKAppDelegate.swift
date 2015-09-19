@@ -35,14 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         UIApplication.sharedApplication().statusBarHidden = false
         
-        //web cache setup
-        NSURLProtocol.registerClass(RNCachingURLProtocol)
-        
         print("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
         
         #if __RELEASE__
             
         #endif
+        
+        //https://forums.developer.apple.com/thread/18365
         
         return true
     }

@@ -109,9 +109,6 @@ class EVKCoreDataManager: NSObject {
         }
         
         var result: [Feed]?
-        //var error:  NSError?
-        
-        //result = self.managedObjectContext!.executeFetchRequest(request) as? [Feed]
         
         do {
             try result = self.managedObjectContext!.executeFetchRequest(request) as? [Feed]
