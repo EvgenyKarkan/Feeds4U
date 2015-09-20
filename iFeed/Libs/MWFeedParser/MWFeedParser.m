@@ -926,6 +926,9 @@
 // Process ATOM link and determine whether to ignore it, add it as the link element or add as enclosure
 // Links can be added to MWObject (info or item)
 - (BOOL)processAtomLink:(NSDictionary *)attributes andAddToMWObject:(id)MWObject {
+    
+    NSLog(@"ATTRIBUTES ----------- %@", attributes);
+    
 	if (attributes && [attributes objectForKey:@"rel"]) {
 		
 		// Use as link if rel == alternate
@@ -941,8 +944,16 @@
 				return YES;
 			}
 		}
-		
 	}
+    
+    //fixes 'link' null 
+    if (attributes && [attributes objectForKey:@"href"]) {
+        if ([attributes objectForKey:@"href"]) {
+            [MWObject setLink:[attributes objectForKey:@"href"]]; // Can be added to MWFeedItem or MWFeedInfo
+            return YES;
+        }
+    }
+    
 	return NO;
 }
 

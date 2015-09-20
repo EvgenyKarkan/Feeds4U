@@ -71,15 +71,21 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
         
-        let item      = self.feed?.sortedItems()[atIndexPath.row]
-        item?.wasRead = true
+        let item = self.feed?.sortedItems()[atIndexPath.row]
         
-        EVKBrain.brain.coreDater.saveContext()
-        
-        let webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
-        webVC.loadURLString(item?.link)
-        
-        self.navigationController?.pushViewController(webVC, animated: true)
+        if item?.link != nil {
+            item?.wasRead = true
+            
+            EVKBrain.brain.coreDater.saveContext()
+            
+            let webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
+            webVC.loadURLString(item?.link)
+            
+            self.navigationController?.pushViewController(webVC, animated: true)
+        }
+        else {
+            showAlertMessage("Web link is missing")
+        }
     }
     
     // MARK: - EVKFeedListViewProtocol API

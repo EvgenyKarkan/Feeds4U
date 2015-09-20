@@ -241,6 +241,9 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 		if ([self.delegate respondsToSelector: @selector(webBrowser:didFinishLoadingURL:)]) {
 			[self.delegate webBrowser: self didFinishLoadingURL: self.uiWebView.request.URL];
 		}
+        
+        self.uiWebView.scalesPageToFit = true;
+        self.uiWebView.contentMode = UIViewContentModeScaleAspectFit;
 	}
 }
 

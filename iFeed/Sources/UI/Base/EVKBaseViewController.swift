@@ -59,6 +59,11 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
             textField.text = "http://www.techbargains.com/rss.xml"
+            
+            
+            textField.text = "http://petersteinberger.com/atom.xml"
+            
+            textField.text = "http://highaltitudehacks.com/atom.xml"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -105,8 +110,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         showInvalidRSSAlert()
     }
     
-   // MARK: - Private - Common alert
-   private func showAlertMessage(message : String) {
+   // MARK: - Common alert
+   func showAlertMessage(message : String) {
     
        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
 

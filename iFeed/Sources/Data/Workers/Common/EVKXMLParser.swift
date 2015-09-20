@@ -38,17 +38,34 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
 
         self.feed!.title  = info.title
         self.feed!.rssURL = info.url.absoluteString
-        self.feed.summary = info.summary
+        
+        if info.summary != nil {
+            self.feed.summary = info.summary
+        }
+        else {
+            self.feed.summary = self.feed!.rssURL
+        }
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
         
+        //print("---------- ITEM LINK \(item.link)")
+        
         var feedItem: FeedItem?
-        feedItem              = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
-        feedItem?.title       = item.title
-        feedItem?.link        = item.link
-        feedItem?.publishDate = item.date
-                
+        feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
+        
+        if item.title != nil {
+            feedItem?.title = item.title
+        }
+        
+        if item.link != nil {
+            feedItem?.link = item.link
+        }
+        
+        if item.date != nil {
+            feedItem?.publishDate = item.date
+        }
+        
         //relationship
         feedItem?.feed = self.feed!
     }
