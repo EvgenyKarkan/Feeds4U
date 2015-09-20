@@ -511,7 +511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#if [ \"$CONFIGURATION\" == \"Release\" ]; then\n\n#fi";
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n../Libs/Crashlytics.framework/run 4760756e56b00e661fdfca38443023c06fd79797 2a108c89744d2e3d74bec86ddbea4b924ecf0289c3ff3c6ca0ca5f4e759471ee\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -663,6 +663,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
 					"$(inherited)",
@@ -695,7 +696,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
 					"$(inherited)",

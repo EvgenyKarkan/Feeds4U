@@ -18,15 +18,19 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
-        self.feedListView = EVKFeedListView()
+        feedListView = EVKFeedListView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.provider = EVKFeedListTableProvider(delegateObject: self);
+        provider = EVKFeedListTableProvider(delegateObject: self);
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        provider?.delegate = nil
     }
     
     // MARK: - Life cycle

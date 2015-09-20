@@ -38,10 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("ALL FEEDS COUNT____________ \(EVKBrain.brain.coreDater.allFeeds().count)")
         
         #if __RELEASE__
-            
+            Crashlytics.startWithAPIKey("4760756e56b00e661fdfca38443023c06fd79797")
         #endif
         
         //https://forums.developer.apple.com/thread/18365
+    
+        //configure caching
+        let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcashe")
+
+        NSURLCache.setSharedURLCache(appCache)
         
         return true
     }

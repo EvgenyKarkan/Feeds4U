@@ -19,7 +19,7 @@ class EVKFeedItemsView: EVKBaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.refreshControl                 = UIRefreshControl()
+        refreshControl                      = UIRefreshControl()
         self.refreshControl.tintColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)

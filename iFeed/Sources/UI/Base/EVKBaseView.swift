@@ -21,7 +21,7 @@ class EVKBaseView: UIView {
         
         self.backgroundColor = UIColor.whiteColor()
         
-        self.bottomLabel                 = UILabel()
+        bottomLabel                      = UILabel()
         self.bottomLabel.backgroundColor = UIColor.whiteColor()
         self.bottomLabel.font            = UIFont (name: "HelveticaNeue", size: 16.0)
         self.bottomLabel.textAlignment   = NSTextAlignment.Center
@@ -30,8 +30,13 @@ class EVKBaseView: UIView {
         self.bottomLabel.textColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         self.addSubview(self.bottomLabel)
         
-        self.tableView                 = UITableView()
+        tableView                      = UITableView()
         self.tableView.backgroundColor = UIColor.whiteColor()
+        
+        if #available(iOS 9.0, *) {
+            self.tableView.cellLayoutMarginsFollowReadableWidth = false
+        }
+        
         self.addSubview(self.tableView)
     }
     

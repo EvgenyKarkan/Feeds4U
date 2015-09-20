@@ -105,8 +105,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         showInvalidRSSAlert()
     }
     
-    // MARK: - Private - Common alert
-    
+   // MARK: - Private - Common alert
    private func showAlertMessage(message : String) {
     
        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewProtocol {
 
     // MARK: - property
@@ -18,15 +19,20 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
-        self.feedItemsView = EVKFeedItemsView()
+        feedItemsView = EVKFeedItemsView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.provider = EVKFeedItemsTableProvider(delegateObject: self);
+        provider = EVKFeedItemsTableProvider(delegateObject: self);
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        provider?.delegate             = nil
+        feedItemsView.feedListDelegate = nil
     }
 
     // MARK: - Life cycle
@@ -114,13 +120,10 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
                     //create relationship
                     item.feed = self.feed!
                     
-                    //EVKBrain.brain.coreDater.saveContext()
-                    
                     print("Added item \(item.title)", terminator: "")
                 }
                 else {
                     EVKBrain.brain.coreDater.deleteObject(item)
-                    //EVKBrain.brain.coreDater.saveContext()
                 }
             }
             

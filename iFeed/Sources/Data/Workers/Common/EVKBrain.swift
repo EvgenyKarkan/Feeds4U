@@ -28,8 +28,8 @@ class EVKBrain: NSObject {
     // MARK: - Init
     override init() {
         
-      self.parser    = EVKXMLParser()
-      self.coreDater = EVKCoreDataManager()
+      parser    = EVKXMLParser()
+      coreDater = EVKCoreDataManager()
         
       super.init()
     }

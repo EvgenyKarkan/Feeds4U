@@ -72,17 +72,19 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 	
 	if (self) {
             //commented to have only UIWebView instance
-		if ([WKWebView class]) {
-			if (configuration) {
-				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
-			}
-			else {
-				self.wkWebView = [[WKWebView alloc] init];
-			}
-		}
-		else {
-			self.uiWebView = [[UIWebView alloc] init];
-		}
+//		if ([WKWebView class]) {
+//			if (configuration) {
+//				self.wkWebView = [[WKWebView alloc] initWithFrame: CGRectZero configuration: configuration];
+//			}
+//			else {
+//				self.wkWebView = [[WKWebView alloc] init];
+//			}
+//		}
+//		else {
+//			self.uiWebView = [[UIWebView alloc] init];
+//		}
+        
+        self.uiWebView = [[UIWebView alloc] init];
         
 		self.actionButtonHidden = NO;
 		self.showsURLInNavigationBar = NO;
