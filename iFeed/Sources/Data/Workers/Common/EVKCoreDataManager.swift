@@ -83,7 +83,10 @@ class EVKCoreDataManager: NSObject {
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                     NSLog("Unresolved error \(error), \(error!.userInfo)")
-                    abort()
+                    
+                    #if __DEBUG__
+                        abort()
+                    #endif
                 }
             }
         }
@@ -116,6 +119,10 @@ class EVKCoreDataManager: NSObject {
         catch let error1 as NSError {
  
             NSLog("Unresolved error \(error1), \(error1.userInfo)")
+            
+            #if __DEBUG__
+                abort()
+            #endif
         }
     
         assert(result != nil, "Found nil feed array")

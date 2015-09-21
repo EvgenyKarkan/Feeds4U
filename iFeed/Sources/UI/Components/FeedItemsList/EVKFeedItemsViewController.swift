@@ -118,7 +118,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             //delete temporary incoming 'feed'
             EVKBrain.brain.coreDater.deleteObject(feed)
             
-            print("Incoming count \(incomingItems.count)", terminator: "")
+            //print("Incoming count \(incomingItems.count)", terminator: "")
             
             //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
             for item: FeedItem in incomingItems {
@@ -126,7 +126,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
                     //create relationship
                     item.feed = self.feed!
                     
-                    print("Added item \(item.title)", terminator: "")
+                    //print("Added item \(item.title)", terminator: "")
                 }
                 else {
                     EVKBrain.brain.coreDater.deleteObject(item)

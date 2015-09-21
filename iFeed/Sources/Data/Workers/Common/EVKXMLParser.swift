@@ -48,9 +48,7 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        
-        //print("---------- ITEM LINK \(item.link)")
-        
+
         var feedItem: FeedItem?
         feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
         

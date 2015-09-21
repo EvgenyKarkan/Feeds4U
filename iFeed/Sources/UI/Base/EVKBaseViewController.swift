@@ -48,6 +48,9 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         alertController.addTextFieldWithConfigurationHandler { textField -> Void in
     
             textField.placeholder = "http://www.something.com/rss"
+            
+            
+            //for test purpose
             //textField.text = "http://douua.org/lenta/feed/"
             
             //textField.text = "http://www.objc.io/feed.xml"
@@ -56,14 +59,13 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             
             //textField.text = "http://feeds.mashable.com/Mashable"
             
-            textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
+            //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
             
-            textField.text = "http://www.techbargains.com/rss.xml"
+            //textField.text = "http://www.techbargains.com/rss.xml"
             
+            //textField.text = "http://petersteinberger.com/atom.xml"
             
-            textField.text = "http://petersteinberger.com/atom.xml"
-            
-            textField.text = "http://highaltitudehacks.com/atom.xml"
+            //textField.text = "http://highaltitudehacks.com/atom.xml"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)

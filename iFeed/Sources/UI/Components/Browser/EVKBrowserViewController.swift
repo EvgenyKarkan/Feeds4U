@@ -18,16 +18,16 @@ class EVKBrowserViewController: KINWebBrowserViewController {
         self.actionButtonHidden = false
     }
     
-    deinit {
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
-     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    deinit {
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
     }
     
     // MARK: - Life cycle

@@ -14,10 +14,11 @@ import CoreData
 
 class FeedItem: NSManagedObject {
 
-    @NSManaged var title: String
-    @NSManaged var link: String
+    @NSManaged var title:       String
+    @NSManaged var link:        String
     @NSManaged var publishDate: NSDate
-    @NSManaged var wasRead: NSNumber
+    @NSManaged var wasRead:     NSNumber
     
+    //relationship
     @NSManaged var feed: Feed
 }
