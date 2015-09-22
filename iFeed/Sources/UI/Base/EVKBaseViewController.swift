@@ -65,7 +65,15 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             
             //textField.text = "http://petersteinberger.com/atom.xml"
             
-            //textField.text = "http://highaltitudehacks.com/atom.xml"
+            //textField.text = "http://highaltitudehacks.com/atom.xml" 
+            
+            //textField.text = "http://www.apple.com/pr/feeds/pr.rss"
+            
+            //textField.text = "https://developer.apple.com/news/rss/news.rss"
+            
+            //textField.text = "https://itunes.apple.com/ua/rss/newapplications/limit=100/xml"
+            
+//            textField.text = "https://www-304.ibm.com/partnerworld/wps/servlet/download/DownloadServlet?id=7NAGB0UNdJgiPCA$cnt&attachmentName=pwsac.xml&token=MTQ0Mjk1ODczNjU0OA==&locale=en_ALL_ZZ"
         }
         
         self.presentViewController(alertController, animated: true, completion: nil)

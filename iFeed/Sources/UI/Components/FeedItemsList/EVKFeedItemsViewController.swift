@@ -66,6 +66,8 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         super.viewWillAppear(animated)
         
         self.feedItemsView.tableView.reloadData()
+        
+        self.title = self.feed?.title
     }
     
     // MARK: - EVKTableProviderProtocol API

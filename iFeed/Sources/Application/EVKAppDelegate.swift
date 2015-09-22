@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarHidden = false
         
         #if __RELEASE__
-            Crashlytics.startWithAPIKey("")
+            
         #endif
         
         //https://forums.developer.apple.com/thread/18365
