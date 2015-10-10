@@ -48,4 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)-> Bool {
+        
+        print(url)
+        
+        print(url.resourceSpecifier)
+        
+        print(url.scheme)
+        print(url.path)
+        print(url.query)
+        
+        return true
+    }
 }
