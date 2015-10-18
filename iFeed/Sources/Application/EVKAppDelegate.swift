@@ -15,18 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - properties
     var window: UIWindow?
+    var navigationViewController: UINavigationController!
     
     // MARK: - UIApplicationDelegate API
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         let feedListViewController = EVKFeedListViewController()
         
-        let navigationViewController                               = UINavigationController()
-        navigationViewController.viewControllers                   = [feedListViewController]
-        navigationViewController.navigationBar.translucent         = false
-        navigationViewController.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        navigationViewController.navigationBar.tintColor           = UIColor.whiteColor()
-        navigationViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        self.navigationViewController                                   = UINavigationController()
+        self.navigationViewController.viewControllers                   = [feedListViewController]
+        self.navigationViewController.navigationBar.translucent         = false
+        self.navigationViewController.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        self.navigationViewController.navigationBar.tintColor           = UIColor.whiteColor()
+        self.navigationViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
         self.window                     = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = navigationViewController
@@ -38,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if __RELEASE__
             
         #endif
-        
-        //https://forums.developer.apple.com/thread/18365
     
         //configure cache to minimize its capacity
         let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcashe")
@@ -51,13 +50,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)-> Bool {
         
-        print(url)
-        
-        print(url.resourceSpecifier)
-        
-        print(url.scheme)
-        print(url.path)
-        print(url.query)
+        if !url.resourceSpecifier.isEmpty {
+            self.navigationViewController.popToRootViewControllerAnimated(false)
+            
+            let topViewController = self.navigationViewController.topViewController
+            
+            if let vc = topViewController as? EVKFeedListViewController  {
+                
+                vc.showEnterFeedAlertView(url.resourceSpecifier)
+            }
+        }
         
         return true
     }

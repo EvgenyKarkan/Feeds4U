@@ -74,7 +74,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         
         assert(!sender.isEqual(nil), "sender is nil")
         
-        showEnterFeedAlertView(sender);
+        showEnterFeedAlertView("");
     }
     
     func trashPressed (sender: UIButton) {

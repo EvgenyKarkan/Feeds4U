@@ -20,7 +20,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
     // MARK: - Public API - Alerts
-    func showEnterFeedAlertView(sender: AnyObject) {
+    func showEnterFeedAlertView(feedURL: String) {
         
         let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
         
@@ -49,34 +49,14 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
             textField.placeholder = "http://www.something.com/rss"
             
-            
-            //for test purpose
-            //textField.text = "http://douua.org/lenta/feed/"
-            
-            //textField.text = "http://www.objc.io/feed.xml"
-            
-            //textField.text = "http://techcrunch.com/feed/"
-            
-            //textField.text = "http://feeds.mashable.com/Mashable"
-            
-            //textField.text = "http://images.apple.com/main/rss/hotnews/hotnews.rss"
-            
-            //textField.text = "http://www.techbargains.com/rss.xml"
-            
-            //textField.text = "http://petersteinberger.com/atom.xml"
-            
-            //textField.text = "http://highaltitudehacks.com/atom.xml" 
-            
-            //textField.text = "http://www.apple.com/pr/feeds/pr.rss"
-            
-            //textField.text = "https://developer.apple.com/news/rss/news.rss"
-            
-            //textField.text = "https://itunes.apple.com/ua/rss/newapplications/limit=100/xml"
-            
-//            textField.text = "https://www-304.ibm.com/partnerworld/wps/servlet/download/DownloadServlet?id=7NAGB0UNdJgiPCA$cnt&attachmentName=pwsac.xml&token=MTQ0Mjk1ODczNjU0OA==&locale=en_ALL_ZZ"
+            if !feedURL.isEmpty {
+                textField.text = feedURL
+            }
         }
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        let rootVConWindow = UIApplication.sharedApplication().delegate?.window!!.rootViewController
+        
+        rootVConWindow!.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func showInvalidRSSAlert() {
