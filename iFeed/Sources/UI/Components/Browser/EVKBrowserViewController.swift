@@ -34,6 +34,8 @@ class EVKBrowserViewController: KINWebBrowserViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         self.tintColor = self.navigationController?.navigationBar.barTintColor
         
         self.progressView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.progressView.frame.size.height)

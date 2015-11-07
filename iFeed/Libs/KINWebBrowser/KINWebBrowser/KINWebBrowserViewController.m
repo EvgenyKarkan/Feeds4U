@@ -130,12 +130,14 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 	self.progressView = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
 
 	[self.progressView setTrackTintColor: [UIColor colorWithWhite: 1.0f alpha: 0.0f]];
-	[self.progressView setFrame: CGRectMake(0,
-	                                        self.navigationController.navigationBar.frame.size.height - self.progressView.frame.size.height,
-	                                        self.view.frame.size.width,
-	                                        self.progressView.frame.size.height)];
+//	[self.progressView setFrame: CGRectMake(0,
+//	                                        self.navigationController.navigationBar.frame.size.height - self.progressView.frame.size.height,
+//	                                        self.view.frame.size.width,
+//	                                        self.progressView.frame.size.height)];
 
-	[self.progressView setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+        //[self.progressView setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+    
+    [self.view addSubview: self.progressView];
 }
 
 - (void) viewWillAppear: (BOOL) animated
@@ -145,9 +147,7 @@ static void *KINWebBrowserContext = &KINWebBrowserContext;
 	[self.navigationController setNavigationBarHidden: NO animated: NO];
 	[self.navigationController setToolbarHidden: NO animated: NO];
 
-	//[self.navigationController.navigationBar addSubview:self.progressView];
-
-	[self.view addSubview: self.progressView];
+        //[self.navigationController.navigationBar addSubview:self.progressView];
 
 	[self updateToolbarState];
 }
