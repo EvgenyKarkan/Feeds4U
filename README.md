@@ -1,5 +1,6 @@
 Feeds4U
 ===========
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5657914d28898101003ae8ea&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5657914d28898101003ae8ea/build/latest)
 
 RSS reader app written in Swift 2.0, and yes, software design is pretty good here.
 
