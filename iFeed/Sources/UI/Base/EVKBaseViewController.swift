@@ -22,6 +22,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     // MARK: - Public API - Alerts
     func showEnterFeedAlertView(feedURL: String) {
         
+        print(feedURL)
+        
         let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in

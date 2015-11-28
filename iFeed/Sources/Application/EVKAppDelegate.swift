@@ -56,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let topViewController = self.navigationViewController.topViewController
             
             if let vc = topViewController as? EVKFeedListViewController  {
-                
                 vc.showEnterFeedAlertView(url.resourceSpecifier)
             }
         }

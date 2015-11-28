@@ -61,7 +61,7 @@ class EVKBrain: NSObject {
         
         var returnValue: Bool = false
         
-        let allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
+        let allItems: [Feed] = EVKBrain.brain.coreDater.allFeeds()
         
         for item: Feed in allItems {
             
