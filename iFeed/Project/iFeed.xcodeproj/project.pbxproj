@@ -663,6 +663,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
@@ -713,7 +714,7 @@
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
+				PROVISIONING_PROFILE = "5b685ac8-28ac-4235-8ae5-ea75072fe06b";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 			};
 			name = Release;

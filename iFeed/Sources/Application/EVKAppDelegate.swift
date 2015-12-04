@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
     
         //configure cache to minimize its capacity
-        let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcashe")
+        let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcache")
 
         NSURLCache.setSharedURLCache(appCache)
         
@@ -55,8 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let topViewController = self.navigationViewController.topViewController
             
-            if let vc = topViewController as? EVKFeedListViewController  {
-                vc.showEnterFeedAlertView(url.resourceSpecifier)
+            if let vc = topViewController as? EVKFeedListViewController {
+                vc.showEnterFeedAlertView(url.absoluteString)
             }
         }
         
