@@ -94,14 +94,12 @@ class EVKCoreDataManager: NSObject {
     
     // MARK: - Public
     func createEntity(name name: String) -> NSManagedObject {
-        
         let foo = NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: self.managedObjectContext!) 
         
         return foo
     }
     
     func allFeeds() -> [Feed] {
-        
         let request: NSFetchRequest = NSFetchRequest()
         
         var description: NSEntityDescription!
@@ -131,7 +129,6 @@ class EVKCoreDataManager: NSObject {
     }
     
     func deleteObject(entityObject: NSManagedObject) {
-        
         self.managedObjectContext?.deleteObject(entityObject)
     }
 }

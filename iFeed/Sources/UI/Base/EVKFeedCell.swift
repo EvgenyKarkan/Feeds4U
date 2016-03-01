@@ -113,8 +113,8 @@ class EVKFeedCell: UITableViewCell {
         self.dot?.layer.masksToBounds = true
     }
     
+    //MARK: - Helpers
     func topFontForDevice () -> CGFloat {
-        
         let width = UIScreen.mainScreen().bounds.size.width
         
         var returnValue: CGFloat
@@ -130,7 +130,6 @@ class EVKFeedCell: UITableViewCell {
     }
     
     func bottomFontForDevice () -> CGFloat {
-        
         let width = UIScreen.mainScreen().bounds.size.width
         
         var returnValue: CGFloat

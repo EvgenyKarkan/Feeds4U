@@ -15,12 +15,10 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
     
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.dataSource.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         var cell = tableView.dequeueReusableCellWithIdentifier(kFeedCell) as? EVKFeedCell
         
         if cell == nil {

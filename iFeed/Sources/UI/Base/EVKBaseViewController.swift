@@ -21,9 +21,6 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
     // MARK: - Public API - Alerts
     func showEnterFeedAlertView(feedURL: String) {
-        
-        //print(feedURL)
-        
         let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
@@ -33,9 +30,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         alertController.addAction(cancelAction)
         
         let nextAction: UIAlertAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
-            
             if let textField = alertController.textFields?.first {
-                
                 if !textField.text!.isEmpty {
                     self.addFeedPressed(textField.text!)
                 }
@@ -46,9 +41,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
         
         alertController.addAction(nextAction)
-        
         alertController.addTextFieldWithConfigurationHandler { textField -> Void in
-    
             textField.placeholder = "http://www.something.com/rss"
             
             if !feedURL.isEmpty {
@@ -57,18 +50,15 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
         
         let rootVConWindow = UIApplication.sharedApplication().delegate?.window!!.rootViewController
-        
         rootVConWindow!.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func showInvalidRSSAlert() {
-        
-        showAlertMessage("RSS feed can't be parsed")
+        self.showAlertMessage("RSS feed can't be parsed")
     }
     
     func showDuplicateRSSAlert() {
-        
-        showAlertMessage("RSS feed already exists,\n try another one")
+        self.showAlertMessage("RSS feed already exists,\n try another one")
     }
     
     // MARK: - Public API - Add feed
@@ -78,7 +68,6 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
     // MARK: - Public API - Parsing
     func startParsingURL(URL: String) {
-        
         let parser            = EVKBrain.brain.parser
         parser.parserDelegate = self
         
@@ -88,7 +77,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             parser.beginParseURL(NSURL(string: URL)!)
         }
         else {
-            showInvalidRSSAlert()
+            self.showInvalidRSSAlert()
         }
     }
     
@@ -98,16 +87,14 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
     func didFailParsingFeed() {
-        
-        showInvalidRSSAlert()
+        self.showInvalidRSSAlert()
     }
     
    // MARK: - Common alert
    func showAlertMessage(message : String) {
-    
        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
 
-       let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) { action-> Void in
+       let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) { action -> Void in
             self.view.endEditing(true)
        }
 

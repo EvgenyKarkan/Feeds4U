@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate API
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
         let feedListViewController = EVKFeedListViewController()
         
         self.navigationViewController                                   = UINavigationController()
@@ -42,14 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         //configure cache to minimize its capacity
         let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcache")
-
         NSURLCache.setSharedURLCache(appCache)
         
         return true
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)-> Bool {
-        
         if !url.resourceSpecifier.isEmpty {
             self.navigationViewController.popToRootViewControllerAnimated(false)
             

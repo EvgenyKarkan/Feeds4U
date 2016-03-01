@@ -31,14 +31,12 @@ class EVKFeedItemsView: EVKBaseView {
     
     // MARK: - Action
     @objc private func refresh(sender: UIRefreshControl) {
-        
         self.feedListDelegate?.didPullToRefresh(sender)
     }
 }
 
 // MARK: - EVKXMLParserProtocol
 protocol EVKFeedItemsViewProtocol: class {
-    
     func didPullToRefresh(sender: UIRefreshControl)
 }
 

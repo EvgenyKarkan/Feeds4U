@@ -21,7 +21,6 @@ class Feed: NSManagedObject {
     
     //sorted 'feedItems' by publish date
     func sortedItems() -> [FeedItem] {
-        
         let unsortedItems: [FeedItem] = (self.feedItems.allObjects as? [FeedItem])!
         
         let sortedArray = unsortedItems.sort({
@@ -35,7 +34,6 @@ class Feed: NSManagedObject {
     
     //unread 'feedItems'
     func unreadItems () -> [FeedItem] {
-        
         let items: [FeedItem] = self.feedItems.allObjects as! [FeedItem]
         
         let unReadItem = items.filter({ (item: FeedItem) -> Bool in

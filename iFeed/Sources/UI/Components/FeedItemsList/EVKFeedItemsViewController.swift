@@ -18,7 +18,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        
         feedItemsView = EVKFeedItemsView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,7 +36,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
 
     // MARK: - Life cycle
     override func loadView() {
-        
         let aView = EVKFeedItemsView (frame: UIScreen.mainScreen().bounds)
         
         self.feedItemsView = aView
@@ -53,7 +51,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         
         // populate table view
         if self.feed != nil && self.feed?.feedItems.allObjects.count > 0 {
-            
             let items = self.feed?.sortedItems()
     
             self.provider?.dataSource = items!
@@ -72,7 +69,6 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
-        
         let item = self.feed?.sortedItems()[atIndexPath.row]
         
         if item?.link != nil {
@@ -86,13 +82,12 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             self.navigationController?.pushViewController(webVC, animated: true)
         }
         else {
-            showAlertMessage("Web link is missing")
+            self.showAlertMessage("Web link is missing")
         }
     }
     
     // MARK: - EVKFeedListViewProtocol API
     func didPullToRefresh(sender: UIRefreshControl) {
-        
         assert(!sender.isEqual(nil), "Sender is nil")
 
         let URL: String = self.feed!.rssURL
@@ -102,9 +97,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     
     // MARK: - EVKXMLParserProtocol API
     override func didEndParsingFeed(feed: Feed) {
-        
         if !feed.isEqual(nil) && self.feed != nil {
-            
             // self feed
             let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
             
@@ -120,15 +113,11 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             //delete temporary incoming 'feed'
             EVKBrain.brain.coreDater.deleteObject(feed)
             
-            //print("Incoming count \(incomingItems.count)", terminator: "")
-            
             //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
             for item: FeedItem in incomingItems {
                 if !refreshDatesArr.contains(item.publishDate.timeIntervalSince1970) {
                     //create relationship
                     item.feed = self.feed!
-                    
-                    //print("Added item \(item.title)", terminator: "")
                 }
                 else {
                     EVKBrain.brain.coreDater.deleteObject(item)

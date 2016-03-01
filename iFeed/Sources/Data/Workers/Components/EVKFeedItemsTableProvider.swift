@@ -14,15 +14,12 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
     // MARK: - Constant
     let kItemsCell = "ItemsCell"
     
-    
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.dataSource.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         var cell = tableView.dequeueReusableCellWithIdentifier(kItemsCell) as? EVKFeedCell
         
         if cell == nil {

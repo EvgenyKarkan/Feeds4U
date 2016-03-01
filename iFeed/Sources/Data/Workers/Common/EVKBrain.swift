@@ -17,7 +17,6 @@ class EVKBrain: NSObject {
     
     // MARK: - Singleton
     class var brain: EVKBrain {
-        
         struct Singleton {
             static let instance = EVKBrain()
         }
@@ -27,7 +26,6 @@ class EVKBrain: NSObject {
     
     // MARK: - Init
     override init() {
-        
       parser    = EVKXMLParser()
       coreDater = EVKCoreDataManager()
         
@@ -36,16 +34,13 @@ class EVKBrain: NSObject {
     
     // MARK: - Public API
     func createEntity(name name: String) -> NSManagedObject {
-        
         return self.coreDater.createEntity(name: name)
     }
     
     func feedForIndexPath(indexPath indexPath: NSIndexPath) -> Feed {
-        
         assert(!indexPath.isEqual(nil), "Index path param is nil")
         
         var feed: Feed?
-        
         let feedsCount = self.coreDater.allFeeds().count
         
         if feedsCount > 0 && indexPath.row < feedsCount {
@@ -58,13 +53,11 @@ class EVKBrain: NSObject {
     }
     
     func isDuplicateURL(rssURL: String) -> Bool {
-        
         var returnValue: Bool = false
         
         let allItems: [Feed] = EVKBrain.brain.coreDater.allFeeds()
         
         for item: Feed in allItems {
-            
             if rssURL == item.rssURL {
                 returnValue = true
             }

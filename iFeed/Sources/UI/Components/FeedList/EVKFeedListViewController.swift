@@ -17,7 +17,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - Initializers
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        
         feedListView = EVKFeedListView()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -35,7 +34,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - Life cycle
     override func loadView() {
-        
         let aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
         
         self.feedListView = aView
@@ -54,7 +52,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
         
         if EVKBrain.brain.coreDater.allFeeds().count > 0 {
-            addTrashButton(true)
+            self.addTrashButton(true)
         }
         else {
             self.feedListView.tableView.alpha = 0.0
@@ -71,14 +69,12 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - Actions
     func addPressed (sender: UIButton) {
-        
         assert(!sender.isEqual(nil), "sender is nil")
         
-        showEnterFeedAlertView("");
+        self.showEnterFeedAlertView("");
     }
     
     func trashPressed (sender: UIButton) {
-
         let needsEdit: Bool = !self.feedListView.tableView.editing
         
         self.feedListView.tableView.setEditing(needsEdit, animated: true)
@@ -86,18 +82,16 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - Inherited from base
     override func addFeedPressed (URL: String) {
-        
         if EVKBrain.brain.isDuplicateURL(URL) {
-            showDuplicateRSSAlert()
+            self.showDuplicateRSSAlert()
         }
         else {
-            startParsingURL(URL)
+            self.startParsingURL(URL)
         }
     }
     
     // MARK: - EVKXMLParserProtocol API
     override func didEndParsingFeed(feed: Feed) {
-
         if !feed.isEqual(nil) {
             self.provider?.dataSource.append(feed)
             EVKBrain.brain.coreDater.saveContext()
@@ -106,7 +100,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             
             //add 'trash' only if there is no leftBarButtonItem
             if self.navigationItem.leftBarButtonItems == nil {
-                addTrashButton(true)
+                self.addTrashButton(true)
                 self.feedListView.tableView.alpha = 1.0
             }
         }
@@ -114,7 +108,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - EVKTableProviderProtocol
     func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
-
         if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
             let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
@@ -126,7 +119,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     func cellNeedsDelete(atIndexPath atIndexPath: NSIndexPath) {
-        
         if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
             let feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
@@ -141,7 +133,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             
             //hide 'trash' for no data source
             if self.provider?.dataSource.count == 0 {
-                addTrashButton(false)
+                self.addTrashButton(false)
                 
                 self.feedListView.tableView.setEditing(false, animated: false)
                 self.feedListView.tableView.alpha = 0.0
@@ -151,7 +143,6 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     
     // MARK: - Helpers
     func addTrashButton(add: Bool) {
-        
         if add {
             let trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
                                                                             target: self,
