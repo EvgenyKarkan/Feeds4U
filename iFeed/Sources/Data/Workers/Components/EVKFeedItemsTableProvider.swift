@@ -12,7 +12,7 @@ import UIKit
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
     // MARK: - Constant
-    let kItemsCell = "ItemsCell"
+    private let kItemsCell = "ItemsCell"
     
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

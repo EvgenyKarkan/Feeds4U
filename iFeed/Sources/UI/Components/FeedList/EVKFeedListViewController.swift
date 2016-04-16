@@ -48,7 +48,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         
         let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
                                                                       target: self,
-                                                                      action: "addPressed:")
+                                                                      action: #selector(self.addPressed(_:)))
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
         
         if EVKBrain.brain.coreDater.allFeeds().count > 0 {
@@ -146,7 +146,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         if add {
             let trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
                                                                             target: self,
-                                                                            action: "trashPressed:")
+                                                                            action: #selector(self.trashPressed(_:)))
             
             self.navigationItem.setLeftBarButtonItems([trashButton], animated: true)
         }

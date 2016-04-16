@@ -15,7 +15,6 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     var dataSource: [AnyObject] = []
     weak var delegate: EVKTableProviderProtocol?
     
-    
     // MARK: - Designated init
     init (delegateObject: EVKTableProviderProtocol) {
         self.delegate = delegateObject
