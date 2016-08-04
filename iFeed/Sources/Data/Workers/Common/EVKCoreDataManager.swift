@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-import UIKit
 import CoreData
+
 
 let kFeed     = "Feed"
 let kFeedItem = "FeedItem"

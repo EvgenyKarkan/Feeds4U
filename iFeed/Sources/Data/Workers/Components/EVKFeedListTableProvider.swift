@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-import UIKit
-
 
 class EVKFeedListTableProvider: EVKBaseTableProvider {
  
