@@ -10,38 +10,28 @@
 class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewProtocol {
 
     // MARK: - property
-    var feedItemsView: EVKFeedItemsView
+    var feedItemsView: EVKFeedItemsView?
     var provider:      EVKFeedItemsTableProvider?
     var feed:          Feed?
     
-    // MARK: - Initializers
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        feedItemsView = EVKFeedItemsView()
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        provider = EVKFeedItemsTableProvider(delegateObject: self);
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: - Deinit
     deinit {
-        provider?.delegate             = nil
-        feedItemsView.feedListDelegate = nil
+        provider?.delegate              = nil
+        feedItemsView?.feedListDelegate = nil
     }
 
     // MARK: - Life cycle
     override func loadView() {
+        self.provider = EVKFeedItemsTableProvider(delegateObject: self)
+        
         let aView = EVKFeedItemsView (frame: UIScreen.mainScreen().bounds)
         
         self.feedItemsView = aView
         self.view = aView
         
-        self.feedItemsView.tableView.delegate   = self.provider!
-        self.feedItemsView.tableView.dataSource = self.provider!
-        self.feedItemsView.feedListDelegate     = self
+        self.feedItemsView?.tableView.delegate   = self.provider!
+        self.feedItemsView?.tableView.dataSource = self.provider!
+        self.feedItemsView?.feedListDelegate     = self
     }
 
     override func viewDidLoad() {
@@ -53,14 +43,14 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     
             self.provider?.dataSource = items!
             
-            self.feedItemsView.tableView.reloadData()
+            self.feedItemsView?.tableView.reloadData()
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.feedItemsView.tableView.reloadData()
+        self.feedItemsView?.tableView.reloadData()
         
         self.title = self.feed?.title
     }
@@ -126,10 +116,10 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             
             incomingItems.removeAll()
             
-            self.feedItemsView.refreshControl.endRefreshing()
+            self.feedItemsView?.refreshControl.endRefreshing()
         }
         
         self.provider?.dataSource = self.feed!.sortedItems()
-        self.feedItemsView.tableView.reloadData()
+        self.feedItemsView?.tableView.reloadData()
     }
 }

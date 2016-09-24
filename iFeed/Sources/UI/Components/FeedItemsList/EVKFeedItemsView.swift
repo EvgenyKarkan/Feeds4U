@@ -14,17 +14,13 @@ class EVKFeedItemsView: EVKBaseView {
     var refreshControl: UIRefreshControl!
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func initialViewSetup() {
+        super.initialViewSetup()
         
         refreshControl                      = UIRefreshControl()
         self.refreshControl.tintColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Action

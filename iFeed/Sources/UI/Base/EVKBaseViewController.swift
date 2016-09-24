@@ -21,13 +21,12 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     func showEnterFeedAlertView(feedURL: String) {
         let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
         
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
             self.view.endEditing(true)
         }
-        
         alertController.addAction(cancelAction)
         
-        let nextAction: UIAlertAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
+        let nextAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
             if let textField = alertController.textFields?.first {
                 if !textField.text!.isEmpty {
                     self.addFeedPressed(textField.text!)
@@ -92,10 +91,9 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
    func showAlertMessage(message : String) {
        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
 
-       let okAction: UIAlertAction = UIAlertAction(title: "Ok", style:.Default) { action -> Void in
+       let okAction = UIAlertAction(title: "Ok", style:.Default) { action -> Void in
             self.view.endEditing(true)
        }
-
        alertController.addAction(okAction)
 
        self.presentViewController(alertController, animated: true, completion: nil)

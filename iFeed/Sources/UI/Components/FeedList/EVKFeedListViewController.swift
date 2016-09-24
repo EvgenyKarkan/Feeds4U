@@ -10,50 +10,39 @@
 class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol {
 
     // MARK: - properties
-    var feedListView: EVKFeedListView
+    var feedListView: EVKFeedListView?
     var provider:     EVKFeedListTableProvider?
     
-    // MARK: - Initializers
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        feedListView = EVKFeedListView()
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        provider = EVKFeedListTableProvider(delegateObject: self);
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: - Deinit
     deinit {
         provider?.delegate = nil
     }
     
     // MARK: - Life cycle
     override func loadView() {
+        
+        self.provider = EVKFeedListTableProvider(delegateObject: self)
+        
         let aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
         
         self.feedListView = aView
         self.view         = aView
         
-        self.feedListView.tableView.delegate   = self.provider!
-        self.feedListView.tableView.dataSource = self.provider!
+        self.feedListView?.tableView.delegate   = self.provider!
+        self.feedListView?.tableView.dataSource = self.provider!
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,
-                                                                      target: self,
-                                                                      action: #selector(self.addPressed(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addPressed(_:)))
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
         
         if EVKBrain.brain.coreDater.allFeeds().count > 0 {
             self.addTrashButton(true)
         }
         else {
-            self.feedListView.tableView.alpha = 0.0
+            self.feedListView?.tableView.alpha = 0.0
         }
     }
     
@@ -62,7 +51,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         
         self.provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
         
-        self.feedListView.tableView.reloadData()
+        self.feedListView?.tableView.reloadData()
     }
     
     // MARK: - Actions
@@ -73,9 +62,9 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     func trashPressed (sender: UIButton) {
-        let needsEdit: Bool = !self.feedListView.tableView.editing
+        let needsEdit: Bool = !self.feedListView!.tableView.editing
         
-        self.feedListView.tableView.setEditing(needsEdit, animated: true)
+        self.feedListView?.tableView.setEditing(needsEdit, animated: true)
     }
     
     // MARK: - Inherited from base
@@ -94,12 +83,12 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             self.provider?.dataSource.append(feed)
             EVKBrain.brain.coreDater.saveContext()
             
-            self.feedListView.tableView.reloadData()
+            self.feedListView?.tableView.reloadData()
             
             //add 'trash' only if there is no leftBarButtonItem
             if self.navigationItem.leftBarButtonItems == nil {
                 self.addTrashButton(true)
-                self.feedListView.tableView.alpha = 1.0
+                self.feedListView?.tableView.alpha = 1.0
             }
         }
     }
@@ -125,16 +114,16 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             
             self.provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
         
-            self.feedListView.tableView.beginUpdates()
-            self.feedListView.tableView.deleteRowsAtIndexPaths([atIndexPath], withRowAnimation: .Automatic)
-            self.feedListView.tableView.endUpdates()
+            self.feedListView?.tableView.beginUpdates()
+            self.feedListView?.tableView.deleteRowsAtIndexPaths([atIndexPath], withRowAnimation: .Automatic)
+            self.feedListView?.tableView.endUpdates()
             
             //hide 'trash' for no data source
             if self.provider?.dataSource.count == 0 {
                 self.addTrashButton(false)
                 
-                self.feedListView.tableView.setEditing(false, animated: false)
-                self.feedListView.tableView.alpha = 0.0
+                self.feedListView?.tableView.setEditing(false, animated: false)
+                self.feedListView?.tableView.alpha = 0.0
             }
         }
     }
@@ -142,10 +131,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - Helpers
     func addTrashButton(add: Bool) {
         if add {
-            let trashButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash,
-                                                                            target: self,
-                                                                            action: #selector(self.trashPressed(_:)))
-            
+            let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(self.trashPressed(_:)))
             self.navigationItem.setLeftBarButtonItems([trashButton], animated: true)
         }
         else {
