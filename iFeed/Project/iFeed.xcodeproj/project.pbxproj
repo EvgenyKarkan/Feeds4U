@@ -41,6 +41,9 @@
 		DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */; };
 		DE826C5A1B9B5B570062FE2A /* EVKBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C591B9B5B570062FE2A /* EVKBaseView.swift */; };
 		DE970DD81C26BA5500D33881 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE970DD71C26BA5500D33881 /* Fabric.framework */; };
+		DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */; };
+		DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */; };
+		DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */; };
 		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
 		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
 		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
@@ -104,6 +107,9 @@
 		DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVKBaseViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DE826C591B9B5B570062FE2A /* EVKBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVKBaseView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DE970DD71C26BA5500D33881 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
+		DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAnalytics.swift; sourceTree = "<group>"; };
+		DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCacher.swift; sourceTree = "<group>"; };
 		DEFB0CB21B80D2FA001425A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEFB0CB41B80D2FA001425A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -144,6 +150,9 @@
 				DE176A671B9B706F0046EDED /* EVKBrain.swift */,
 				DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */,
 				DE176A691B9B706F0046EDED /* EVKXMLParser.swift */,
+				DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */,
+				DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */,
+				DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -530,6 +539,7 @@
 				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
+				DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */,
 				DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */,
 				DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
@@ -542,10 +552,12 @@
 				DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */,
 				DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */,
 				DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */,
+				DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */,
 				DE176A6D1B9B706F0046EDED /* EVKXMLParser.swift in Sources */,
 				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
 				DE176A8E1B9C9A920046EDED /* MWFeedItem.m in Sources */,
 				DE176A8B1B9C9A920046EDED /* NSString+HTML.m in Sources */,
+				DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */,
 				DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */,
 				DE176A8F1B9C9A920046EDED /* MWFeedParser.m in Sources */,
 				DE176A8A1B9C9A920046EDED /* NSDate+InternetDateTime.m in Sources */,

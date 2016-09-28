@@ -6,56 +6,21 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-import Crashlytics
+
 @UIApplicationMain
 
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    // MARK: - properties
-    var window: UIWindow?
-    var navigationViewController: UINavigationController!
+class EVKAppDelegate: UIResponder, UIApplicationDelegate {
     
-    // MARK: - UIApplicationDelegate API
+    // MARK: - UIApplicationDelegate APIs
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let feedListViewController = EVKFeedListViewController()
-        
-        self.navigationViewController                                   = UINavigationController()
-        self.navigationViewController.viewControllers                   = [feedListViewController]
-        self.navigationViewController.navigationBar.translucent         = false
-        self.navigationViewController.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.navigationViewController.navigationBar.tintColor           = UIColor.whiteColor()
-        self.navigationViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        
-        self.window                     = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = navigationViewController
-        self.window?.makeKeyAndVisible()
-        
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-        UIApplication.sharedApplication().statusBarHidden = false
-        
-        #if __RELEASE__
-            Crashlytics.startWithAPIKey("4760756e56b00e661fdfca38443023c06fd79797")
-        #endif
-    
-        //configure cache to minimize its capacity
-        let appCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcache")
-        NSURLCache.setSharedURLCache(appCache)
-        
+        EVKBrain.brain.startServices()
         return true
     }
     
+    //TODO:- REFACTOR via presenter
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if !url.resourceSpecifier.isEmpty {
-            self.navigationViewController.popToRootViewControllerAnimated(false)
-            
-            let topViewController = self.navigationViewController.topViewController
-            
-            if let vc = topViewController as? EVKFeedListViewController {
-                vc.showEnterFeedAlertView(url.absoluteString)
-            }
-        }
-        
+        EVKBrain.brain.presenter.openURL(url)
         return true
     }
 }

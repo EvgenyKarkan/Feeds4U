@@ -927,8 +927,6 @@
 // Links can be added to MWObject (info or item)
 - (BOOL)processAtomLink:(NSDictionary *)attributes andAddToMWObject:(id)MWObject {
     
-    NSLog(@"ATTRIBUTES ----------- %@", attributes);
-    
 	if (attributes && [attributes objectForKey:@"rel"]) {
 		
 		// Use as link if rel == alternate

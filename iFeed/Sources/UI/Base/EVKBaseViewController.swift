@@ -46,7 +46,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             }
         }
         
-        let rootVConWindow = UIApplication.sharedApplication().delegate?.window!!.rootViewController
+        let rootVConWindow = EVKBrain.brain.presenter.window.rootViewController
         rootVConWindow!.presentViewController(alertController, animated: true, completion: nil)
     }
     

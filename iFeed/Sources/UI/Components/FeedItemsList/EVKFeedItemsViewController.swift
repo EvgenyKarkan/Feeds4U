@@ -79,14 +79,13 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         assert(!sender.isEqual(nil), "Sender is nil")
 
         let URL: String = self.feed!.rssURL
-                
         self.startParsingURL(URL)
     }
     
     // MARK: - EVKXMLParserProtocol API
     override func didEndParsingFeed(feed: Feed) {
         if !feed.isEqual(nil) && self.feed != nil {
-            // self feed
+            //self feed
             let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
             
             //array from of all feed items 'publish dates'

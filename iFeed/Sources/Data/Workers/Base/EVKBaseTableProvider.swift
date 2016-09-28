@@ -18,7 +18,6 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         self.delegate = delegateObject
 
         super.init()
-        
         assert(self.delegate != nil, "Delegate can't be nil")
     }
     

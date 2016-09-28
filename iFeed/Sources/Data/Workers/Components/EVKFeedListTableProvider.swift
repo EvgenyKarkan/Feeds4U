@@ -9,7 +9,7 @@
 
 class EVKFeedListTableProvider: EVKBaseTableProvider {
  
-    let kFeedCell: String = "FeedCell"
+    private let kFeedCell: String = "FeedCell"
     
     // MARK: - Overriden base API
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

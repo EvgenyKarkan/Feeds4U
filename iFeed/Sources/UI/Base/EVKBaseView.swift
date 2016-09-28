@@ -10,7 +10,7 @@
 class EVKBaseView: UIView {
 
     // MARK: - Properties
-    var tableView: UITableView!
+    private (set) var tableView: UITableView!
     private var bottomLabel: UILabel!
     
     // MARK: - Initializers
@@ -45,10 +45,9 @@ class EVKBaseView: UIView {
         self.bottomLabel.frame = CGRectIntegral(self.bottomLabel.frame)
     }
     
-    //MARK:- Public API
+    // MARK: - Public API
     func initialViewSetup() {
         //to override in subclasses
-        
         self.backgroundColor = UIColor.whiteColor()
         
         bottomLabel                      = UILabel()
