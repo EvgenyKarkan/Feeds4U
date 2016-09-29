@@ -9,7 +9,6 @@
 
 @UIApplicationMain
 
-
 class EVKAppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate APIs
@@ -18,7 +17,6 @@ class EVKAppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    //TODO:- REFACTOR via presenter
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         EVKBrain.brain.presenter.openURL(url)
         return true
