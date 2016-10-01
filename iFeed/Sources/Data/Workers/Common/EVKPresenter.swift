@@ -13,9 +13,9 @@ class EVKPresenter: NSObject {
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    private let appDelegate  = UIApplication.sharedApplication().delegate as! EVKAppDelegate
-    private (set) var window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    private var navigationVC = UINavigationController()
+    fileprivate let appDelegate  = UIApplication.shared.delegate as! EVKAppDelegate
+    fileprivate (set) var window = UIWindow(frame: UIScreen.main.bounds)
+    fileprivate var navigationVC = UINavigationController()
     
     // MARK: - Public APIs
     func showStartScreen() {
@@ -23,21 +23,23 @@ class EVKPresenter: NSObject {
         
         self.navigationVC                                   = UINavigationController()
         self.navigationVC.viewControllers                   = [feedListViewController]
-        self.navigationVC.navigationBar.translucent         = false
+        self.navigationVC.navigationBar.isTranslucent       = false
         self.navigationVC.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.navigationVC.navigationBar.tintColor           = UIColor.whiteColor()
-        self.navigationVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        self.navigationVC.navigationBar.tintColor           = UIColor.white
+        self.navigationVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         self.window.rootViewController = self.navigationVC
         self.window.makeKeyAndVisible()
         
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-        UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
+        UIApplication.shared.isStatusBarHidden = false
     }
     
-    func openURL(url: NSURL) {
-        if !url.resourceSpecifier.isEmpty {
-            self.navigationVC.popToRootViewControllerAnimated(false)
+    func openURL(_ url: URL) {
+        let nsURL = url as NSURL
+        
+        if let aCount = nsURL.resourceSpecifier?.characters.count, aCount > 0 {
+            self.navigationVC.popToRootViewController(animated: false)
             
             let topViewController = self.navigationVC.topViewController
             

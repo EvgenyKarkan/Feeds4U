@@ -11,31 +11,29 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
     
    // MARK: - properties
    weak var parserDelegate: EVKXMLParserProtocol?
-   private var feed : Feed!
+   fileprivate var feed : Feed!
    
    // MARK: - public API
-   func beginParseURL(rssURL: NSURL) {
-        assert(!rssURL.isEqual(nil), "URL is nil");
-    
-        let parser            = MWFeedParser(feedURL: rssURL)
-        parser.delegate       = self
-        parser.feedParseType  = ParseTypeFull
-        parser.connectionType = ConnectionTypeAsynchronously
-        parser.parse()
+   func beginParseURL(_ rssURL: URL) {
+        let parser             = MWFeedParser(feedURL: rssURL)
+        parser?.delegate       = self
+        parser?.feedParseType  = ParseTypeFull
+        parser?.connectionType = ConnectionTypeAsynchronously
+        parser?.parse()
     }
 
     // MARK: - MWFeedParserDelegate API
-    func feedParserDidStart(parser: MWFeedParser!) {
+    func feedParserDidStart(_ parser: MWFeedParser!) {
         self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
     }
     
-    func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
+    func feedParser(_ parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
         self.feed?.title   = info.title
         self.feed?.rssURL  = info.url.absoluteString
         self.feed?.summary = (info.summary != nil) ? info.summary : self.feed?.rssURL
     }
     
-    func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
+    func feedParser(_ parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
         var feedItem: FeedItem?
         feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
         
@@ -47,17 +45,17 @@ class EVKXMLParser: NSObject, MWFeedParserDelegate {
         feedItem?.feed = self.feed!
     }
     
-    func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
+    func feedParser(_ parser: MWFeedParser!, didFailWithError error: Error!) {
         self.parserDelegate?.didFailParsingFeed()
     }
     
-    func feedParserDidFinish(parser: MWFeedParser!) {
+    func feedParserDidFinish(_ parser: MWFeedParser!) {
         self.parserDelegate?.didEndParsingFeed(self.feed!)
     }
 }
 
 // MARK: - EVKXMLParserProtocol
 protocol EVKXMLParserProtocol: class {
-    func didEndParsingFeed(feed: Feed)
+    func didEndParsingFeed(_ feed: Feed)
     func didFailParsingFeed()
 }

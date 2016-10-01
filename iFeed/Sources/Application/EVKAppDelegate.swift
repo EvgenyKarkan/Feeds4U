@@ -12,12 +12,12 @@
 class EVKAppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate APIs
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         EVKBrain.brain.startServices()
         return true
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         EVKBrain.brain.presenter.openURL(url)
         return true
     }

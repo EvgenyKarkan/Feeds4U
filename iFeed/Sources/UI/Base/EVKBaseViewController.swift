@@ -14,19 +14,19 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         super.viewDidLoad()
         
         self.title                            = "Feeds4U"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     // MARK: - Public API - Alerts
-    func showEnterFeedAlertView(feedURL: String) {
-        let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .Alert)
+    func showEnterFeedAlertView(_ feedURL: String) {
+        let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             self.view.endEditing(true)
         }
         alertController.addAction(cancelAction)
         
-        let nextAction = UIAlertAction(title: "Add", style: .Default) { action -> Void in
+        let nextAction = UIAlertAction(title: "Add", style: .default) { action -> Void in
             if let textField = alertController.textFields?.first {
                 if !textField.text!.isEmpty {
                     self.addFeedPressed(textField.text!)
@@ -38,7 +38,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
         
         alertController.addAction(nextAction)
-        alertController.addTextFieldWithConfigurationHandler { textField -> Void in
+        alertController.addTextField { textField -> Void in
             textField.placeholder = "http://www.something.com/rss"
             
             if !feedURL.isEmpty {
@@ -47,7 +47,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
         
         let rootVConWindow = EVKBrain.brain.presenter.window.rootViewController
-        rootVConWindow!.presentViewController(alertController, animated: true, completion: nil)
+        rootVConWindow!.present(alertController, animated: true, completion: nil)
     }
     
     func showInvalidRSSAlert() {
@@ -59,19 +59,19 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
     // MARK: - Public API - Add feed
-    func addFeedPressed(URL: String) {
+    func addFeedPressed(_ URL: String) {
         //to override in sublasses
     }
     
     // MARK: - Public API - Parsing
-    func startParsingURL(URL: String) {
+    func startParsingURL(_ URL: String) {
         let parser            = EVKBrain.brain.parser
-        parser.parserDelegate = self
+        parser?.parserDelegate = self
         
-        let url = NSURL(string: URL)
+        let url = Foundation.URL(string: URL)
         
         if url != nil {
-            parser.beginParseURL(NSURL(string: URL)!)
+            parser?.beginParseURL(Foundation.URL(string: URL)!)
         }
         else {
             self.showInvalidRSSAlert()
@@ -79,7 +79,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
     // MARK: - EVKXMLParserProtocol API
-    func didEndParsingFeed(feed: Feed) {
+    func didEndParsingFeed(_ feed: Feed) {
         //to override in subclasses
     }
     
@@ -88,14 +88,14 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
    // MARK: - Common alert
-   func showAlertMessage(message : String) {
-       let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.Alert)
+   func showAlertMessage(_ message : String) {
+       let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.alert)
 
-       let okAction = UIAlertAction(title: "Ok", style:.Default) { action -> Void in
+       let okAction = UIAlertAction(title: "Ok", style:.default) { action -> Void in
             self.view.endEditing(true)
        }
        alertController.addAction(okAction)
 
-       self.presentViewController(alertController, animated: true, completion: nil)
+       self.present(alertController, animated: true, completion: nil)
    }
 }

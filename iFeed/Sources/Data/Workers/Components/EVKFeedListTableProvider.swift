@@ -9,23 +9,23 @@
 
 class EVKFeedListTableProvider: EVKBaseTableProvider {
  
-    private let kFeedCell: String = "FeedCell"
+    fileprivate let kFeedCell: String = "FeedCell"
     
     // MARK: - Overriden base API
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(kFeedCell) as? EVKFeedCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: kFeedCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                = EVKFeedCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kFeedCell)
-            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell                = EVKFeedCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: kFeedCell)
+            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
         
         var feed: Feed?
-        feed = self.dataSource[indexPath.row] as? Feed
+        feed = self.dataSource[(indexPath as NSIndexPath).row] as? Feed
 
         if feed != nil {
             cell!.titleText      = feed?.title

@@ -22,33 +22,33 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
     
     // MARK: - UITableViewDelegate & UITableViewDatasource API
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.cellDidPress(atIndexPath: indexPath)
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         self.delegate?.cellNeedsDelete!(atIndexPath: indexPath)
     }
 }
 
 // MARK: - EVKTableProviderProtocol
 @objc protocol EVKTableProviderProtocol : class {
-    func cellDidPress(atIndexPath atIndexPath: NSIndexPath)
-    optional func cellNeedsDelete(atIndexPath atIndexPath: NSIndexPath)
+    func cellDidPress(atIndexPath: IndexPath)
+    @objc optional func cellNeedsDelete(atIndexPath: IndexPath)
 }

@@ -23,7 +23,7 @@ class Feed: NSManagedObject {
     func sortedItems() -> [FeedItem] {
         let unsortedItems: [FeedItem] = (self.feedItems.allObjects as? [FeedItem])!
         
-        let sortedArray = unsortedItems.sort({ (item1: FeedItem, item2: FeedItem) -> Bool in
+        let sortedArray = unsortedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
             return item1.publishDate.timeIntervalSince1970 > item2.publishDate.timeIntervalSince1970
         })
         

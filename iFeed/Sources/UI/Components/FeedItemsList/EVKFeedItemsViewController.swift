@@ -24,7 +24,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     override func loadView() {
         self.provider = EVKFeedItemsTableProvider(delegateObject: self)
         
-        let aView = EVKFeedItemsView (frame: UIScreen.mainScreen().bounds)
+        let aView = EVKFeedItemsView (frame: UIScreen.main.bounds)
         
         self.feedItemsView = aView
         self.view = aView
@@ -38,7 +38,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         super.viewDidLoad()
         
         // populate table view
-        if self.feed != nil && self.feed?.feedItems.allObjects.count > 0 {
+        if self.feed != nil && (self.feed?.feedItems.allObjects.count)! > 0 {
             let items = self.feed?.sortedItems()
     
             self.provider?.dataSource = items!
@@ -47,7 +47,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.feedItemsView?.tableView.reloadData()
@@ -56,8 +56,8 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
     
     // MARK: - EVKTableProviderProtocol API
-    func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
-        let item = self.feed?.sortedItems()[atIndexPath.row]
+    func cellDidPress(atIndexPath: IndexPath) {
+        let item = self.feed?.sortedItems()[(atIndexPath as NSIndexPath).row]
         
         if item?.link != nil {
             item?.wasRead = true
@@ -75,7 +75,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
     
     // MARK: - EVKFeedListViewProtocol API
-    func didPullToRefresh(sender: UIRefreshControl) {
+    func didPullToRefresh(_ sender: UIRefreshControl) {
         assert(!sender.isEqual(nil), "Sender is nil")
 
         let URL: String = self.feed!.rssURL
@@ -83,13 +83,13 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
     
     // MARK: - EVKXMLParserProtocol API
-    override func didEndParsingFeed(feed: Feed) {
+    override func didEndParsingFeed(_ feed: Feed) {
         if !feed.isEqual(nil) && self.feed != nil {
             //self feed
             let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
             
             //array from of all feed items 'publish dates'
-            let refreshDatesArr: [NSTimeInterval] = existFeedItems.map {
+            let refreshDatesArr: [TimeInterval] = existFeedItems.map {
                 return $0.publishDate.timeIntervalSince1970
             }
             

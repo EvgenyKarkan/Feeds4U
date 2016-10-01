@@ -23,7 +23,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         
         self.provider = EVKFeedListTableProvider(delegateObject: self)
         
-        let aView = EVKFeedListView (frame: UIScreen.mainScreen().bounds)
+        let aView = EVKFeedListView (frame: UIScreen.main.bounds)
         
         self.feedListView = aView
         self.view         = aView
@@ -35,7 +35,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.addPressed(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addPressed(_:)))
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
         
         if EVKBrain.brain.coreDater.allFeeds().count > 0 {
@@ -46,7 +46,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
@@ -55,20 +55,20 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - Actions
-    func addPressed (sender: UIButton) {
+    func addPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
         self.showEnterFeedAlertView("");
     }
     
-    func trashPressed (sender: UIButton) {
-        let needsEdit: Bool = !self.feedListView!.tableView.editing
+    func trashPressed (_ sender: UIButton) {
+        let needsEdit: Bool = !self.feedListView!.tableView.isEditing
         
         self.feedListView?.tableView.setEditing(needsEdit, animated: true)
     }
     
     // MARK: - Inherited from base
-    override func addFeedPressed (URL: String) {
+    override func addFeedPressed (_ URL: String) {
         if EVKBrain.brain.isDuplicateURL(URL) {
             self.showDuplicateRSSAlert()
         }
@@ -78,7 +78,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - EVKXMLParserProtocol API
-    override func didEndParsingFeed(feed: Feed) {
+    override func didEndParsingFeed(_ feed: Feed) {
         if !feed.isEqual(nil) {
             self.provider?.dataSource.append(feed)
             EVKBrain.brain.coreDater.saveContext()
@@ -94,19 +94,19 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - EVKTableProviderProtocol
-    func cellDidPress(atIndexPath atIndexPath: NSIndexPath) {
-        if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
+    func cellDidPress(atIndexPath: IndexPath) {
+        if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
             let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
-            if itemsVC.feed?.feedItems.count > 0 {
+            if (itemsVC.feed?.feedItems.count)! > 0 {
                 self.navigationController?.pushViewController(itemsVC, animated: true)
             }
         }
     }
     
-    func cellNeedsDelete(atIndexPath atIndexPath: NSIndexPath) {
-        if atIndexPath.row < EVKBrain.brain.coreDater.allFeeds().count {
+    func cellNeedsDelete(atIndexPath: IndexPath) {
+        if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
             let feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
             
             EVKBrain.brain.coreDater.deleteObject(feedToDelete)
@@ -115,7 +115,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             self.provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
         
             self.feedListView?.tableView.beginUpdates()
-            self.feedListView?.tableView.deleteRowsAtIndexPaths([atIndexPath], withRowAnimation: .Automatic)
+            self.feedListView?.tableView.deleteRows(at: [atIndexPath], with: .automatic)
             self.feedListView?.tableView.endUpdates()
             
             //hide 'trash' for no data source
@@ -129,9 +129,9 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - Helpers
-    func addTrashButton(add: Bool) {
+    func addTrashButton(_ add: Bool) {
         if add {
-            let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(self.trashPressed(_:)))
+            let trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.trashPressed(_:)))
             self.navigationItem.setLeftBarButtonItems([trashButton], animated: true)
         }
         else {

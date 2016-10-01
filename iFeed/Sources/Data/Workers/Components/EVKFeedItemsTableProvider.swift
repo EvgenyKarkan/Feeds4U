@@ -10,32 +10,32 @@
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
     // MARK: - Constant
-    private let kItemsCell = "ItemsCell"
+    fileprivate let kItemsCell = "ItemsCell"
     
     // MARK: - Overriden base API
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(kItemsCell) as? EVKFeedCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: kItemsCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                = EVKFeedCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kItemsCell)
-            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell                = EVKFeedCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: kItemsCell)
+            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
         
         var item: FeedItem?
         
-        if self.dataSource.count > 0 && indexPath.row < self.dataSource.count {
-            item = self.dataSource[indexPath.row] as? FeedItem
+        if self.dataSource.count > 0 && (indexPath as NSIndexPath).row < self.dataSource.count {
+            item = self.dataSource[(indexPath as NSIndexPath).row] as? FeedItem
         }
 
         if item != nil {
-            let dateFormatter        = NSDateFormatter()
+            let dateFormatter        = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
             
-            let dateString = dateFormatter.stringFromDate(item!.publishDate)
+            let dateString = dateFormatter.string(from: item!.publishDate as Date)
 
             cell!.wasReadCell  = item!.wasRead.boolValue
             cell!.titleText    = item!.title
@@ -45,7 +45,7 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         return cell!
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
         return false
     }
 }

@@ -12,11 +12,11 @@ import CoreData
 class EVKBrain: NSObject {
    
     // MARK: - Readonly properties
-    private (set) var parser: EVKXMLParser!
-    private (set) var coreDater: EVKCoreDataManager!
-    private (set) var presenter: EVKPresenter!
-    private (set) var analytics: EVKAnalytics!
-    private (set) var cacher: EVKCacher!
+    fileprivate (set) var parser: EVKXMLParser!
+    fileprivate (set) var coreDater: EVKCoreDataManager!
+    fileprivate (set) var presenter: EVKPresenter!
+    fileprivate (set) var analytics: EVKAnalytics!
+    fileprivate (set) var cacher: EVKCacher!
     
     // MARK: - Singleton
     class var brain: EVKBrain {
@@ -44,25 +44,23 @@ class EVKBrain: NSObject {
         self.cacher.startToCache()
     }
     
-    func createEntity(name name: String) -> NSManagedObject {
+    func createEntity(name: String) -> NSManagedObject {
         return self.coreDater.createEntity(name: name)
     }
     
-    func feedForIndexPath(indexPath indexPath: NSIndexPath) -> Feed {
-        assert(!indexPath.isEqual(nil), "Index path param is nil")
-        
+    func feedForIndexPath(indexPath: IndexPath) -> Feed {
         var feed: Feed?
         let feedsCount = self.coreDater.allFeeds().count
         
-        if feedsCount > 0 && indexPath.row < feedsCount {
-            feed = self.coreDater.allFeeds()[indexPath.row]
+        if feedsCount > 0 && (indexPath as NSIndexPath).row < feedsCount {
+            feed = self.coreDater.allFeeds()[(indexPath as NSIndexPath).row]
         }
         assert(feed != nil, "Feed for index path is nil")
         
         return feed!
     }
     
-    func isDuplicateURL(rssURL: String) -> Bool {
+    func isDuplicateURL(_ rssURL: String) -> Bool {
         var returnValue: Bool = false
         let allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
         
