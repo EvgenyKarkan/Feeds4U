@@ -1,7 +1,7 @@
 Feeds4U
 ===========
 
-RSS reader app written in Swift 2.0, and yes, software design is pretty good here.
+RSS reader app written in Swift, and yes, software design is pretty good here.
 
 ## Contributions
 All PRs should be directed to '_develop_' branch.
