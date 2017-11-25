@@ -55,13 +55,13 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - Actions
-    func addPressed (_ sender: UIButton) {
+    @objc func addPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
         self.showEnterFeedAlertView("");
     }
     
-    func trashPressed (_ sender: UIButton) {
+    @objc func trashPressed (_ sender: UIButton) {
         let needsEdit: Bool = !self.feedListView!.tableView.isEditing
         
         self.feedListView?.tableView.setEditing(needsEdit, animated: true)
