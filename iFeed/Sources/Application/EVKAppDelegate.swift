@@ -21,4 +21,5 @@ class EVKAppDelegate: UIResponder, UIApplicationDelegate {
         EVKBrain.brain.presenter.openURL(url)
         return true
     }
+    // SWIFT 4
 }
