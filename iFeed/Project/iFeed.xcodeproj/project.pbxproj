@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
 		DE176A6B1B9B706F0046EDED /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A671B9B706F0046EDED /* EVKBrain.swift */; };
 		DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
 		DE176A671B9B706F0046EDED /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
 		DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			children = (
 				DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */,
 				DE176AB21B9CA0AD0046EDED /* EVKFeedListViewController.swift */,
+				95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */,
 			);
 			path = FeedList;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
+				95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */,
 				DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */,
 				DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */,
 				DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */,
