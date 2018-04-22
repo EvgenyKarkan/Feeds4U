@@ -15,19 +15,19 @@
 		950EF2A61F49E9B400174155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950EF2A41F49E9B400174155 /* LaunchScreen.storyboard */; };
 		950EF2B11F49E9B400174155 /* SimpleSimilarityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EF2B01F49E9B400174155 /* SimpleSimilarityTests.swift */; };
 		950EF2BC1F49E9B400174155 /* SimpleSimilarityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EF2BB1F49E9B400174155 /* SimpleSimilarityUITests.swift */; };
-		950EF2D71F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */; };
+		950EF2D71F49EA2C00174155 /* SimpleSimilarityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */; };
 		950EF2DE1F49EA2C00174155 /* TextualImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EF2DD1F49EA2C00174155 /* TextualImportTests.swift */; };
 		950EF2E01F49EA2C00174155 /* SimpleSimilarityFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 950EF2D01F49EA2C00174155 /* SimpleSimilarityFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		950EF2E31F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */; };
-		950EF2E41F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		950EF2ED1F49EAF100174155 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EF2EC1F49EAF100174155 /* TextualDataImport.swift */; };
+		950EF2E31F49EA2C00174155 /* SimpleSimilarityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */; };
+		950EF2E41F49EA2C00174155 /* SimpleSimilarityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		950EF2F91F49FA5000174155 /* sample.csv in Resources */ = {isa = PBXBuildFile; fileRef = 950EF2F81F49FA4800174155 /* sample.csv */; };
 		95118C8E207A68A200E732F3 /* MatchingEngineLargeCorpusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95118C8D207A68A200E732F3 /* MatchingEngineLargeCorpusTests.swift */; };
 		95118C92207A715500E732F3 /* newspaper.csv in Resources */ = {isa = PBXBuildFile; fileRef = 95118C91207A715400E732F3 /* newspaper.csv */; };
-		953552E7203AB7000084EF5A /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953552E6203AB7000084EF5A /* StringsForBagOfWords.swift */; };
-		9552E8871F6E98F1001CA2BF /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9552E8861F6E98F1001CA2BF /* MatchingEngine.swift */; };
 		957B63EF1F9C91AA0048C5FE /* MatchingEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B63EE1F9C91AA0048C5FE /* MatchingEngineTests.swift */; };
-		95DB6D0A2089E8930066A4CF /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D092089E8930066A4CF /* MatchingEngineAlgorithm.swift */; };
+		958C68A1208CA3F900D31527 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EF2EC1F49EAF100174155 /* TextualDataImport.swift */; };
+		958C68A2208CA3FD00D31527 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9552E8861F6E98F1001CA2BF /* MatchingEngine.swift */; };
+		958C68A3208CA40000D31527 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D092089E8930066A4CF /* MatchingEngineAlgorithm.swift */; };
+		958C68A4208CA40400D31527 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953552E6203AB7000084EF5A /* StringsForBagOfWords.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +75,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				950EF2E41F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Embed Frameworks */,
+				950EF2E41F49EA2C00174155 /* SimpleSimilarityFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +97,7 @@
 		950EF2B71F49E9B400174155 /* SimpleSimilarityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleSimilarityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		950EF2BB1F49E9B400174155 /* SimpleSimilarityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSimilarityUITests.swift; sourceTree = "<group>"; };
 		950EF2BD1F49E9B400174155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleSimilarityFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleSimilarityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		950EF2D01F49EA2C00174155 /* SimpleSimilarityFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleSimilarityFramework.h; sourceTree = "<group>"; };
 		950EF2D11F49EA2C00174155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		950EF2D61F49EA2C00174155 /* SimpleSimilarityFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleSimilarityFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				950EF2E31F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Frameworks */,
+				950EF2E31F49EA2C00174155 /* SimpleSimilarityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				950EF2D71F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework in Frameworks */,
+				950EF2D71F49EA2C00174155 /* SimpleSimilarityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +172,7 @@
 				950EF2961F49E9B400174155 /* SimpleSimilarity.app */,
 				950EF2AC1F49E9B400174155 /* SimpleSimilarityTests.xctest */,
 				950EF2B71F49E9B400174155 /* SimpleSimilarityUITests.xctest */,
-				950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */,
+				950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */,
 				950EF2D61F49EA2C00174155 /* SimpleSimilarityFrameworkTests.xctest */,
 			);
 			name = Products;
@@ -313,9 +313,9 @@
 			productReference = 950EF2B71F49E9B400174155 /* SimpleSimilarityUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework iOS */ = {
+		950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 950EF2E51F49EA2C00174155 /* Build configuration list for PBXNativeTarget "SimpleSimilarityFramework iOS" */;
+			buildConfigurationList = 950EF2E51F49EA2C00174155 /* Build configuration list for PBXNativeTarget "SimpleSimilarityFramework" */;
 			buildPhases = (
 				950EF2C91F49EA2C00174155 /* Sources */,
 				950EF2CA1F49EA2C00174155 /* Frameworks */,
@@ -326,9 +326,9 @@
 			);
 			dependencies = (
 			);
-			name = "SimpleSimilarityFramework iOS";
+			name = SimpleSimilarityFramework;
 			productName = SimpleSimilarityFramework;
-			productReference = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework_iOS.framework */;
+			productReference = 950EF2CE1F49EA2C00174155 /* SimpleSimilarityFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		950EF2D51F49EA2C00174155 /* SimpleSimilarityFrameworkTests */ = {
@@ -397,7 +397,7 @@
 				950EF2951F49E9B400174155 /* SimpleSimilarity */,
 				950EF2AB1F49E9B400174155 /* SimpleSimilarityTests */,
 				950EF2B61F49E9B400174155 /* SimpleSimilarityUITests */,
-				950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework iOS */,
+				950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework */,
 				950EF2D51F49EA2C00174155 /* SimpleSimilarityFrameworkTests */,
 			);
 		};
@@ -477,10 +477,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95DB6D0A2089E8930066A4CF /* MatchingEngineAlgorithm.swift in Sources */,
-				953552E7203AB7000084EF5A /* StringsForBagOfWords.swift in Sources */,
-				9552E8871F6E98F1001CA2BF /* MatchingEngine.swift in Sources */,
-				950EF2ED1F49EAF100174155 /* TextualDataImport.swift in Sources */,
+				958C68A4208CA40400D31527 /* StringsForBagOfWords.swift in Sources */,
+				958C68A3208CA40000D31527 /* MatchingEngineAlgorithm.swift in Sources */,
+				958C68A2208CA3FD00D31527 /* MatchingEngine.swift in Sources */,
+				958C68A1208CA3F900D31527 /* TextualDataImport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,7 +509,7 @@
 		};
 		950EF2D91F49EA2C00174155 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework iOS */;
+			target = 950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework */;
 			targetProxy = 950EF2D81F49EA2C00174155 /* PBXContainerItemProxy */;
 		};
 		950EF2DB1F49EA2C00174155 /* PBXTargetDependency */ = {
@@ -519,7 +519,7 @@
 		};
 		950EF2E21F49EA2C00174155 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework iOS */;
+			target = 950EF2CD1F49EA2C00174155 /* SimpleSimilarityFramework */;
 			targetProxy = 950EF2E11F49EA2C00174155 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -870,7 +870,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		950EF2E51F49EA2C00174155 /* Build configuration list for PBXNativeTarget "SimpleSimilarityFramework iOS" */ = {
+		950EF2E51F49EA2C00174155 /* Build configuration list for PBXNativeTarget "SimpleSimilarityFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				950EF2E61F49EA2C00174155 /* Debug */,

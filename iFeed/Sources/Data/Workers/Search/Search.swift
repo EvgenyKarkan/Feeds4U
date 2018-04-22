@@ -7,9 +7,19 @@
 //
 
 import Foundation
-import SimpleSimilarityFramework_iOS
+import SimpleSimilarityFramework
 
 class Search {
+    
+    private var matchingEngine: MatchingEngine = MatchingEngine()
+    
+    func fillMatchingEngine() {
+        
+    }
+    
+    func search(for searchTerm: String) {
+        
+    }
     
     
 }

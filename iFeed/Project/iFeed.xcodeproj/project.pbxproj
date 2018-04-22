@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		958C68A0208CA13100D31527 /* SimpleSimilarityFramework_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */; };
+		958C68A6208CA74E00D31527 /* SimpleSimilarityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */; };
 		959B3F03208C9337008EBA93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B3F02208C9337008EBA93 /* Search.swift */; };
 		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
@@ -63,7 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleSimilarityFramework_iOS.framework; path = ../../Carthage/Build/iOS/SimpleSimilarityFramework_iOS.framework; sourceTree = "<group>"; };
+		958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleSimilarityFramework.framework; path = ../../Carthage/Build/iOS/SimpleSimilarityFramework.framework; sourceTree = "<group>"; };
 		959B3F02208C9337008EBA93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
@@ -127,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				958C68A6208CA74E00D31527 /* SimpleSimilarityFramework.framework in Frameworks */,
 				DE7752CD1BA7689400A82EFE /* Crashlytics.framework in Frameworks */,
-				958C68A0208CA13100D31527 /* SimpleSimilarityFramework_iOS.framework in Frameworks */,
 				DE970DD81C26BA5500D33881 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,7 +146,7 @@
 		958C689A208C98EB00D31527 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */,
+				958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -547,11 +547,11 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/../../Carthage/Build/iOS/SimpleSimilarityFramework_iOS.framework",
+				"$(SRCROOT)/../../Carthage/Build/iOS/SimpleSimilarityFramework.framework",
 			);
 			name = "Copy frameworks";
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SimpleSimilarityFramework_iOS.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SimpleSimilarityFramework.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
