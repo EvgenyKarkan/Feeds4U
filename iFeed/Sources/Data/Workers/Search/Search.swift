@@ -11,12 +11,13 @@ import SimpleSimilarityFramework
 
 struct Search {
     
-    private var matchingEngine: MatchingEngine = MatchingEngine()
+    private let matchingEngine = MatchingEngine()
+    private let coreDataManager = EVKCoreDataManager()
     
     // TODO: need to pass in completion block
     func fillMatchingEngine() {
         // get all FeedItems
-        let allFeedItems = EVKCoreDataManager().allFeedItems()
+        let allFeedItems = coreDataManager.allFeedItems()
         
         // create a matching engine based on these feed items
         guard !allFeedItems.isEmpty else {

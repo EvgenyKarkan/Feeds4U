@@ -8,7 +8,6 @@
     </entity>
     <entity name="FeedItem" representedClassName="FeedItem" syncable="YES">
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="preprocessedTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="publishDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wasRead" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
@@ -16,6 +15,6 @@
     </entity>
     <elements>
         <element name="Feed" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="FeedItem" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="FeedItem" positionX="-54" positionY="-9" width="128" height="120"/>
     </elements>
 </model>

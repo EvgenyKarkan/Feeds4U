@@ -150,7 +150,7 @@ class EVKCoreDataManager: NSObject {
             #endif
         }
         
-        assert(result != nil, "Found nil feed array")
+        assert(result != nil, "Found nil feed item array")
         
         return result!
     }
