@@ -7,18 +7,28 @@
 //
 
 import UIKit
+import SimpleSimilarityFramework
 
 extension EVKFeedListViewController {
     @objc func searchPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
-        search.fillMatchingEngine()
+        let waitingAnimation = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.addSubview(waitingAnimation)
+        waitingAnimation.frame = CGRect(x: 120, y: 200, width: 37, height: 37)
+        waitingAnimation.startAnimating()
         
-        self.showEnterSearch();
+        search.fillMatchingEngine {
+            DispatchQueue.main.async {
+                waitingAnimation.stopAnimating()
+                waitingAnimation.removeFromSuperview()
+                self.showEnterSearch()
+            }
+        }
     }
     
     func showEnterSearch() {
-        let alertController = UIAlertController(title: nil, message: "Search", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Search", message: "Search works best when you enter more than one word.", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             self.view.endEditing(true)
@@ -27,7 +37,19 @@ extension EVKFeedListViewController {
         
         let nextAction = UIAlertAction(title: "Search", style: .default) { action -> Void in
             if let query = alertController.textFields?.first?.text, !query.isEmpty {
-                self.search.search(for: query)
+                self.search.search(for: query, resultsFound: { (results) in
+                    DispatchQueue.main.async {
+                        guard let results = results, !results.isEmpty else {
+                            let noResultsFoundAlert = UIAlertController(title: "Search", message: "No results found", preferredStyle: .alert)
+                            let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            noResultsFoundAlert.addAction(noResultsCancelAction)
+                            self.present(noResultsFoundAlert, animated: true, completion: nil)
+                            return
+                            
+                            
+                        }
+                    }
+                })
             }
         }
         

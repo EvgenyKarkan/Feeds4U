@@ -14,8 +14,7 @@ struct Search {
     private let matchingEngine = MatchingEngine()
     private let coreDataManager = EVKCoreDataManager()
     
-    // TODO: need to pass in completion block
-    func fillMatchingEngine() {
+    func fillMatchingEngine(completion: @escaping () -> Void) {
         // get all FeedItems
         let allFeedItems = coreDataManager.allFeedItems()
         
@@ -28,22 +27,17 @@ struct Search {
             return TextualData(inputString: feedItem.title, origin: nil, originObject: feedItem)
         }
         
-        matchingEngine.fillMatchingEngine(with: textualData, completion: {
-            
-        })
+        matchingEngine.fillMatchingEngine(with: textualData, onlyRemoveFrequentStopwords: true, completion: completion)
     }
     
-    // TODO: need to pass in completion block
-    func search(for searchTerm: String) {
+    func search(for searchTerm: String, resultsFound:([Result]?) -> Void) {
         guard matchingEngine.isFilled else {
             return
         }
         
         let query = TextualData(inputString: searchTerm, origin: nil, originObject: nil)
         
-        try? matchingEngine.result(betterThan: 0.05, for: query, resultsFound: { (result) in
-            
-        })
+        try? matchingEngine.result(betterThan: 0.005, for: query, resultsFound: resultsFound)
     }
     
     

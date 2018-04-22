@@ -33,7 +33,7 @@ class MatchingEngineLargeCorpusTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let yellowTailedTuna = TextualData(inputString: "Der Bundeskanzler reiste nach Algerien", origin: nil)
+            let yellowTailedTuna = TextualData(inputString: "Der Bundeskanzler reiste nach Algerien", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: yellowTailedTuna, exhaustive: false, resultFound: { (result) in
                 guard let result = result else {
@@ -74,7 +74,7 @@ class MatchingEngineLargeCorpusTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let expectedBestMatch = TextualData(inputString: "Das ist die wichtigste Lektion für Amerika aus dem Jahr 2002", origin: nil)
+            let expectedBestMatch = TextualData(inputString: "Das ist die wichtigste Lektion für Amerika aus dem Jahr 2002", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: expectedBestMatch, exhaustive: true, resultFound: { (result) in
                 guard let result = result else {
@@ -116,7 +116,7 @@ class MatchingEngineLargeCorpusTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let noMatchQuery = TextualData(inputString: "Tuna makes for great sashimi", origin: nil)
+            let noMatchQuery = TextualData(inputString: "Tuna makes for great sashimi", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: noMatchQuery, exhaustive: true, resultFound: { (result) in
                 XCTAssertNil(result, "Result found where no result was expected")

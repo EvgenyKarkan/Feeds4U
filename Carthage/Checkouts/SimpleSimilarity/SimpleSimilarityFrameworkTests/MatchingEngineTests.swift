@@ -49,7 +49,7 @@ class MatchingEngineTests: XCTestCase {
             }
         }
 
-        let commonWords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: bagOfWords)
+        let commonWords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: bagOfWords, onlyFrequent: false)
         XCTAssert(!commonWords.contains("30"))
         XCTAssert(!commonWords.contains("60"))
         XCTAssert(commonWords.contains("3"))
@@ -69,7 +69,7 @@ class MatchingEngineTests: XCTestCase {
             }
         }
 
-        let commonWords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: bagOfWords)
+        let commonWords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: bagOfWords, onlyFrequent: false)
         XCTAssert(commonWords.isEmpty)
     }
     
@@ -95,7 +95,7 @@ class MatchingEngineTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let yellowTailedTuna = TextualData(inputString: "yellow tuna", origin: nil)
+            let yellowTailedTuna = TextualData(inputString: "yellow tuna", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: yellowTailedTuna, exhaustive: false, resultFound: { (result) in
                 guard let result = result else {
@@ -136,7 +136,7 @@ class MatchingEngineTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let yellowTailedTuna = TextualData(inputString: "Yellow tailed tuna makes for great sashimi", origin: nil)
+            let yellowTailedTuna = TextualData(inputString: "Yellow tailed tuna makes for great sashimi", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: yellowTailedTuna, exhaustive: true, resultFound: { (result) in
                 guard let result = result else {
@@ -179,7 +179,7 @@ class MatchingEngineTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let noMatchQuery = TextualData(inputString: "Zwei Zwerge stehen an der Kueche", origin: nil)
+            let noMatchQuery = TextualData(inputString: "Zwei Zwerge stehen an der Kueche", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: noMatchQuery, exhaustive: true, resultFound: { (result) in
                 XCTAssertNil(result, "Result found where no result was expected")
@@ -212,7 +212,7 @@ class MatchingEngineTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let queryWithResultList = TextualData(inputString: "Is tuna a good fish for cooking?", origin: nil)
+            let queryWithResultList = TextualData(inputString: "Is tuna a good fish for cooking?", origin: nil, originObject: nil)
             
             try? matchingEngine.result(betterThan: 0.1, for: queryWithResultList, resultsFound: { (results) in
                 XCTAssertNotNil(results)
@@ -242,20 +242,20 @@ class MatchingEngineTests: XCTestCase {
     
     func testPreprocessStringSentence() {
         
-        let preprocessedBagOfWods = MatchingEngineAlgortihm.preprocess(string: "The quick brown fox did jump over the fences.")
+        let preprocessedBagOfWords = MatchingEngineAlgortihm.preprocess(string: "The quick brown fox did jump over the fences.")
         
-        XCTAssertFalse(preprocessedBagOfWods.isEmpty)
-        XCTAssertTrue(preprocessedBagOfWods.contains("do"))
-        XCTAssertTrue(preprocessedBagOfWods.contains("quick"))
+        XCTAssertFalse(preprocessedBagOfWords.isEmpty)
+        XCTAssertTrue(preprocessedBagOfWords.contains("do"))
+        XCTAssertTrue(preprocessedBagOfWords.contains("quick"))
     }
     
     func testPreprocessStringConjugations() {
         
-        let preprocessedBagOfWods1 = MatchingEngineAlgortihm.preprocess(string: "I was going to the bakery.")
-        let preprocessedBagOfWods2 = MatchingEngineAlgortihm.preprocess(string: "They are going to the bakery.")
-        let preprocessedBagOfWods3 = MatchingEngineAlgortihm.preprocess(string: "We will be going to the bakery.")
+        let preprocessedBagOfWords1 = MatchingEngineAlgortihm.preprocess(string: "I was going to the bakery.")
+        let preprocessedBagOfWords2 = MatchingEngineAlgortihm.preprocess(string: "They are going to the bakery.")
+        let preprocessedBagOfWords3 = MatchingEngineAlgortihm.preprocess(string: "We will be going to the bakery.")
         
-        for bagOfWords in [preprocessedBagOfWods1, preprocessedBagOfWods2, preprocessedBagOfWods3] {
+        for bagOfWords in [preprocessedBagOfWords1, preprocessedBagOfWords2, preprocessedBagOfWords3] {
             XCTAssertFalse(bagOfWords.isEmpty)
             XCTAssertTrue(bagOfWords.contains("be"))
             XCTAssertTrue(bagOfWords.contains("go"))
@@ -265,14 +265,24 @@ class MatchingEngineTests: XCTestCase {
     
     func testPreprocessStringPlurals() {
         
-        let preprocessedBagOfWods1 = MatchingEngineAlgortihm.preprocess(string: "Joshua, let's go see the trains.")
-        let preprocessedBagOfWods2 = MatchingEngineAlgortihm.preprocess(string: "Let's do some train spotting.")
-        let preprocessedBagOfWods3 = MatchingEngineAlgortihm.preprocess(string: "From which station are trains leaving for Dover?")
+        let preprocessedBagOfWords1 = MatchingEngineAlgortihm.preprocess(string: "Joshua, let's go see the trains.")
+        let preprocessedBagOfWords2 = MatchingEngineAlgortihm.preprocess(string: "Let's do some train spotting.")
+        let preprocessedBagOfWords3 = MatchingEngineAlgortihm.preprocess(string: "From which station are trains leaving for Dover?")
         
-        for bagOfWords in [preprocessedBagOfWods1, preprocessedBagOfWods2, preprocessedBagOfWods3] {
+        for bagOfWords in [preprocessedBagOfWords1, preprocessedBagOfWords2, preprocessedBagOfWords3] {
             XCTAssertFalse(bagOfWords.isEmpty)
             XCTAssertTrue(bagOfWords.contains("train"))
         }
+    }
+    
+    func testPreprocessStringNoProcessing1() {
+        let preprocessedBagOfWords = MatchingEngineAlgortihm.preprocess(string: "Nahles")
+        XCTAssertTrue(preprocessedBagOfWords.contains("nahles"))
+    }
+    
+    func testPreprocessStringNoProcessing2() {
+        let preprocessedBagOfWords = MatchingEngineAlgortihm.preprocess(string: "SPD Nahles")
+        XCTAssertTrue(preprocessedBagOfWords.contains("spd"))
     }
     
 }

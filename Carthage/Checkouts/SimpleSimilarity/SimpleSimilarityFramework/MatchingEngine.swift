@@ -57,11 +57,18 @@ open class MatchingEngine {
     /// - Returns: a normalized represenation of the text corpus
     /// - Throws: a MatchingEngineNotFilledError when normalizedRepresentation() is called before fillMatchingEngine()
     /// - Precondition: you must first call fillMatchingEngine()
-    open func normalizedRepresentation() throws -> [CorpusEntry]  {
-        return []
-    }
+//    open func normalizedRepresentation() throws -> [CorpusEntry]  {
+//        return []
+//    }
 
-    open func fillMatchingEngine(with corpus:[TextualData], completion: @escaping () -> Void) {
+    
+    /// Fill the matching engine with textual data
+    ///
+    /// - Parameters:
+    ///   - corpus: the text corpus that is the backing store of the matching engine
+    ///   - onlyRemoveFrequentStopwords: set to true when you only want to remove frequent words but not infrequent ones, default value is false
+    ///   - completion: completion block called when the matching engine is filled
+    open func fillMatchingEngine(with corpus:[TextualData], onlyRemoveFrequentStopwords: Bool = false, completion: @escaping () -> Void) {
         isFilled = false
         
         DispatchQueue.global().async {
@@ -87,7 +94,7 @@ open class MatchingEngine {
             })
             
             // determine frequent and infrequent words
-            self.stopwords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: self.allWords)
+            self.stopwords = MatchingEngineAlgortihm.determineFrequentAndInfrequentWords(in: self.allWords, onlyFrequent: onlyRemoveFrequentStopwords)
             
             // create dispatch group so removal of stopwords can happen on 2 seperate queues
             let localStopwords = self.stopwords
