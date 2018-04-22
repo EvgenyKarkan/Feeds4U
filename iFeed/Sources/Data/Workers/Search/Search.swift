@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import SimpleSimilarityFramework_iOS
 
 class Search {
-    
     
     
 }
