@@ -12,6 +12,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - properties
     var feedListView: EVKFeedListView?
     var provider:     EVKFeedListTableProvider?
+    let search:       Search = Search()
     
     // MARK: - Deinit
     deinit {

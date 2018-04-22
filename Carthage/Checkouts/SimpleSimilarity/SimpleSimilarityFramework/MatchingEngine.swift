@@ -62,6 +62,8 @@ open class MatchingEngine {
     }
 
     open func fillMatchingEngine(with corpus:[TextualData], completion: @escaping () -> Void) {
+        isFilled = false
+        
         DispatchQueue.global().async {
             var processedCorpus: Set<CorpusEntry> = Set()
             var allPreprocessedEntries: Array<CorpusEntry> = Array()
@@ -123,10 +125,6 @@ open class MatchingEngine {
             completion()
         }
     }
-
-  
-    
-
 
     /// Get the best result for the given query
     ///

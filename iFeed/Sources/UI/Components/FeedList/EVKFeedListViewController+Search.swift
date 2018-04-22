@@ -12,6 +12,8 @@ extension EVKFeedListViewController {
     @objc func searchPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
+        search.fillMatchingEngine()
+        
         self.showEnterSearch();
     }
     
@@ -24,8 +26,8 @@ extension EVKFeedListViewController {
         alertController.addAction(cancelAction)
         
         let nextAction = UIAlertAction(title: "Search", style: .default) { action -> Void in
-            if let textField = alertController.textFields?.first {
-                
+            if let query = alertController.textFields?.first?.text, !query.isEmpty {
+                self.search.search(for: query)
             }
         }
         

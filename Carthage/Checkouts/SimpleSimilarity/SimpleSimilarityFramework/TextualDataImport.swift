@@ -15,10 +15,19 @@ public struct FileReadError: Error {}
 /// Data structure for a single textual input
 public struct TextualData: Hashable {
     /// The input string
-    let inputString: String
+    public let inputString: String
 
     /// The origin where this string is found. I.e. a book or a webpage or software
-    let origin: String?
+    public let origin: String?
+    
+    /// Reference to an object containig textual data
+    public let originObject: AnyObject?
+    
+    public init(inputString: String, origin: String?, originObject: AnyObject?) {
+        self.inputString = inputString
+        self.origin = origin
+        self.originObject = originObject
+    }
     
     public var hashValue: Int {
         if let origin = origin {
@@ -83,7 +92,7 @@ public struct CSVImport: TextualDataImport {
                 lines.forEach({ (line) in
                     let columns = line.split(separator: ";")
                     if columns.count > 1 {
-                        parsedFileContents.append(TextualData(inputString: String(columns[0]), origin: String(columns[1])))
+                        parsedFileContents.append(TextualData(inputString: String(columns[0]), origin: String(columns[1]), originObject: nil))
                     }
                 })
             }
@@ -128,13 +137,13 @@ public struct NewspaperCorpusImport: TextualDataImport {
                         let columnsCount = columns.count
                         
                         if columnsCount > 4  {
-                            parsedFileContents.append(TextualData(inputString: String(columns[4]), origin: String(columns[3])))
+                            parsedFileContents.append(TextualData(inputString: String(columns[4]), origin: String(columns[3]), originObject: nil))
                         }
                         if columnsCount > 5 {
-                            parsedFileContents.append(TextualData(inputString: String(columns[5]), origin: String(columns[3])))
+                            parsedFileContents.append(TextualData(inputString: String(columns[5]), origin: String(columns[3]), originObject: nil))
                         }
                         if columnsCount > 6 {
-                            parsedFileContents.append(TextualData(inputString: String(columns[6]), origin: String(columns[3])))
+                            parsedFileContents.append(TextualData(inputString: String(columns[6]), origin: String(columns[3]), originObject: nil))
                         }
                     }
                 })
