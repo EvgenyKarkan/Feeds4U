@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		958C689C208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */; };
+		959B3F03208C9337008EBA93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B3F02208C9337008EBA93 /* Search.swift */; };
 		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
 		DE176A6B1B9B706F0046EDED /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A671B9B706F0046EDED /* EVKBrain.swift */; };
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleSimilarityFramework_iOS.framework; path = ../../Carthage/Build/iOS/SimpleSimilarityFramework_iOS.framework; sourceTree = "<group>"; };
+		959B3F02208C9337008EBA93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
 		DE176A671B9B706F0046EDED /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				958C689C208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework in Frameworks */,
 				DE7752CD1BA7689400A82EFE /* Crashlytics.framework in Frameworks */,
 				DE970DD81C26BA5500D33881 /* Fabric.framework in Frameworks */,
 			);
@@ -138,6 +143,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		958C689A208C98EB00D31527 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				958C689B208C98EC00D31527 /* SimpleSimilarityFramework_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		959B3F01208C9306008EBA93 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				959B3F02208C9337008EBA93 /* Search.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		DE176A641B9B706F0046EDED /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +304,7 @@
 				DE763D161B7E841300C8B54A /* iFeed */,
 				DE763D2C1B7E841300C8B54A /* iFeedTests */,
 				DE763D151B7E841300C8B54A /* Products */,
+				958C689A208C98EB00D31527 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -337,6 +359,7 @@
 		DE7D1E3B1B97958A002330A2 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
+				959B3F01208C9306008EBA93 /* Search */,
 				DE176A641B9B706F0046EDED /* Base */,
 				DE176A661B9B706F0046EDED /* Common */,
 				DE176AEE1B9E0DCD0046EDED /* Components */,
@@ -418,6 +441,7 @@
 			buildPhases = (
 				DE763D101B7E841300C8B54A /* Sources */,
 				DE763D111B7E841300C8B54A /* Frameworks */,
+				959B3F09208C947A008EBA93 /* Copy frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
 				DE7752CB1BA7684900A82EFE /* Crashlytics */,
 			);
@@ -462,7 +486,7 @@
 				TargetAttributes = {
 					DE763D131B7E841300C8B54A = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 7VW32GE5L3;
+						DevelopmentTeam = B8AN6892A4;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
@@ -517,6 +541,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		959B3F09208C947A008EBA93 /* Copy frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../Carthage/Build/iOS/SimpleSimilarityFramework_iOS.framework",
+			);
+			name = "Copy frameworks";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SimpleSimilarityFramework_iOS.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,6 +593,7 @@
 				DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */,
 				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
 				DE826C5A1B9B5B570062FE2A /* EVKBaseView.swift in Sources */,
+				959B3F03208C9337008EBA93 /* Search.swift in Sources */,
 				DE176A6B1B9B706F0046EDED /* EVKBrain.swift in Sources */,
 				DE176A891B9C9A920046EDED /* GTMNSString+HTML.m in Sources */,
 				DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */,
@@ -621,6 +662,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../Carthage/Build/iOS/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -677,6 +719,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../Carthage/Build/iOS/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -703,7 +746,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7VW32GE5L3;
+				DEVELOPMENT_TEAM = B8AN6892A4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
@@ -739,7 +782,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 7VW32GE5L3;
+				DEVELOPMENT_TEAM = B8AN6892A4;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../Libs",
