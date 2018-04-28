@@ -40,5 +40,4 @@ struct Search {
         try? matchingEngine.result(betterThan: 0.005, for: query, resultsFound: resultsFound)
     }
     
-    
 }
