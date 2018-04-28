@@ -11,10 +11,10 @@ import SimpleSimilarityFramework
 
 struct Search {
     
-    private let matchingEngine = MatchingEngine()
+    private var matchingEngine: MatchingEngine?
     private let coreDataManager = EVKCoreDataManager()
     
-    func fillMatchingEngine(completion: @escaping () -> Void) {
+    mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         // get all FeedItems
         let allFeedItems = coreDataManager.allFeedItems()
         
@@ -27,17 +27,18 @@ struct Search {
             return TextualData(inputString: feedItem.title, origin: nil, originObject: feedItem)
         }
         
-        matchingEngine.fillMatchingEngine(with: textualData, onlyRemoveFrequentStopwords: true, completion: completion)
+        matchingEngine = MatchingEngine()
+        matchingEngine?.fillMatchingEngine(with: textualData, onlyRemoveFrequentStopwords: true, completion: completion)
     }
     
     func search(for searchTerm: String, resultsFound:([Result]?) -> Void) {
-        guard matchingEngine.isFilled else {
+        guard matchingEngine?.isFilled ?? false else {
             return
         }
         
         let query = TextualData(inputString: searchTerm, origin: nil, originObject: nil)
         
-        try? matchingEngine.result(betterThan: 0.005, for: query, resultsFound: resultsFound)
+        try? matchingEngine?.result(betterThan: 0.005, for: query, resultsFound: resultsFound)
     }
     
 }

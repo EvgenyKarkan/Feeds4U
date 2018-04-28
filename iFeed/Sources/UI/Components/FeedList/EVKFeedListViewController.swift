@@ -12,7 +12,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - properties
     var feedListView: EVKFeedListView?
     var provider:     EVKFeedListTableProvider?
-    let search:       Search = Search()
+    var search:       Search = Search()
     
     // MARK: - Deinit
     deinit {
@@ -100,6 +100,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
             let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+            itemsVC.feedItems                       = itemsVC.feed?.sortedItems()
             
             if (itemsVC.feed?.feedItems.count)! > 0 {
                 self.navigationController?.pushViewController(itemsVC, animated: true)

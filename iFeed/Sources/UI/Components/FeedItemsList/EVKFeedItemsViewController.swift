@@ -13,6 +13,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     var feedItemsView: EVKFeedItemsView?
     var provider:      EVKFeedItemsTableProvider?
     var feed:          Feed?
+    var feedItems:     [FeedItem]?
     
     // MARK: - Deinit
     deinit {
@@ -37,14 +38,14 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // populate table view
-        if self.feed != nil && (self.feed?.feedItems.allObjects.count)! > 0 {
-            let items = self.feed?.sortedItems()
-    
-            self.provider?.dataSource = items!
-            
-            self.feedItemsView?.tableView.reloadData()
+        guard let feedItems = feedItems, !feedItems.isEmpty else {
+            return
         }
+        
+        // populate table view
+        self.provider?.dataSource = feedItems
+            
+        self.feedItemsView?.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
