@@ -64,19 +64,27 @@ internal struct MatchingEngineAlgortihm {
         var tokenRanges: NSArray?
         
         stemmer.string = string
+        // TODO: would probably be better to enumerate over the string
         let stemmedWords = stemmer.tags(in: NSRange(location: 0, length: string.utf16.count), unit: .word, scheme: .lemma, options: [.omitWhitespace, .omitOther, .omitPunctuation], tokenRanges: &tokenRanges)
         
-        stemmedWords.forEach({ (tag) in
+        var i = 0
+        
+        while i < stemmedWords.count {
+            let tag = stemmedWords[i]
+            
             let preprocessedWord = tag.rawValue.lowercased()
             if !preprocessedWord.isEmpty {
                 bagOfWords.insert(preprocessedWord)
             } else {
                 // if the string cannot be lemmatized add the original value, this only works for latin scripts
-                if !string.contains(" ") {
-                    bagOfWords.insert(string.lowercased())
+                let words = string.components(separatedBy: " ")
+                if i < words.count {
+                    bagOfWords.insert(words[i].lowercased())
                 }
             }
-        })
+            
+            i += 1
+        }
         
         return bagOfWords
     }

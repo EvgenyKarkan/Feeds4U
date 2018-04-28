@@ -85,7 +85,7 @@ class MatchingEngineLargeCorpusTests: XCTestCase {
                 XCTAssertTrue(result.textualResults.first!.inputString.contains("wichtigste"))
                 XCTAssertTrue(result.textualResults.first!.inputString.contains("Lektion"))
                 
-                XCTAssert(result.quality > 0.80)
+                XCTAssert(result.quality > 0.75)
                 
                 asyncExpectation.fulfill()
             })
@@ -116,7 +116,7 @@ class MatchingEngineLargeCorpusTests: XCTestCase {
         let asyncExpectation = expectation(description: "asyncWait")
         
         matchingEngine.fillMatchingEngine(with: fileContents) {
-            let noMatchQuery = TextualData(inputString: "Tuna makes for great sashimi", origin: nil, originObject: nil)
+            let noMatchQuery = TextualData(inputString: "great sashimi dish", origin: nil, originObject: nil)
             
             try? matchingEngine.bestResult(for: noMatchQuery, exhaustive: true, resultFound: { (result) in
                 XCTAssertNil(result, "Result found where no result was expected")
