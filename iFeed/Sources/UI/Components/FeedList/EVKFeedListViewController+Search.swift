@@ -37,18 +37,17 @@ extension EVKFeedListViewController {
         
         let nextAction = UIAlertAction(title: "Search", style: .default) { action -> Void in
             if let query = alertController.textFields?.first?.text, !query.isEmpty {
-                self.search.search(for: query, resultsFound: { (results) in
+                self.search.search(for: query, resultsFound: { [weak self] (results) in
                     DispatchQueue.main.async {
                         guard let results = results, !results.isEmpty else {
                             let noResultsFoundAlert = UIAlertController(title: "Search", message: "No results found", preferredStyle: .alert)
                             let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                             noResultsFoundAlert.addAction(noResultsCancelAction)
-                            self.present(noResultsFoundAlert, animated: true, completion: nil)
+                            self?.present(noResultsFoundAlert, animated: true, completion: nil)
                             return
-                            
-                            
                         }
-                        print("RESULTS FOUND: \(results)")
+                        
+                        self?.showSearchResults(results: results, for: query)
                     }
                 })
             }
@@ -62,5 +61,13 @@ extension EVKFeedListViewController {
         let rootVConWindow = EVKBrain.brain.presenter.window.rootViewController
         rootVConWindow!.present(alertController, animated: true, completion: nil)
     }
+    
+    private func showSearchResults(results: [FeedItem], for query: String) {
+        let feedItemsViewController = EVKFeedItemsViewController()
+        feedItemsViewController.feedItems = results
+        feedItemsViewController.searchTitle = "Search: \(query)"
+        navigationController?.pushViewController(feedItemsViewController, animated: true)
+    }
+
 }
 

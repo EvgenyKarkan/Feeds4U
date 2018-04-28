@@ -14,6 +14,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     var provider:      EVKFeedItemsTableProvider?
     var feed:          Feed?
     var feedItems:     [FeedItem]?
+    var searchTitle:   String?
     
     // MARK: - Deinit
     deinit {
@@ -53,25 +54,26 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         
         self.feedItemsView?.tableView.reloadData()
         
-        self.title = self.feed?.title
+        if let searchTitle = searchTitle {
+            self.title = searchTitle
+        } else {
+            self.title = self.feed?.title
+        }
     }
     
     // MARK: - EVKTableProviderProtocol API
     func cellDidPress(atIndexPath: IndexPath) {
-        let item = self.feed?.sortedItems()[(atIndexPath as NSIndexPath).row]
-        
-        if item?.link != nil {
-            item?.wasRead = true
+        if let feedItems = self.feedItems {
+            let item = feedItems[(atIndexPath as NSIndexPath).row]
+            
+            item.wasRead = true
             
             EVKBrain.brain.coreDater.saveContext()
             
             let webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
-            webVC.loadURLString(item?.link)
+            webVC.loadURLString(item.link)
             
             self.navigationController?.pushViewController(webVC, animated: true)
-        }
-        else {
-            self.showAlertMessage("Web link is missing")
         }
     }
     
@@ -79,8 +81,9 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     func didPullToRefresh(_ sender: UIRefreshControl) {
         assert(!sender.isEqual(nil), "Sender is nil")
 
-        let URL: String = self.feed!.rssURL
-        self.startParsingURL(URL)
+        if let URL = self.feed?.rssURL {
+            self.startParsingURL(URL)
+        }
     }
     
     // MARK: - EVKXMLParserProtocol API
