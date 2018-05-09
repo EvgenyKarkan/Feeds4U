@@ -12,6 +12,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     // MARK: - properties
     var feedListView: EVKFeedListView?
     var provider:     EVKFeedListTableProvider?
+    var search:       Search = Search()
     
     // MARK: - Deinit
     deinit {
@@ -35,8 +36,9 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.searchPressed(_:)))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addPressed(_:)))
-        self.navigationItem.setRightBarButtonItems([addButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([searchButton, addButton], animated: true)
         
         if EVKBrain.brain.coreDater.allFeeds().count > 0 {
             self.addTrashButton(true)
@@ -98,6 +100,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
             let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
             itemsVC.feed                            = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
+            itemsVC.feedItems                       = itemsVC.feed?.sortedItems()
             
             if (itemsVC.feed?.feedItems.count)! > 0 {
                 self.navigationController?.pushViewController(itemsVC, animated: true)

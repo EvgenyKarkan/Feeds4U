@@ -127,6 +127,34 @@ class EVKCoreDataManager: NSObject {
         return result!
     }
     
+    func allFeedItems() -> [FeedItem] {
+        let request: NSFetchRequest = NSFetchRequest<FeedItem>(entityName: kFeedItem)
+        
+        var description: NSEntityDescription!
+        description = NSEntityDescription.entity(forEntityName: kFeedItem, in: self.managedObjectContext!)!
+        
+        if description != nil {
+            request.entity = description
+        }
+        
+        var result: [FeedItem]?
+        
+        do {
+            try result = self.managedObjectContext!.fetch(request)
+        }
+        catch let error1 as NSError {
+            NSLog("Unresolved error \(error1), \(error1.userInfo)")
+            
+            #if __DEBUG__
+            abort()
+            #endif
+        }
+        
+        assert(result != nil, "Found nil feed item array")
+        
+        return result!
+    }
+    
     func deleteObject(_ entityObject: NSManagedObject) {
         self.managedObjectContext?.delete(entityObject)
     }
