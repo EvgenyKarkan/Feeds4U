@@ -14,10 +14,14 @@ internal struct MatchingEngineAlgortihm {
         var maxCount = 0
         var minCount = Int.max
         var medianCount = 0
+
+        let countedSetCount = set.objectEnumerator().allObjects.count
         
         var stringsToRemove: Set<String> = []
+        stringsToRemove.reserveCapacity((countedSetCount * 20) / 100)
         
         var stringCounts: [Int] = []
+        stringCounts.reserveCapacity(countedSetCount)
         
         set.objectEnumerator().allObjects.forEach { (string) in
             let stringCount = set.count(for: string)

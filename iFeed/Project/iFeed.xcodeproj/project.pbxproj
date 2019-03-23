@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		958C68A6208CA74E00D31527 /* SimpleSimilarityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */; };
 		959B3F03208C9337008EBA93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B3F02208C9337008EBA93 /* Search.swift */; };
 		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
@@ -44,6 +43,11 @@
 		DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */; };
 		DE826C5A1B9B5B570062FE2A /* EVKBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE826C591B9B5B570062FE2A /* EVKBaseView.swift */; };
 		DE970DD81C26BA5500D33881 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE970DD71C26BA5500D33881 /* Fabric.framework */; };
+		DEDFDA912246D76F0067D7C4 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */; };
+		DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */; };
+		DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */; };
+		DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */; };
+		DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */; };
 		DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */; };
 		DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */; };
 		DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */; };
@@ -63,7 +67,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleSimilarityFramework.framework; path = ../../Carthage/Build/iOS/SimpleSimilarityFramework.framework; sourceTree = "<group>"; };
 		959B3F02208C9337008EBA93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
@@ -113,6 +116,11 @@
 		DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVKBaseViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DE826C591B9B5B570062FE2A /* EVKBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVKBaseView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DE970DD71C26BA5500D33881 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
+		DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
+		DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
+		DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
+		DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
 		DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAnalytics.swift; sourceTree = "<group>"; };
 		DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCacher.swift; sourceTree = "<group>"; };
@@ -127,7 +135,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958C68A6208CA74E00D31527 /* SimpleSimilarityFramework.framework in Frameworks */,
 				DE7752CD1BA7689400A82EFE /* Crashlytics.framework in Frameworks */,
 				DE970DD81C26BA5500D33881 /* Fabric.framework in Frameworks */,
 			);
@@ -146,7 +153,6 @@
 		958C689A208C98EB00D31527 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				958C68A5208CA74E00D31527 /* SimpleSimilarityFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -183,6 +189,7 @@
 		DE176A771B9C9A910046EDED /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				DEDFDA8B2246D76F0067D7C4 /* SimpleSimilarity */,
 				DE970DD71C26BA5500D33881 /* Fabric.framework */,
 				DE7752CC1BA7689400A82EFE /* Crashlytics.framework */,
 				DE176A781B9C9A910046EDED /* MWFeedParser */,
@@ -377,6 +384,18 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		DEDFDA8B2246D76F0067D7C4 /* SimpleSimilarity */ = {
+			isa = PBXGroup;
+			children = (
+				DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */,
+				DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */,
+				DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */,
+				DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */,
+				DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */,
+			);
+			path = SimpleSimilarity;
+			sourceTree = "<group>";
+		};
 		DEFB0CAE1B80D2FA001425A3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,7 +460,6 @@
 			buildPhases = (
 				DE763D101B7E841300C8B54A /* Sources */,
 				DE763D111B7E841300C8B54A /* Frameworks */,
-				959B3F09208C947A008EBA93 /* Copy frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
 				DE7752CB1BA7684900A82EFE /* Crashlytics */,
 			);
@@ -541,23 +559,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		959B3F09208C947A008EBA93 /* Copy frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../../Carthage/Build/iOS/SimpleSimilarityFramework.framework",
-			);
-			name = "Copy frameworks";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SimpleSimilarityFramework.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-			showEnvVarsInLog = 0;
-		};
 		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -585,12 +586,15 @@
 				DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */,
 				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
+				DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
 				95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */,
 				DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */,
 				DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */,
+				DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */,
 				DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
+				DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */,
 				DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */,
 				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
 				DE826C5A1B9B5B570062FE2A /* EVKBaseView.swift in Sources */,
@@ -599,11 +603,13 @@
 				DE176A891B9C9A920046EDED /* GTMNSString+HTML.m in Sources */,
 				DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */,
 				DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */,
+				DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */,
 				DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */,
 				DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */,
 				DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */,
 				DE176A6D1B9B706F0046EDED /* EVKXMLParser.swift in Sources */,
 				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
+				DEDFDA912246D76F0067D7C4 /* IndexMatrix.swift in Sources */,
 				DE176A8E1B9C9A920046EDED /* MWFeedItem.m in Sources */,
 				DE176A8B1B9C9A920046EDED /* NSString+HTML.m in Sources */,
 				DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */,

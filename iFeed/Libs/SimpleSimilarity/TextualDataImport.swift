@@ -85,10 +85,13 @@ public struct CSVImport: TextualDataImport {
         if FileManager.default.fileExists(atPath: fileName) {
 
             let fileContents = try? String(contentsOfFile: fileName)
-            var parsedFileContents:[TextualData] = []
+            var parsedFileContents: [TextualData] = []
 
             if let fileContents = fileContents {
                 let lines = fileContents.split(separator: "\n")
+
+                parsedFileContents.reserveCapacity(lines.count * 2)
+
                 lines.forEach({ (line) in
                     let columns = line.split(separator: ";")
                     if columns.count > 1 {

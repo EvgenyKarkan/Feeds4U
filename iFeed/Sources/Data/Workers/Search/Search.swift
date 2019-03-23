@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SimpleSimilarityFramework
 
 struct Search {
     
@@ -38,7 +37,7 @@ struct Search {
         
         let query = TextualData(inputString: searchTerm, origin: nil, originObject: nil)
         
-        try? matchingEngine?.result(betterThan: 0.005, for: query, resultsFound: { (results) in
+        try? matchingEngine?.results(betterThan: 0.005, for: query, resultsFound: { (results) in
             if let results = results, !results.isEmpty {
                 var feedItems: [FeedItem] = []
                 

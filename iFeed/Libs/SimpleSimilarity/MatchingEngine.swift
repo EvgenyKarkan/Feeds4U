@@ -46,7 +46,7 @@ open class MatchingEngine {
 
     /// All words in the corpus with their occurence
     fileprivate var allWords: NSCountedSet = NSCountedSet()
-    fileprivate var corpus: Set<CorpusEntry> = Set()
+    fileprivate var corpus: IndexMatrix?
     fileprivate var stopwords: Set<String> = Set()
     fileprivate var stringsForBagsOfWords = StringsForBagsOfWords()
 
@@ -74,6 +74,7 @@ open class MatchingEngine {
         DispatchQueue.global().async {
             var processedCorpus: Set<CorpusEntry> = Set()
             var allPreprocessedEntries: Array<CorpusEntry> = Array()
+            allPreprocessedEntries.reserveCapacity(corpus.count)
 
             let stemmer = NSLinguisticTagger(tagSchemes: [.lemma], options: 0)
 
@@ -125,129 +126,127 @@ open class MatchingEngine {
 
             // wait till the 2 dispatch queues finished executing
             dispatchGroup.wait()
-            
+
+            self.corpus = self.convertCorpusToIndexMatrix(corpus: processedCorpus, allStrings: self.allWords, stopwords: self.stopwords)
             self.isFilled = true
-            self.corpus = processedCorpus
 
             completion()
         }
+    }
+
+    private func convertCorpusToIndexMatrix(corpus: Set<CorpusEntry>, allStrings: NSCountedSet, stopwords: Set<String>) -> IndexMatrix {
+        let swiftAllStrings: Set<String> = allStrings as! Set<String>
+
+        let uniqueWords: Set<String> = swiftAllStrings.subtracting(stopwords)
+        let indexMatrix = IndexMatrix(uniqueValues: uniqueWords)
+
+        // TODO: maybe parallelize?
+        for corpusEntry in corpus {
+            let featureVector = IndexMatrix.FeatureVector(origin: corpusEntry, features: corpusEntry.bagOfWords)
+            (try? indexMatrix.add(featureVector: featureVector)) ?? assert(false, "Unexpectedly the feature vector could not be added")
+        }
+
+        return indexMatrix
     }
 
     /// Get the best result for the given query
     ///
     /// - Parameters:
     ///   - query: the query object for which the best match in the matching engine is retrieved
-    ///   - exhaustive: the whole textual corpus is scanned, if is false only the first best match is returned
     ///   - resultFound: closure that is called once the best result is found
     /// - Throws: a MatchingEngineNotFilledError when bestResult() is called before fillMatchingEngine()
     /// - Precondition: you must first call fillMatchingEngine()
-    open func bestResult(for query: TextualData, exhaustive: Bool, resultFound:(Result?) -> Void) throws {
-        guard isFilled == true else {
+    open func bestResult(for query: TextualData, resultFound:(Result?) -> Void) throws {
+        guard isFilled == true, let corpus = corpus else {
             throw MatchingEngineNotFilledError()
         }
         
         var queryBagOfWords = MatchingEngineAlgortihm.preprocess(string: query.inputString)
-        queryBagOfWords = queryBagOfWords.subtracting(stopwords)
-        
-        var percentageOfBestResult: Float = 0.0
-        var bestMatchInCorpus: CorpusEntry?
-        
-        for corpusEntry in corpus {
-            let intersection = corpusEntry.bagOfWords.intersection(queryBagOfWords)
-            
-            let percentage: Float = Float(intersection.count) / Float(queryBagOfWords.count)
-            
-            if percentage > 0.5 && !exhaustive {
-                guard let originatingStrings = stringsForBagsOfWords.strings(for: corpusEntry.bagOfWords), !originatingStrings.isEmpty else {
-                    assert(false, "Unexpected state: If we find a match in the matching engine we also need to find original strings for a bag of words of a corpus entry")
-                    
-                    resultFound(nil)
-                    return
-                }
-                
-                let textualResults = originatingStrings.map({ (corpusEntry) -> TextualData in
-                    return corpusEntry.textualData
-                })
-                
-                resultFound(Result(textualResults: textualResults, quality: percentage))
-                return
-            }
-            
-            if percentageOfBestResult < percentage {
-                percentageOfBestResult = percentage
-                bestMatchInCorpus = corpusEntry
-            }
-        }
-        
-        if let bestMatchInCorpus = bestMatchInCorpus {
-            guard let originatingStrings = stringsForBagsOfWords.strings(for: bestMatchInCorpus.bagOfWords), !originatingStrings.isEmpty else {
-                assert(false, "Unexpected state: If we find a match in the matching engine we also need to find original strings for a bag of words of a corpus entry")
-                
+        queryBagOfWords = MatchingEngineAlgortihm.remove(stopwords: stopwords, from: queryBagOfWords)
+
+        corpus.bestResult(for: IndexMatrix.FeatureVector(features: queryBagOfWords)) { (searchResult) in
+            guard let searchResult = searchResult else {
                 resultFound(nil)
                 return
             }
-            
+
+            guard let corpusEntry = searchResult.matchingFeatureVector.objectOrigin as? CorpusEntry else {
+                assert(false, "Unexpected state: the origin in the feature vector must be a corpus entry.")
+                resultFound(nil)
+                return
+            }
+
+            guard let originatingStrings = stringsForBagsOfWords.strings(for: corpusEntry.bagOfWords), !originatingStrings.isEmpty else {
+                assert(false, "Unexpected state: If we find a match in the matching engine we also need to find original strings for a bag of words of a corpus entry")
+                resultFound(nil)
+                return
+            }
+
             let textualResults = originatingStrings.map({ (corpusEntry) -> TextualData in
                 return corpusEntry.textualData
             })
-            
-            resultFound(Result(textualResults: textualResults, quality: percentageOfBestResult))
-        } else {
-            resultFound(nil)
+
+            resultFound(Result(textualResults: textualResults, quality: searchResult.score))
+            return
         }
     }
     
     /// Get's the best results for a given query
     ///
     /// - Parameters:
-    ///   - betterThan: the threshold for the quality of results. Valid results are within in 0.0 and 1.0
-    ///   - query: the query object for which the best match in the matching engine is retrieved
+    ///   - betterThan: the threshold for the quality of results. Valid results are within in 0.0 and 1.0.
+    ///   - query: the query object for which the best matches in the matching engine are retrieved
     ///   - resultsFound: closure called when the matches with a quality higher than betterThan are found
-    /// - Throws: a MatchingEngineNotFilledError when bestResult() is called before fillMatchingEngine(), a InvalidArgumentValueError when betterThan has an illegal value
+    /// - Throws: a MatchingEngineNotFilledError when results() is called before fillMatchingEngine(), a InvalidArgumentValueError when betterThan has an illegal value
     /// - Precondition: you must first call fillMatchingEngine()
-    open func result(betterThan: Float, for query: TextualData, resultsFound:([Result]?) -> Void) throws {
+    open func results(betterThan: Float, for query: TextualData, resultsFound:([Result]?) -> Void) throws {
         guard isFilled == true else {
             throw MatchingEngineNotFilledError()
         }
-        
+
         var queryBagOfWords = MatchingEngineAlgortihm.preprocess(string: query.inputString)
-        queryBagOfWords = queryBagOfWords.subtracting(stopwords)
-        
+        queryBagOfWords = MatchingEngineAlgortihm.remove(stopwords: stopwords, from: queryBagOfWords)
+
         var matchesInCorpus: [Result] = []
-        
-        for corpusEntry in corpus {
-            let intersection = corpusEntry.bagOfWords.intersection(queryBagOfWords)
-            
-            let percentage: Float = Float(intersection.count) / Float(queryBagOfWords.count)
-            
-            if percentage >= betterThan {
-                guard let originatingStrings = stringsForBagsOfWords.strings(for: corpusEntry.bagOfWords), !originatingStrings.isEmpty else {
-                    assert(false, "Unexpected state: If we find a match in the matching engine we also need to find original strings for a bag of words of a corpus entry")
-                    
+
+        corpus?.results(betterThan: betterThan, for: IndexMatrix.FeatureVector(features: queryBagOfWords), resultsFound: { (searchResults) in
+            guard let searchResults = searchResults else {
+                resultsFound(nil)
+                return
+            }
+
+            matchesInCorpus.reserveCapacity(searchResults.count)
+
+            searchResults.forEach({ (searchResult) in
+                guard let corpusEntry = searchResult.matchingFeatureVector.objectOrigin as? CorpusEntry else {
+                    assert(false, "Unexpected state: the origin in the feature vector must be a corpus entry.")
                     resultsFound(nil)
                     return
                 }
-                
+
+                guard let originatingStrings = stringsForBagsOfWords.strings(for: corpusEntry.bagOfWords), !originatingStrings.isEmpty else {
+                    assert(false, "Unexpected state: If we find a match in the matching engine we also need to find original strings for a bag of words of a corpus entry")
+                    resultsFound(nil)
+                    return
+                }
+
                 let textualResults = originatingStrings.map({ (corpusEntry) -> TextualData in
                     return corpusEntry.textualData
                 })
-                
-                matchesInCorpus.append(Result(textualResults: textualResults, quality: percentage))
+
+                matchesInCorpus.append(Result(textualResults: textualResults, quality: searchResult.score))
+            })
+        })
+
+        matchesInCorpus.sort { (first, second) -> Bool in
+            if first.quality >= second.quality {
+                return true
+            } else {
+                return false
             }
         }
-        
-        if matchesInCorpus.isEmpty {
-            resultsFound(nil)
-        } else {
-            matchesInCorpus.sort { (first, second) -> Bool in
-                if first.quality >= second.quality {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            resultsFound(matchesInCorpus)
-        }
+
+        resultsFound(matchesInCorpus)
     }
 
 }

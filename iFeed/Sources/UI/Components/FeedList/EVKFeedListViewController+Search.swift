@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SimpleSimilarityFramework
 
 extension EVKFeedListViewController {
     @objc func searchPressed (_ sender: UIButton) {
