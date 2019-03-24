@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKBaseView: UIView {
 

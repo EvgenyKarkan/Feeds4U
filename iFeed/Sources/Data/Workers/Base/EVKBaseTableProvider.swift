@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
    
@@ -21,11 +22,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         assert(self.delegate != nil, "Delegate can't be nil")
     }
     
-    // MARK: - UITableViewDelegate & UITableViewDatasource API
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
+    // MARK: - UITableViewDelegate & UITableViewDatasource API    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }

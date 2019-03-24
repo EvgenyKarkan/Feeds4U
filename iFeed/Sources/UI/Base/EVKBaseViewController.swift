@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
 
@@ -39,7 +40,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         
         alertController.addAction(nextAction)
         alertController.addTextField { textField -> Void in
-            textField.placeholder = "http://www.something.com/rss"
+            textField.placeholder = "https://www.something.com/rss"
             
             if !feedURL.isEmpty {
                 textField.text = feedURL

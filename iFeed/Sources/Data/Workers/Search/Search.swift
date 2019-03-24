@@ -51,14 +51,10 @@ struct Search {
                         }
                     }
                 }
-                
                 resultsFound(feedItems)
-                
             } else {
                 resultsFound(nil)
             }
-            
         })
     }
-    
 }

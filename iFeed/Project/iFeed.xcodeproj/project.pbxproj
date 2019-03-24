@@ -20,18 +20,10 @@
 		DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A831B9C9A920046EDED /* MWFeedInfo.m */; };
 		DE176A8E1B9C9A920046EDED /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A851B9C9A920046EDED /* MWFeedItem.m */; };
 		DE176A8F1B9C9A920046EDED /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A871B9C9A920046EDED /* MWFeedParser.m */; };
-		DE176AA21B9CA04B0046EDED /* backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A921B9CA04B0046EDED /* backbutton.png */; };
-		DE176AA31B9CA04B0046EDED /* backbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A931B9CA04B0046EDED /* backbutton@2x.png */; };
-		DE176AA41B9CA04B0046EDED /* backbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A941B9CA04B0046EDED /* backbutton@3x.png */; };
-		DE176AA51B9CA04B0046EDED /* forwardbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A951B9CA04B0046EDED /* forwardbutton.png */; };
-		DE176AA61B9CA04B0046EDED /* forwardbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A961B9CA04B0046EDED /* forwardbutton@2x.png */; };
-		DE176AA71B9CA04B0046EDED /* forwardbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE176A971B9CA04B0046EDED /* forwardbutton@3x.png */; };
-		DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */; };
 		DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */; };
 		DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */; };
 		DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */; };
 		DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AB21B9CA0AD0046EDED /* EVKFeedListViewController.swift */; };
-		DE176AED1B9DFD150046EDED /* EVKBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AEC1B9DFD150046EDED /* EVKBrowserViewController.swift */; };
 		DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */; };
 		DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */; };
 		DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF31BA089290046EDED /* EVKFeedCell.swift */; };
@@ -48,6 +40,7 @@
 		DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */; };
 		DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */; };
 		DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */; };
+		DEDFDA97224789DC0067D7C4 /* EVKSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA96224789DC0067D7C4 /* EVKSafariViewController.swift */; };
 		DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */; };
 		DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */; };
 		DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */; };
@@ -88,20 +81,11 @@
 		DE176A861B9C9A920046EDED /* MWFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser.h; sourceTree = "<group>"; };
 		DE176A871B9C9A920046EDED /* MWFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedParser.m; sourceTree = "<group>"; };
 		DE176A881B9C9A920046EDED /* MWFeedParser_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser_Private.h; sourceTree = "<group>"; };
-		DE176A921B9CA04B0046EDED /* backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backbutton.png; sourceTree = "<group>"; };
-		DE176A931B9CA04B0046EDED /* backbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backbutton@2x.png"; sourceTree = "<group>"; };
-		DE176A941B9CA04B0046EDED /* backbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backbutton@3x.png"; sourceTree = "<group>"; };
-		DE176A951B9CA04B0046EDED /* forwardbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forwardbutton.png; sourceTree = "<group>"; };
-		DE176A961B9CA04B0046EDED /* forwardbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardbutton@2x.png"; sourceTree = "<group>"; };
-		DE176A971B9CA04B0046EDED /* forwardbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forwardbutton@3x.png"; sourceTree = "<group>"; };
-		DE176A991B9CA04B0046EDED /* KINWebBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KINWebBrowserViewController.h; sourceTree = "<group>"; };
-		DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KINWebBrowserViewController.m; sourceTree = "<group>"; };
 		DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
 		DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsViewController.swift; sourceTree = "<group>"; };
 		DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
 		DE176AB21B9CA0AD0046EDED /* EVKFeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListViewController.swift; sourceTree = "<group>"; };
 		DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iFeed-Bridging-Header.h"; sourceTree = "<group>"; };
-		DE176AEC1B9DFD150046EDED /* EVKBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrowserViewController.swift; sourceTree = "<group>"; };
 		DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsTableProvider.swift; sourceTree = "<group>"; };
 		DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListTableProvider.swift; sourceTree = "<group>"; };
 		DE176AF31BA089290046EDED /* EVKFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedCell.swift; sourceTree = "<group>"; };
@@ -121,6 +105,7 @@
 		DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
 		DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
 		DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
+		DEDFDA96224789DC0067D7C4 /* EVKSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVKSafariViewController.swift; sourceTree = "<group>"; };
 		DEE2111D1D9AE3AB00A2A95D /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
 		DEE2111F1D9AE7B000A2A95D /* EVKAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAnalytics.swift; sourceTree = "<group>"; };
 		DEE211211D9AE7CE00A2A95D /* EVKCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCacher.swift; sourceTree = "<group>"; };
@@ -150,13 +135,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		958C689A208C98EB00D31527 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		959B3F01208C9306008EBA93 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +171,6 @@
 				DE970DD71C26BA5500D33881 /* Fabric.framework */,
 				DE7752CC1BA7689400A82EFE /* Crashlytics.framework */,
 				DE176A781B9C9A910046EDED /* MWFeedParser */,
-				DE176A901B9CA04B0046EDED /* KINWebBrowser */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -228,37 +205,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		DE176A901B9CA04B0046EDED /* KINWebBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A911B9CA04B0046EDED /* Assets */,
-				DE176A981B9CA04B0046EDED /* KINWebBrowser */,
-			);
-			path = KINWebBrowser;
-			sourceTree = "<group>";
-		};
-		DE176A911B9CA04B0046EDED /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A921B9CA04B0046EDED /* backbutton.png */,
-				DE176A931B9CA04B0046EDED /* backbutton@2x.png */,
-				DE176A941B9CA04B0046EDED /* backbutton@3x.png */,
-				DE176A951B9CA04B0046EDED /* forwardbutton.png */,
-				DE176A961B9CA04B0046EDED /* forwardbutton@2x.png */,
-				DE176A971B9CA04B0046EDED /* forwardbutton@3x.png */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		DE176A981B9CA04B0046EDED /* KINWebBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A991B9CA04B0046EDED /* KINWebBrowserViewController.h */,
-				DE176A9A1B9CA04B0046EDED /* KINWebBrowserViewController.m */,
-			);
-			path = KINWebBrowser;
-			sourceTree = "<group>";
-		};
 		DE176AAC1B9CA0AD0046EDED /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,7 +237,7 @@
 		DE176AEB1B9DFD150046EDED /* Browser */ = {
 			isa = PBXGroup;
 			children = (
-				DE176AEC1B9DFD150046EDED /* EVKBrowserViewController.swift */,
+				DEDFDA96224789DC0067D7C4 /* EVKSafariViewController.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -311,7 +257,6 @@
 				DE763D161B7E841300C8B54A /* iFeed */,
 				DE763D2C1B7E841300C8B54A /* iFeedTests */,
 				DE763D151B7E841300C8B54A /* Products */,
-				958C689A208C98EB00D31527 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -538,14 +483,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE176AA21B9CA04B0046EDED /* backbutton.png in Resources */,
-				DE176AA51B9CA04B0046EDED /* forwardbutton.png in Resources */,
-				DE176AA61B9CA04B0046EDED /* forwardbutton@2x.png in Resources */,
-				DE176AA71B9CA04B0046EDED /* forwardbutton@3x.png in Resources */,
-				DE176AA41B9CA04B0046EDED /* backbutton@3x.png in Resources */,
 				DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */,
 				DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */,
-				DE176AA31B9CA04B0046EDED /* backbutton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +521,6 @@
 			files = (
 				DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */,
 				DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */,
-				DE176AED1B9DFD150046EDED /* EVKBrowserViewController.swift in Sources */,
 				DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */,
 				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
@@ -592,7 +530,7 @@
 				DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */,
 				DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */,
 				DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */,
-				DE176AA81B9CA04B0046EDED /* KINWebBrowserViewController.m in Sources */,
+				DEDFDA97224789DC0067D7C4 /* EVKSafariViewController.swift in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
 				DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */,
 				DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */,
@@ -671,7 +609,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../Carthage/Build/iOS/**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -730,7 +668,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../Carthage/Build/iOS/**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -781,7 +719,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -813,7 +751,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iFeed-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

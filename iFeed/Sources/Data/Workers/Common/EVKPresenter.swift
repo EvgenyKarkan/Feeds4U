@@ -6,6 +6,7 @@
 //  Copyright © 2016 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKPresenter: NSObject {
 

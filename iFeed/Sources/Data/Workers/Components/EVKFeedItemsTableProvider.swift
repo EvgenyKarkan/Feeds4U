@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
@@ -32,6 +33,7 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         }
 
         if item != nil {
+            //TODO:- Cache date formatter
             let dateFormatter        = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
             
@@ -45,7 +47,7 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
 }

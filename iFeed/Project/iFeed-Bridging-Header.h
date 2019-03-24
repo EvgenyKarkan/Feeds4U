@@ -10,6 +10,5 @@
 #define iFeed_iFeed_Bridging_Header_h
 
 #import "MWFeedParser.h"
-#import "KINWebBrowserViewController.h"
 
 #endif

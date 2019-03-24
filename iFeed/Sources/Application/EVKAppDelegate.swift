@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 @UIApplicationMain
 
@@ -21,6 +22,4 @@ class EVKAppDelegate: UIResponder, UIApplicationDelegate {
         EVKBrain.brain.presenter.openURL(url)
         return true
     }
-    // SWIFT 4
-    //
 }

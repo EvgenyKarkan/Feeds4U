@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
+import UIKit
 
 class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewProtocol {
 
@@ -69,11 +70,13 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             item.wasRead = true
             
             EVKBrain.brain.coreDater.saveContext()
+        
+            guard let url = URL.init(string: item.link) else {
+                return
+            }
             
-            let webVC: EVKBrowserViewController = EVKBrowserViewController(configuration: nil)
-            webVC.loadURLString(item.link)
-            
-            self.navigationController?.pushViewController(webVC, animated: true)
+            let safariVC = EVKSafariViewController.init(url: url)
+            present(safariVC, animated: true)
         }
     }
     
