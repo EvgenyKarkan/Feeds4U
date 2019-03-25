@@ -50,7 +50,7 @@ class EVKFeedCell: UITableViewCell {
     fileprivate var dot:             UIView?
     
     // MARK: - Init
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         wasReadCell = false
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)

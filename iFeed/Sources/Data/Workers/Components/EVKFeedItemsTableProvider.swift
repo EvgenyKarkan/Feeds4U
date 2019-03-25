@@ -22,8 +22,8 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         var cell = tableView.dequeueReusableCell(withIdentifier: kItemsCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                = EVKFeedCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: kItemsCell)
-            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            cell                = EVKFeedCell(style: .subtitle, reuseIdentifier: kItemsCell)
+            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
         
         var item: FeedItem?

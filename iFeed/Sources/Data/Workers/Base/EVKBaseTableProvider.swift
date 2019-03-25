@@ -39,7 +39,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
         self.delegate?.cellDidPress(atIndexPath: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         self.delegate?.cellNeedsDelete!(atIndexPath: indexPath)
     }
 }

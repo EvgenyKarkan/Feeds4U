@@ -27,7 +27,7 @@ class EVKPresenter: NSObject {
         self.navigationVC.navigationBar.isTranslucent       = false
         self.navigationVC.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
         self.navigationVC.navigationBar.tintColor           = UIColor.white
-        self.navigationVC.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        self.navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
         self.window.rootViewController = self.navigationVC
         self.window.makeKeyAndVisible()

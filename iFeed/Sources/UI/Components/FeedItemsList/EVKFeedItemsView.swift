@@ -20,7 +20,7 @@ class EVKFeedItemsView: EVKBaseView {
         
         refreshControl                      = UIRefreshControl()
         self.refreshControl.tintColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         self.tableView.addSubview(refreshControl)
     }
     

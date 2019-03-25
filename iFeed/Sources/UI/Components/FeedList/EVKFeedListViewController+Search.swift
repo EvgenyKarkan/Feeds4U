@@ -12,7 +12,7 @@ extension EVKFeedListViewController {
     @objc func searchPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
-        let waitingAnimation = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let waitingAnimation = UIActivityIndicatorView(style: .whiteLarge)
         view.addSubview(waitingAnimation)
         waitingAnimation.frame = CGRect(x: 120, y: 200, width: 37, height: 37)
         waitingAnimation.startAnimating()
