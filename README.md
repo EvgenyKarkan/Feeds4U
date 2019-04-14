@@ -16,5 +16,5 @@ https://itunes.apple.com/ua/app/feeds4u/id1038456442?mt=8
 
 ## Copyright
 Source code under MIT license.  
-Exclusive rights to distribute Feeds4U application through the Apple App Store belongs only to me.    
+Exclusive rights to distribute Feeds4U application through the Apple App Store belong only to me.    
 Copyright (c) 2015 Evgeny Karkan. All rights reserved.
