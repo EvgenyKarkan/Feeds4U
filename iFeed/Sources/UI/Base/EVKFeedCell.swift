@@ -70,7 +70,7 @@ class EVKFeedCell: UITableViewCell {
         itemsCountLabel.textAlignment   = .right
         contentView.addSubview(itemsCountLabel)
         
-        dot.backgroundColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        dot.backgroundColor = UIColor(named: "Tangerine")
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -24,7 +24,7 @@ class EVKPresenter: NSObject {
         
         navigationVC.viewControllers = [feedListViewController]
         navigationVC.navigationBar.isTranslucent = false
-        navigationVC.navigationBar.barTintColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        navigationVC.navigationBar.barTintColor = UIColor(named: "Tangerine")
         navigationVC.navigationBar.tintColor = UIColor.white
         navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
