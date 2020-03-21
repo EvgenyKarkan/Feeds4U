@@ -6,7 +6,6 @@
 //  Copyright © 2016 Evgeny Karkan. All rights reserved.
 //
 
-
 class EVKCacher: NSObject {
 
     // MARK: - Singleton

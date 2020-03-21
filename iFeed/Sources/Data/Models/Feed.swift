@@ -14,14 +14,14 @@ import CoreData
 
 class Feed: NSManagedObject {
 
-    @NSManaged var rssURL:    String
-    @NSManaged var title:     String!
-    @NSManaged var summary:   String?
+    @NSManaged var rssURL: String
+    @NSManaged var title: String!
+    @NSManaged var summary: String?
     @NSManaged var feedItems: NSSet
     
     //sorted 'feedItems' by publish date
     func sortedItems() -> [FeedItem] {
-        let unsortedItems: [FeedItem] = (self.feedItems.allObjects as? [FeedItem])!
+        let unsortedItems: [FeedItem] = (feedItems.allObjects as? [FeedItem])!
         
         let sortedArray = unsortedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
             return item1.publishDate.timeIntervalSince1970 > item2.publishDate.timeIntervalSince1970
@@ -32,7 +32,7 @@ class Feed: NSManagedObject {
     
     //unread 'feedItems'
     func unreadItems () -> [FeedItem] {
-        let items: [FeedItem] = self.feedItems.allObjects as! [FeedItem]
+        let items: [FeedItem] = feedItems.allObjects as! [FeedItem]
         
         let unReadItem = items.filter({ (item: FeedItem) -> Bool in
             return item.wasRead.boolValue == false

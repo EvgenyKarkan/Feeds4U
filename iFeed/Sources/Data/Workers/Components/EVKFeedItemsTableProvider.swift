@@ -11,36 +11,36 @@ import UIKit
 class EVKFeedItemsTableProvider: EVKBaseTableProvider {
    
     // MARK: - Constant
-    fileprivate let kItemsCell = "ItemsCell"
+    private let kItemsCell = "ItemsCell"
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        return dataSource.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: kItemsCell) as? EVKFeedCell
         
         if cell == nil {
-            cell                = EVKFeedCell(style: .subtitle, reuseIdentifier: kItemsCell)
-            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+            cell = EVKFeedCell(style: .subtitle, reuseIdentifier: kItemsCell)
+            cell?.accessoryType = .disclosureIndicator
         }
         
         var item: FeedItem?
         
         if self.dataSource.count > 0 && (indexPath as NSIndexPath).row < self.dataSource.count {
-            item = self.dataSource[(indexPath as NSIndexPath).row] as? FeedItem
+            item = dataSource[(indexPath as NSIndexPath).row] as? FeedItem
         }
 
         if item != nil {
             //TODO:- Cache date formatter
-            let dateFormatter        = DateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
             
             let dateString = dateFormatter.string(from: item!.publishDate as Date)
 
-            cell!.wasReadCell  = item!.wasRead.boolValue
-            cell!.titleText    = item!.title
+            cell!.wasReadCell = item!.wasRead.boolValue
+            cell!.titleText = item!.title
             cell!.subTitleText = dateString
         }
         

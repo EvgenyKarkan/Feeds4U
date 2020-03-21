@@ -15,11 +15,11 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     weak var delegate: EVKTableProviderProtocol?
     
     // MARK: - Designated init
-    init (delegateObject: EVKTableProviderProtocol) {
-        self.delegate = delegateObject
+    init(delegateObject: EVKTableProviderProtocol) {
+        delegate = delegateObject
 
         super.init()
-        assert(self.delegate != nil, "Delegate can't be nil")
+        assert(delegate != nil, "Delegate can't be nil")
     }
     
     // MARK: - UITableViewDelegate & UITableViewDatasource API    
@@ -36,11 +36,11 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.cellDidPress(atIndexPath: indexPath)
+        delegate?.cellDidPress(atIndexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        self.delegate?.cellNeedsDelete!(atIndexPath: indexPath)
+        delegate?.cellNeedsDelete!(atIndexPath: indexPath)
     }
 }
 

@@ -14,8 +14,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title                            = "Feeds4U"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        title = "Feeds4U"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     // MARK: - Public API - Alerts
@@ -48,7 +48,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
         
         let rootVConWindow = EVKBrain.brain.presenter.window.rootViewController
-        rootVConWindow!.present(alertController, animated: true, completion: nil)
+        rootVConWindow!.present(alertController, animated: true)
     }
     
     func showInvalidRSSAlert() {
@@ -75,7 +75,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
             parser?.beginParseURL(Foundation.URL(string: URL)!)
         }
         else {
-            self.showInvalidRSSAlert()
+            showInvalidRSSAlert()
         }
     }
     
@@ -85,7 +85,7 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     }
     
     func didFailParsingFeed() {
-        self.showInvalidRSSAlert()
+        showInvalidRSSAlert()
     }
     
    // MARK: - Common alert
@@ -97,6 +97,6 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
        }
        alertController.addAction(okAction)
 
-       self.present(alertController, animated: true, completion: nil)
+       present(alertController, animated: true)
    }
 }

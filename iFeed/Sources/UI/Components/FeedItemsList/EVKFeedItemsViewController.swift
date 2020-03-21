@@ -12,29 +12,29 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
 
     // MARK: - property
     var feedItemsView: EVKFeedItemsView?
-    var provider:      EVKFeedItemsTableProvider?
-    var feed:          Feed?
-    var feedItems:     [FeedItem]?
-    var searchTitle:   String?
+    var provider: EVKFeedItemsTableProvider?
+    var feed: Feed?
+    var feedItems: [FeedItem]?
+    var searchTitle: String?
     
     // MARK: - Deinit
     deinit {
-        provider?.delegate              = nil
+        provider?.delegate = nil
         feedItemsView?.feedListDelegate = nil
     }
 
     // MARK: - Life cycle
     override func loadView() {
-        self.provider = EVKFeedItemsTableProvider(delegateObject: self)
+        provider = EVKFeedItemsTableProvider(delegateObject: self)
         
-        let aView = EVKFeedItemsView (frame: UIScreen.main.bounds)
+        let aView = EVKFeedItemsView(frame: UIScreen.main.bounds)
         
-        self.feedItemsView = aView
-        self.view = aView
+        feedItemsView = aView
+        view = aView
         
-        self.feedItemsView?.tableView.delegate   = self.provider!
-        self.feedItemsView?.tableView.dataSource = self.provider!
-        self.feedItemsView?.feedListDelegate     = self
+        feedItemsView?.tableView.delegate = provider!
+        feedItemsView?.tableView.dataSource = provider!
+        feedItemsView?.feedListDelegate = self
     }
 
     override func viewDidLoad() {
@@ -45,20 +45,20 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         }
         
         // populate table view
-        self.provider?.dataSource = feedItems
+        provider?.dataSource = feedItems
             
-        self.feedItemsView?.tableView.reloadData()
+        feedItemsView?.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.feedItemsView?.tableView.reloadData()
+        feedItemsView?.tableView.reloadData()
         
         if let searchTitle = searchTitle {
-            self.title = searchTitle
+            title = searchTitle
         } else {
-            self.title = self.feed?.title
+            title = self.feed?.title
         }
     }
     
@@ -84,8 +84,8 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     func didPullToRefresh(_ sender: UIRefreshControl) {
         assert(!sender.isEqual(nil), "Sender is nil")
 
-        if let URL = self.feed?.rssURL {
-            self.startParsingURL(URL)
+        if let URL = feed?.rssURL {
+            startParsingURL(URL)
         }
     }
     
@@ -101,7 +101,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             }
             
             //incoming feed
-            let incomingFeed:  Feed       = feed
+            let incomingFeed: Feed = feed
             var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
             
             //delete temporary incoming 'feed'
@@ -122,10 +122,10 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             
             incomingItems.removeAll()
             
-            self.feedItemsView?.refreshControl.endRefreshing()
+            feedItemsView?.refreshControl.endRefreshing()
         }
         
-        self.provider?.dataSource = self.feed!.sortedItems()
-        self.feedItemsView?.tableView.reloadData()
+        provider?.dataSource = self.feed!.sortedItems()
+        feedItemsView?.tableView.reloadData()
     }
 }

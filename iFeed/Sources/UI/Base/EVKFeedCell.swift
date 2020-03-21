@@ -13,68 +13,64 @@ class EVKFeedCell: UITableViewCell {
     // MARK: - Properties
     var titleText: String? {
         didSet {
-            self.topLabel?.text = titleText
-            self.setNeedsLayout()
+            topLabel.text = titleText
+            setNeedsLayout()
         }
     }
     
     var subTitleText: String? {
         didSet {
-            self.bottomLabel?.text = subTitleText
-            self.setNeedsLayout()
+            bottomLabel.text = subTitleText
+            setNeedsLayout()
         }
     }
     
     var itemsCountText: String? {
         didSet {
-            self.itemsCountLabel?.text = itemsCountText
-            self.setNeedsLayout()
-            self.dot?.removeFromSuperview()
+            itemsCountLabel.text = itemsCountText
+            setNeedsLayout()
+            dot.removeFromSuperview()
         }
     }
     
-    var wasReadCell: Bool {
+    var wasReadCell: Bool = false {
         didSet {
             if wasReadCell {
-                self.dot?.removeFromSuperview()
+                dot.removeFromSuperview()
             }
             else {
-                self.contentView.addSubview(self.dot!)
+                contentView.addSubview(dot)
             }
         }
     }
     
-    fileprivate var topLabel:        UILabel?
-    fileprivate var bottomLabel:     UILabel?
-    fileprivate var itemsCountLabel: UILabel?
-    fileprivate var dot:             UIView?
+    fileprivate var topLabel: UILabel = UILabel()
+    fileprivate var bottomLabel: UILabel = UILabel()
+    fileprivate var itemsCountLabel: UILabel = UILabel()
+    fileprivate var dot: UIView = UIView()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        wasReadCell = false
-        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        topLabel                       = UILabel()
-        self.topLabel?.backgroundColor = UIColor.white
-        self.topLabel?.font            = UIFont (name: "HelveticaNeue", size: topFontForDevice())
-        self.topLabel?.textAlignment   = NSTextAlignment.left
-        self.contentView.addSubview(self.topLabel!)
+        selectionStyle = .none
         
-        bottomLabel                       = UILabel()
-        self.bottomLabel?.backgroundColor = self.topLabel?.backgroundColor
-        self.bottomLabel?.font            = UIFont (name: "HelveticaNeue-Light", size: bottomFontForDevice())
-        self.bottomLabel?.textAlignment   = NSTextAlignment.left
-        self.contentView.addSubview(self.bottomLabel!)
+        topLabel.backgroundColor = .white
+        topLabel.font            = UIFont(name: "HelveticaNeue", size: topFontForDevice())
+        topLabel.textAlignment   = .left
+        contentView.addSubview(topLabel)
         
-        itemsCountLabel                       = UILabel()
-        self.itemsCountLabel?.backgroundColor = self.topLabel?.backgroundColor
-        self.itemsCountLabel?.font            = UIFont (name: "HelveticaNeue", size: 10.0)
-        self.itemsCountLabel?.textAlignment   = NSTextAlignment.right
-        self.contentView.addSubview(self.itemsCountLabel!)
+        bottomLabel.backgroundColor = topLabel.backgroundColor
+        bottomLabel.font            = UIFont(name: "HelveticaNeue-Light", size: bottomFontForDevice())
+        bottomLabel.textAlignment   = .left
+        contentView.addSubview(bottomLabel)
         
-        dot                       = UIView()
-        self.dot?.backgroundColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        itemsCountLabel.backgroundColor = topLabel.backgroundColor
+        itemsCountLabel.font            = UIFont(name: "HelveticaNeue", size: 10.0)
+        itemsCountLabel.textAlignment   = .right
+        contentView.addSubview(itemsCountLabel)
+        
+        dot.backgroundColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -85,31 +81,32 @@ class EVKFeedCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let screenW: CGFloat = UIScreen.main.bounds.size.width
+        let screenW: CGFloat = UIScreen.main.bounds.width
         
-        self.topLabel?.sizeToFit()
-        self.topLabel?.frame = CGRect(x: 15.0,
-                                                         y: self.bounds.size.height / 2 - self.topLabel!.frame.size.height + 1.0,
-                                                         width: screenW - 70.0,
-                                                         height: self.topLabel!.frame.size.height).integral
+        topLabel.sizeToFit()
+        topLabel.frame = CGRect(x: 15.0,
+                                y: bounds.height / 2 - topLabel.frame.height + 1.0,
+                                width: screenW - 70.0,
+                                height: topLabel.frame.height).integral
         
-        self.bottomLabel?.sizeToFit()
-        self.bottomLabel?.frame = CGRect(x: self.topLabel!.frame.minX,
-                                                                          y: self.topLabel!.frame.maxY + 1.0,
-                                                                          width: self.topLabel!.frame.size.width,
-                                                                          height: self.bottomLabel!.frame.size.height).integral
+        bottomLabel.sizeToFit()
+        bottomLabel.frame = CGRect(x: topLabel.frame.minX,
+                                   y: topLabel.frame.maxY + 1.0,
+                                   width: topLabel.frame.width,
+                                   height: bottomLabel.frame.height).integral
         
-        self.itemsCountLabel?.sizeToFit()
-        self.itemsCountLabel?.frame = CGRect(x: screenW - self.itemsCountLabel!.frame.size.width - 40.0,
-                                        y: self.bounds.size.height / 2 - self.itemsCountLabel!.frame.size.height / 2,
-                                        width: self.itemsCountLabel!.frame.size.width,
-                                        height: self.itemsCountLabel!.frame.size.height).integral
+        itemsCountLabel.sizeToFit()
+        itemsCountLabel.frame = CGRect(x: screenW - itemsCountLabel.frame.width - 40.0,
+                                       y: bounds.height / 2 - itemsCountLabel.frame.height / 2,
+                                       width: itemsCountLabel.frame.width,
+                                       height: itemsCountLabel.frame.height).integral
 
         let dotSide: CGFloat = 4.0
         
-        self.dot?.frame               = CGRect(x: screenW - 40.0, y: self.bounds.size.height / 2 - dotSide / 2, width: dotSide, height: dotSide)
-        self.dot?.layer.cornerRadius  = dotSide / 2
-        self.dot?.layer.masksToBounds = true
+        dot.frame = CGRect(x: screenW - 40.0, y: bounds.height / 2 - dotSide / 2, width: dotSide, height: dotSide)
+        dot.layer.cornerRadius  = dotSide / 2
+        dot.layer.masksToBounds = true
+        
     }
     
     //MARK: - Helpers

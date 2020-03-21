@@ -12,21 +12,20 @@ class EVKFeedItemsView: EVKBaseView {
 
     // MARK: - Property
     weak var feedListDelegate: EVKFeedItemsViewProtocol?
-    var refreshControl: UIRefreshControl!
+    var refreshControl = UIRefreshControl()
     
     // MARK: - Init
     override func initialViewSetup() {
         super.initialViewSetup()
         
-        refreshControl                      = UIRefreshControl()
-        self.refreshControl.tintColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        self.tableView.addSubview(refreshControl)
+        refreshControl.tintColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     // MARK: - Action
     @objc fileprivate func refresh(_ sender: UIRefreshControl) {
-        self.feedListDelegate?.didPullToRefresh(sender)
+        feedListDelegate?.didPullToRefresh(sender)
     }
 }
 
@@ -34,4 +33,3 @@ class EVKFeedItemsView: EVKBaseView {
 protocol EVKFeedItemsViewProtocol: class {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
-

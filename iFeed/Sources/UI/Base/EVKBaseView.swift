@@ -11,14 +11,14 @@ import UIKit
 class EVKBaseView: UIView {
 
     // MARK: - Properties
-    fileprivate (set) var tableView: UITableView!
-    fileprivate var bottomLabel: UILabel!
+    private (set) var tableView: UITableView = UITableView()
+    private var bottomLabel: UILabel = UILabel()
     
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.initialViewSetup()
+        initialViewSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,45 +28,39 @@ class EVKBaseView: UIView {
     init() {
         super.init(frame: CGRect.zero)
         
-        self.initialViewSetup()
+        initialViewSetup()
     }
     
     // MARK: - UIView override
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let yPoint: CGFloat  = 0.0
-        self.tableView.frame = CGRect(x: 0.0, y: yPoint, width: self.bounds.size.width, height: self.bounds.size.height - yPoint)
+        let yPoint: CGFloat = 0.0
+        tableView.frame = CGRect(x: 0.0, y: yPoint, width: bounds.width, height: bounds.height - yPoint)
         
-        self.bottomLabel.sizeToFit()
-        self.bottomLabel.frame = CGRect(x: self.bounds.size.width / 2 - self.bottomLabel.frame.width / 2,
-                                            y: self.bounds.size.height / 2 - self.bottomLabel.frame.height / 2,
-                                            width: self.bottomLabel.frame.width,
-                                            height: self.bottomLabel.frame.height)
-        self.bottomLabel.frame = self.bottomLabel.frame.integral
+        bottomLabel.sizeToFit()
+        bottomLabel.frame = CGRect(x: bounds.width / 2 - bottomLabel.frame.width / 2,
+                                   y: bounds.height / 2 - bottomLabel.frame.height / 2,
+                                   width: bottomLabel.frame.width,
+                                   height: bottomLabel.frame.height)
+        bottomLabel.frame = bottomLabel.frame.integral
     }
     
     // MARK: - Public API
     func initialViewSetup() {
         //to override in subclasses
-        self.backgroundColor = UIColor.white
+        backgroundColor = .white
         
-        bottomLabel                      = UILabel()
-        self.bottomLabel.backgroundColor = UIColor.white
-        self.bottomLabel.font            = UIFont (name: "HelveticaNeue", size: 16.0)
-        self.bottomLabel.textAlignment   = NSTextAlignment.center
-        self.bottomLabel.numberOfLines   = 0
-        self.bottomLabel.text            = "No any RSS feed"
-        self.bottomLabel.textColor       = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.addSubview(self.bottomLabel)
+        bottomLabel.backgroundColor = .white
+        bottomLabel.font = UIFont(name: "HelveticaNeue", size: 16.0)
+        bottomLabel.textAlignment = .center
+        bottomLabel.numberOfLines = 0
+        bottomLabel.text = "No any RSS feed"
+        bottomLabel.textColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        addSubview(bottomLabel)
         
-        tableView                      = UITableView()
-        self.tableView.backgroundColor = UIColor.white
-        
-        if #available(iOS 9.0, *) {
-            self.tableView.cellLayoutMarginsFollowReadableWidth = false
-        }
-        
-        self.addSubview(self.tableView)
+        tableView.backgroundColor = .white
+        tableView.cellLayoutMarginsFollowReadableWidth = false
+        addSubview(tableView)
     }
 }

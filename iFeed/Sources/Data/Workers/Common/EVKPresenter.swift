@@ -14,23 +14,22 @@ class EVKPresenter: NSObject {
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    fileprivate let appDelegate  = UIApplication.shared.delegate as! EVKAppDelegate
-    fileprivate (set) var window = UIWindow(frame: UIScreen.main.bounds)
-    fileprivate var navigationVC = UINavigationController()
+    private let appDelegate  = UIApplication.shared.delegate as! EVKAppDelegate
+    private (set) var window = UIWindow(frame: UIScreen.main.bounds)
+    private var navigationVC = UINavigationController()
     
     // MARK: - Public APIs
     func showStartScreen() {
         let feedListViewController = EVKFeedListViewController()
         
-        self.navigationVC                                   = UINavigationController()
-        self.navigationVC.viewControllers                   = [feedListViewController]
-        self.navigationVC.navigationBar.isTranslucent       = false
-        self.navigationVC.navigationBar.barTintColor        = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
-        self.navigationVC.navigationBar.tintColor           = UIColor.white
-        self.navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        navigationVC.viewControllers = [feedListViewController]
+        navigationVC.navigationBar.isTranslucent = false
+        navigationVC.navigationBar.barTintColor = UIColor(red:0.99, green:0.7, blue:0.23, alpha:1)
+        navigationVC.navigationBar.tintColor = UIColor.white
+        navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
-        self.window.rootViewController = self.navigationVC
-        self.window.makeKeyAndVisible()
+        window.rootViewController = navigationVC
+        window.makeKeyAndVisible()
         
         UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
         UIApplication.shared.isStatusBarHidden = false
@@ -39,10 +38,10 @@ class EVKPresenter: NSObject {
     func openURL(_ url: URL) {
         let nsURL = url as NSURL
         
-        if let aCount = nsURL.resourceSpecifier?.characters.count, aCount > 0 {
-            self.navigationVC.popToRootViewController(animated: false)
+        if let aCount = nsURL.resourceSpecifier?.count, aCount > 0 {
+            navigationVC.popToRootViewController(animated: false)
             
-            let topViewController = self.navigationVC.topViewController
+            let topViewController = navigationVC.topViewController
             
             if let vc = topViewController as? EVKFeedListViewController {
                 vc.showEnterFeedAlertView(url.absoluteString)

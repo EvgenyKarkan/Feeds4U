@@ -9,7 +9,6 @@
 import Fabric
 import Crashlytics
 
-
 class EVKAnalytics: NSObject {
 
     // MARK: - Singleton

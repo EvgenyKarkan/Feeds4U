@@ -6,9 +6,6 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-
 class EVKFeedListView: EVKBaseView {
 
 }
-
-

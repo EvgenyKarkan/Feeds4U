@@ -39,9 +39,9 @@ class EVKBrain: NSObject {
     
     // MARK: - Public APIs
     func startServices() {
-        self.presenter.showStartScreen()
-        self.analytics.startCrashlytics()
-        self.cacher.startToCache()
+        presenter.showStartScreen()
+        analytics.startCrashlytics()
+        cacher.startToCache()
     }
     
     func createEntity(name: String) -> NSManagedObject {
@@ -50,10 +50,10 @@ class EVKBrain: NSObject {
     
     func feedForIndexPath(indexPath: IndexPath) -> Feed {
         var feed: Feed?
-        let feedsCount = self.coreDater.allFeeds().count
+        let feedsCount = coreDater.allFeeds().count
         
         if feedsCount > 0 && (indexPath as NSIndexPath).row < feedsCount {
-            feed = self.coreDater.allFeeds()[(indexPath as NSIndexPath).row]
+            feed = coreDater.allFeeds()[(indexPath as NSIndexPath).row]
         }
         assert(feed != nil, "Feed for index path is nil")
         

@@ -9,25 +9,28 @@
 import UIKit
 
 extension EVKFeedListViewController {
+    
     @objc func searchPressed (_ sender: UIButton) {
         assert(!sender.isEqual(nil), "sender is nil")
         
-        let waitingAnimation = UIActivityIndicatorView(style: .whiteLarge)
-        view.addSubview(waitingAnimation)
-        waitingAnimation.frame = CGRect(x: 120, y: 200, width: 37, height: 37)
-        waitingAnimation.startAnimating()
+        let waitingSpinner = UIActivityIndicatorView(style: .whiteLarge)
+        waitingSpinner.frame = CGRect(x: 120, y: 200, width: 37, height: 37)
+        waitingSpinner.startAnimating()
+        view.addSubview(waitingSpinner)
         
         search.fillMatchingEngine {
             DispatchQueue.main.async {
-                waitingAnimation.stopAnimating()
-                waitingAnimation.removeFromSuperview()
+                waitingSpinner.stopAnimating()
+                waitingSpinner.removeFromSuperview()
                 self.showEnterSearch()
             }
         }
     }
     
     func showEnterSearch() {
-        let alertController = UIAlertController(title: "Search", message: "Search works best when you enter more than one word.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Search",
+                                                message: "Search works best when you enter more than one word.",
+                                                preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             self.view.endEditing(true)
@@ -67,6 +70,4 @@ extension EVKFeedListViewController {
         feedItemsViewController.searchTitle = "Search: \(query)"
         navigationController?.pushViewController(feedItemsViewController, animated: true)
     }
-
 }
-
