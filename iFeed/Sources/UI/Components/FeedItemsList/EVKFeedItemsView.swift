@@ -29,7 +29,7 @@ class EVKFeedItemsView: EVKBaseView {
     }
 }
 
-// MARK: - EVKXMLParserProtocol
+// MARK: - EVKParserDelegate
 protocol EVKFeedItemsViewProtocol: class {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }

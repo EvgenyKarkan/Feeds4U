@@ -12,7 +12,7 @@ import CoreData
 class EVKBrain: NSObject {
    
     // MARK: - Readonly properties
-    fileprivate (set) var parser: EVKXMLParser!
+    fileprivate (set) var parser: EVKParser!
     fileprivate (set) var coreDater: EVKCoreDataManager!
     fileprivate (set) var presenter: EVKPresenter!
     fileprivate (set) var analytics: EVKAnalytics!
@@ -28,7 +28,7 @@ class EVKBrain: NSObject {
     
     // MARK: - Init
     override init() {
-        parser    = EVKXMLParser()
+        parser    = EVKParser()
         coreDater = EVKCoreDataManager()
         presenter = EVKPresenter.presenter
         analytics = EVKAnalytics.analytics

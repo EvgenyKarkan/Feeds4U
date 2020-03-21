@@ -89,7 +89,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         }
     }
     
-    // MARK: - EVKXMLParserProtocol API
+    // MARK: - EVKParserDelegate API
     override func didEndParsingFeed(_ feed: Feed) {
         if !feed.isEqual(nil) && self.feed != nil {
             //self feed

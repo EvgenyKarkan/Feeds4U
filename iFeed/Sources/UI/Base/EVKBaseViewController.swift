@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
+class EVKBaseViewController: UIViewController, EVKParserDelegate {
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -66,8 +66,8 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
     
     // MARK: - Public API - Parsing
     func startParsingURL(_ URL: String) {
-        let parser            = EVKBrain.brain.parser
-        parser?.parserDelegate = self
+        let parser = EVKBrain.brain.parser
+        parser?.delegate = self
         
         let url = Foundation.URL(string: URL)
         
@@ -79,9 +79,11 @@ class EVKBaseViewController: UIViewController, EVKXMLParserProtocol {
         }
     }
     
-    // MARK: - EVKXMLParserProtocol API
+    // MARK: - EVKParserDelegate API
+    func didStartParsingFeed() {
+    }
+    
     func didEndParsingFeed(_ feed: Feed) {
-        //to override in subclasses
     }
     
     func didFailParsingFeed() {

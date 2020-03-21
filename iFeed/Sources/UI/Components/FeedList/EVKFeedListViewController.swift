@@ -84,7 +84,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         }
     }
     
-    // MARK: - EVKXMLParserProtocol API
+    // MARK: - EVKParserDelegate API
     override func didEndParsingFeed(_ feed: Feed) {
         if !feed.isEqual(nil) {
             provider?.dataSource.append(feed)
