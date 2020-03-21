@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewProtocol {
+class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
 
     // MARK: - property
     var feedItemsView: EVKFeedItemsView?
@@ -20,7 +20,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     // MARK: - Deinit
     deinit {
         provider?.delegate = nil
-        feedItemsView?.feedListDelegate = nil
+        feedItemsView?.delegate = nil
     }
 
     // MARK: - Life cycle
@@ -34,7 +34,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         
         feedItemsView?.tableView.delegate = provider!
         feedItemsView?.tableView.dataSource = provider!
-        feedItemsView?.feedListDelegate = self
+        feedItemsView?.delegate = self
     }
 
     override func viewDidLoad() {
@@ -63,30 +63,32 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     }
     
     // MARK: - EVKTableProviderProtocol API
-    func cellDidPress(atIndexPath: IndexPath) {
-        if let feedItems = self.feedItems {
-            let item = feedItems[(atIndexPath as NSIndexPath).row]
-            
-            item.wasRead = true
-            
-            EVKBrain.brain.coreDater.saveContext()
-        
-            guard let url = URL.init(string: item.link) else {
-                return
-            }
-            
-            let safariVC = EVKSafariViewController.init(url: url)
-            present(safariVC, animated: true)
+    func cellDidPress(at indexPath: IndexPath) {
+        guard let items = feedItems, !items.isEmpty else {
+            return
         }
+        
+        let item = items[indexPath.row]
+        
+        item.wasRead = true
+        
+        EVKBrain.brain.coreDater.saveContext()
+    
+        guard let url = URL(string: item.link) else {
+            return
+        }
+        
+        let safariVC = EVKSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
     
     // MARK: - EVKFeedListViewProtocol API
     func didPullToRefresh(_ sender: UIRefreshControl) {
-        assert(!sender.isEqual(nil), "Sender is nil")
-
-        if let URL = feed?.rssURL {
-            startParsingURL(URL)
+        guard let url = feed?.rssURL else {
+            return
         }
+        
+        startParsingURL(url)
     }
     
     // MARK: - EVKParserDelegate API

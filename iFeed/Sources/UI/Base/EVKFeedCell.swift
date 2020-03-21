@@ -44,10 +44,10 @@ class EVKFeedCell: UITableViewCell {
         }
     }
     
-    fileprivate var topLabel: UILabel = UILabel()
-    fileprivate var bottomLabel: UILabel = UILabel()
-    fileprivate var itemsCountLabel: UILabel = UILabel()
-    fileprivate var dot: UIView = UIView()
+    private var topLabel: UILabel = UILabel()
+    private var bottomLabel: UILabel = UILabel()
+    private var itemsCountLabel: UILabel = UILabel()
+    private var dot: UIView = UIView()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -106,7 +106,6 @@ class EVKFeedCell: UITableViewCell {
         dot.frame = CGRect(x: screenW - 40.0, y: bounds.height / 2 - dotSide / 2, width: dotSide, height: dotSide)
         dot.layer.cornerRadius  = dotSide / 2
         dot.layer.masksToBounds = true
-        
     }
     
     //MARK: - Helpers

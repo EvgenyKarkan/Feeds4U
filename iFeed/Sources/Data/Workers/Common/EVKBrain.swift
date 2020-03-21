@@ -52,8 +52,8 @@ class EVKBrain: NSObject {
         var feed: Feed?
         let feedsCount = coreDater.allFeeds().count
         
-        if feedsCount > 0 && (indexPath as NSIndexPath).row < feedsCount {
-            feed = coreDater.allFeeds()[(indexPath as NSIndexPath).row]
+        if feedsCount > 0 && indexPath.row < feedsCount {
+            feed = coreDater.allFeeds()[indexPath.row]
         }
         assert(feed != nil, "Feed for index path is nil")
         

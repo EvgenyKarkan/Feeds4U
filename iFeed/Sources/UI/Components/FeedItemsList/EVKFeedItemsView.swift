@@ -8,11 +8,16 @@
 
 import UIKit
 
+// MARK: - EVKParserDelegate
+protocol EVKFeedItemsViewDelegate: class {
+    func didPullToRefresh(_ sender: UIRefreshControl)
+}
+
 class EVKFeedItemsView: EVKBaseView {
 
     // MARK: - Property
-    weak var feedListDelegate: EVKFeedItemsViewProtocol?
-    var refreshControl = UIRefreshControl()
+    weak var delegate: EVKFeedItemsViewDelegate?
+    let refreshControl = UIRefreshControl()
     
     // MARK: - Init
     override func initialViewSetup() {
@@ -24,12 +29,7 @@ class EVKFeedItemsView: EVKBaseView {
     }
     
     // MARK: - Action
-    @objc fileprivate func refresh(_ sender: UIRefreshControl) {
-        feedListDelegate?.didPullToRefresh(sender)
+    @objc private func refresh(_ sender: UIRefreshControl) {
+        delegate?.didPullToRefresh(sender)
     }
-}
-
-// MARK: - EVKParserDelegate
-protocol EVKFeedItemsViewProtocol: class {
-    func didPullToRefresh(_ sender: UIRefreshControl)
 }

@@ -101,38 +101,42 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
     }
     
     // MARK: - EVKTableProviderProtocol
-    func cellDidPress(atIndexPath: IndexPath) {
-        if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
-            let itemsVC: EVKFeedItemsViewController = EVKFeedItemsViewController()
-            itemsVC.feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
-            itemsVC.feedItems = itemsVC.feed?.sortedItems()
-            
-            if (itemsVC.feed?.feedItems.count)! > 0 {
-                navigationController?.pushViewController(itemsVC, animated: true)
-            }
+    func cellDidPress(at indexPath: IndexPath) {
+        guard indexPath.row < EVKBrain.brain.coreDater.allFeeds().count else {
+            return
+        }
+        
+        let itemsVC = EVKFeedItemsViewController()
+        itemsVC.feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
+        itemsVC.feedItems = itemsVC.feed?.sortedItems()
+        
+        if (itemsVC.feed?.feedItems.count)! > 0 {
+            navigationController?.pushViewController(itemsVC, animated: true)
         }
     }
     
-    func cellNeedsDelete(atIndexPath: IndexPath) {
-        if (atIndexPath as NSIndexPath).row < EVKBrain.brain.coreDater.allFeeds().count {
-            let feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: atIndexPath)
-            
-            EVKBrain.brain.coreDater.deleteObject(feedToDelete)
-            EVKBrain.brain.coreDater.saveContext()
-            
-            provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
+    func cellNeedsDelete(at indexPath: IndexPath) {
+        guard indexPath.row < EVKBrain.brain.coreDater.allFeeds().count else {
+            return
+        }
         
-            feedListView?.tableView.beginUpdates()
-            feedListView?.tableView.deleteRows(at: [atIndexPath], with: .automatic)
-            feedListView?.tableView.endUpdates()
+        let feedToDelete: Feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
+        
+        EVKBrain.brain.coreDater.deleteObject(feedToDelete)
+        EVKBrain.brain.coreDater.saveContext()
+        
+        provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
+    
+        feedListView?.tableView.beginUpdates()
+        feedListView?.tableView.deleteRows(at: [indexPath], with: .automatic)
+        feedListView?.tableView.endUpdates()
+        
+        //hide 'trash' for no data source
+        if provider?.dataSource.count == 0 {
+            addTrashButton(false)
             
-            //hide 'trash' for no data source
-            if provider?.dataSource.count == 0 {
-                addTrashButton(false)
-                
-                feedListView?.tableView.setEditing(false, animated: false)
-                feedListView?.tableView.alpha = 0.0
-            }
+            feedListView?.tableView.setEditing(false, animated: false)
+            feedListView?.tableView.alpha = 0.0
         }
     }
     

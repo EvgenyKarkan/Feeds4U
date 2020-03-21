@@ -90,15 +90,15 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
         showInvalidRSSAlert()
     }
     
-   // MARK: - Common alert
-   func showAlertMessage(_ message : String) {
-       let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.alert)
+    // MARK: - Common alert
+    func showAlertMessage(_ message : String) {
+        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.alert)
 
-       let okAction = UIAlertAction(title: "Ok", style:.default) { action -> Void in
+        let okAction = UIAlertAction(title: "Ok", style:.default) { action -> Void in
             self.view.endEditing(true)
-       }
-       alertController.addAction(okAction)
+        }
+        alertController.addAction(okAction)
 
-       present(alertController, animated: true)
-   }
+        present(alertController, animated: true)
+    }
 }

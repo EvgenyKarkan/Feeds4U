@@ -14,7 +14,7 @@ class EVKPresenter: NSObject {
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    private let appDelegate  = UIApplication.shared.delegate as! EVKAppDelegate
+    private let appDelegate = UIApplication.shared.delegate as! EVKAppDelegate
     private (set) var window = UIWindow(frame: UIScreen.main.bounds)
     private var navigationVC = UINavigationController()
     
@@ -30,9 +30,6 @@ class EVKPresenter: NSObject {
         
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
-        
-        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: false)
-        UIApplication.shared.isStatusBarHidden = false
     }
     
     func openURL(_ url: URL) {

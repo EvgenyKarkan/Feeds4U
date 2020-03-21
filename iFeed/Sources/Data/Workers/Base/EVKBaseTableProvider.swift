@@ -36,16 +36,16 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.cellDidPress(atIndexPath: indexPath)
+        delegate?.cellDidPress(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        delegate?.cellNeedsDelete!(atIndexPath: indexPath)
+        delegate?.cellNeedsDelete?(at: indexPath)
     }
 }
 
 // MARK: - EVKTableProviderProtocol
 @objc protocol EVKTableProviderProtocol : class {
-    func cellDidPress(atIndexPath: IndexPath)
-    @objc optional func cellNeedsDelete(atIndexPath: IndexPath)
+    func cellDidPress(at indexPath: IndexPath)
+    @objc optional func cellNeedsDelete(at indexPath: IndexPath)
 }

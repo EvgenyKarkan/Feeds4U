@@ -21,7 +21,9 @@ class Feed: NSManagedObject {
     
     //sorted 'feedItems' by publish date
     func sortedItems() -> [FeedItem] {
-        let unsortedItems: [FeedItem] = (feedItems.allObjects as? [FeedItem])!
+        guard let unsortedItems: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
+            return []
+        }
         
         let sortedArray = unsortedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
             return item1.publishDate.timeIntervalSince1970 > item2.publishDate.timeIntervalSince1970
@@ -31,8 +33,10 @@ class Feed: NSManagedObject {
     }
     
     //unread 'feedItems'
-    func unreadItems () -> [FeedItem] {
-        let items: [FeedItem] = feedItems.allObjects as! [FeedItem]
+    func unreadItems() -> [FeedItem] {
+        guard let items: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
+            return []
+        }
         
         let unReadItem = items.filter({ (item: FeedItem) -> Bool in
             return item.wasRead.boolValue == false
