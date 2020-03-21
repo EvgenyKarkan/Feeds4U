@@ -6,56 +6,60 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-
-class EVKXMLParser: NSObject, MWFeedParserDelegate {
-    
-   // MARK: - properties
-   weak var parserDelegate: EVKXMLParserProtocol?
-   fileprivate var feed : Feed!
-   
-   // MARK: - public API
-   func beginParseURL(_ rssURL: URL) {
-        let parser             = MWFeedParser(feedURL: rssURL)
-        parser?.delegate       = self
-        parser?.feedParseType  = ParseTypeFull
-        parser?.connectionType = ConnectionTypeAsynchronously
-        parser?.parse()
-    }
-
-    // MARK: - MWFeedParserDelegate API
-    func feedParserDidStart(_ parser: MWFeedParser!) {
-        self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
-    }
-    
-    func feedParser(_ parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
-        self.feed?.title   = info.title
-        self.feed?.rssURL  = info.url.absoluteString
-        self.feed?.summary = (info.summary != nil) ? info.summary : self.feed?.rssURL
-    }
-    
-    func feedParser(_ parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        var feedItem: FeedItem?
-        feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem
-        
-        if item.title != nil { feedItem?.title       = item.title }
-        if item.link  != nil { feedItem?.link        = item.link }
-        if item.date  != nil { feedItem?.publishDate = item.date }
-        
-        //relationship
-        feedItem?.feed = self.feed!
-    }
-    
-    func feedParser(_ parser: MWFeedParser!, didFailWithError error: Error!) {
-        self.parserDelegate?.didFailParsingFeed()
-    }
-    
-    func feedParserDidFinish(_ parser: MWFeedParser!) {
-        self.parserDelegate?.didEndParsingFeed(self.feed!)
-    }
-}
+import FeedKit
 
 // MARK: - EVKXMLParserProtocol
 protocol EVKXMLParserProtocol: class {
     func didEndParsingFeed(_ feed: Feed)
     func didFailParsingFeed()
 }
+
+
+final class EVKXMLParser: NSObject {
+    
+   // MARK: - properties
+   weak var parserDelegate: EVKXMLParserProtocol?
+   private var feed : Feed!
+   
+   // MARK: - public API
+   func beginParseURL(_ rssURL: URL) {
+        let parser = FeedParser(URL: rssURL)
+    
+        parser.parseAsync { (result) in
+            
+            DispatchQueue.main.async {
+                switch result {
+                    case .success(let feed):
+                        guard let rssFeed = feed.rssFeed else {
+                            self.parserDelegate?.didFailParsingFeed()
+                            return
+                        }
+                        
+                        // Create Feed
+                        self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
+                        self.feed.title   = rssFeed.title
+                        self.feed.rssURL  = rssURL.absoluteString
+                        self.feed.summary = rssFeed.description
+                        
+                        // Create Feeds
+                        rssFeed.items?.forEach({ rrsFeedItem in
+                            if let feedItem: FeedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem {
+                                feedItem.title = rrsFeedItem.title ?? ""
+                                feedItem.link = rrsFeedItem.link ?? ""
+                                feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
+                                
+                                //relationship
+                                feedItem.feed = self.feed
+                            }
+                        })
+                        
+                        self.parserDelegate?.didEndParsingFeed(self.feed)
+                        
+                    case .failure( _):
+                        self.parserDelegate?.didFailParsingFeed()
+                    }
+            }
+        }
+    }
+}
+

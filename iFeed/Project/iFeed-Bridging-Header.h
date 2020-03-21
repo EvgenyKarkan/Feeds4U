@@ -9,6 +9,4 @@
 #ifndef iFeed_iFeed_Bridging_Header_h
 #define iFeed_iFeed_Bridging_Header_h
 
-#import "MWFeedParser.h"
-
 #endif

@@ -14,13 +14,6 @@
 		DE176A6B1B9B706F0046EDED /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A671B9B706F0046EDED /* EVKBrain.swift */; };
 		DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */; };
 		DE176A6D1B9B706F0046EDED /* EVKXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A691B9B706F0046EDED /* EVKXMLParser.swift */; };
-		DE176A891B9C9A920046EDED /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A7B1B9C9A910046EDED /* GTMNSString+HTML.m */; };
-		DE176A8A1B9C9A920046EDED /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A7D1B9C9A910046EDED /* NSDate+InternetDateTime.m */; };
-		DE176A8B1B9C9A920046EDED /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A7F1B9C9A920046EDED /* NSString+HTML.m */; };
-		DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A811B9C9A920046EDED /* NSString+XMLEntities.m */; };
-		DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A831B9C9A920046EDED /* MWFeedInfo.m */; };
-		DE176A8E1B9C9A920046EDED /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A851B9C9A920046EDED /* MWFeedItem.m */; };
-		DE176A8F1B9C9A920046EDED /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DE176A871B9C9A920046EDED /* MWFeedParser.m */; };
 		DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */; };
 		DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */; };
 		DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */; };
@@ -76,21 +69,6 @@
 		DE176A671B9B706F0046EDED /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
 		DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
 		DE176A691B9B706F0046EDED /* EVKXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKXMLParser.swift; sourceTree = "<group>"; };
-		DE176A7A1B9C9A910046EDED /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		DE176A7B1B9C9A910046EDED /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		DE176A7C1B9C9A910046EDED /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
-		DE176A7D1B9C9A910046EDED /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
-		DE176A7E1B9C9A920046EDED /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
-		DE176A7F1B9C9A920046EDED /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
-		DE176A801B9C9A920046EDED /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
-		DE176A811B9C9A920046EDED /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
-		DE176A821B9C9A920046EDED /* MWFeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedInfo.h; sourceTree = "<group>"; };
-		DE176A831B9C9A920046EDED /* MWFeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedInfo.m; sourceTree = "<group>"; };
-		DE176A841B9C9A920046EDED /* MWFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedItem.h; sourceTree = "<group>"; };
-		DE176A851B9C9A920046EDED /* MWFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedItem.m; sourceTree = "<group>"; };
-		DE176A861B9C9A920046EDED /* MWFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser.h; sourceTree = "<group>"; };
-		DE176A871B9C9A920046EDED /* MWFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedParser.m; sourceTree = "<group>"; };
-		DE176A881B9C9A920046EDED /* MWFeedParser_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser_Private.h; sourceTree = "<group>"; };
 		DE176AAE1B9CA0AD0046EDED /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
 		DE176AAF1B9CA0AD0046EDED /* EVKFeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsViewController.swift; sourceTree = "<group>"; };
 		DE176AB11B9CA0AD0046EDED /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
@@ -162,7 +140,6 @@
 				2135959BF567754DF3B0F9CC /* Pods-iFeedTests.release.xcconfig */,
 				B423B5C837C48BCB6BC20D91 /* Pods-iFeedTests.adhoc.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -199,39 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				DEDFDA8B2246D76F0067D7C4 /* SimpleSimilarity */,
-				DE176A781B9C9A910046EDED /* MWFeedParser */,
 			);
 			path = Libs;
-			sourceTree = "<group>";
-		};
-		DE176A781B9C9A910046EDED /* MWFeedParser */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A791B9C9A910046EDED /* Categories */,
-				DE176A821B9C9A920046EDED /* MWFeedInfo.h */,
-				DE176A831B9C9A920046EDED /* MWFeedInfo.m */,
-				DE176A841B9C9A920046EDED /* MWFeedItem.h */,
-				DE176A851B9C9A920046EDED /* MWFeedItem.m */,
-				DE176A861B9C9A920046EDED /* MWFeedParser.h */,
-				DE176A871B9C9A920046EDED /* MWFeedParser.m */,
-				DE176A881B9C9A920046EDED /* MWFeedParser_Private.h */,
-			);
-			path = MWFeedParser;
-			sourceTree = "<group>";
-		};
-		DE176A791B9C9A910046EDED /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				DE176A7A1B9C9A910046EDED /* GTMNSString+HTML.h */,
-				DE176A7B1B9C9A910046EDED /* GTMNSString+HTML.m */,
-				DE176A7C1B9C9A910046EDED /* NSDate+InternetDateTime.h */,
-				DE176A7D1B9C9A910046EDED /* NSDate+InternetDateTime.m */,
-				DE176A7E1B9C9A920046EDED /* NSString+HTML.h */,
-				DE176A7F1B9C9A920046EDED /* NSString+HTML.m */,
-				DE176A801B9C9A920046EDED /* NSString+XMLEntities.h */,
-				DE176A811B9C9A920046EDED /* NSString+XMLEntities.m */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		DE176AAC1B9CA0AD0046EDED /* Components */ = {
@@ -440,6 +386,7 @@
 				DE763D111B7E841300C8B54A /* Frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
 				DE7752CB1BA7684900A82EFE /* Crashlytics */,
+				B1A6BCBBF7DCB13F7FCA21B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -577,6 +524,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B1A6BCBBF7DCB13F7FCA21B7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iFeed/Pods-iFeed-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FeedKit/FeedKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FeedKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iFeed/Pods-iFeed-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -589,7 +554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n../Libs/Crashlytics.framework/run 4760756e56b00e661fdfca38443023c06fd79797 2a108c89744d2e3d74bec86ddbea4b924ecf0289c3ff3c6ca0ca5f4e759471ee\nfi";
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n../Libs/Crashlytics.framework/run 4760756e56b00e661fdfca38443023c06fd79797 2a108c89744d2e3d74bec86ddbea4b924ecf0289c3ff3c6ca0ca5f4e759471ee\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -601,7 +566,6 @@
 				DE176AB41B9CA0AD0046EDED /* EVKFeedItemsViewController.swift in Sources */,
 				DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */,
 				DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */,
-				DE176A8C1B9C9A920046EDED /* NSString+XMLEntities.m in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
 				DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
@@ -612,12 +576,10 @@
 				DEDFDA97224789DC0067D7C4 /* EVKSafariViewController.swift in Sources */,
 				DE7D1E411B97958A002330A2 /* Feed.swift in Sources */,
 				DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */,
-				DE176A8D1B9C9A920046EDED /* MWFeedInfo.m in Sources */,
 				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
 				DE826C5A1B9B5B570062FE2A /* EVKBaseView.swift in Sources */,
 				959B3F03208C9337008EBA93 /* Search.swift in Sources */,
 				DE176A6B1B9B706F0046EDED /* EVKBrain.swift in Sources */,
-				DE176A891B9C9A920046EDED /* GTMNSString+HTML.m in Sources */,
 				DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */,
 				DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */,
 				DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */,
@@ -627,12 +589,8 @@
 				DE176A6D1B9B706F0046EDED /* EVKXMLParser.swift in Sources */,
 				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
 				DEDFDA912246D76F0067D7C4 /* IndexMatrix.swift in Sources */,
-				DE176A8E1B9C9A920046EDED /* MWFeedItem.m in Sources */,
-				DE176A8B1B9C9A920046EDED /* NSString+HTML.m in Sources */,
 				DEE2111E1D9AE3AB00A2A95D /* EVKPresenter.swift in Sources */,
 				DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */,
-				DE176A8F1B9C9A920046EDED /* MWFeedParser.m in Sources */,
-				DE176A8A1B9C9A920046EDED /* NSDate+InternetDateTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
