@@ -12,11 +12,11 @@ import CoreData
 class EVKBrain: NSObject {
    
     // MARK: - Readonly properties
-    fileprivate (set) var parser: EVKParser!
-    fileprivate (set) var coreDater: EVKCoreDataManager!
-    fileprivate (set) var presenter: EVKPresenter!
-    fileprivate (set) var analytics: EVKAnalytics!
-    fileprivate (set) var cacher: EVKCacher!
+    private (set) var parser: EVKParser
+    private (set) var coreDater: EVKCoreDataManager
+    private (set) var presenter: EVKPresenter
+    private (set) var analytics: EVKAnalytics
+    private (set) var cacher: EVKCacher
     
     // MARK: - Singleton
     class var brain: EVKBrain {
@@ -28,11 +28,11 @@ class EVKBrain: NSObject {
     
     // MARK: - Init
     override init() {
-        parser    = EVKParser()
+        parser = EVKParser()
         coreDater = EVKCoreDataManager()
         presenter = EVKPresenter.presenter
         analytics = EVKAnalytics.analytics
-        cacher    = EVKCacher.cacher
+        cacher = EVKCacher.cacher
         
         super.init()
     }
@@ -45,7 +45,7 @@ class EVKBrain: NSObject {
     }
     
     func createEntity(name: String) -> NSManagedObject {
-        return self.coreDater.createEntity(name: name)
+        return coreDater.createEntity(name: name)
     }
     
     func feedForIndexPath(indexPath: IndexPath) -> Feed {
@@ -62,7 +62,7 @@ class EVKBrain: NSObject {
     
     func isDuplicateURL(_ rssURL: String) -> Bool {
         var returnValue: Bool = false
-        let allItems: [Feed]  = EVKBrain.brain.coreDater.allFeeds()
+        let allItems: [Feed] = EVKBrain.brain.coreDater.allFeeds()
         
         for item: Feed in allItems {
             if rssURL == item.rssURL {

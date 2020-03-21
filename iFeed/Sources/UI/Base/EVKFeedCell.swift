@@ -56,18 +56,18 @@ class EVKFeedCell: UITableViewCell {
         selectionStyle = .none
         
         topLabel.backgroundColor = .white
-        topLabel.font            = UIFont(name: "HelveticaNeue", size: topFontForDevice())
-        topLabel.textAlignment   = .left
+        topLabel.font = UIFont(name: "HelveticaNeue", size: topFontForDevice())
+        topLabel.textAlignment = .left
         contentView.addSubview(topLabel)
         
         bottomLabel.backgroundColor = topLabel.backgroundColor
-        bottomLabel.font            = UIFont(name: "HelveticaNeue-Light", size: bottomFontForDevice())
-        bottomLabel.textAlignment   = .left
+        bottomLabel.font = UIFont(name: "HelveticaNeue-Light", size: bottomFontForDevice())
+        bottomLabel.textAlignment = .left
         contentView.addSubview(bottomLabel)
         
         itemsCountLabel.backgroundColor = topLabel.backgroundColor
-        itemsCountLabel.font            = UIFont(name: "HelveticaNeue", size: 10.0)
-        itemsCountLabel.textAlignment   = .right
+        itemsCountLabel.font = UIFont(name: "HelveticaNeue", size: 10.0)
+        itemsCountLabel.textAlignment = .right
         contentView.addSubview(itemsCountLabel)
         
         dot.backgroundColor = UIColor(named: "Tangerine")

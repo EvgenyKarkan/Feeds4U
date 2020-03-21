@@ -52,11 +52,11 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
     }
     
     func showInvalidRSSAlert() {
-        self.showAlertMessage("RSS feed can't be parsed")
+        showAlertMessage("RSS feed can't be parsed")
     }
     
     func showDuplicateRSSAlert() {
-        self.showAlertMessage("RSS feed already exists,\n try another one")
+        showAlertMessage("RSS feed already exists,\n try another one")
     }
     
     // MARK: - Public API - Add feed
@@ -67,12 +67,12 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
     // MARK: - Public API - Parsing
     func startParsingURL(_ URL: String) {
         let parser = EVKBrain.brain.parser
-        parser?.delegate = self
+        parser.delegate = self
         
         let url = Foundation.URL(string: URL)
         
         if url != nil {
-            parser?.beginParseURL(Foundation.URL(string: URL)!)
+            parser.beginParseURL(Foundation.URL(string: URL)!)
         }
         else {
             showInvalidRSSAlert()

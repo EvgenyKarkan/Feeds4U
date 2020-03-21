@@ -13,7 +13,7 @@ internal struct MatchingEngineAlgortihm {
     internal static func determineFrequentAndInfrequentWords(in set:NSCountedSet, onlyFrequent: Bool) -> Set<String> {
         var maxCount = 0
         var minCount = Int.max
-        var medianCount = 0
+        // var medianCount = 0 //Variable 'medianCount' was written to, but never read
 
         let countedSetCount = set.objectEnumerator().allObjects.count
         
@@ -34,12 +34,12 @@ internal struct MatchingEngineAlgortihm {
             stringCounts.append(stringCount)
         }
         
-        let sortedStringCounts = stringCounts.sorted()
+        //let sortedStringCounts = stringCounts.sorted()
         
-        let stringCount = Double(sortedStringCounts.count)
+        //let stringCount = Double(sortedStringCounts.count)
         
-        let midIndex = Int(floor(stringCount/2.0))
-        medianCount = sortedStringCounts[midIndex]
+        //let midIndex = Int(floor(stringCount/2.0))
+        //medianCount = sortedStringCounts[midIndex] // Variable 'medianCount' was written to, but never read
         
         // the top 5% of words are considered frequent
         let cutOffTop = Int(floor(Double(maxCount) * 0.9))
