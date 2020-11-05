@@ -177,3 +177,5 @@ xcuserdata
 *.xcworkspace
 !default.xcworkspace
 
+# CocoaPods
+Pods/
