@@ -16,8 +16,8 @@ SPEC REPOS:
     - FeedKit
 
 SPEC CHECKSUMS:
-  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
+  Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   FeedKit: 9ffa2434af293df73ac069129900498b3f89cb2e
 
 PODFILE CHECKSUM: e289c93d40261fdf645dd410c26c3f97eb7b9deb
