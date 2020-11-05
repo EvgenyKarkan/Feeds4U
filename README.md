@@ -1,7 +1,8 @@
 Feeds4U
 ===========
 
-RSS reader app written in `Swift`.
+Simple RSS reader app written in `Swift`.
+=======
 
 ## Contributions
 All PRs should be directed to '_develop_' branch.
