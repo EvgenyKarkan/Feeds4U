@@ -1,7 +1,7 @@
 Feeds4U
 ===========
 
-RSS reader app written in Swift 2.0, and yes, software design is pretty good here.
+Simple RSS reader app written in Swift.
 
 ## Contributions
 All PRs should be directed to '_develop_' branch.
@@ -16,5 +16,5 @@ https://itunes.apple.com/ua/app/feeds4u/id1038456442?mt=8
 
 ## Copyright
 Source code under MIT license.  
-Exclusive rights to distribute Feeds4U application through the Apple App Store belongs only to me.    
-Copyright (c) 2015 Evgeny Karkan. All rights reserved.
+Exclusive rights to distribute Feeds4U application through the Apple App Store belong only to me.    
+Copyright (c) 2020 Evgeny Karkan. All rights reserved.
