@@ -14,9 +14,8 @@ class EVKPresenter: NSObject {
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    private let appDelegate = UIApplication.shared.delegate as! EVKAppDelegate
     private (set) var window = UIWindow(frame: UIScreen.main.bounds)
-    private var navigationVC = UINavigationController()
+    private lazy var navigationVC = UINavigationController()
     
     // MARK: - Public APIs
     func showStartScreen() {
@@ -25,11 +24,13 @@ class EVKPresenter: NSObject {
         navigationVC.viewControllers = [feedListViewController]
         navigationVC.navigationBar.isTranslucent = false
         navigationVC.navigationBar.barTintColor = UIColor(named: "Tangerine")
-        navigationVC.navigationBar.tintColor = UIColor.white
+        navigationVC.navigationBar.tintColor = .white
         navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
         
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
+
+        //UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBarAppearance()
     }
     
     func openURL(_ url: URL) {

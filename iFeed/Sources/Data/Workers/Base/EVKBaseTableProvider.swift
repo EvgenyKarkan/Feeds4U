@@ -45,7 +45,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
 }
 
 // MARK: - EVKTableProviderProtocol
-@objc protocol EVKTableProviderProtocol : class {
+@objc protocol EVKTableProviderProtocol : AnyObject {
     func cellDidPress(at indexPath: IndexPath)
     @objc optional func cellNeedsDelete(at indexPath: IndexPath)
 }

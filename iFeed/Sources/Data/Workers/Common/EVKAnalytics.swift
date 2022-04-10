@@ -6,8 +6,7 @@
 //  Copyright © 2016 Evgeny Karkan. All rights reserved.
 //
 
-import Fabric
-import Crashlytics
+import Foundation
 
 class EVKAnalytics: NSObject {
 
@@ -17,7 +16,9 @@ class EVKAnalytics: NSObject {
     // MARK: - APIs
     func startCrashlytics() {
         #if __RELEASE__
-            Fabric.with([Crashlytics.self])
+            //Fabric.with([Crashlytics.self])
+
+        // FirebaseApp.configure()
         #endif
     }
 }

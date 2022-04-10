@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - EVKParserDelegate
-protocol EVKFeedItemsViewDelegate: class {
+protocol EVKFeedItemsViewDelegate: AnyObject {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
 

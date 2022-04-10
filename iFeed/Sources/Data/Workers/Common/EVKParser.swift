@@ -9,7 +9,7 @@
 import FeedKit
 
 // MARK: - EVKParserDelegate
-protocol EVKParserDelegate: class {
+protocol EVKParserDelegate: AnyObject {
     func didStartParsingFeed()
     func didEndParsingFeed(_ feed: Feed)
     func didFailParsingFeed()
