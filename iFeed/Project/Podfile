@@ -8,9 +8,6 @@ target 'iFeed' do
   inhibit_all_warnings!
 
   # Pods for iFeed
-  
-  #pod 'Fabric'
-  #pod 'Crashlytics'
   pod 'FeedKit'
   pod 'Firebase/Crashlytics'
 
