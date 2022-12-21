@@ -10,6 +10,8 @@
 		2E2BF18F242687CA00472272 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BF18E242687CA00472272 /* Colors.xcassets */; };
 		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
 		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
+		2EBF7608295397EE00EA0FFF /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF7606295397EE00EA0FFF /* FeedCell.swift */; };
+		2EBF7609295397EE00EA0FFF /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EBF7607295397EE00EA0FFF /* FeedCell.xib */; };
 		959B3F03208C9337008EBA93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B3F02208C9337008EBA93 /* Search.swift */; };
 		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
@@ -22,7 +24,6 @@
 		DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AB21B9CA0AD0046EDED /* EVKFeedListViewController.swift */; };
 		DE176AF11B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */; };
 		DE176AF21B9E0DCD0046EDED /* EVKFeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */; };
-		DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176AF31BA089290046EDED /* EVKFeedCell.swift */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
 		DE7D1E411B97958A002330A2 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E391B97958A002330A2 /* Feed.swift */; };
 		DE7D1E421B97958A002330A2 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7D1E3A1B97958A002330A2 /* FeedItem.swift */; };
@@ -55,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		2E2BF18E242687CA00472272 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		2EBF7606295397EE00EA0FFF /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		2EBF7607295397EE00EA0FFF /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		959B3F02208C9337008EBA93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
@@ -68,7 +71,6 @@
 		DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iFeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsTableProvider.swift; sourceTree = "<group>"; };
 		DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListTableProvider.swift; sourceTree = "<group>"; };
-		DE176AF31BA089290046EDED /* EVKFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedCell.swift; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EBF7605295397B200EA0FFF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2EBF7607295397EE00EA0FFF /* FeedCell.xib */,
+				2EBF7606295397EE00EA0FFF /* FeedCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		959B3F01208C9306008EBA93 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +280,6 @@
 			children = (
 				DE826C591B9B5B570062FE2A /* EVKBaseView.swift */,
 				DE826C521B9B590C0062FE2A /* EVKBaseViewController.swift */,
-				DE176AF31BA089290046EDED /* EVKFeedCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -328,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				DE826C511B9B590C0062FE2A /* Base */,
+				2EBF7605295397B200EA0FFF /* Cells */,
 				DE176AAC1B9CA0AD0046EDED /* Components */,
 			);
 			path = UI;
@@ -438,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E2BF18F242687CA00472272 /* Colors.xcassets in Resources */,
+				2EBF7609295397EE00EA0FFF /* FeedCell.xib in Resources */,
 				DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */,
 				DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */,
 			);
@@ -479,6 +491,7 @@
 				DE826C561B9B590C0062FE2A /* EVKBaseViewController.swift in Sources */,
 				DE176AB61B9CA0AD0046EDED /* EVKFeedListViewController.swift in Sources */,
 				DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */,
+				2EBF7608295397EE00EA0FFF /* FeedCell.swift in Sources */,
 				DE176AB51B9CA0AD0046EDED /* EVKFeedListView.swift in Sources */,
 				95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */,
 				DEE211201D9AE7B000A2A95D /* EVKAnalytics.swift in Sources */,
@@ -494,7 +507,6 @@
 				DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */,
 				DE176A6C1B9B706F0046EDED /* EVKCoreDataManager.swift in Sources */,
 				DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */,
-				DE176AF41BA089290046EDED /* EVKFeedCell.swift in Sources */,
 				DE176AB31B9CA0AD0046EDED /* EVKFeedItemsView.swift in Sources */,
 				DEE211221D9AE7CE00A2A95D /* EVKCacher.swift in Sources */,
 				DE176A6D1B9B706F0046EDED /* EVKParser.swift in Sources */,

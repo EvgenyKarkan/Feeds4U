@@ -21,7 +21,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     
     // MARK: - UITableViewDelegate & UITableViewDatasource API    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

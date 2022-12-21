@@ -8,10 +8,13 @@
 
 import UIKit
 
-class EVKFeedItemsTableProvider: EVKBaseTableProvider {
-   
-    // MARK: - Constant
-    private let kItemsCell = "ItemsCell"
+final class EVKFeedItemsTableProvider: EVKBaseTableProvider {
+
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy hh:mm"
+        return formatter
+    }()
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,32 +22,19 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: kItemsCell) as? EVKFeedCell
-        
-        if cell == nil {
-            cell = EVKFeedCell(style: .subtitle, reuseIdentifier: kItemsCell)
-            cell?.accessoryType = .disclosureIndicator
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell else {
+            return UITableViewCell()
         }
-        
-        var item: FeedItem?
-        
-        if !dataSource.isEmpty && indexPath.row < dataSource.count {
-            item = dataSource[indexPath.row] as? FeedItem
+        guard !dataSource.isEmpty, indexPath.row < dataSource.count,
+            let item: FeedItem = dataSource[indexPath.row] as? FeedItem else {
+            return UITableViewCell()
         }
 
-        if item != nil {
-            //TODO:- Cache date formatter
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-MM-yyyy hh:mm"
-            
-            let dateString = dateFormatter.string(from: item!.publishDate as Date)
-
-            cell!.wasReadCell = item!.wasRead.boolValue
-            cell!.titleText = item!.title
-            cell!.subTitleText = dateString
-        }
+        cell.wasReadCell = item.wasRead.boolValue
+        cell.titleText = item.title
+        cell.subTitleText = Self.dateFormatter.string(from: item.publishDate)
         
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

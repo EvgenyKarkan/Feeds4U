@@ -9,8 +9,6 @@
 import UIKit
 
 class EVKFeedListTableProvider: EVKBaseTableProvider {
- 
-    private let kFeedCell: String = "FeedCell"
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -18,22 +16,18 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: kFeedCell) as? EVKFeedCell
-        
-        if cell == nil {
-            cell = EVKFeedCell(style: .subtitle, reuseIdentifier: kFeedCell)
-            cell?.accessoryType = .disclosureIndicator
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell else {
+            return UITableViewCell()
         }
-        
-        var feed: Feed?
-        feed = dataSource[indexPath.row] as? Feed
+        guard !dataSource.isEmpty, indexPath.row < dataSource.count,
+            let feed: Feed = dataSource[indexPath.row] as? Feed else {
+            return UITableViewCell()
+        }
 
-        if feed != nil {
-            cell!.titleText = feed?.title
-            cell!.subTitleText = feed?.summary
-            cell!.itemsCountText = (feed?.unreadItems().count)?.description
-        }
+        cell.titleText = feed.title
+        cell.subTitleText = feed.summary
+        cell.itemsCountText = feed.unreadItems().count.description
         
-        return cell!
+        return cell
     }
 }

@@ -47,7 +47,6 @@ class EVKBaseView: UIView {
     
     // MARK: - Public API
     func initialViewSetup() {
-        //to override in subclasses
         backgroundColor = .white
         
         label.backgroundColor = .white
@@ -61,5 +60,8 @@ class EVKBaseView: UIView {
         tableView.backgroundColor = .white
         tableView.cellLayoutMarginsFollowReadableWidth = false
         addSubview(tableView)
+
+        let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: FeedCell.reuseId)
     }
 }
