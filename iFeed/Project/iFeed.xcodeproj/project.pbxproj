@@ -29,19 +29,19 @@
 		2E1BE41C2953CD2700008C52 /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4052953CD2700008C52 /* EVKPresenter.swift */; };
 		2E1BE41D2953CD2700008C52 /* EVKParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4062953CD2700008C52 /* EVKParser.swift */; };
 		2E1BE41E2953CD2700008C52 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4082953CD2700008C52 /* EVKBaseTableProvider.swift */; };
-		2E2BF18F242687CA00472272 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BF18E242687CA00472272 /* Colors.xcassets */; };
+		2E1BE4262953CE1400008C52 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E1BE4202953CE1400008C52 /* Colors.xcassets */; };
+		2E1BE4272953CE1400008C52 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4212953CE1400008C52 /* iFeed.xcdatamodeld */; };
+		2E1BE4282953CE1400008C52 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1BE4232953CE1400008C52 /* LaunchScreen.xib */; };
+		2E1BE4292953CE1400008C52 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E1BE4242953CE1400008C52 /* Images.xcassets */; };
+		2E1BE42A2953CE1400008C52 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4252953CE1400008C52 /* EVKAppDelegate.swift */; };
 		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
 		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
 		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
-		DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */; };
 		DEDFDA912246D76F0067D7C4 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */; };
 		DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */; };
 		DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */; };
 		DEDFDA942246D76F0067D7C4 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */; };
 		DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */; };
-		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
-		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
-		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,22 +77,22 @@
 		2E1BE4052953CD2700008C52 /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
 		2E1BE4062953CD2700008C52 /* EVKParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKParser.swift; sourceTree = "<group>"; };
 		2E1BE4082953CD2700008C52 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
-		2E2BF18E242687CA00472272 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		2E1BE4202953CE1400008C52 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		2E1BE4222953CE1400008C52 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
+		2E1BE4232953CE1400008C52 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		2E1BE4242953CE1400008C52 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2E1BE4252953CE1400008C52 /* EVKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAppDelegate.swift; sourceTree = "<group>"; };
 		DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iFeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
-		DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
 		DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
 		DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
 		DEDFDA8F2246D76F0067D7C4 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
 		DEDFDA902246D76F0067D7C4 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		DEFB0CB21B80D2FA001425A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DEFB0CB41B80D2FA001425A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EVKAppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +247,18 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		2E1BE41F2953CE1400008C52 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2E1BE4252953CE1400008C52 /* EVKAppDelegate.swift */,
+				2E1BE4232953CE1400008C52 /* LaunchScreen.xib */,
+				2E1BE4202953CE1400008C52 /* Colors.xcassets */,
+				2E1BE4212953CE1400008C52 /* iFeed.xcdatamodeld */,
+				2E1BE4242953CE1400008C52 /* Images.xcassets */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		DE176A771B9C9A910046EDED /* Libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,11 +288,10 @@
 		DE763D161B7E841300C8B54A /* iFeed */ = {
 			isa = PBXGroup;
 			children = (
+				2E1BE41F2953CE1400008C52 /* Application */,
 				2E1BE3E52953CD2700008C52 /* UI */,
 				2E1BE3F62953CD2700008C52 /* Data */,
-				DEFB0CB61B80D2FA001425A3 /* Sources */,
 				DEFB0CAE1B80D2FA001425A3 /* Project */,
-				DEFB0CB31B80D2FA001425A3 /* Resources */,
 				DE176A771B9C9A910046EDED /* Libs */,
 			);
 			name = iFeed;
@@ -324,33 +335,6 @@
 				DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */,
 			);
 			path = Project;
-			sourceTree = "<group>";
-		};
-		DEFB0CB31B80D2FA001425A3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DEFB0CB41B80D2FA001425A3 /* Images.xcassets */,
-				DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */,
-				DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */,
-				2E2BF18E242687CA00472272 /* Colors.xcassets */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		DEFB0CB61B80D2FA001425A3 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				DEFB0CB71B80D2FA001425A3 /* Application */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		DEFB0CB71B80D2FA001425A3 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */,
-			);
-			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,10 +432,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E2BF18F242687CA00472272 /* Colors.xcassets in Resources */,
 				2E1BE40A2953CD2700008C52 /* FeedCell.xib in Resources */,
-				DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */,
-				DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */,
+				2E1BE4292953CE1400008C52 /* Images.xcassets in Resources */,
+				2E1BE4282953CE1400008C52 /* LaunchScreen.xib in Resources */,
+				2E1BE4262953CE1400008C52 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,12 +475,12 @@
 				2E1BE4142953CD2700008C52 /* Feed.swift in Sources */,
 				DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */,
 				DEDFDA952246D76F0067D7C4 /* TextualDataImport.swift in Sources */,
+				2E1BE42A2953CE1400008C52 /* EVKAppDelegate.swift in Sources */,
 				2E1BE4132953CD2700008C52 /* FeedItem.swift in Sources */,
 				2E1BE4182953CD2700008C52 /* EVKBrain.swift in Sources */,
 				2E1BE4172953CD2700008C52 /* EVKFeedItemsTableProvider.swift in Sources */,
 				2E1BE41A2953CD2700008C52 /* EVKCoreDataManager.swift in Sources */,
 				2E1BE40D2953CD2700008C52 /* EVKFeedItemsViewController.swift in Sources */,
-				DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */,
 				2E1BE4102953CD2700008C52 /* EVKFeedListView.swift in Sources */,
 				DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */,
 				2E1BE40B2953CD2700008C52 /* EVKSafariViewController.swift in Sources */,
@@ -504,8 +488,8 @@
 				2E1BE41C2953CD2700008C52 /* EVKPresenter.swift in Sources */,
 				2E1BE4092953CD2700008C52 /* FeedCell.swift in Sources */,
 				2E1BE4152953CD2700008C52 /* Search.swift in Sources */,
-				DE826C501B9A0A5B0062FE2A /* iFeed.xcdatamodeld in Sources */,
 				2E1BE4162953CD2700008C52 /* EVKFeedListTableProvider.swift in Sources */,
+				2E1BE4272953CE1400008C52 /* iFeed.xcdatamodeld in Sources */,
 				2E1BE41D2953CD2700008C52 /* EVKParser.swift in Sources */,
 				2E1BE41E2953CD2700008C52 /* EVKBaseTableProvider.swift in Sources */,
 				2E1BE4112953CD2700008C52 /* EVKBaseViewController.swift in Sources */,
@@ -961,12 +945,12 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */ = {
+		2E1BE4212953CE1400008C52 /* iFeed.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */,
+				2E1BE4222953CE1400008C52 /* iFeed.xcdatamodel */,
 			);
-			currentVersion = DE826C4F1B9A0A5B0062FE2A /* iFeed.xcdatamodel */;
+			currentVersion = 2E1BE4222953CE1400008C52 /* iFeed.xcdatamodel */;
 			path = iFeed.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
