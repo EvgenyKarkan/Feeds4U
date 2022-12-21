@@ -11,19 +11,19 @@ import CoreData
 final class EVKBrain {
    
     // MARK: - Readonly properties
-    private(set) var parser: EVKParser
-    private(set) var coreDater: EVKCoreDataManager
-    private(set) var presenter: EVKPresenter
-    private(set) var analytics: EVKAnalytics
-    private(set) var cacher: EVKCacher
+    let parser: EVKParser
+    let coreDater: EVKCoreDataManager
+    let presenter: EVKPresenter
+    let analytics: EVKAnalytics
+    let cacher: EVKCacher
     
     // MARK: - Singleton
     static let brain = EVKBrain()
     
     // MARK: - Init
     init() {
-        parser = EVKParser()
-        coreDater = EVKCoreDataManager()
+        parser = EVKParser.parser
+        coreDater = EVKCoreDataManager.manager
         presenter = EVKPresenter.presenter
         analytics = EVKAnalytics.analytics
         cacher = EVKCacher.cacher

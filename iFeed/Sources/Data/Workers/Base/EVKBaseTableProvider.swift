@@ -17,9 +17,6 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     // MARK: - Designated init
     init(delegateObject: EVKTableProviderProtocol) {
         delegate = delegateObject
-
-        super.init()
-        assert(delegate != nil, "Delegate can't be nil")
     }
     
     // MARK: - UITableViewDelegate & UITableViewDatasource API    
@@ -32,14 +29,15 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        fatalError()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.cellDidPress(at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         delegate?.cellNeedsDelete?(at: indexPath)
     }
 }

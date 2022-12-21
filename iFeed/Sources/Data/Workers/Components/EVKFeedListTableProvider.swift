@@ -26,7 +26,7 @@ class EVKFeedListTableProvider: EVKBaseTableProvider {
         }
         
         var feed: Feed?
-        feed = dataSource[(indexPath as NSIndexPath).row] as? Feed
+        feed = dataSource[indexPath.row] as? Feed
 
         if feed != nil {
             cell!.titleText = feed?.title

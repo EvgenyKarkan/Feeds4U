@@ -220,8 +220,8 @@
 		DE176AEE1B9E0DCD0046EDED /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */,
 				DE176AF01B9E0DCD0046EDED /* EVKFeedListTableProvider.swift */,
+				DE176AEF1B9E0DCD0046EDED /* EVKFeedItemsTableProvider.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

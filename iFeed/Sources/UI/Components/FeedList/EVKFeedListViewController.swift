@@ -136,7 +136,7 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
             addTrashButton(false)
             
             feedListView?.tableView.setEditing(false, animated: false)
-            feedListView?.tableView.alpha = 0.0
+            feedListView?.tableView.alpha = .zero
         }
     }
     

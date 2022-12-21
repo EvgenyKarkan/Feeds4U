@@ -15,16 +15,18 @@ protocol EVKParserDelegate: AnyObject {
     func didFailParsingFeed()
 }
 
-
 final class EVKParser {
+
+    // MARK: - Singleton
+    static let parser = EVKParser()
     
-   // MARK: - properties
-   weak var delegate: EVKParserDelegate?
-   private var feed: Feed!
+    // MARK: - properties
+    weak var delegate: EVKParserDelegate?
+    private var feed: Feed!
    
-   // MARK: - public API
+    // MARK: - public API
     func beginParseURL(_ rssURL: URL) {
-        self.delegate?.didStartParsingFeed()
+        delegate?.didStartParsingFeed()
     
         let parser = FeedParser(URL: rssURL)
     
@@ -43,14 +45,14 @@ final class EVKParser {
                         self.feed.rssURL = rssURL.absoluteString
                         self.feed.summary = rssFeed.description
                         
-                        // Create Feeds
+                        // Create Feed Items
                         rssFeed.items?.forEach({ rrsFeedItem in
                             if let feedItem: FeedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem {
                                 feedItem.title = rrsFeedItem.title ?? ""
                                 feedItem.link = rrsFeedItem.link ?? ""
                                 feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
                                 
-                                //relationship
+                                // set relationship
                                 feedItem.feed = self.feed
                             }
                         })

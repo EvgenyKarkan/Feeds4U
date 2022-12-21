@@ -28,8 +28,8 @@ class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         
         var item: FeedItem?
         
-        if self.dataSource.count > 0 && (indexPath as NSIndexPath).row < self.dataSource.count {
-            item = dataSource[(indexPath as NSIndexPath).row] as? FeedItem
+        if !dataSource.isEmpty && indexPath.row < dataSource.count {
+            item = dataSource[indexPath.row] as? FeedItem
         }
 
         if item != nil {

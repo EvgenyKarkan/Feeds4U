@@ -14,7 +14,7 @@ final class EVKPresenter {
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    private(set) var window = UIWindow(frame: UIScreen.main.bounds)
+    lazy var window = UIWindow(frame: UIScreen.main.bounds)
     private lazy var navigationVC = UINavigationController()
     
     // MARK: - Public APIs

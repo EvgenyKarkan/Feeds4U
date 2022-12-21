@@ -11,7 +11,7 @@ import Foundation
 struct Search {
     
     private var matchingEngine: MatchingEngine?
-    private let coreDataManager = EVKCoreDataManager()
+    private let coreDataManager = EVKBrain.brain.coreDater
     
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         // get all FeedItems
@@ -19,6 +19,7 @@ struct Search {
         
         // create a matching engine based on these feed items
         guard !allFeedItems.isEmpty else {
+            completion()
             return
         }
         
@@ -32,6 +33,7 @@ struct Search {
     
     func search(for searchTerm: String, resultsFound: ([FeedItem]?) -> Void) {
         guard matchingEngine?.isFilled ?? false else {
+            resultsFound(nil)
             return
         }
         

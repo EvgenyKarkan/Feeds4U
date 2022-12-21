@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 final class EVKAppDelegate: UIResponder, UIApplicationDelegate {
     
-    // MARK: - UIApplicationDelegate APIs
+    // MARK: - UIApplicationDelegate
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         EVKBrain.brain.startServices()

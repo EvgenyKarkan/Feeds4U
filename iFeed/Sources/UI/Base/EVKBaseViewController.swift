@@ -42,7 +42,7 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
         alertController.addTextField { textField -> Void in
             textField.placeholder = "https://www.something.com/rss"
 
-            //textField.text = "https://justinpot.com/feed"
+            textField.text = "https://justinpot.com/feed"
             
             if !feedURL.isEmpty {
                 textField.text = feedURL

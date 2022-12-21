@@ -14,7 +14,8 @@ extension EVKFeedListViewController {
         assert(!sender.isEqual(nil), "sender is nil")
         
         let waitingSpinner = UIActivityIndicatorView(style: .large)
-        waitingSpinner.frame = CGRect(x: 120, y: 200, width: 37, height: 37)
+        waitingSpinner.frame = CGRect(x: .zero, y: .zero, width: 37, height: 37)
+        waitingSpinner.center = view.center
         waitingSpinner.startAnimating()
         view.addSubview(waitingSpinner)
         
