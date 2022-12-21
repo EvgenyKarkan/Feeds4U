@@ -36,7 +36,6 @@
 		2E1BE42A2953CE1400008C52 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE4252953CE1400008C52 /* EVKAppDelegate.swift */; };
 		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
 		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
-		DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE763D2F1B7E841300C8B54A /* iFeedTests.swift */; };
 		DEDFDA912246D76F0067D7C4 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */; };
 		DEDFDA922246D76F0067D7C4 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */; };
 		DEDFDA932246D76F0067D7C4 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */; };
@@ -85,8 +84,6 @@
 		DE176AB71B9CA1C00046EDED /* iFeed-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iFeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE763D291B7E841300C8B54A /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE763D2E1B7E841300C8B54A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE763D2F1B7E841300C8B54A /* iFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFeedTests.swift; sourceTree = "<group>"; };
 		DEDFDA8C2246D76F0067D7C4 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
 		DEDFDA8D2246D76F0067D7C4 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
 		DEDFDA8E2246D76F0067D7C4 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				DE763D161B7E841300C8B54A /* iFeed */,
-				DE763D2C1B7E841300C8B54A /* iFeedTests */,
 				DE763D151B7E841300C8B54A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -288,24 +284,6 @@
 			);
 			name = iFeed;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		DE763D2C1B7E841300C8B54A /* iFeedTests */ = {
-			isa = PBXGroup;
-			children = (
-				DE763D2F1B7E841300C8B54A /* iFeedTests.swift */,
-				DE763D2D1B7E841300C8B54A /* Supporting Files */,
-			);
-			name = iFeedTests;
-			path = ../../iFeedTests;
-			sourceTree = "<group>";
-		};
-		DE763D2D1B7E841300C8B54A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DE763D2E1B7E841300C8B54A /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		DEDFDA8B2246D76F0067D7C4 /* SimpleSimilarity */ = {
@@ -497,7 +475,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE763D301B7E841300C8B54A /* iFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
