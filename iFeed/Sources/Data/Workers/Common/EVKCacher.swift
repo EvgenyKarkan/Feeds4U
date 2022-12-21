@@ -15,8 +15,8 @@ class EVKCacher: NSObject {
     
     // MARK: - APIs
     func startToCache() {
-        //configure cache to minimize its capacity
-        let appCache = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: "nsurlcache")
+        /// configure cache to minimize its capacity
+        let appCache = URLCache(memoryCapacity: .zero, diskCapacity: .zero, diskPath: "nsurlcache")
         URLCache.shared = appCache
     }
 }
