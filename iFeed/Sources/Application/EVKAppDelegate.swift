@@ -9,8 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-
-class EVKAppDelegate: UIResponder, UIApplicationDelegate {
+final class EVKAppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate APIs
     func application(_ application: UIApplication,

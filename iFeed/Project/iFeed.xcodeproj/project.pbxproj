@@ -183,9 +183,9 @@
 		DE176AAC1B9CA0AD0046EDED /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				DE176AEB1B9DFD150046EDED /* Browser */,
 				DE176AB01B9CA0AD0046EDED /* FeedList */,
 				DE176AAD1B9CA0AD0046EDED /* FeedItemsList */,
+				DE176AEB1B9DFD150046EDED /* Browser */,
 			);
 			path = Components;
 			sourceTree = "<group>";

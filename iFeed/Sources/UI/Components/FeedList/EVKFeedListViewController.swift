@@ -8,12 +8,12 @@
 
 import UIKit
 
-class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol {
+final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol {
 
     // MARK: - properties
     var feedListView: EVKFeedListView?
     var provider: EVKFeedListTableProvider?
-    var search: Search = Search()
+    lazy var search: Search = Search()
     
     // MARK: - Deinit
     deinit {
@@ -30,8 +30,8 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
         feedListView = aView
         view = aView
         
-        feedListView?.tableView.delegate   = provider!
-        feedListView?.tableView.dataSource = provider!
+        feedListView?.tableView.delegate = provider
+        feedListView?.tableView.dataSource = provider
     }
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol
             addTrashButton(true)
         }
         else {
-            feedListView?.tableView.alpha = 0.0
+            feedListView?.tableView.alpha = .zero
         }
     }
     

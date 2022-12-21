@@ -28,7 +28,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,7 +45,7 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
 }
 
 // MARK: - EVKTableProviderProtocol
-@objc protocol EVKTableProviderProtocol : AnyObject {
+@objc protocol EVKTableProviderProtocol: AnyObject {
     func cellDidPress(at indexPath: IndexPath)
     @objc optional func cellNeedsDelete(at indexPath: IndexPath)
 }

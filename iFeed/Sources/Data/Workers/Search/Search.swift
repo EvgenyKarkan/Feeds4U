@@ -30,7 +30,7 @@ struct Search {
         matchingEngine?.fillMatchingEngine(with: textualData, onlyRemoveFrequentStopwords: true, completion: completion)
     }
     
-    func search(for searchTerm: String, resultsFound:([FeedItem]?) -> Void) {
+    func search(for searchTerm: String, resultsFound: ([FeedItem]?) -> Void) {
         guard matchingEngine?.isFilled ?? false else {
             return
         }
