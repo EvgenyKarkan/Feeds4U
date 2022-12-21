@@ -138,8 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				2E1BE3EA2953CD2700008C52 /* Browser */,
-				2E1BE3EC2953CD2700008C52 /* FeedItemsList */,
 				2E1BE3EF2953CD2700008C52 /* FeedList */,
+				2E1BE3EC2953CD2700008C52 /* FeedItemsList */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -157,6 +157,7 @@
 			children = (
 				2E1BE3ED2953CD2700008C52 /* EVKFeedItemsView.swift */,
 				2E1BE3EE2953CD2700008C52 /* EVKFeedItemsViewController.swift */,
+				2E1BE3FF2953CD2700008C52 /* EVKFeedItemsTableProvider.swift */,
 			);
 			path = FeedItemsList;
 			sourceTree = "<group>";
@@ -164,9 +165,10 @@
 		2E1BE3EF2953CD2700008C52 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
+				2E1BE3F22953CD2700008C52 /* EVKFeedListView.swift */,
 				2E1BE3F02953CD2700008C52 /* EVKFeedListViewController.swift */,
 				2E1BE3F12953CD2700008C52 /* EVKFeedListViewController+Search.swift */,
-				2E1BE3F22953CD2700008C52 /* EVKFeedListView.swift */,
+				2E1BE3FE2953CD2700008C52 /* EVKFeedListTableProvider.swift */,
 			);
 			path = FeedList;
 			sourceTree = "<group>";
@@ -201,10 +203,9 @@
 		2E1BE3FA2953CD2700008C52 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				2E1BE3FB2953CD2700008C52 /* Search */,
-				2E1BE3FD2953CD2700008C52 /* Components */,
-				2E1BE4002953CD2700008C52 /* Common */,
 				2E1BE4072953CD2700008C52 /* Base */,
+				2E1BE3FB2953CD2700008C52 /* Search */,
+				2E1BE4002953CD2700008C52 /* Common */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -215,15 +216,6 @@
 				2E1BE3FC2953CD2700008C52 /* Search.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		2E1BE3FD2953CD2700008C52 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				2E1BE3FE2953CD2700008C52 /* EVKFeedListTableProvider.swift */,
-				2E1BE3FF2953CD2700008C52 /* EVKFeedItemsTableProvider.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		2E1BE4002953CD2700008C52 /* Common */ = {
