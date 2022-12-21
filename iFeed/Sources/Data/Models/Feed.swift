@@ -13,7 +13,7 @@ import CoreData
 class Feed: NSManagedObject {
 
     @NSManaged var rssURL: String
-    @NSManaged var title: String!
+    @NSManaged var title: String?
     @NSManaged var summary: String?
     @NSManaged var feedItems: NSSet
     
