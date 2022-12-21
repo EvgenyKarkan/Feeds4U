@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2E2BF18F242687CA00472272 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BF18E242687CA00472272 /* Colors.xcassets */; };
+		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
+		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
 		959B3F03208C9337008EBA93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959B3F02208C9337008EBA93 /* Search.swift */; };
 		95DB6D0C208A03920066A4CF /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */; };
 		DE176A6A1B9B706F0046EDED /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */; };
@@ -39,8 +41,6 @@
 		DEFB0CBF1B80D2FA001425A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB41B80D2FA001425A3 /* Images.xcassets */; };
 		DEFB0CC01B80D2FA001425A3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEFB0CB51B80D2FA001425A3 /* LaunchScreen.xib */; };
 		DEFB0CC11B80D2FA001425A3 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFB0CB81B80D2FA001425A3 /* EVKAppDelegate.swift */; };
-		E39A0A4741FE0E100D5F447A /* Pods_iFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A46AADC66620C5EE17E9A44 /* Pods_iFeed.framework */; };
-		ECCE7AB709568821336ECC79 /* Pods_iFeedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B69FCDF0418D583C77D228C /* Pods_iFeedTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,17 +54,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2135959BF567754DF3B0F9CC /* Pods-iFeedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeedTests.release.xcconfig"; path = "Target Support Files/Pods-iFeedTests/Pods-iFeedTests.release.xcconfig"; sourceTree = "<group>"; };
-		2E2133E131560E106C0C03F4 /* Pods-iFeed.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeed.adhoc.xcconfig"; path = "Target Support Files/Pods-iFeed/Pods-iFeed.adhoc.xcconfig"; sourceTree = "<group>"; };
 		2E2BF18E242687CA00472272 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		35A20E44A2F1892782C7A8A0 /* Pods-iFeedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeedTests.debug.xcconfig"; path = "Target Support Files/Pods-iFeedTests/Pods-iFeedTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3A46AADC66620C5EE17E9A44 /* Pods_iFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		45B6F1B786953B08159BEFAB /* Pods-iFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeed.debug.xcconfig"; path = "Target Support Files/Pods-iFeed/Pods-iFeed.debug.xcconfig"; sourceTree = "<group>"; };
-		68D20DA77506BDC77FD1D1B4 /* Pods-iFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeed.release.xcconfig"; path = "Target Support Files/Pods-iFeed/Pods-iFeed.release.xcconfig"; sourceTree = "<group>"; };
 		959B3F02208C9337008EBA93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		95DB6D0B208A03920066A4CF /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
-		9B69FCDF0418D583C77D228C /* Pods_iFeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iFeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B423B5C837C48BCB6BC20D91 /* Pods-iFeedTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iFeedTests.adhoc.xcconfig"; path = "Target Support Files/Pods-iFeedTests/Pods-iFeedTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		DE176A651B9B706F0046EDED /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
 		DE176A671B9B706F0046EDED /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
 		DE176A681B9B706F0046EDED /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
@@ -106,7 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E39A0A4741FE0E100D5F447A /* Pods_iFeed.framework in Frameworks */,
+				2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */,
+				2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,35 +107,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECCE7AB709568821336ECC79 /* Pods_iFeedTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4023CD6F4071E5DF249C5E54 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3A46AADC66620C5EE17E9A44 /* Pods_iFeed.framework */,
-				9B69FCDF0418D583C77D228C /* Pods_iFeedTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		71080F9662661FB70A388E22 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				45B6F1B786953B08159BEFAB /* Pods-iFeed.debug.xcconfig */,
-				68D20DA77506BDC77FD1D1B4 /* Pods-iFeed.release.xcconfig */,
-				2E2133E131560E106C0C03F4 /* Pods-iFeed.adhoc.xcconfig */,
-				35A20E44A2F1892782C7A8A0 /* Pods-iFeedTests.debug.xcconfig */,
-				2135959BF567754DF3B0F9CC /* Pods-iFeedTests.release.xcconfig */,
-				B423B5C837C48BCB6BC20D91 /* Pods-iFeedTests.adhoc.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		959B3F01208C9306008EBA93 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,8 +202,6 @@
 				DE763D161B7E841300C8B54A /* iFeed */,
 				DE763D2C1B7E841300C8B54A /* iFeedTests */,
 				DE763D151B7E841300C8B54A /* Products */,
-				71080F9662661FB70A388E22 /* Pods */,
-				4023CD6F4071E5DF249C5E54 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -381,18 +349,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE763D331B7E841300C8B54A /* Build configuration list for PBXNativeTarget "iFeed" */;
 			buildPhases = (
-				777C2B037BC6D722BEA52148 /* [CP] Check Pods Manifest.lock */,
 				DE763D101B7E841300C8B54A /* Sources */,
 				DE763D111B7E841300C8B54A /* Frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
 				DE7752CB1BA7684900A82EFE /* Crashlytics */,
-				B1A6BCBBF7DCB13F7FCA21B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = iFeed;
+			packageProductDependencies = (
+				2E88C9392953727B00E2A405 /* FeedKit */,
+				2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */,
+			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
 			productType = "com.apple.product-type.application";
@@ -401,7 +371,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE763D361B7E841300C8B54A /* Build configuration list for PBXNativeTarget "iFeedTests" */;
 			buildPhases = (
-				533773E35A7CEF215332EB03 /* [CP] Check Pods Manifest.lock */,
 				DE763D251B7E841300C8B54A /* Sources */,
 				DE763D261B7E841300C8B54A /* Frameworks */,
 				DE763D271B7E841300C8B54A /* Resources */,
@@ -449,6 +418,10 @@
 				Base,
 			);
 			mainGroup = DE763D0B1B7E841300C8B54A;
+			packageReferences = (
+				2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -480,84 +453,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		533773E35A7CEF215332EB03 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iFeedTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		777C2B037BC6D722BEA52148 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iFeed-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B1A6BCBBF7DCB13F7FCA21B7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iFeed/Pods-iFeed-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FeedKit/FeedKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FeedKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreInternal.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iFeed/Pods-iFeed-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -677,7 +572,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -685,7 +581,6 @@
 		};
 		DE0799BA2249888900A6BB21 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E2133E131560E106C0C03F4 /* Pods-iFeed.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -706,7 +601,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -721,14 +619,17 @@
 		};
 		DE0799BB2249888900A6BB21 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B423B5C837C48BCB6BC20D91 /* Pods-iFeedTests.adhoc.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -846,7 +747,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -854,7 +756,6 @@
 		};
 		DE763D341B7E841300C8B54A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45B6F1B786953B08159BEFAB /* Pods-iFeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -879,7 +780,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "-D __DEBUG__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -895,7 +799,6 @@
 		};
 		DE763D351B7E841300C8B54A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68D20DA77506BDC77FD1D1B4 /* Pods-iFeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -916,7 +819,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -931,7 +837,6 @@
 		};
 		DE763D371B7E841300C8B54A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35A20E44A2F1892782C7A8A0 /* Pods-iFeedTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "";
@@ -942,7 +847,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -953,14 +862,17 @@
 		};
 		DE763D381B7E841300C8B54A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2135959BF567754DF3B0F9CC /* Pods-iFeedTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1003,6 +915,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nmdias/FeedKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2E88C9392953727B00E2A405 /* FeedKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */;
+			productName = FeedKit;
+		};
+		2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DE826C4E1B9A0A5B0062FE2A /* iFeed.xcdatamodeld */ = {

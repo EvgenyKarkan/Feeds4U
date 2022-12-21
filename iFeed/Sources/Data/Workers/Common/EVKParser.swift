@@ -7,6 +7,7 @@
 //
 
 import FeedKit
+import Foundation
 
 // MARK: - EVKParserDelegate
 protocol EVKParserDelegate: AnyObject {
