@@ -41,6 +41,8 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
         alertController.addAction(nextAction)
         alertController.addTextField { textField -> Void in
             textField.placeholder = "https://www.something.com/rss"
+
+            //textField.text = "https://justinpot.com/feed"
             
             if !feedURL.isEmpty {
                 textField.text = feedURL
@@ -92,9 +94,9 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
     
     // MARK: - Common alert
     func showAlertMessage(_ message : String) {
-        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle:.alert)
+        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: "Ok", style:.default) { action -> Void in
+        let okAction = UIAlertAction(title: "Ok", style: .default) { action -> Void in
             self.view.endEditing(true)
         }
         alertController.addAction(okAction)

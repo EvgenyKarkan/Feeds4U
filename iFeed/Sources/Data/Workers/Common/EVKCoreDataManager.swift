@@ -8,12 +8,10 @@
 
 import CoreData
 
-
 let kFeed     = "Feed"
 let kFeedItem = "FeedItem"
 
-
-class EVKCoreDataManager: NSObject {
+final class EVKCoreDataManager {
  
     // MARK: - Core Data stack
     lazy var applicationDocumentsDirectory: URL = {

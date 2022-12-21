@@ -9,9 +9,7 @@
 import Foundation
 import CoreData
 
-
 @objc(Feed)
-
 class Feed: NSManagedObject {
 
     @NSManaged var rssURL: String

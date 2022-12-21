@@ -8,33 +8,25 @@
 
 import CoreData
 
-
-class EVKBrain: NSObject {
+final class EVKBrain {
    
     // MARK: - Readonly properties
-    private (set) var parser: EVKParser
-    private (set) var coreDater: EVKCoreDataManager
-    private (set) var presenter: EVKPresenter
-    private (set) var analytics: EVKAnalytics
-    private (set) var cacher: EVKCacher
+    private(set) var parser: EVKParser
+    private(set) var coreDater: EVKCoreDataManager
+    private(set) var presenter: EVKPresenter
+    private(set) var analytics: EVKAnalytics
+    private(set) var cacher: EVKCacher
     
     // MARK: - Singleton
-    class var brain: EVKBrain {
-        struct Singleton {
-            static let instance = EVKBrain()
-        }
-        return Singleton.instance
-    }
+    static let brain = EVKBrain()
     
     // MARK: - Init
-    override init() {
+    init() {
         parser = EVKParser()
         coreDater = EVKCoreDataManager()
         presenter = EVKPresenter.presenter
         analytics = EVKAnalytics.analytics
         cacher = EVKCacher.cacher
-        
-        super.init()
     }
     
     // MARK: - Public APIs

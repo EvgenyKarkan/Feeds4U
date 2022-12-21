@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EVKCacher: NSObject {
+final class EVKCacher {
 
     // MARK: - Singleton
     static let cacher = EVKCacher()

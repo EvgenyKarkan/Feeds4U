@@ -11,7 +11,7 @@ import UIKit
 class EVKBaseView: UIView {
 
     // MARK: - Properties
-    private (set) var tableView = UITableView()
+    private(set) var tableView = UITableView()
     private var label = UILabel()
     
     // MARK: - Initializers
@@ -26,7 +26,7 @@ class EVKBaseView: UIView {
     }
     
     init() {
-        super.init(frame: CGRect.zero)
+        super.init(frame: .zero)
         
         initialViewSetup()
     }

@@ -8,42 +8,42 @@
 
 import UIKit
 
-class EVKPresenter: NSObject {
+final class EVKPresenter {
 
     // MARK: - Singleton
     static let presenter = EVKPresenter()
     
     // MARK: - Properties
-    private (set) var window = UIWindow(frame: UIScreen.main.bounds)
+    private(set) var window = UIWindow(frame: UIScreen.main.bounds)
     private lazy var navigationVC = UINavigationController()
     
     // MARK: - Public APIs
     func showStartScreen() {
-        let feedListViewController = EVKFeedListViewController()
-        
-        navigationVC.viewControllers = [feedListViewController]
-        navigationVC.navigationBar.isTranslucent = false
-        navigationVC.navigationBar.barTintColor = UIColor(named: "Tangerine")
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "Tangerine")
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        navigationVC.navigationBar.standardAppearance = appearance
+        navigationVC.navigationBar.scrollEdgeAppearance = appearance
         navigationVC.navigationBar.tintColor = .white
-        navigationVC.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
-        
+
+        navigationVC.viewControllers = [EVKFeedListViewController()]
+
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
-
-        //UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBarAppearance()
     }
     
     func openURL(_ url: URL) {
-        let nsURL = url as NSURL
-        
-        if let aCount = nsURL.resourceSpecifier?.count, aCount > 0 {
-            navigationVC.popToRootViewController(animated: false)
-            
-            let topViewController = navigationVC.topViewController
-            
-            if let vc = topViewController as? EVKFeedListViewController {
-                vc.showEnterFeedAlertView(url.absoluteString)
-            }
+        guard let specifier = (url as NSURL).resourceSpecifier,
+            !specifier.isEmpty else {
+            return
+        }
+
+        navigationVC.popToRootViewController(animated: false)
+
+        if let feedListVC = navigationVC.topViewController as? EVKFeedListViewController {
+            feedListVC.showEnterFeedAlertView(url.absoluteString)
         }
     }
 }

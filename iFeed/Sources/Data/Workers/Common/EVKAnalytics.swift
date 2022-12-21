@@ -6,9 +6,7 @@
 //  Copyright © 2016 Evgeny Karkan. All rights reserved.
 //
 
-import Foundation
-
-class EVKAnalytics: NSObject {
+final class EVKAnalytics {
 
     // MARK: - Singleton
     static let analytics = EVKAnalytics()

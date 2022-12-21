@@ -16,11 +16,11 @@ protocol EVKParserDelegate: AnyObject {
 }
 
 
-final class EVKParser: NSObject {
+final class EVKParser {
     
    // MARK: - properties
    weak var delegate: EVKParserDelegate?
-   private var feed : Feed!
+   private var feed: Feed!
    
    // MARK: - public API
     func beginParseURL(_ rssURL: URL) {

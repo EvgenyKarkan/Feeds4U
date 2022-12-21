@@ -14,21 +14,18 @@ class EVKFeedCell: UITableViewCell {
     var titleText: String? {
         didSet {
             topLabel.text = titleText
-            setNeedsLayout()
         }
     }
     
     var subTitleText: String? {
         didSet {
             bottomLabel.text = subTitleText
-            setNeedsLayout()
         }
     }
     
     var itemsCountText: String? {
         didSet {
             itemsCountLabel.text = itemsCountText
-            setNeedsLayout()
             dot.removeFromSuperview()
         }
     }
@@ -96,14 +93,14 @@ class EVKFeedCell: UITableViewCell {
                                    height: bottomLabel.frame.height).integral
         
         itemsCountLabel.sizeToFit()
-        itemsCountLabel.frame = CGRect(x: screenW - itemsCountLabel.frame.width - 40.0,
+        itemsCountLabel.frame = CGRect(x: screenW - itemsCountLabel.frame.width - 45.0,
                                        y: bounds.height / 2 - itemsCountLabel.frame.height / 2,
                                        width: itemsCountLabel.frame.width,
                                        height: itemsCountLabel.frame.height).integral
 
         let dotSide: CGFloat = 4.0
         
-        dot.frame = CGRect(x: screenW - 40.0, y: bounds.height / 2 - dotSide / 2, width: dotSide, height: dotSide)
+        dot.frame = CGRect(x: screenW - 45.0, y: bounds.height / 2 - dotSide / 2, width: dotSide, height: dotSide)
         dot.layer.cornerRadius  = dotSide / 2
         dot.layer.masksToBounds = true
     }
