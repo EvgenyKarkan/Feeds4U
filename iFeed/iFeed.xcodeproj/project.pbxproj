@@ -93,7 +93,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E2304B82954ABBA00B1F930 /* Application */ = {
+		2E2304B82954ABBA00B1F930 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				2E2304BE2954ABBA00B1F930 /* EVKAppDelegate.swift */,
@@ -103,7 +103,7 @@
 				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
 			);
-			path = Application;
+			path = App;
 			sourceTree = "<group>";
 		};
 		2E2304C62954ABC900B1F930 /* Data */ = {
@@ -254,7 +254,7 @@
 		DE763D0B1B7E841300C8B54A = {
 			isa = PBXGroup;
 			children = (
-				2E2304B82954ABBA00B1F930 /* Application */,
+				2E2304B82954ABBA00B1F930 /* App */,
 				2E2304EC2954ABDB00B1F930 /* UI */,
 				2E2304C62954ABC900B1F930 /* Data */,
 				2E2304E02954ABD300B1F930 /* Libs */,
@@ -478,7 +478,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)",
 				);
-				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -633,7 +633,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)",
 				);
-				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -669,7 +669,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)",
 				);
-				INFOPLIST_FILE = Application/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
