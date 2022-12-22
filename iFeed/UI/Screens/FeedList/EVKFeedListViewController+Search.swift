@@ -28,40 +28,50 @@ extension EVKFeedListViewController {
     }
     
     func showEnterSearch() {
-        let alertController = UIAlertController(title: "Search",
-                                                message: "Search works best when you enter more than one word.",
-                                                preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: "Search",
+            message: "Search works best when you enter more than one word.",
+            preferredStyle: .alert
+        )
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            self.view.endEditing(true)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [self] _ in
+            view.endEditing(true)
         }
         alertController.addAction(cancelAction)
         
-        let nextAction = UIAlertAction(title: "Search", style: .default) { action -> Void in
-            if let query = alertController.textFields?.first?.text, !query.isEmpty {
-                self.search.search(for: query, resultsFound: { [weak self] (results) in
-                    DispatchQueue.main.async {
-                        guard let results = results, !results.isEmpty else {
-                            let noResultsFoundAlert = UIAlertController(title: "Search", message: "No results found", preferredStyle: .alert)
-                            let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                            noResultsFoundAlert.addAction(noResultsCancelAction)
-                            self?.present(noResultsFoundAlert, animated: true, completion: nil)
-                            return
-                        }
-                        
-                        self?.showSearchResults(results: results, for: query)
-                    }
-                })
+        let nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
+            guard let query = alertController.textFields?.first?.text, !query.isEmpty else {
+                return
             }
+
+            self?.search.search(for: query, resultsFound: { [weak self] (results) in
+                DispatchQueue.main.async {
+                    guard let results = results, !results.isEmpty else {
+                        let noResultsAlert = UIAlertController(
+                            title: alertController.title,
+                            message: "No results found",
+                            preferredStyle: .alert
+                        )
+                        let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel)
+                        noResultsAlert.addAction(noResultsCancelAction)
+
+                        if self?.presentedViewController == nil {
+                            self?.present(noResultsAlert, animated: true)
+                        }
+                        return
+                    }
+
+                    self?.showSearchResults(results: results, for: query)
+                }
+            })
         }
         
         alertController.addAction(nextAction)
-        alertController.addTextField { textField -> Void in
+        alertController.addTextField { textField in
             textField.placeholder = "Cute kittens"
         }
-        
-        let rootVConWindow = EVKBrain.brain.presenter.window.rootViewController
-        rootVConWindow!.present(alertController, animated: true, completion: nil)
+
+        present(alertController, animated: true)
     }
     
     private func showSearchResults(results: [FeedItem], for query: String) {
