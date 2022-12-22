@@ -8,18 +8,18 @@
 
 import UIKit
 
-// MARK: - EVKParserDelegate
+// MARK: - EVKFeedItemsViewDelegate
 protocol EVKFeedItemsViewDelegate: AnyObject {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
 
-class EVKFeedItemsView: EVKBaseView {
+final class EVKFeedItemsView: EVKBaseView {
 
     // MARK: - Property
     weak var delegate: EVKFeedItemsViewDelegate?
     let refreshControl = UIRefreshControl()
     
-    // MARK: - Init
+    // MARK: - Base override
     override func initialViewSetup() {
         super.initialViewSetup()
         

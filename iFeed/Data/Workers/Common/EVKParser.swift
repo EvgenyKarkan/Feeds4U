@@ -32,36 +32,36 @@ final class EVKParser {
         let parser = FeedParser(URL: rssURL)
     
         parser.parseAsync { (result) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 switch result {
-                    case .success(let feed):
-                        guard let rssFeed = feed.rssFeed else {
-                            self.delegate?.didFailParsingFeed()
+                    case .success(let parsedFeed):
+                        guard let rssFeed = parsedFeed.rssFeed else {
+                            delegate?.didFailParsingFeed()
                             return
                         }
                         
-                        // Create Feed
-                        self.feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
-                        self.feed.title = rssFeed.title
-                        self.feed.rssURL = rssURL.absoluteString
-                        self.feed.summary = rssFeed.description
+                        /// Create Feed
+                        feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
+                        feed.title = rssFeed.title
+                        feed.rssURL = rssURL.absoluteString
+                        feed.summary = rssFeed.description
                         
-                        // Create Feed Items
+                        /// Create Feed Items
                         rssFeed.items?.forEach({ rrsFeedItem in
                             if let feedItem: FeedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem {
                                 feedItem.title = rrsFeedItem.title ?? ""
                                 feedItem.link = rrsFeedItem.link ?? ""
                                 feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
                                 
-                                // set relationship
-                                feedItem.feed = self.feed
+                                /// Set relationship
+                                feedItem.feed = feed
                             }
                         })
                         
-                        self.delegate?.didEndParsingFeed(self.feed)
+                        delegate?.didEndParsingFeed(feed)
                         
                     case .failure( _):
-                        self.delegate?.didFailParsingFeed()
+                        delegate?.didFailParsingFeed()
                     }
             }
         }

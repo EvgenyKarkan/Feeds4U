@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKFeedListTableProvider: EVKBaseTableProvider {
+final class EVKFeedListTableProvider: EVKBaseTableProvider {
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

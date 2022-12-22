@@ -17,7 +17,7 @@ class Feed: NSManagedObject {
     @NSManaged var summary: String?
     @NSManaged var feedItems: NSSet
     
-    //sorted 'feedItems' by publish date
+    /// Sorted `feedItems` by publish date
     func sortedItems() -> [FeedItem] {
         guard let unsortedItems: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
             return []
@@ -30,7 +30,7 @@ class Feed: NSManagedObject {
         return sortedArray
     }
     
-    //unread 'feedItems'
+    /// Unread `feedItems`
     func unreadItems() -> [FeedItem] {
         guard let items: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
             return []

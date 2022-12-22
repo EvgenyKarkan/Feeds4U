@@ -15,7 +15,7 @@ final class EVKCacher {
     
     // MARK: - APIs
     func startToCache() {
-        /// configure cache to minimize its capacity
+        /// Configure cache to minimize its capacity
         URLCache.shared = URLCache(memoryCapacity: .zero, diskCapacity: .zero, diskPath: "nsurlcache")
     }
 }

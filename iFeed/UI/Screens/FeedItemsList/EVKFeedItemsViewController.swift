@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
+final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
 
     // MARK: - Properties
     private var feedItemsView: EVKFeedItemsView?
@@ -61,7 +61,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         }
     }
     
-    // MARK: - EVKTableProviderProtocol API
+    // MARK: - EVKTableProviderProtocol
     func cellDidPress(at indexPath: IndexPath) {
         guard let items = feedItems, !items.isEmpty else {
             return
@@ -81,7 +81,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         present(safariVC, animated: true)
     }
     
-    // MARK: - EVKFeedListViewProtocol API
+    // MARK: - EVKFeedListViewProtocol
     func didPullToRefresh(_ sender: UIRefreshControl) {
         guard let url = feed?.rssURL else {
             return
@@ -90,7 +90,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         startParsingURL(url)
     }
     
-    // MARK: - EVKParserDelegate API
+    // MARK: - EVKParserDelegate
     override func didEndParsingFeed(_ feed: Feed) {
         if !feed.isEqual(nil) && self.feed != nil {
             //self feed

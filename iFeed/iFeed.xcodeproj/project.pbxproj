@@ -191,8 +191,8 @@
 		2E1BE5142953D66200008C52 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2E1BE5152953D66200008C52 /* FeedItem.swift */,
 				2E1BE5162953D66200008C52 /* Feed.swift */,
+				2E1BE5152953D66200008C52 /* FeedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
