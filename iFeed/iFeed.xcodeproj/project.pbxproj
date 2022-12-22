@@ -96,11 +96,11 @@
 		2E2304B82954ABBA00B1F930 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304B92954ABBA00B1F930 /* Colors.xcassets */,
-				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
-				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
-				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
 				2E2304BE2954ABBA00B1F930 /* EVKAppDelegate.swift */,
+				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
+				2E2304B92954ABBA00B1F930 /* Colors.xcassets */,
+				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
+				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
 			);
 			path = Application;
@@ -196,8 +196,8 @@
 		2E2304ED2954ABDB00B1F930 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304EE2954ABDB00B1F930 /* FeedCell.swift */,
 				2E2304EF2954ABDB00B1F930 /* FeedCell.xib */,
+				2E2304EE2954ABDB00B1F930 /* FeedCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -224,8 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				2E2304F42954ABDB00B1F930 /* EVKFeedItemsView.swift */,
-				2E2304F52954ABDB00B1F930 /* EVKFeedItemsViewController.swift */,
 				2E2304F62954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift */,
+				2E2304F52954ABDB00B1F930 /* EVKFeedItemsViewController.swift */,
 			);
 			path = FeedItemsList;
 			sourceTree = "<group>";
@@ -233,10 +233,10 @@
 		2E2304F72954ABDB00B1F930 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304F82954ABDB00B1F930 /* EVKFeedListViewController.swift */,
-				2E2304F92954ABDB00B1F930 /* EVKFeedListTableProvider.swift */,
-				2E2304FA2954ABDB00B1F930 /* EVKFeedListViewController+Search.swift */,
 				2E2304FB2954ABDB00B1F930 /* EVKFeedListView.swift */,
+				2E2304F92954ABDB00B1F930 /* EVKFeedListTableProvider.swift */,
+				2E2304F82954ABDB00B1F930 /* EVKFeedListViewController.swift */,
+				2E2304FA2954ABDB00B1F930 /* EVKFeedListViewController+Search.swift */,
 			);
 			path = FeedList;
 			sourceTree = "<group>";
