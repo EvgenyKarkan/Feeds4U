@@ -10,9 +10,10 @@ import UIKit
 
 class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
 
-    // MARK: - property
-    var feedItemsView: EVKFeedItemsView?
-    var provider: EVKFeedItemsTableProvider?
+    // MARK: - Properties
+    private var feedItemsView: EVKFeedItemsView?
+    private var provider: EVKFeedItemsTableProvider?
+
     var feed: Feed?
     var feedItems: [FeedItem]?
     var searchTitle: String?
@@ -27,14 +28,12 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
     override func loadView() {
         provider = EVKFeedItemsTableProvider(delegateObject: self)
         
-        let aView = EVKFeedItemsView(frame: UIScreen.main.bounds)
-        
-        feedItemsView = aView
-        view = aView
-        
+        feedItemsView = EVKFeedItemsView(frame: UIScreen.main.bounds)
         feedItemsView?.tableView.delegate = provider!
         feedItemsView?.tableView.dataSource = provider!
         feedItemsView?.delegate = self
+
+        view = feedItemsView
     }
 
     override func viewDidLoad() {
@@ -44,7 +43,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
             return
         }
         
-        // populate table view
+        /// Populate table view
         provider?.dataSource = feedItems
             
         feedItemsView?.tableView.reloadData()
@@ -58,7 +57,7 @@ class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtoco
         if let searchTitle = searchTitle {
             title = searchTitle
         } else {
-            title = self.feed?.title
+            title = feed?.title
         }
     }
     

@@ -11,8 +11,6 @@ import UIKit
 extension EVKFeedListViewController {
     
     @objc func searchPressed (_ sender: UIButton) {
-        assert(!sender.isEqual(nil), "sender is nil")
-        
         let waitingSpinner = UIActivityIndicatorView(style: .large)
         waitingSpinner.frame = CGRect(x: .zero, y: .zero, width: 37, height: 37)
         waitingSpinner.center = view.center
@@ -20,10 +18,11 @@ extension EVKFeedListViewController {
         view.addSubview(waitingSpinner)
         
         search.fillMatchingEngine {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 waitingSpinner.stopAnimating()
                 waitingSpinner.removeFromSuperview()
-                self.showEnterSearch()
+
+                showEnterSearch()
             }
         }
     }

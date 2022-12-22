@@ -10,9 +10,9 @@ import UIKit
 
 final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderProtocol {
 
-    // MARK: - properties
-    var feedListView: EVKFeedListView?
-    var provider: EVKFeedListTableProvider?
+    // MARK: - Properties
+    private var feedListView: EVKFeedListView?
+    private var provider: EVKFeedListTableProvider?
     lazy var search: Search = Search()
     
     // MARK: - Deinit
@@ -22,16 +22,13 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
     
     // MARK: - Life cycle
     override func loadView() {
-        
         provider = EVKFeedListTableProvider(delegateObject: self)
         
-        let aView = EVKFeedListView(frame: UIScreen.main.bounds)
-        
-        feedListView = aView
-        view = aView
-        
+        feedListView = EVKFeedListView(frame: UIScreen.main.bounds)
         feedListView?.tableView.delegate = provider
         feedListView?.tableView.dataSource = provider
+
+        view = feedListView
     }
     
     override func viewDidLoad() {
@@ -45,7 +42,7 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
                                         action: #selector(addPressed(_:)))
         navigationItem.setRightBarButtonItems([searchButton, addButton], animated: true)
         
-        if EVKBrain.brain.coreDater.allFeeds().count > 0 {
+        if !EVKBrain.brain.coreDater.allFeeds().isEmpty {
             addTrashButton(true)
         }
         else {
@@ -62,9 +59,7 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
     }
     
     // MARK: - Actions
-    @objc func addPressed (_ sender: UIButton) {
-        assert(!sender.isEqual(nil), "sender is nil")
-        
+    @objc func addPressed (_ sender: UIButton) {        
         showEnterFeedAlertView("");
     }
     
@@ -86,17 +81,15 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
     
     // MARK: - EVKParserDelegate API
     override func didEndParsingFeed(_ feed: Feed) {
-        if !feed.isEqual(nil) {
-            provider?.dataSource.append(feed)
-            EVKBrain.brain.coreDater.saveContext()
-            
-            feedListView?.tableView.reloadData()
-            
-            //add 'trash' only if there is no leftBarButtonItem
-            if navigationItem.leftBarButtonItems == nil {
-                addTrashButton(true)
-                feedListView?.tableView.alpha = 1.0
-            }
+        provider?.dataSource.append(feed)
+        EVKBrain.brain.coreDater.saveContext()
+
+        feedListView?.tableView.reloadData()
+
+        /// Add `trash` only if there is no `leftBarButtonItem`
+        if navigationItem.leftBarButtonItems == nil {
+            addTrashButton(true)
+            feedListView?.tableView.alpha = 1.0
         }
     }
     
@@ -105,14 +98,19 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         guard indexPath.row < EVKBrain.brain.coreDater.allFeeds().count else {
             return
         }
+
+        let feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
+        let feedItems = feed.sortedItems()
+
+        guard !feedItems.isEmpty else {
+            return
+        }
         
         let itemsVC = EVKFeedItemsViewController()
-        itemsVC.feed = EVKBrain.brain.feedForIndexPath(indexPath: indexPath)
-        itemsVC.feedItems = itemsVC.feed?.sortedItems()
+        itemsVC.feed = feed
+        itemsVC.feedItems = feedItems
         
-        if (itemsVC.feed?.feedItems.count)! > 0 {
-            navigationController?.pushViewController(itemsVC, animated: true)
-        }
+        navigationController?.pushViewController(itemsVC, animated: true)
     }
     
     func cellNeedsDelete(at indexPath: IndexPath) {
@@ -131,8 +129,8 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         feedListView?.tableView.deleteRows(at: [indexPath], with: .automatic)
         feedListView?.tableView.endUpdates()
         
-        //hide 'trash' for no data source
-        if provider?.dataSource.count == 0 {
+        /// Hide `trash` for no data source
+        if provider?.dataSource.isEmpty == true {
             addTrashButton(false)
             
             feedListView?.tableView.setEditing(false, animated: false)

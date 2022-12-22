@@ -8,13 +8,12 @@
 
 import SafariServices
 
-class EVKSafariViewController: SFSafariViewController {
+final class EVKSafariViewController: SFSafariViewController {
 
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //TODO:- Add constant for colors
+
         preferredBarTintColor = UIColor(named: "Tangerine")
         preferredControlTintColor = .white
     }

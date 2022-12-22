@@ -39,6 +39,7 @@
 		2E1BE5362953D66F00008C52 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5312953D66F00008C52 /* IndexMatrix.swift */; };
 		2E1BE5372953D66F00008C52 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5322953D66F00008C52 /* MatchingEngine.swift */; };
 		2E1BE5382953D66F00008C52 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5332953D66F00008C52 /* TextualDataImport.swift */; };
+		2E1BE5492953FA6500008C52 /* EVKBaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5482953FA6500008C52 /* EVKBaseViewController+Alert.swift */; };
 		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
 		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		2E1BE5322953D66F00008C52 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
 		2E1BE5332953D66F00008C52 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		2E1BE5392953D69A00008C52 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E1BE5482953FA6500008C52 /* EVKBaseViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKBaseViewController+Alert.swift"; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,8 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				2E1BE4FC2953D65500008C52 /* EVKFeedItemsView.swift */,
-				2E1BE4FD2953D65500008C52 /* EVKFeedItemsViewController.swift */,
 				2E1BE4FE2953D65500008C52 /* EVKFeedItemsTableProvider.swift */,
+				2E1BE4FD2953D65500008C52 /* EVKFeedItemsViewController.swift */,
 			);
 			path = FeedItemsList;
 			sourceTree = "<group>";
@@ -158,10 +160,10 @@
 		2E1BE4FF2953D65500008C52 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
-				2E1BE5002953D65500008C52 /* EVKFeedListViewController.swift */,
-				2E1BE5012953D65500008C52 /* EVKFeedListTableProvider.swift */,
-				2E1BE5022953D65500008C52 /* EVKFeedListViewController+Search.swift */,
 				2E1BE5032953D65500008C52 /* EVKFeedListView.swift */,
+				2E1BE5012953D65500008C52 /* EVKFeedListTableProvider.swift */,
+				2E1BE5002953D65500008C52 /* EVKFeedListViewController.swift */,
+				2E1BE5022953D65500008C52 /* EVKFeedListViewController+Search.swift */,
 			);
 			path = FeedList;
 			sourceTree = "<group>";
@@ -171,6 +173,7 @@
 			children = (
 				2E1BE5062953D65500008C52 /* EVKBaseView.swift */,
 				2E1BE5052953D65500008C52 /* EVKBaseViewController.swift */,
+				2E1BE5482953FA6500008C52 /* EVKBaseViewController+Alert.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				2E1BE5122953D65500008C52 /* EVKBaseView.swift in Sources */,
 				2E1BE52A2953D66200008C52 /* EVKPresenter.swift in Sources */,
 				2E1BE5342953D66F00008C52 /* MatchingEngineAlgorithm.swift in Sources */,
+				2E1BE5492953FA6500008C52 /* EVKBaseViewController+Alert.swift in Sources */,
 				2E1BE4F02953D64300008C52 /* iFeed.xcdatamodeld in Sources */,
 				2E1BE5102953D65500008C52 /* EVKFeedListView.swift in Sources */,
 				2E1BE5362953D66F00008C52 /* IndexMatrix.swift in Sources */,

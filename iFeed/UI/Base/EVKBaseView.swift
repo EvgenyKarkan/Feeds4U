@@ -31,11 +31,11 @@ class EVKBaseView: UIView {
         initialViewSetup()
     }
     
-    // MARK: - UIView override
+    // MARK: - Base override
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        tableView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        tableView.frame = CGRect(x: .zero, y: .zero, width: bounds.width, height: bounds.height)
         
         label.sizeToFit()
         label.frame = CGRect(x: bounds.width / 2 - label.frame.width / 2,
@@ -52,7 +52,7 @@ class EVKBaseView: UIView {
         label.backgroundColor = .white
         label.font = UIFont(name: "HelveticaNeue", size: 16.0)
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         label.text = "No any RSS feed"
         label.textColor = UIColor(named: "Tangerine")
         addSubview(label)
