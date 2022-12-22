@@ -12,6 +12,6 @@ Don't use app icons, and any kind of image assets - usage is strictly prohibited
 Thanks!
 
 ## Copyright
-Source code under MIT license.
-Exclusive rights to distribute the Feeds4U application through the Apple App Store belong only to me.
+Source code under MIT license.    
+Exclusive rights to distribute the Feeds4U application through the Apple App Store belong only to me.    
 Copyright (c) 2022 Evgeny Karkan. All rights reserved.
