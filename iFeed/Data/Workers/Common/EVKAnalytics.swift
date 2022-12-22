@@ -14,8 +14,6 @@ final class EVKAnalytics {
     // MARK: - APIs
     func startCrashlytics() {
         #if __RELEASE__
-            //Fabric.with([Crashlytics.self])
-
         // FirebaseApp.configure()
         #endif
     }

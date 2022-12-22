@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G115" minimumToolsVersion="Xcode 4.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES">
-        <attribute name="rssURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="feedItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeedItem" inverseName="feed" inverseEntity="FeedItem" syncable="YES"/>
+        <attribute name="rssURL" optional="YES" attributeType="String"/>
+        <attribute name="summary" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="feedItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeedItem" inverseName="feed" inverseEntity="FeedItem"/>
     </entity>
     <entity name="FeedItem" representedClassName="FeedItem" syncable="YES">
-        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="publishDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="wasRead" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="feedItems" inverseEntity="Feed" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String"/>
+        <attribute name="publishDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="wasRead" optional="YES" attributeType="Boolean" usesScalarValueType="NO"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="feedItems" inverseEntity="Feed"/>
     </entity>
     <elements>
         <element name="Feed" positionX="-424.25" positionY="-82.16796875" width="128" height="103"/>

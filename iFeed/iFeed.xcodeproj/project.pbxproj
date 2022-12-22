@@ -40,7 +40,7 @@
 		2E23050A2954ABDB00B1F930 /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FD2954ABDB00B1F930 /* EVKBaseViewController.swift */; };
 		2E23050B2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FE2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift */; };
 		2E23050C2954ABDB00B1F930 /* EVKBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* EVKBaseView.swift */; };
-		2E23050F2954AC2900B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E23050E2954AC2900B1F930 /* FeedKit */; };
+		2E2305122954AD4000B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2305112954AD4000B1F930 /* FeedKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E23050F2954AC2900B1F930 /* FeedKit in Frameworks */,
+				2E2305122954AD4000B1F930 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +288,7 @@
 			);
 			name = iFeed;
 			packageProductDependencies = (
-				2E23050E2954AC2900B1F930 /* FeedKit */,
+				2E2305112954AD4000B1F930 /* FeedKit */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -324,7 +324,7 @@
 			);
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
-				2E23050D2954AC2900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				2E2305102954AD4000B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -713,7 +713,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2E23050D2954AC2900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
+		2E2305102954AD4000B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nmdias/FeedKit";
 			requirement = {
@@ -724,9 +724,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2E23050E2954AC2900B1F930 /* FeedKit */ = {
+		2E2305112954AD4000B1F930 /* FeedKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2E23050D2954AC2900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;
+			package = 2E2305102954AD4000B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
 		};
 /* End XCSwiftPackageProductDependency section */
