@@ -16,7 +16,7 @@ final class EVKFeedItemsTableProvider: EVKBaseTableProvider {
         return formatter
     }()
     
-    // MARK: - Overriden base API
+    // MARK: - Overriden base
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }

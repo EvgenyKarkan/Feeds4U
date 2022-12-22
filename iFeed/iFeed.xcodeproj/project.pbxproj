@@ -34,12 +34,12 @@
 		2E1BE52A2953D66200008C52 /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE51F2953D66200008C52 /* EVKPresenter.swift */; };
 		2E1BE52B2953D66200008C52 /* EVKParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5202953D66200008C52 /* EVKParser.swift */; };
 		2E1BE52C2953D66200008C52 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5222953D66200008C52 /* EVKBaseTableProvider.swift */; };
-		2E1BE5342953D66F00008C52 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE52F2953D66F00008C52 /* MatchingEngineAlgorithm.swift */; };
-		2E1BE5352953D66F00008C52 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5302953D66F00008C52 /* StringsForBagOfWords.swift */; };
-		2E1BE5362953D66F00008C52 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5312953D66F00008C52 /* IndexMatrix.swift */; };
-		2E1BE5372953D66F00008C52 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5322953D66F00008C52 /* MatchingEngine.swift */; };
-		2E1BE5382953D66F00008C52 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5332953D66F00008C52 /* TextualDataImport.swift */; };
 		2E1BE5492953FA6500008C52 /* EVKBaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE5482953FA6500008C52 /* EVKBaseViewController+Alert.swift */; };
+		2E1BE551295401BE00008C52 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54C295401BE00008C52 /* MatchingEngineAlgorithm.swift */; };
+		2E1BE552295401BE00008C52 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54D295401BE00008C52 /* StringsForBagOfWords.swift */; };
+		2E1BE553295401BE00008C52 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54E295401BE00008C52 /* IndexMatrix.swift */; };
+		2E1BE554295401BE00008C52 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54F295401BE00008C52 /* MatchingEngine.swift */; };
+		2E1BE555295401BE00008C52 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE550295401BE00008C52 /* TextualDataImport.swift */; };
 		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
 		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
@@ -72,13 +72,13 @@
 		2E1BE51F2953D66200008C52 /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
 		2E1BE5202953D66200008C52 /* EVKParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKParser.swift; sourceTree = "<group>"; };
 		2E1BE5222953D66200008C52 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
-		2E1BE52F2953D66F00008C52 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
-		2E1BE5302953D66F00008C52 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
-		2E1BE5312953D66F00008C52 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
-		2E1BE5322953D66F00008C52 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
-		2E1BE5332953D66F00008C52 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		2E1BE5392953D69A00008C52 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E1BE5482953FA6500008C52 /* EVKBaseViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EVKBaseViewController+Alert.swift"; sourceTree = "<group>"; };
+		2E1BE54C295401BE00008C52 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
+		2E1BE54D295401BE00008C52 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
+		2E1BE54E295401BE00008C52 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
+		2E1BE54F295401BE00008C52 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
+		2E1BE550295401BE00008C52 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -236,23 +236,23 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		2E1BE52D2953D66F00008C52 /* Libs */ = {
+		2E1BE54A295401BE00008C52 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				2E1BE52E2953D66F00008C52 /* SimpleSimilarity */,
+				2E1BE54B295401BE00008C52 /* SimpleSimilarity */,
 			);
 			name = Libs;
 			path = iFeed/Libs;
 			sourceTree = "<group>";
 		};
-		2E1BE52E2953D66F00008C52 /* SimpleSimilarity */ = {
+		2E1BE54B295401BE00008C52 /* SimpleSimilarity */ = {
 			isa = PBXGroup;
 			children = (
-				2E1BE52F2953D66F00008C52 /* MatchingEngineAlgorithm.swift */,
-				2E1BE5302953D66F00008C52 /* StringsForBagOfWords.swift */,
-				2E1BE5312953D66F00008C52 /* IndexMatrix.swift */,
-				2E1BE5322953D66F00008C52 /* MatchingEngine.swift */,
-				2E1BE5332953D66F00008C52 /* TextualDataImport.swift */,
+				2E1BE54C295401BE00008C52 /* MatchingEngineAlgorithm.swift */,
+				2E1BE54D295401BE00008C52 /* StringsForBagOfWords.swift */,
+				2E1BE54E295401BE00008C52 /* IndexMatrix.swift */,
+				2E1BE54F295401BE00008C52 /* MatchingEngine.swift */,
+				2E1BE550295401BE00008C52 /* TextualDataImport.swift */,
 			);
 			path = SimpleSimilarity;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 				2E1BE4E82953D64300008C52 /* Application */,
 				2E1BE4F42953D65500008C52 /* UI */,
 				2E1BE5132953D66200008C52 /* Data */,
-				2E1BE52D2953D66F00008C52 /* Libs */,
+				2E1BE54A295401BE00008C52 /* Libs */,
 			);
 			name = iFeed;
 			path = ..;
@@ -388,33 +388,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E1BE554295401BE00008C52 /* MatchingEngine.swift in Sources */,
 				2E1BE5242953D66200008C52 /* Feed.swift in Sources */,
 				2E1BE5292953D66200008C52 /* EVKCacher.swift in Sources */,
 				2E1BE5092953D65500008C52 /* EVKSafariViewController.swift in Sources */,
-				2E1BE5352953D66F00008C52 /* StringsForBagOfWords.swift in Sources */,
 				2E1BE5232953D66200008C52 /* FeedItem.swift in Sources */,
 				2E1BE5072953D65500008C52 /* FeedCell.swift in Sources */,
 				2E1BE50F2953D65500008C52 /* EVKFeedListViewController+Search.swift in Sources */,
 				2E1BE50E2953D65500008C52 /* EVKFeedListTableProvider.swift in Sources */,
 				2E1BE5272953D66200008C52 /* EVKAnalytics.swift in Sources */,
+				2E1BE552295401BE00008C52 /* StringsForBagOfWords.swift in Sources */,
 				2E1BE50B2953D65500008C52 /* EVKFeedItemsViewController.swift in Sources */,
 				2E1BE5252953D66200008C52 /* Search.swift in Sources */,
 				2E1BE50C2953D65500008C52 /* EVKFeedItemsTableProvider.swift in Sources */,
 				2E1BE52C2953D66200008C52 /* EVKBaseTableProvider.swift in Sources */,
-				2E1BE5372953D66F00008C52 /* MatchingEngine.swift in Sources */,
 				2E1BE5112953D65500008C52 /* EVKBaseViewController.swift in Sources */,
 				2E1BE4F32953D64300008C52 /* EVKAppDelegate.swift in Sources */,
-				2E1BE5382953D66F00008C52 /* TextualDataImport.swift in Sources */,
 				2E1BE5122953D65500008C52 /* EVKBaseView.swift in Sources */,
 				2E1BE52A2953D66200008C52 /* EVKPresenter.swift in Sources */,
-				2E1BE5342953D66F00008C52 /* MatchingEngineAlgorithm.swift in Sources */,
 				2E1BE5492953FA6500008C52 /* EVKBaseViewController+Alert.swift in Sources */,
 				2E1BE4F02953D64300008C52 /* iFeed.xcdatamodeld in Sources */,
 				2E1BE5102953D65500008C52 /* EVKFeedListView.swift in Sources */,
-				2E1BE5362953D66F00008C52 /* IndexMatrix.swift in Sources */,
+				2E1BE555295401BE00008C52 /* TextualDataImport.swift in Sources */,
+				2E1BE551295401BE00008C52 /* MatchingEngineAlgorithm.swift in Sources */,
 				2E1BE52B2953D66200008C52 /* EVKParser.swift in Sources */,
 				2E1BE50D2953D65500008C52 /* EVKFeedListViewController.swift in Sources */,
 				2E1BE5282953D66200008C52 /* EVKCoreDataManager.swift in Sources */,
+				2E1BE553295401BE00008C52 /* IndexMatrix.swift in Sources */,
 				2E1BE5262953D66200008C52 /* EVKBrain.swift in Sources */,
 				2E1BE50A2953D65500008C52 /* EVKFeedItemsView.swift in Sources */,
 			);
@@ -488,10 +488,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 7VW32GE5L3;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../Libs",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -643,10 +640,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 7VW32GE5L3;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../Libs",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					__DEBUG__,
@@ -685,10 +679,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../Libs",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
