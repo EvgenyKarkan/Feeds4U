@@ -30,9 +30,9 @@ open class CorpusEntry: Hashable {
         self.textualData = textualData
         self.bagOfWords = bagOfWords
     }
-    
-    public var hashValue: Int {
-        return textualData.hashValue
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(textualData.hashValue)
     }
     
     public static func ==(lhs: CorpusEntry, rhs: CorpusEntry) -> Bool {

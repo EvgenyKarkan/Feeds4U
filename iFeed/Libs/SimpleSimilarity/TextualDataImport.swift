@@ -28,12 +28,12 @@ public struct TextualData: Hashable {
         self.origin = origin
         self.originObject = originObject
     }
-    
-    public var hashValue: Int {
+
+    public func hash(into hasher: inout Hasher) {
         if let origin = origin {
-            return origin.appending(inputString).hashValue
+            hasher.combine(origin.appending(inputString).hashValue)
         } else {
-            return inputString.hashValue
+            hasher.combine(inputString.hashValue)
         }
     }
     
