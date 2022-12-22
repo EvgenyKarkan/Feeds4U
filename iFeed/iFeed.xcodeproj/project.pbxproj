@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,8 +40,6 @@
 		2E1BE553295401BE00008C52 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54E295401BE00008C52 /* IndexMatrix.swift */; };
 		2E1BE554295401BE00008C52 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE54F295401BE00008C52 /* MatchingEngine.swift */; };
 		2E1BE555295401BE00008C52 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1BE550295401BE00008C52 /* TextualDataImport.swift */; };
-		2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C9392953727B00E2A405 /* FeedKit */; };
-		2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,8 +85,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E88C93D295372FA00E2A405 /* FirebaseCrashlytics in Frameworks */,
-				2E88C93A2953727B00E2A405 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,8 +299,6 @@
 			);
 			name = iFeed;
 			packageProductDependencies = (
-				2E88C9392953727B00E2A405 /* FeedKit */,
-				2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -340,8 +334,6 @@
 			);
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
-				2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */,
-				2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -471,8 +463,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -497,10 +488,7 @@
 				);
 				INFOPLIST_FILE = Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -622,8 +610,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -652,10 +639,7 @@
 				);
 				INFOPLIST_FILE = Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D __DEBUG__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -688,10 +672,7 @@
 				);
 				INFOPLIST_FILE = Application/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -728,38 +709,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nmdias/FeedKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-		2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2E88C9392953727B00E2A405 /* FeedKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E88C9382953727B00E2A405 /* XCRemoteSwiftPackageReference "FeedKit" */;
-			productName = FeedKit;
-		};
-		2E88C93C295372FA00E2A405 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E88C93B295372FA00E2A405 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2E1BE4EA2953D64300008C52 /* iFeed.xcdatamodeld */ = {
