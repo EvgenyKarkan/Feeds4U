@@ -36,10 +36,10 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search,
                                            target: self,
-                                           action: #selector(searchPressed(_:)))
+                                           action: #selector(searchPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
-                                        action: #selector(addPressed(_:)))
+                                        action: #selector(addPressed))
         navigationItem.setRightBarButtonItems([searchButton, addButton], animated: true)
         
         if !EVKBrain.brain.coreDater.allFeeds().isEmpty {
@@ -69,18 +69,21 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         feedListView?.tableView.setEditing(needsEdit, animated: true)
     }
     
-    // MARK: - Inherited from base
+    // MARK: - Base override
     override func addFeedPressed (_ URL: String) {
         if EVKBrain.brain.isDuplicateURL(URL) {
             showDuplicateRSSAlert()
         }
         else {
+            showSpinner()
             startParsingURL(URL)
         }
     }
     
     // MARK: - EVKParserDelegate API
     override func didEndParsingFeed(_ feed: Feed) {
+        super.didEndParsingFeed(feed)
+
         provider?.dataSource.append(feed)
         EVKBrain.brain.coreDater.saveContext()
 
@@ -143,7 +146,7 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         if add {
             let trashButton = UIBarButtonItem(barButtonSystemItem: .trash,
                                               target: self,
-                                              action: #selector(trashPressed(_:)))
+                                              action: #selector(trashPressed))
             navigationItem.setLeftBarButtonItems([trashButton], animated: true)
         }
         else {

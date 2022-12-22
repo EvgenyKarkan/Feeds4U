@@ -10,6 +10,9 @@ import UIKit
 
 class EVKBaseViewController: UIViewController, EVKParserDelegate {
 
+    // MARK: - Properties
+    private var spinner: UIActivityIndicatorView?
+
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +41,35 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
     // MARK: - EVKParserDelegate
     func didStartParsingFeed() {}
     
-    func didEndParsingFeed(_ feed: Feed) {}
+    func didEndParsingFeed(_ feed: Feed) {
+        hideSpinner()
+    }
     
     func didFailParsingFeed() {
+        hideSpinner()
         showInvalidRSSAlert()
+    }
+}
+
+// MARK: - Spinner helper
+extension EVKBaseViewController {
+
+    func showSpinner() {
+        spinner = UIActivityIndicatorView(style: .large)
+        spinner?.center = view.center
+        spinner?.startAnimating()
+
+        guard let activitySpinner = spinner else {
+            return
+        }
+
+        view.addSubview(activitySpinner)
+        view.bringSubviewToFront(activitySpinner)
+    }
+
+    func hideSpinner() {
+        spinner?.stopAnimating()
+        spinner?.removeFromSuperview()
+        spinner = nil
     }
 }

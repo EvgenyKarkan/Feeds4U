@@ -92,6 +92,8 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
     
     // MARK: - EVKParserDelegate
     override func didEndParsingFeed(_ feed: Feed) {
+        super.didEndParsingFeed(feed)
+
         if !feed.isEqual(nil) && self.feed != nil {
             //self feed
             let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]

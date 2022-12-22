@@ -11,17 +11,11 @@ import UIKit
 extension EVKFeedListViewController {
     
     @objc func searchPressed (_ sender: UIButton) {
-        let waitingSpinner = UIActivityIndicatorView(style: .large)
-        waitingSpinner.frame = CGRect(x: .zero, y: .zero, width: 37, height: 37)
-        waitingSpinner.center = view.center
-        waitingSpinner.startAnimating()
-        view.addSubview(waitingSpinner)
+        showSpinner()
         
         search.fillMatchingEngine {
             DispatchQueue.main.async { [self] in
-                waitingSpinner.stopAnimating()
-                waitingSpinner.removeFromSuperview()
-
+                hideSpinner()
                 showEnterSearch()
             }
         }
@@ -34,9 +28,7 @@ extension EVKFeedListViewController {
             preferredStyle: .alert
         )
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [self] _ in
-            view.endEditing(true)
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
         
         let nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
