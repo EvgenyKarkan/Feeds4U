@@ -22,17 +22,17 @@
                         <rect key="frame" x="17" y="16" width="287" height="39"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="04d-6a-vJN" userLabel="Labels Stack View">
-                                <rect key="frame" x="0.0" y="0.0" width="236.5" height="39"/>
+                                <rect key="frame" x="0.0" y="0.0" width="242.5" height="39"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY0-ad-CRo" userLabel="Top Label">
-                                        <rect key="frame" x="0.0" y="0.0" width="236.5" height="19"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="242.5" height="19"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qho-ko-04P" userLabel="Bottom Label">
-                                        <rect key="frame" x="0.0" y="24" width="236.5" height="15"/>
+                                        <rect key="frame" x="0.0" y="24" width="242.5" height="15"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
@@ -40,8 +40,8 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wQH-db-7WP" userLabel="Right Stack View">
-                                <rect key="frame" x="246.5" y="0.0" width="40.5" height="39"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wQH-db-7WP" userLabel="Right Stack View">
+                                <rect key="frame" x="252.5" y="0.0" width="34.5" height="39"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJr-n6-j7q" userLabel="Count Label">
                                         <rect key="frame" x="0.0" y="13.5" width="6" height="12"/>
@@ -51,7 +51,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2L4-Yd-o5Q" userLabel="Dot View">
-                                        <rect key="frame" x="14" y="16.5" width="6" height="6"/>
+                                        <rect key="frame" x="11" y="16.5" width="6" height="6"/>
                                         <color key="backgroundColor" name="Tangerine"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" identifier="f" id="Hj6-hT-fVj"/>
@@ -59,7 +59,7 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ItM-vh-hq9">
-                                        <rect key="frame" x="28" y="11.5" width="12.5" height="16.5"/>
+                                        <rect key="frame" x="22" y="11.5" width="12.5" height="16.5"/>
                                         <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                     </imageView>
                                 </subviews>

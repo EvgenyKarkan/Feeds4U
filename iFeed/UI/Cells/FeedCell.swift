@@ -50,6 +50,8 @@ final class FeedCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        titleText = nil
+        subTitleText = nil
         itemsCountText = nil
 
         dotView.layer.cornerRadius = dotView.bounds.midY
