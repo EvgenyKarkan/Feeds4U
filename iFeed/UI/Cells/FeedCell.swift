@@ -59,3 +59,16 @@ final class FeedCell: UITableViewCell, Reusable {
         dotView.layer.masksToBounds = true
     }
 }
+
+// MARK: - Reusable
+/// To be adopted by reusable view subclasses in order to have dynamic reuse identifier
+
+public protocol Reusable: AnyObject {
+    static var reuseId: String { get }
+}
+
+public extension Reusable {
+    static var reuseId: String {
+        return String(describing: self)
+    }
+}
