@@ -51,6 +51,11 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         }
 
         provider?.dataSource = feedItems
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         feedItemsView?.reloadTableView()
     }
     
@@ -65,12 +70,12 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         guard let url = URL(string: item.link) else {
             return
         }
-        
-        let safariVC = EVKSafariViewController(url: url)
-        present(safariVC, animated: true)
 
         item.wasRead = true
         EVKBrain.brain.coreDater.saveContext()
+        
+        let safariVC = EVKSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
     
     // MARK: - EVKFeedListViewProtocol
