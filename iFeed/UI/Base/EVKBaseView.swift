@@ -36,10 +36,10 @@ class EVKBaseView: UIView {
         super.layoutSubviews()
         
         tableView.frame = CGRect(x: .zero, y: .zero, width: bounds.width, height: bounds.height)
-        
+
         label.sizeToFit()
-        label.frame = CGRect(x: bounds.width / 2 - label.frame.width / 2,
-                             y: bounds.height / 2 - label.frame.height / 2,
+        label.frame = CGRect(x: bounds.midX - label.bounds.midX,
+                             y: bounds.midY - label.bounds.midY,
                              width: label.frame.width,
                              height: label.frame.height)
         label.frame = label.frame.integral
@@ -50,7 +50,7 @@ class EVKBaseView: UIView {
         backgroundColor = .white
         
         label.backgroundColor = .white
-        label.font = UIFont(name: "HelveticaNeue", size: 16.0)
+        label.font = UIFont(name: "HelveticaNeue", size: 16)
         label.textAlignment = .center
         label.numberOfLines = .zero
         label.text = "No any RSS feed"
@@ -63,5 +63,9 @@ class EVKBaseView: UIView {
 
         let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: FeedCell.reuseId)
+    }
+
+    func reloadTableView() {
+        tableView.reloadData()
     }
 }

@@ -55,18 +55,19 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         
         provider?.dataSource = EVKBrain.brain.coreDater.allFeeds()
         
-        feedListView?.tableView.reloadData()
+        feedListView?.reloadTableView()
     }
     
     // MARK: - Actions
     @objc func addPressed (_ sender: UIButton) {        
-        showEnterFeedAlertView("");
+        showEnterFeedAlertView(String())
     }
     
     @objc func trashPressed (_ sender: UIButton) {
-        let needsEdit: Bool = !feedListView!.tableView.isEditing
-        
-        feedListView?.tableView.setEditing(needsEdit, animated: true)
+        guard let tableView = feedListView?.tableView else {
+            return
+        }
+        tableView.setEditing(!tableView.isEditing, animated: true)
     }
     
     // MARK: - Base override
@@ -87,12 +88,12 @@ final class EVKFeedListViewController: EVKBaseViewController, EVKTableProviderPr
         provider?.dataSource.append(feed)
         EVKBrain.brain.coreDater.saveContext()
 
-        feedListView?.tableView.reloadData()
+        feedListView?.reloadTableView()
 
         /// Add `trash` only if there is no `leftBarButtonItem`
         if navigationItem.leftBarButtonItems == nil {
             addTrashButton(true)
-            feedListView?.tableView.alpha = 1.0
+            feedListView?.tableView.alpha = 1
         }
     }
     

@@ -17,7 +17,7 @@ final class EVKFeedItemsView: EVKBaseView {
 
     // MARK: - Property
     weak var delegate: EVKFeedItemsViewDelegate?
-    let refreshControl = UIRefreshControl()
+    private lazy var refreshControl = UIRefreshControl()
     
     // MARK: - Base override
     override func initialViewSetup() {
@@ -31,5 +31,13 @@ final class EVKFeedItemsView: EVKBaseView {
     // MARK: - Action
     @objc private func refresh(_ sender: UIRefreshControl) {
         delegate?.didPullToRefresh(sender)
+    }
+
+    // MARK: - Public
+    func endRefreshing() {
+        guard refreshControl.isRefreshing else {
+            return
+        }
+        refreshControl.endRefreshing()
     }
 }

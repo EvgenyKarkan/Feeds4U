@@ -8,6 +8,15 @@
         "revision" : "68493a33d862c33c9a9f67ec729b3b7df1b20ade",
         "version" : "9.1.2"
       }
+    },
+    {
+      "identity" : "petprojecttools",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EvgenyKarkan/PetProjectTools.git",
+      "state" : {
+        "revision" : "2397c2b60b82a4a82051cc5b03d3ad5f177f0d3b",
+        "version" : "0.0.21"
+      }
     }
   ],
   "version" : 2

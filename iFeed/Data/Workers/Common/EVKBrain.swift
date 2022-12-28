@@ -42,10 +42,10 @@ final class EVKBrain {
     
     func feedForIndexPath(indexPath: IndexPath) -> Feed {
         var feed: Feed?
-        let feedsCount = coreDater.allFeeds().count
+        let allFeeds = coreDater.allFeeds()
         
-        if feedsCount > 0 && indexPath.row < feedsCount {
-            feed = coreDater.allFeeds()[indexPath.row]
+        if !allFeeds.isEmpty && indexPath.row < allFeeds.count {
+            feed = allFeeds[indexPath.row]
         }
         assert(feed != nil, "Feed for index path is nil")
         

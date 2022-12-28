@@ -18,7 +18,7 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
         super.viewDidLoad()
         
         title = "Feeds4U"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
 
     // MARK: - Add feed

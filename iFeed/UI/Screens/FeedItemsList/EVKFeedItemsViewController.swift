@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
 
@@ -29,8 +30,8 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         provider = EVKFeedItemsTableProvider(delegateObject: self)
         
         feedItemsView = EVKFeedItemsView(frame: UIScreen.main.bounds)
-        feedItemsView?.tableView.delegate = provider!
-        feedItemsView?.tableView.dataSource = provider!
+        feedItemsView?.tableView.delegate = provider
+        feedItemsView?.tableView.dataSource = provider
         feedItemsView?.delegate = self
 
         view = feedItemsView
@@ -42,36 +43,25 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         guard let feedItems = feedItems, !feedItems.isEmpty else {
             return
         }
-        
-        /// Populate table view
+
         provider?.dataSource = feedItems
-            
-        feedItemsView?.tableView.reloadData()
+        feedItemsView?.reloadTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        feedItemsView?.tableView.reloadData()
-        
-        if let searchTitle = searchTitle {
-            title = searchTitle
-        } else {
-            title = feed?.title
-        }
+
+        title = searchTitle ?? feed?.title
+        feedItemsView?.reloadTableView()
     }
     
     // MARK: - EVKTableProviderProtocol
     func cellDidPress(at indexPath: IndexPath) {
-        guard let items = feedItems, !items.isEmpty else {
+        guard let items = feedItems, !items.isEmpty, indexPath.row < items.count else {
             return
         }
-        
+
         let item = items[indexPath.row]
-        
-        item.wasRead = true
-        
-        EVKBrain.brain.coreDater.saveContext()
     
         guard let url = URL(string: item.link) else {
             return
@@ -79,11 +69,14 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         
         let safariVC = EVKSafariViewController(url: url)
         present(safariVC, animated: true)
+
+        item.wasRead = true
+        EVKBrain.brain.coreDater.saveContext()
     }
     
     // MARK: - EVKFeedListViewProtocol
     func didPullToRefresh(_ sender: UIRefreshControl) {
-        guard let url = feed?.rssURL else {
+        guard let url = feed?.rssURL, !url.isEmpty else {
             return
         }
         
@@ -94,41 +87,48 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
 
-        if !feed.isEqual(nil) && self.feed != nil {
-            //self feed
-            let existFeedItems: [FeedItem] = self.feed!.feedItems.allObjects as! [FeedItem]
-            
-            //array from of all feed items 'publish dates'
-            let refreshDatesArr: [TimeInterval] = existFeedItems.map {
-                return $0.publishDate.timeIntervalSince1970
-            }
-            
-            //incoming feed
-            let incomingFeed: Feed = feed
-            var incomingItems: [FeedItem] = (incomingFeed.feedItems.allObjects as? [FeedItem])!
-            
-            //delete temporary incoming 'feed'
-            EVKBrain.brain.coreDater.deleteObject(feed)
-            
-            //iterate over each incoming feed item to find new item to add - which 'publish date' is not exists yet
-            for item: FeedItem in incomingItems {
-                if !refreshDatesArr.contains(item.publishDate.timeIntervalSince1970) {
-                    //create relationship
-                    item.feed = self.feed!
-                }
-                else {
-                    EVKBrain.brain.coreDater.deleteObject(item)
-                }
-            }
-            
-            EVKBrain.brain.coreDater.saveContext()
-            
-            incomingItems.removeAll()
-            
-            feedItemsView?.refreshControl.endRefreshing()
+        guard let selfFeed = self.feed else {
+            return
         }
-        
-        provider?.dataSource = self.feed!.sortedItems()
-        feedItemsView?.tableView.reloadData()
+
+        /// Existed feed items
+        let existFeedItems: [FeedItem] = (selfFeed.feedItems.allObjects as? [FeedItem]) ?? []
+        let existedTitles: [String] = existFeedItems.map(\.title)
+        let existedLinks: [String] = existFeedItems.map(\.link)
+        let existedDates: [TimeInterval] = existFeedItems.map(\.publishDate.timeIntervalSince1970)
+
+        print("existFeedItems ---- \(existFeedItems.count)")
+
+        /// Incoming feed items
+        let incomingItems: [FeedItem] = (feed.feedItems.allObjects as? [FeedItem]) ?? []
+
+        print("incomingItems ---- \(incomingItems.count)")
+
+        /// Delete temporary incoming `feed`
+        EVKBrain.brain.coreDater.deleteObject(feed)
+
+        /// Iterate over incoming feed items to find a new item to add to existing feed object
+        for item: FeedItem in incomingItems {
+            let isUniqueTitle = !existedTitles.contains(item.title)
+            let isUniqueLink = !existedLinks.contains(item.link)
+            let isUniqueDate = !existedDates.contains(item.publishDate.timeIntervalSince1970)
+
+            let isUniqueItem = isUniqueTitle && isUniqueLink && isUniqueDate
+
+            if isUniqueItem {
+                /// Create a relationship
+                item.feed = selfFeed
+            }
+            else {
+                EVKBrain.brain.coreDater.deleteObject(item)
+            }
+        }
+
+        EVKBrain.brain.coreDater.saveContext()
+
+        provider?.dataSource = selfFeed.sortedItems()
+
+        feedItemsView?.reloadTableView()
+        feedItemsView?.endRefreshing()
     }
 }

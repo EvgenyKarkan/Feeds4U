@@ -23,7 +23,6 @@ final class EVKParser {
     
     // MARK: - properties
     weak var delegate: EVKParserDelegate?
-    private var feed: Feed!
    
     // MARK: - public API
     func beginParseURL(_ rssURL: URL) {
@@ -39,9 +38,12 @@ final class EVKParser {
                             delegate?.didFailParsingFeed()
                             return
                         }
+                        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
+                            delegate?.didFailParsingFeed()
+                            return
+                        }
                         
                         /// Create Feed
-                        feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed
                         feed.title = rssFeed.title
                         feed.rssURL = rssURL.absoluteString
                         feed.summary = rssFeed.description
@@ -49,8 +51,8 @@ final class EVKParser {
                         /// Create Feed Items
                         rssFeed.items?.forEach({ rrsFeedItem in
                             if let feedItem: FeedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem {
-                                feedItem.title = rrsFeedItem.title ?? ""
-                                feedItem.link = rrsFeedItem.link ?? ""
+                                feedItem.title = rrsFeedItem.title ?? String()
+                                feedItem.link = rrsFeedItem.link ?? String()
                                 feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
                                 
                                 /// Set relationship

@@ -8,7 +8,7 @@
 
 import CoreData
 
-let kFeed     = "Feed"
+let kFeed = "Feed"
 let kFeedItem = "FeedItem"
 
 final class EVKCoreDataManager {

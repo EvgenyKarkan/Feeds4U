@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PetProjectTools
 
 final class FeedCell: UITableViewCell, Reusable {
 
@@ -31,7 +32,9 @@ final class FeedCell: UITableViewCell, Reusable {
     var itemsCountText: String? {
         didSet {
             countLabel.text = itemsCountText
-            countLabel.isHidden = (itemsCountText == nil)
+
+            let shouldHideLabel = (itemsCountText == Int.zero.description) || (itemsCountText == nil)
+            countLabel.isHidden = shouldHideLabel
 
             dotView.isHidden = true
         }
@@ -49,19 +52,8 @@ final class FeedCell: UITableViewCell, Reusable {
 
         itemsCountText = nil
 
-        dotView.layer.cornerRadius = dotView.frame.height / 2
+        dotView.layer.cornerRadius = dotView.bounds.midY
         dotView.layer.cornerCurve = .continuous
         dotView.layer.masksToBounds = true
-    }
-}
-
-// MARK: - Reusable Protocol
-public protocol Reusable: AnyObject {
-    static var reuseId: String { get }
-}
-
-public extension Reusable {
-    static var reuseId: String {
-        return String(describing: self)
     }
 }
