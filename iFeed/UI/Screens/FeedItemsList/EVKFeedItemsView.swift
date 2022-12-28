@@ -40,4 +40,8 @@ final class EVKFeedItemsView: EVKBaseView {
         }
         refreshControl.endRefreshing()
     }
+
+    func hideRefreshControl() {
+        refreshControl.removeFromSuperview()
+    }
 }

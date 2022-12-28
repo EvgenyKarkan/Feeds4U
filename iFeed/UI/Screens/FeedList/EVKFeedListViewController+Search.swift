@@ -32,7 +32,8 @@ extension EVKFeedListViewController {
         alertController.addAction(cancelAction)
         
         let nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
-            guard let query = alertController.textFields?.first?.text, !query.isEmpty else {
+            guard let query = alertController.textFields?.first?.text,
+                !query.trimmingCharacters(in: .whitespaces).isEmpty else {
                 return
             }
 

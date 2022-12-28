@@ -39,19 +39,18 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        title = searchTitle ?? feed?.title
+
+        if searchTitle != nil {
+            feedItemsView?.hideRefreshControl()
+        }
         
         guard let feedItems = feedItems, !feedItems.isEmpty else {
             return
         }
 
         provider?.dataSource = feedItems
-        feedItemsView?.reloadTableView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        title = searchTitle ?? feed?.title
         feedItemsView?.reloadTableView()
     }
     
