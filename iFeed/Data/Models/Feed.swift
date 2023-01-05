@@ -24,7 +24,7 @@ class Feed: NSManagedObject {
         }
         
         let sortedArray = unsortedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
-            return item1.publishDate.timeIntervalSince1970 > item2.publishDate.timeIntervalSince1970
+            return item1.publishDate > item2.publishDate
         })
         
         return sortedArray

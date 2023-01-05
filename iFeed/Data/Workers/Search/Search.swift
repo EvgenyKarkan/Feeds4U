@@ -14,10 +14,10 @@ struct Search {
     private let coreDataManager = EVKBrain.brain.coreDater
     
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
-        // get all FeedItems
+        /// Get all FeedItems
         let allFeedItems = coreDataManager.allFeedItems()
         
-        // create a matching engine based on these feed items
+        /// Create a matching engine based on these feed items
         guard !allFeedItems.isEmpty else {
             completion()
             return
@@ -43,7 +43,7 @@ struct Search {
             if let results = results, !results.isEmpty {
                 var feedItems: [FeedItem] = []
                 
-                // we need to convert back the textual matches to the originating FeedItems
+                /// We need to convert back the textual matches to the originating FeedItems
                 results.forEach { (result) in
                     result.textualResults.forEach { (textualData) in
                         if let originObject = textualData.originObject as? FeedItem {
@@ -53,7 +53,13 @@ struct Search {
                         }
                     }
                 }
-                resultsFound(feedItems)
+
+                /// Sort by date
+                let sortedItems = feedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
+                    return item1.publishDate > item2.publishDate
+                })
+
+                resultsFound(sortedItems)
             } else {
                 resultsFound(nil)
             }
