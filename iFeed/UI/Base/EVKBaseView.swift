@@ -11,8 +11,8 @@ import UIKit
 class EVKBaseView: UIView {
 
     // MARK: - Properties
-    private(set) var tableView = UITableView()
-    private var label = UILabel()
+    let tableView = UITableView()
+    private let label = UILabel()
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -47,9 +47,9 @@ class EVKBaseView: UIView {
     
     // MARK: - Public API
     func initialViewSetup() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
-        label.backgroundColor = .white
+        label.backgroundColor = backgroundColor
         label.font = UIFont(name: "HelveticaNeue", size: 16)
         label.textAlignment = .center
         label.numberOfLines = .zero
@@ -57,7 +57,7 @@ class EVKBaseView: UIView {
         label.textColor = UIColor(named: "Tangerine")
         addSubview(label)
         
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = backgroundColor
         tableView.cellLayoutMarginsFollowReadableWidth = false
         addSubview(tableView)
 

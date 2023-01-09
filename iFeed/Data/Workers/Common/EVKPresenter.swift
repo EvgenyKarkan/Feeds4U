@@ -22,11 +22,11 @@ final class EVKPresenter {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "Tangerine")
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
 
         navigationVC.navigationBar.standardAppearance = appearance
         navigationVC.navigationBar.scrollEdgeAppearance = appearance
-        navigationVC.navigationBar.tintColor = .white
+        navigationVC.navigationBar.tintColor = .systemBackground
 
         navigationVC.viewControllers = [EVKFeedListViewController()]
 
@@ -43,7 +43,7 @@ final class EVKPresenter {
         navigationVC.popToRootViewController(animated: false)
 
         if let feedListVC = navigationVC.topViewController as? EVKFeedListViewController {
-            feedListVC.showEnterFeedAlertView(url.absoluteString)
+            feedListVC.showEnterFeedAlertView(specifier)
         }
     }
 }

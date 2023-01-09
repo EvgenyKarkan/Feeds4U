@@ -15,7 +15,7 @@ final class EVKSafariViewController: SFSafariViewController {
         super.viewDidLoad()
 
         preferredBarTintColor = UIColor(named: "Tangerine")
-        preferredControlTintColor = .white
+        preferredControlTintColor = .systemBackground
     }
     
     deinit {

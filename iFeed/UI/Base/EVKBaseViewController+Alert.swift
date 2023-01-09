@@ -35,17 +35,20 @@ extension EVKBaseViewController {
             if !feedURL.isEmpty {
                 textField.text = feedURL
             }
+
+            //textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
+            //textField.text = "https://justinpot.com/feed"
         }
 
         present(alertController, animated: true)
     }
 
     func showInvalidRSSAlert() {
-        showAlertMessage("RSS feed can't be parsed")
+        showAlertMessage("Feed can't be parsed")
     }
 
     func showDuplicateRSSAlert() {
-        showAlertMessage("RSS feed already exists,\n try another one")
+        showAlertMessage("Feed already exists,\n try another one")
     }
 
     // MARK: - Common alert

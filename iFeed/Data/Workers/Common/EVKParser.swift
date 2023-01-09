@@ -21,51 +21,91 @@ final class EVKParser {
     // MARK: - Singleton
     static let parser = EVKParser()
     
-    // MARK: - properties
+    // MARK: - Properties
     weak var delegate: EVKParserDelegate?
    
-    // MARK: - public API
-    func beginParseURL(_ rssURL: URL) {
+    // MARK: - Public API
+    func beginParseURL(_ url: URL) {
         delegate?.didStartParsingFeed()
     
-        let parser = FeedParser(URL: rssURL)
+        let parser = FeedParser(URL: url)
     
         parser.parseAsync { (result) in
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let parsedFeed):
-                        guard let rssFeed = parsedFeed.rssFeed else {
-                            delegate?.didFailParsingFeed()
-                            return
+                        switch parsedFeed {
+                        case .rss(let rssFeed):
+                            self?.finishRSSParsing(rssFeed: rssFeed, url: url)
+                        case .atom(let atomFeed):
+                            self?.finishAtomParsing(atomFeed: atomFeed, url: url)
+                        default:
+                            self?.delegate?.didFailParsingFeed()
+                            break
                         }
-                        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
-                            delegate?.didFailParsingFeed()
-                            return
-                        }
-                        
-                        /// Create Feed
-                        feed.title = rssFeed.title
-                        feed.rssURL = rssURL.absoluteString
-                        feed.summary = rssFeed.description
-                        
-                        /// Create Feed Items
-                        rssFeed.items?.forEach({ rrsFeedItem in
-                            if let feedItem: FeedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem {
-                                feedItem.title = rrsFeedItem.title ?? String()
-                                feedItem.link = rrsFeedItem.link ?? String()
-                                feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
-                                
-                                /// Set relationship
-                                feedItem.feed = feed
-                            }
-                        })
-                        
-                        delegate?.didEndParsingFeed(feed)
-                        
-                    case .failure( _):
-                        delegate?.didFailParsingFeed()
+                    case .failure(let error):
+                        print("GOT PARSING ERROR ---> \(error.localizedDescription)")
+                        self?.delegate?.didFailParsingFeed()
                     }
             }
         }
+    }
+
+    private func finishRSSParsing(rssFeed: RSSFeed, url: URL) {
+        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
+            delegate?.didFailParsingFeed()
+            return
+        }
+
+        //dump(rssFeed)
+
+        /// Create Feed
+        feed.title = rssFeed.title
+        feed.rssURL = url.absoluteString
+        feed.summary = rssFeed.description
+
+        /// Create Feed Items
+        rssFeed.items?.forEach({ rrsFeedItem in
+            guard let feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                return
+            }
+            feedItem.title = rrsFeedItem.title ?? String()
+            feedItem.link = rrsFeedItem.link ?? String()
+            feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
+
+            /// Set relationship
+            feedItem.feed = feed
+        })
+
+        delegate?.didEndParsingFeed(feed)
+    }
+
+    private func finishAtomParsing(atomFeed: AtomFeed, url: URL) {
+        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
+            delegate?.didFailParsingFeed()
+            return
+        }
+
+        //dump(atomFeed)
+
+        /// Create Feed
+        feed.title = atomFeed.title
+        feed.rssURL = url.absoluteString
+        feed.summary = (atomFeed.subtitle?.value ?? atomFeed.rights) ?? "N/A"
+
+        /// Create Feed Items
+        atomFeed.entries?.forEach({ atomFeedItem in
+            guard let feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                return
+            }
+            feedItem.title = atomFeedItem.title ?? String()
+            feedItem.link = atomFeedItem.links?.first?.attributes?.href ?? String()
+            feedItem.publishDate = atomFeedItem.published ?? Date()
+
+            /// Set relationship
+            feedItem.feed = feed
+        })
+
+        delegate?.didEndParsingFeed(feed)
     }
 }
