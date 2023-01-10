@@ -1,5 +1,5 @@
 //
-//  EVKAppDelegate.swift
+//  AppDelegate.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/14/15.
@@ -9,17 +9,17 @@
 import UIKit
 
 @UIApplicationMain
-final class EVKAppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        EVKBrain.brain.startServices()
+        Brain.brain.startServices()
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        EVKBrain.brain.presenter.openURL(url)
+        Brain.brain.presenter.openURL(url)
         return true
     }
 }

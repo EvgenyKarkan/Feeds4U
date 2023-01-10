@@ -11,17 +11,17 @@
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
 		2E2304C32954ABBA00B1F930 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BD2954ABBA00B1F930 /* Images.xcassets */; };
-		2E2304C42954ABBA00B1F930 /* EVKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BE2954ABBA00B1F930 /* EVKAppDelegate.swift */; };
+		2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */; };
 		2E2304D62954ABC900B1F930 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304C82954ABC900B1F930 /* FeedItem.swift */; };
 		2E2304D72954ABC900B1F930 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304C92954ABC900B1F930 /* Feed.swift */; };
 		2E2304D82954ABC900B1F930 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CC2954ABC900B1F930 /* Search.swift */; };
-		2E2304D92954ABC900B1F930 /* EVKBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CE2954ABC900B1F930 /* EVKBrain.swift */; };
-		2E2304DA2954ABC900B1F930 /* EVKAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CF2954ABC900B1F930 /* EVKAnalytics.swift */; };
-		2E2304DB2954ABC900B1F930 /* EVKCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D02954ABC900B1F930 /* EVKCoreDataManager.swift */; };
-		2E2304DC2954ABC900B1F930 /* EVKCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D12954ABC900B1F930 /* EVKCacher.swift */; };
-		2E2304DD2954ABC900B1F930 /* EVKPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D22954ABC900B1F930 /* EVKPresenter.swift */; };
-		2E2304DE2954ABC900B1F930 /* EVKParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D32954ABC900B1F930 /* EVKParser.swift */; };
-		2E2304DF2954ABC900B1F930 /* EVKBaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D52954ABC900B1F930 /* EVKBaseTableProvider.swift */; };
+		2E2304D92954ABC900B1F930 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CE2954ABC900B1F930 /* Brain.swift */; };
+		2E2304DA2954ABC900B1F930 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CF2954ABC900B1F930 /* Analytics.swift */; };
+		2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D02954ABC900B1F930 /* CoreDataManager.swift */; };
+		2E2304DC2954ABC900B1F930 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D12954ABC900B1F930 /* Cacher.swift */; };
+		2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D22954ABC900B1F930 /* Presenter.swift */; };
+		2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D32954ABC900B1F930 /* Parser.swift */; };
+		2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */; };
 		2E2304E72954ABD300B1F930 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E22954ABD300B1F930 /* MatchingEngineAlgorithm.swift */; };
 		2E2304E82954ABD300B1F930 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E32954ABD300B1F930 /* StringsForBagOfWords.swift */; };
 		2E2304E92954ABD300B1F930 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E42954ABD300B1F930 /* IndexMatrix.swift */; };
@@ -29,17 +29,17 @@
 		2E2304EB2954ABD300B1F930 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E62954ABD300B1F930 /* TextualDataImport.swift */; };
 		2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304EE2954ABDB00B1F930 /* FeedCell.swift */; };
 		2E2305012954ABDB00B1F930 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304EF2954ABDB00B1F930 /* FeedCell.xib */; };
-		2E2305022954ABDB00B1F930 /* EVKSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F22954ABDB00B1F930 /* EVKSafariViewController.swift */; };
-		2E2305032954ABDB00B1F930 /* EVKFeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F42954ABDB00B1F930 /* EVKFeedItemsView.swift */; };
-		2E2305042954ABDB00B1F930 /* EVKFeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F52954ABDB00B1F930 /* EVKFeedItemsViewController.swift */; };
-		2E2305052954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F62954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift */; };
-		2E2305062954ABDB00B1F930 /* EVKFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F82954ABDB00B1F930 /* EVKFeedListViewController.swift */; };
-		2E2305072954ABDB00B1F930 /* EVKFeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F92954ABDB00B1F930 /* EVKFeedListTableProvider.swift */; };
-		2E2305082954ABDB00B1F930 /* EVKFeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FA2954ABDB00B1F930 /* EVKFeedListViewController+Search.swift */; };
-		2E2305092954ABDB00B1F930 /* EVKFeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FB2954ABDB00B1F930 /* EVKFeedListView.swift */; };
-		2E23050A2954ABDB00B1F930 /* EVKBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FD2954ABDB00B1F930 /* EVKBaseViewController.swift */; };
-		2E23050B2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FE2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift */; };
-		2E23050C2954ABDB00B1F930 /* EVKBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* EVKBaseView.swift */; };
+		2E2305022954ABDB00B1F930 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F22954ABDB00B1F930 /* SafariViewController.swift */; };
+		2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */; };
+		2E2305042954ABDB00B1F930 /* FeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F52954ABDB00B1F930 /* FeedItemsViewController.swift */; };
+		2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F62954ABDB00B1F930 /* FeedItemsTableProvider.swift */; };
+		2E2305062954ABDB00B1F930 /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F82954ABDB00B1F930 /* FeedListViewController.swift */; };
+		2E2305072954ABDB00B1F930 /* FeedListTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F92954ABDB00B1F930 /* FeedListTableProvider.swift */; };
+		2E2305082954ABDB00B1F930 /* FeedListViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FA2954ABDB00B1F930 /* FeedListViewController+Search.swift */; };
+		2E2305092954ABDB00B1F930 /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FB2954ABDB00B1F930 /* FeedListView.swift */; };
+		2E23050A2954ABDB00B1F930 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FD2954ABDB00B1F930 /* BaseViewController.swift */; };
+		2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */; };
+		2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* BaseView.swift */; };
 		2E2305152954EAA900B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2305142954EAA900B1F930 /* FeedKit */; };
 /* End PBXBuildFile section */
 
@@ -48,18 +48,18 @@
 		2E2304BB2954ABBA00B1F930 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		2E2304BD2954ABBA00B1F930 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2E2304BE2954ABBA00B1F930 /* EVKAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAppDelegate.swift; sourceTree = "<group>"; };
+		2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E2304BF2954ABBA00B1F930 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E2304C82954ABC900B1F930 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		2E2304C92954ABC900B1F930 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		2E2304CC2954ABC900B1F930 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		2E2304CE2954ABC900B1F930 /* EVKBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBrain.swift; sourceTree = "<group>"; };
-		2E2304CF2954ABC900B1F930 /* EVKAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKAnalytics.swift; sourceTree = "<group>"; };
-		2E2304D02954ABC900B1F930 /* EVKCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCoreDataManager.swift; sourceTree = "<group>"; };
-		2E2304D12954ABC900B1F930 /* EVKCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKCacher.swift; sourceTree = "<group>"; };
-		2E2304D22954ABC900B1F930 /* EVKPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKPresenter.swift; sourceTree = "<group>"; };
-		2E2304D32954ABC900B1F930 /* EVKParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKParser.swift; sourceTree = "<group>"; };
-		2E2304D52954ABC900B1F930 /* EVKBaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseTableProvider.swift; sourceTree = "<group>"; };
+		2E2304CE2954ABC900B1F930 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
+		2E2304CF2954ABC900B1F930 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		2E2304D02954ABC900B1F930 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		2E2304D12954ABC900B1F930 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
+		2E2304D22954ABC900B1F930 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		2E2304D32954ABC900B1F930 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableProvider.swift; sourceTree = "<group>"; };
 		2E2304E22954ABD300B1F930 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
 		2E2304E32954ABD300B1F930 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
 		2E2304E42954ABD300B1F930 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
@@ -67,17 +67,17 @@
 		2E2304E62954ABD300B1F930 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		2E2304EE2954ABDB00B1F930 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		2E2304EF2954ABDB00B1F930 /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
-		2E2304F22954ABDB00B1F930 /* EVKSafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKSafariViewController.swift; sourceTree = "<group>"; };
-		2E2304F42954ABDB00B1F930 /* EVKFeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsView.swift; sourceTree = "<group>"; };
-		2E2304F52954ABDB00B1F930 /* EVKFeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsViewController.swift; sourceTree = "<group>"; };
-		2E2304F62954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedItemsTableProvider.swift; sourceTree = "<group>"; };
-		2E2304F82954ABDB00B1F930 /* EVKFeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListViewController.swift; sourceTree = "<group>"; };
-		2E2304F92954ABDB00B1F930 /* EVKFeedListTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListTableProvider.swift; sourceTree = "<group>"; };
-		2E2304FA2954ABDB00B1F930 /* EVKFeedListViewController+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EVKFeedListViewController+Search.swift"; sourceTree = "<group>"; };
-		2E2304FB2954ABDB00B1F930 /* EVKFeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKFeedListView.swift; sourceTree = "<group>"; };
-		2E2304FD2954ABDB00B1F930 /* EVKBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseViewController.swift; sourceTree = "<group>"; };
-		2E2304FE2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EVKBaseViewController+Alert.swift"; sourceTree = "<group>"; };
-		2E2304FF2954ABDB00B1F930 /* EVKBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EVKBaseView.swift; sourceTree = "<group>"; };
+		2E2304F22954ABDB00B1F930 /* SafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
+		2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItemsView.swift; sourceTree = "<group>"; };
+		2E2304F52954ABDB00B1F930 /* FeedItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItemsViewController.swift; sourceTree = "<group>"; };
+		2E2304F62954ABDB00B1F930 /* FeedItemsTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItemsTableProvider.swift; sourceTree = "<group>"; };
+		2E2304F82954ABDB00B1F930 /* FeedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
+		2E2304F92954ABDB00B1F930 /* FeedListTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListTableProvider.swift; sourceTree = "<group>"; };
+		2E2304FA2954ABDB00B1F930 /* FeedListViewController+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeedListViewController+Search.swift"; sourceTree = "<group>"; };
+		2E2304FB2954ABDB00B1F930 /* FeedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListView.swift; sourceTree = "<group>"; };
+		2E2304FD2954ABDB00B1F930 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseViewController+Alert.swift"; sourceTree = "<group>"; };
+		2E2304FF2954ABDB00B1F930 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,7 +96,7 @@
 		2E2304B82954ABBA00B1F930 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304BE2954ABBA00B1F930 /* EVKAppDelegate.swift */,
+				2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */,
 				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
 				2E2304B92954ABBA00B1F930 /* Colors.xcassets */,
 				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
@@ -145,12 +145,12 @@
 		2E2304CD2954ABC900B1F930 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304CE2954ABC900B1F930 /* EVKBrain.swift */,
-				2E2304CF2954ABC900B1F930 /* EVKAnalytics.swift */,
-				2E2304D02954ABC900B1F930 /* EVKCoreDataManager.swift */,
-				2E2304D12954ABC900B1F930 /* EVKCacher.swift */,
-				2E2304D22954ABC900B1F930 /* EVKPresenter.swift */,
-				2E2304D32954ABC900B1F930 /* EVKParser.swift */,
+				2E2304CE2954ABC900B1F930 /* Brain.swift */,
+				2E2304CF2954ABC900B1F930 /* Analytics.swift */,
+				2E2304D02954ABC900B1F930 /* CoreDataManager.swift */,
+				2E2304D12954ABC900B1F930 /* Cacher.swift */,
+				2E2304D22954ABC900B1F930 /* Presenter.swift */,
+				2E2304D32954ABC900B1F930 /* Parser.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -158,7 +158,7 @@
 		2E2304D42954ABC900B1F930 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304D52954ABC900B1F930 /* EVKBaseTableProvider.swift */,
+				2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 		2E2304F12954ABDB00B1F930 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304F22954ABDB00B1F930 /* EVKSafariViewController.swift */,
+				2E2304F22954ABDB00B1F930 /* SafariViewController.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -223,9 +223,9 @@
 		2E2304F32954ABDB00B1F930 /* FeedItemsList */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304F42954ABDB00B1F930 /* EVKFeedItemsView.swift */,
-				2E2304F62954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift */,
-				2E2304F52954ABDB00B1F930 /* EVKFeedItemsViewController.swift */,
+				2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */,
+				2E2304F62954ABDB00B1F930 /* FeedItemsTableProvider.swift */,
+				2E2304F52954ABDB00B1F930 /* FeedItemsViewController.swift */,
 			);
 			path = FeedItemsList;
 			sourceTree = "<group>";
@@ -233,10 +233,10 @@
 		2E2304F72954ABDB00B1F930 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304FB2954ABDB00B1F930 /* EVKFeedListView.swift */,
-				2E2304F92954ABDB00B1F930 /* EVKFeedListTableProvider.swift */,
-				2E2304F82954ABDB00B1F930 /* EVKFeedListViewController.swift */,
-				2E2304FA2954ABDB00B1F930 /* EVKFeedListViewController+Search.swift */,
+				2E2304FB2954ABDB00B1F930 /* FeedListView.swift */,
+				2E2304F92954ABDB00B1F930 /* FeedListTableProvider.swift */,
+				2E2304F82954ABDB00B1F930 /* FeedListViewController.swift */,
+				2E2304FA2954ABDB00B1F930 /* FeedListViewController+Search.swift */,
 			);
 			path = FeedList;
 			sourceTree = "<group>";
@@ -244,9 +244,9 @@
 		2E2304FC2954ABDB00B1F930 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2E2304FF2954ABDB00B1F930 /* EVKBaseView.swift */,
-				2E2304FD2954ABDB00B1F930 /* EVKBaseViewController.swift */,
-				2E2304FE2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift */,
+				2E2304FF2954ABDB00B1F930 /* BaseView.swift */,
+				2E2304FD2954ABDB00B1F930 /* BaseViewController.swift */,
+				2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -372,33 +372,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E2304EA2954ABD300B1F930 /* MatchingEngine.swift in Sources */,
-				2E23050A2954ABDB00B1F930 /* EVKBaseViewController.swift in Sources */,
-				2E2304DA2954ABC900B1F930 /* EVKAnalytics.swift in Sources */,
-				2E2305082954ABDB00B1F930 /* EVKFeedListViewController+Search.swift in Sources */,
-				2E2304DF2954ABC900B1F930 /* EVKBaseTableProvider.swift in Sources */,
-				2E2305052954ABDB00B1F930 /* EVKFeedItemsTableProvider.swift in Sources */,
-				2E2305092954ABDB00B1F930 /* EVKFeedListView.swift in Sources */,
+				2E23050A2954ABDB00B1F930 /* BaseViewController.swift in Sources */,
+				2E2304DA2954ABC900B1F930 /* Analytics.swift in Sources */,
+				2E2305082954ABDB00B1F930 /* FeedListViewController+Search.swift in Sources */,
+				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
+				2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */,
+				2E2305092954ABDB00B1F930 /* FeedListView.swift in Sources */,
 				2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */,
 				2E2304E92954ABD300B1F930 /* IndexMatrix.swift in Sources */,
 				2E2304D72954ABC900B1F930 /* Feed.swift in Sources */,
 				2E2304E72954ABD300B1F930 /* MatchingEngineAlgorithm.swift in Sources */,
 				2E2304EB2954ABD300B1F930 /* TextualDataImport.swift in Sources */,
-				2E2305032954ABDB00B1F930 /* EVKFeedItemsView.swift in Sources */,
-				2E2304DC2954ABC900B1F930 /* EVKCacher.swift in Sources */,
-				2E2305042954ABDB00B1F930 /* EVKFeedItemsViewController.swift in Sources */,
+				2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */,
+				2E2304DC2954ABC900B1F930 /* Cacher.swift in Sources */,
+				2E2305042954ABDB00B1F930 /* FeedItemsViewController.swift in Sources */,
 				2E2304E82954ABD300B1F930 /* StringsForBagOfWords.swift in Sources */,
-				2E23050C2954ABDB00B1F930 /* EVKBaseView.swift in Sources */,
-				2E2305062954ABDB00B1F930 /* EVKFeedListViewController.swift in Sources */,
-				2E2305022954ABDB00B1F930 /* EVKSafariViewController.swift in Sources */,
-				2E2304DE2954ABC900B1F930 /* EVKParser.swift in Sources */,
+				2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */,
+				2E2305062954ABDB00B1F930 /* FeedListViewController.swift in Sources */,
+				2E2305022954ABDB00B1F930 /* SafariViewController.swift in Sources */,
+				2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */,
 				2E2304D82954ABC900B1F930 /* Search.swift in Sources */,
-				2E2304DD2954ABC900B1F930 /* EVKPresenter.swift in Sources */,
-				2E2305072954ABDB00B1F930 /* EVKFeedListTableProvider.swift in Sources */,
-				2E2304C42954ABBA00B1F930 /* EVKAppDelegate.swift in Sources */,
+				2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */,
+				2E2305072954ABDB00B1F930 /* FeedListTableProvider.swift in Sources */,
+				2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */,
 				2E2304D62954ABC900B1F930 /* FeedItem.swift in Sources */,
-				2E2304D92954ABC900B1F930 /* EVKBrain.swift in Sources */,
-				2E23050B2954ABDB00B1F930 /* EVKBaseViewController+Alert.swift in Sources */,
-				2E2304DB2954ABC900B1F930 /* EVKCoreDataManager.swift in Sources */,
+				2E2304D92954ABC900B1F930 /* Brain.swift in Sources */,
+				2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */,
+				2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */,
 				2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

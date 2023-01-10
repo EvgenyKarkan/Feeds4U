@@ -1,5 +1,5 @@
 //
-//  EVKSafariViewController.swift
+//  SafariViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 3/24/19.
@@ -8,7 +8,7 @@
 
 import SafariServices
 
-final class EVKSafariViewController: SFSafariViewController {
+final class SafariViewController: SFSafariViewController {
 
     // MARK: - Life cycle
     override func viewDidLoad() {

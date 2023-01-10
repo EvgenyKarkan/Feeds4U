@@ -1,5 +1,5 @@
 //
-//  EVKBaseView.swift
+//  BaseView.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKBaseView: UIView {
+class BaseView: UIView {
 
     // MARK: - Properties
     let tableView = UITableView()

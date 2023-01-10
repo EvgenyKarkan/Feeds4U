@@ -1,5 +1,5 @@
 //
-//  EVKCacher.swift
+//  Cacher.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/27/16.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-final class EVKCacher {
+final class Cacher {
 
     // MARK: - Singleton
-    static let cacher = EVKCacher()
+    static let cacher = Cacher()
     
     // MARK: - APIs
     func startToCache() {

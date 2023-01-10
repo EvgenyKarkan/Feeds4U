@@ -1,5 +1,5 @@
 //
-//  EVKFeedListViewController+Search.swift
+//  FeedListViewController+Search.swift
 //  iFeed
 //
 //  Created by Julius Bahr on 20.04.18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension EVKFeedListViewController {
+extension FeedListViewController {
     
     @objc func searchPressed (_ sender: UIButton) {
         showSpinner()
@@ -68,7 +68,7 @@ extension EVKFeedListViewController {
     }
     
     private func showSearchResults(results: [FeedItem], for query: String) {
-        let feedItemsViewController = EVKFeedItemsViewController()
+        let feedItemsViewController = FeedItemsViewController()
         feedItemsViewController.feedItems = results
         feedItemsViewController.searchTitle = "Search: \(query)"
         navigationController?.pushViewController(feedItemsViewController, animated: true)

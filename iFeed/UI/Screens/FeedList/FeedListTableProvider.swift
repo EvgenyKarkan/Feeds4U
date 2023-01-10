@@ -1,5 +1,5 @@
 //
-//  EVKFeedListTableProvider.swift
+//  FeedListTableProvider.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class EVKFeedListTableProvider: EVKBaseTableProvider {
+final class FeedListTableProvider: BaseTableProvider {
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

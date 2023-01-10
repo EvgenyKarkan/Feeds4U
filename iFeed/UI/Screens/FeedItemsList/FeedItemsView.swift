@@ -1,5 +1,5 @@
 //
-//  EVKFeedItemsView.swift
+//  FeedItemsView.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/15/15.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-// MARK: - EVKFeedItemsViewDelegate
-protocol EVKFeedItemsViewDelegate: AnyObject {
+// MARK: - FeedItemsViewDelegate
+protocol FeedItemsViewDelegate: AnyObject {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
 
-final class EVKFeedItemsView: EVKBaseView {
+final class FeedItemsView: BaseView {
 
     // MARK: - Property
-    weak var delegate: EVKFeedItemsViewDelegate?
+    weak var delegate: FeedItemsViewDelegate?
     private lazy var refreshControl = UIRefreshControl()
     
     // MARK: - Base override

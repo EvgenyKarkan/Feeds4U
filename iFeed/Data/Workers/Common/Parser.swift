@@ -1,5 +1,5 @@
 //
-//  EVKParser.swift
+//  Parser.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/16/15.
@@ -9,20 +9,20 @@
 import FeedKit
 import Foundation
 
-// MARK: - EVKParserDelegate
-protocol EVKParserDelegate: AnyObject {
+// MARK: - ParserDelegate
+protocol ParserDelegate: AnyObject {
     func didStartParsingFeed()
     func didEndParsingFeed(_ feed: Feed)
     func didFailParsingFeed()
 }
 
-final class EVKParser {
+final class Parser {
 
     // MARK: - Singleton
-    static let parser = EVKParser()
+    static let parser = Parser()
     
     // MARK: - Properties
-    weak var delegate: EVKParserDelegate?
+    weak var delegate: ParserDelegate?
    
     // MARK: - Public API
     func beginParseURL(_ url: URL) {
@@ -52,7 +52,7 @@ final class EVKParser {
     }
 
     private func finishRSSParsing(rssFeed: RSSFeed, url: URL) {
-        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
+        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -66,7 +66,7 @@ final class EVKParser {
 
         /// Create Feed Items
         rssFeed.items?.forEach({ rrsFeedItem in
-            guard let feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+            guard let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
                 return
             }
             feedItem.title = rrsFeedItem.title ?? String()
@@ -81,7 +81,7 @@ final class EVKParser {
     }
 
     private func finishAtomParsing(atomFeed: AtomFeed, url: URL) {
-        guard let feed: Feed = EVKBrain.brain.createEntity(name: kFeed) as? Feed else {
+        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -95,7 +95,7 @@ final class EVKParser {
 
         /// Create Feed Items
         atomFeed.entries?.forEach({ atomFeedItem in
-            guard let feedItem = EVKBrain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+            guard let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
                 return
             }
             feedItem.title = atomFeedItem.title ?? String()

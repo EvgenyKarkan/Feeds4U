@@ -1,5 +1,5 @@
 //
-//  EVKCoreDataManager.swift
+//  CoreDataManager.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/2/15.
@@ -11,10 +11,10 @@ import CoreData
 let kFeed = "Feed"
 let kFeedItem = "FeedItem"
 
-final class EVKCoreDataManager {
+final class CoreDataManager {
 
     // MARK: - Singleton
-    static let manager = EVKCoreDataManager()
+    static let manager = CoreDataManager()
 
     private init() {}
  

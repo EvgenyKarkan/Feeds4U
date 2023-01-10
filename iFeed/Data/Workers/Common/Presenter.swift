@@ -1,5 +1,5 @@
 //
-//  EVKPresenter.swift
+//  Presenter.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/27/16.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-final class EVKPresenter {
+final class Presenter {
 
     // MARK: - Singleton
-    static let presenter = EVKPresenter()
+    static let presenter = Presenter()
     
     // MARK: - Properties
     lazy var window = UIWindow(frame: UIScreen.main.bounds)
@@ -28,7 +28,7 @@ final class EVKPresenter {
         navigationVC.navigationBar.scrollEdgeAppearance = appearance
         navigationVC.navigationBar.tintColor = .systemBackground
 
-        navigationVC.viewControllers = [EVKFeedListViewController()]
+        navigationVC.viewControllers = [FeedListViewController()]
 
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
@@ -42,7 +42,7 @@ final class EVKPresenter {
 
         navigationVC.popToRootViewController(animated: false)
 
-        if let feedListVC = navigationVC.topViewController as? EVKFeedListViewController {
+        if let feedListVC = navigationVC.topViewController as? FeedListViewController {
             feedListVC.showEnterFeedAlertView(specifier)
         }
     }

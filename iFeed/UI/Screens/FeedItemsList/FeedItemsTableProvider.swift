@@ -1,5 +1,5 @@
 //
-//  EVKFeedItemsTableProvider.swift
+//  FeedItemsTableProvider.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class EVKFeedItemsTableProvider: EVKBaseTableProvider {
+final class FeedItemsTableProvider: BaseTableProvider {
 
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

@@ -1,5 +1,5 @@
 //
-//  EVKFeedItemsViewController.swift
+//  FeedItemsViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -9,11 +9,11 @@
 import UIKit
 import Foundation
 
-final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderProtocol, EVKFeedItemsViewDelegate {
+final class FeedItemsViewController: BaseViewController, TableProviderProtocol, FeedItemsViewDelegate {
 
     // MARK: - Properties
-    private var feedItemsView: EVKFeedItemsView?
-    private var provider: EVKFeedItemsTableProvider?
+    private var feedItemsView: FeedItemsView?
+    private var provider: FeedItemsTableProvider?
 
     var feed: Feed?
     var feedItems: [FeedItem]?
@@ -27,9 +27,9 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
 
     // MARK: - Life cycle
     override func loadView() {
-        provider = EVKFeedItemsTableProvider(delegateObject: self)
+        provider = FeedItemsTableProvider(delegateObject: self)
         
-        feedItemsView = EVKFeedItemsView(frame: UIScreen.main.bounds)
+        feedItemsView = FeedItemsView(frame: UIScreen.main.bounds)
         feedItemsView?.tableView.delegate = provider
         feedItemsView?.tableView.dataSource = provider
         feedItemsView?.delegate = self
@@ -59,7 +59,7 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         feedItemsView?.reloadTableView()
     }
     
-    // MARK: - EVKTableProviderProtocol
+    // MARK: - TableProviderProtocol
     func cellDidPress(at indexPath: IndexPath) {
         guard let items = feedItems, !items.isEmpty, indexPath.row < items.count else {
             return
@@ -72,13 +72,13 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         }
 
         item.wasRead = true
-        EVKBrain.brain.coreDater.saveContext()
+        Brain.brain.coreDater.saveContext()
         
-        let safariVC = EVKSafariViewController(url: url)
+        let safariVC = SafariViewController(url: url)
         present(safariVC, animated: true)
     }
     
-    // MARK: - EVKFeedListViewProtocol
+    // MARK: - FeedListViewProtocol
     func didPullToRefresh(_ sender: UIRefreshControl) {
         guard let url = feed?.rssURL, !url.isEmpty else {
             return
@@ -87,7 +87,7 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         startParsingURL(url)
     }
     
-    // MARK: - EVKParserDelegate
+    // MARK: - ParserDelegate
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
 
@@ -109,7 +109,7 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
         print("incomingItems ---- \(incomingItems.count)")
 
         /// Delete temporary incoming `feed`
-        EVKBrain.brain.coreDater.deleteObject(feed)
+        Brain.brain.coreDater.deleteObject(feed)
 
         /// Iterate over incoming feed items to find a new item to add to existing feed object
         for item: FeedItem in incomingItems {
@@ -124,11 +124,11 @@ final class EVKFeedItemsViewController: EVKBaseViewController, EVKTableProviderP
                 item.feed = selfFeed
             }
             else {
-                EVKBrain.brain.coreDater.deleteObject(item)
+                Brain.brain.coreDater.deleteObject(item)
             }
         }
 
-        EVKBrain.brain.coreDater.saveContext()
+        Brain.brain.coreDater.saveContext()
 
         provider?.dataSource = selfFeed.sortedItems()
 

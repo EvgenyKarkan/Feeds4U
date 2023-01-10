@@ -11,7 +11,7 @@ import Foundation
 struct Search {
     
     private var matchingEngine: MatchingEngine?
-    private let coreDataManager = EVKBrain.brain.coreDater
+    private let coreDataManager = Brain.brain.coreDater
     
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         /// Get all FeedItems

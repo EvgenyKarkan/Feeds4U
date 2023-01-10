@@ -1,5 +1,5 @@
 //
-//  EVKBaseTableProvider.swift
+//  BaseTableProvider.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/1/15.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
+class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
    
     // MARK: - properties
     var dataSource: [AnyObject] = []
-    weak var delegate: EVKTableProviderProtocol?
+    weak var delegate: TableProviderProtocol?
     
     // MARK: - Designated init
-    init(delegateObject: EVKTableProviderProtocol) {
+    init(delegateObject: TableProviderProtocol) {
         delegate = delegateObject
     }
     
@@ -42,8 +42,8 @@ class EVKBaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource
     }
 }
 
-// MARK: - EVKTableProviderProtocol
-@objc protocol EVKTableProviderProtocol: AnyObject {
+// MARK: - TableProviderProtocol
+@objc protocol TableProviderProtocol: AnyObject {
     func cellDidPress(at indexPath: IndexPath)
     @objc optional func cellNeedsDelete(at indexPath: IndexPath)
 }

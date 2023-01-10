@@ -1,5 +1,5 @@
 //
-//  EVKBaseViewController.swift
+//  BaseViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/27/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EVKBaseViewController: UIViewController, EVKParserDelegate {
+class BaseViewController: UIViewController, ParserDelegate {
 
     // MARK: - Properties
     private var spinner: UIActivityIndicatorView?
@@ -33,12 +33,12 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
             return
         }
 
-        let parser = EVKBrain.brain.parser
+        let parser = Brain.brain.parser
         parser.delegate = self
         parser.beginParseURL(url)
     }
     
-    // MARK: - EVKParserDelegate
+    // MARK: - ParserDelegate
     func didStartParsingFeed() {}
     
     func didEndParsingFeed(_ feed: Feed) {
@@ -52,7 +52,7 @@ class EVKBaseViewController: UIViewController, EVKParserDelegate {
 }
 
 // MARK: - Spinner helper
-extension EVKBaseViewController {
+extension BaseViewController {
 
     func showSpinner() {
         spinner = UIActivityIndicatorView(style: .large)

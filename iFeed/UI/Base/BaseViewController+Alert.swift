@@ -1,5 +1,5 @@
 //
-//  EVKBaseViewController+Alert.swift
+//  BaseViewController+Alert.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 22.12.2022.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension EVKBaseViewController {
+extension BaseViewController {
 
     // MARK: - Alerts
     func showEnterFeedAlertView(_ feedURL: String) {

@@ -1,5 +1,5 @@
 //
-//  EVKBrain.swift
+//  Brain.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/4/15.
@@ -8,25 +8,25 @@
 
 import CoreData
 
-final class EVKBrain {
+final class Brain {
    
     // MARK: - Readonly properties
-    let parser: EVKParser
-    let coreDater: EVKCoreDataManager
-    let presenter: EVKPresenter
-    let analytics: EVKAnalytics
-    let cacher: EVKCacher
+    let parser: Parser
+    let coreDater: CoreDataManager
+    let presenter: Presenter
+    let analytics: Analytics
+    let cacher: Cacher
     
     // MARK: - Singleton
-    static let brain = EVKBrain()
+    static let brain = Brain()
     
     // MARK: - Init
     init() {
-        parser = EVKParser.parser
-        coreDater = EVKCoreDataManager.manager
-        presenter = EVKPresenter.presenter
-        analytics = EVKAnalytics.analytics
-        cacher = EVKCacher.cacher
+        parser = Parser.parser
+        coreDater = CoreDataManager.manager
+        presenter = Presenter.presenter
+        analytics = Analytics.analytics
+        cacher = Cacher.cacher
     }
     
     // MARK: - Public APIs
@@ -54,7 +54,7 @@ final class EVKBrain {
     
     func isDuplicateURL(_ rssURL: String) -> Bool {
         var returnValue: Bool = false
-        let allItems: [Feed] = EVKBrain.brain.coreDater.allFeeds()
+        let allItems: [Feed] = Brain.brain.coreDater.allFeeds()
         
         for item: Feed in allItems {
             if rssURL == item.rssURL {
