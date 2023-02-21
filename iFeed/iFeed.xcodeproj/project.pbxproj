@@ -41,6 +41,7 @@
 		2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */; };
 		2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* BaseView.swift */; };
 		2E2305152954EAA900B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2305142954EAA900B1F930 /* FeedKit */; };
+		2E61CAD329A581290024A4E5 /* PetProjectTools in Frameworks */ = {isa = PBXBuildFile; productRef = 2E61CAD229A581290024A4E5 /* PetProjectTools */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E61CAD329A581290024A4E5 /* PetProjectTools in Frameworks */,
 				2E2305152954EAA900B1F930 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +282,6 @@
 				DE763D101B7E841300C8B54A /* Sources */,
 				DE763D111B7E841300C8B54A /* Frameworks */,
 				DE763D121B7E841300C8B54A /* Resources */,
-				DE7752CB1BA7684900A82EFE /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -289,6 +290,7 @@
 			name = iFeed;
 			packageProductDependencies = (
 				2E2305142954EAA900B1F930 /* FeedKit */,
+				2E61CAD229A581290024A4E5 /* PetProjectTools */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -325,6 +327,7 @@
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
 				2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				2E61CAD129A581290024A4E5 /* XCRemoteSwiftPackageReference "PetProjectTools" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -348,23 +351,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		DE7752CB1BA7684900A82EFE /* Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Crashlytics;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n../Libs/Crashlytics.framework/run 4760756e56b00e661fdfca38443023c06fd79797 2a108c89744d2e3d74bec86ddbea4b924ecf0289c3ff3c6ca0ca5f4e759471ee\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DE763D101B7E841300C8B54A /* Sources */ = {
@@ -721,6 +707,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		2E61CAD129A581290024A4E5 /* XCRemoteSwiftPackageReference "PetProjectTools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EvgenyKarkan/PetProjectTools.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -728,6 +722,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
+		};
+		2E61CAD229A581290024A4E5 /* PetProjectTools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E61CAD129A581290024A4E5 /* XCRemoteSwiftPackageReference "PetProjectTools" */;
+			productName = PetProjectTools;
 		};
 /* End XCSwiftPackageProductDependency section */
 
