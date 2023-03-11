@@ -4,14 +4,13 @@ Feeds4U
 Simple RSS reader app.
 
 ## Contributions
-All PRs should be directed to the '_develop_' branch.
+Please ensure that all pull requests are directed to the 'develop' branch.
 
 ## Important Note      
-Use code as you wish.   
-Don't use app icons, and any kind of image assets - usage is strictly prohibited.    
-Thanks!
+You are free to use the code as you see fit, but please refrain from using any app icons or image assets, as their usage is strictly prohibited. 
+Thank you.
 
 ## Copyright
-Source code under MIT license.    
-Exclusive rights to distribute the Feeds4U application through the Apple App Store belong only to me.    
-Copyright (c) 2022 Evgeny Karkan. All rights reserved.
+The source code is licensed under the MIT license. 
+However, exclusive rights to distribute the Feeds4U application through the Apple App Store are reserved only for me. 
+Copyright (c) 2023 Evgeny Karkan. All rights reserved.
