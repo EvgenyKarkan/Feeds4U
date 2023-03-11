@@ -50,10 +50,10 @@ class BaseView: UIView {
         backgroundColor = .systemBackground
         
         label.backgroundColor = backgroundColor
-        label.font = UIFont(name: "HelveticaNeue", size: 16)
+        label.font = .systemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = .zero
-        label.text = "No any RSS feed"
+        label.text = "Please add a new feed to get started!"
         label.textColor = UIColor(named: "Tangerine")
         addSubview(label)
         

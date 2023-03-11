@@ -29,7 +29,7 @@ class BaseViewController: UIViewController, ParserDelegate {
     // MARK: - Parsing
     func startParsingURL(_ string: String) {
         guard !string.isEmpty, let url = URL(string: string) else {
-            showInvalidRSSAlert()
+            didFailParsingFeed()
             return
         }
 
@@ -59,12 +59,12 @@ extension BaseViewController {
         spinner?.center = view.center
         spinner?.startAnimating()
 
-        guard let activitySpinner = spinner else {
+        guard let spinner else {
             return
         }
 
-        view.addSubview(activitySpinner)
-        view.bringSubviewToFront(activitySpinner)
+        view.addSubview(spinner)
+        view.bringSubviewToFront(spinner)
     }
 
     func hideSpinner() {

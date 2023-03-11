@@ -12,7 +12,9 @@ extension BaseViewController {
 
     // MARK: - Alerts
     func showEnterFeedAlertView(_ feedURL: String) {
-        let alertController = UIAlertController(title: nil, message: "Add feed", preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil,
+                                                message: "Add a new feed",
+                                                preferredStyle: .alert)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
@@ -44,11 +46,11 @@ extension BaseViewController {
     }
 
     func showInvalidRSSAlert() {
-        showAlertMessage("Feed can't be parsed")
+        showAlertMessage("Sorry, we couldn't read this feed. Please try again later or check the URL to make sure it's valid.")
     }
 
     func showDuplicateRSSAlert() {
-        showAlertMessage("Feed already exists,\n try another one")
+        showAlertMessage("It looks like this feed already exists.\n Please enter a different one to continue.")  
     }
 
     // MARK: - Common alert
