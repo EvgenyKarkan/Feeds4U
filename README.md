@@ -13,4 +13,4 @@ Thank you.
 ## Copyright
 The source code is licensed under the MIT license.  
 However, exclusive rights to distribute the Feeds4U application through the Apple App Store are reserved only for me.   
-Copyright (c) 2023 Evgeny Karkan. All rights reserved.
+Copyright (c) 2015 Evgeny Karkan. All rights reserved.
