@@ -24,11 +24,15 @@ struct Search {
         }
         
         let textualData = allFeedItems.map { (feedItem) -> TextualData in
-            return TextualData(inputString: feedItem.title, origin: nil, originObject: feedItem)
+            return TextualData(inputString: feedItem.title,
+                               origin: nil,
+                               originObject: feedItem)
         }
         
         matchingEngine = MatchingEngine()
-        matchingEngine?.fillMatchingEngine(with: textualData, onlyRemoveFrequentStopwords: true, completion: completion)
+        matchingEngine?.fillMatchingEngine(with: textualData,
+                                           onlyRemoveFrequentStopwords: true,
+                                           completion: completion)
     }
     
     func search(for searchTerm: String, resultsFound: ([FeedItem]?) -> Void) {
@@ -37,7 +41,9 @@ struct Search {
             return
         }
         
-        let query = TextualData(inputString: searchTerm, origin: nil, originObject: nil)
+        let query = TextualData(inputString: searchTerm,
+                                origin: nil,
+                                originObject: nil)
         
         try? matchingEngine?.results(betterThan: 0.005, for: query, resultsFound: { (results) in
             if let results = results, !results.isEmpty {

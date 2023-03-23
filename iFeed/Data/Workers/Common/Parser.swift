@@ -25,7 +25,7 @@ final class Parser {
     weak var delegate: ParserDelegate?
    
     // MARK: - Public API
-    func beginParseURL(_ url: URL) {
+    func beginParsingURL(_ url: URL) {
         delegate?.didStartParsingFeed()
     
         let parser = FeedParser(URL: url)

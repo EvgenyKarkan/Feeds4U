@@ -35,7 +35,7 @@ class BaseViewController: UIViewController, ParserDelegate {
 
         let parser = Brain.brain.parser
         parser.delegate = self
-        parser.beginParseURL(url)
+        parser.beginParsingURL(url)
     }
     
     // MARK: - ParserDelegate

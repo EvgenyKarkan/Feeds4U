@@ -8,14 +8,20 @@
 
 import UIKit
 
+// MARK: - TableProviderProtocol
+@objc protocol TableProviderProtocol: AnyObject {
+    func cellDidPress(at indexPath: IndexPath)
+    @objc optional func cellNeedsDelete(at indexPath: IndexPath)
+}
+
 class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
    
-    // MARK: - properties
+    // MARK: - Properties
     var dataSource: [AnyObject] = []
     weak var delegate: TableProviderProtocol?
     
     // MARK: - Designated init
-    init(delegateObject: TableProviderProtocol) {
+    required init(delegateObject: TableProviderProtocol) {
         delegate = delegateObject
     }
     
@@ -40,10 +46,4 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
                    forRowAt indexPath: IndexPath) {
         delegate?.cellNeedsDelete?(at: indexPath)
     }
-}
-
-// MARK: - TableProviderProtocol
-@objc protocol TableProviderProtocol: AnyObject {
-    func cellDidPress(at indexPath: IndexPath)
-    @objc optional func cellNeedsDelete(at indexPath: IndexPath)
 }

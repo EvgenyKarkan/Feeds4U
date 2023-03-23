@@ -11,9 +11,9 @@ import UIKit
 extension BaseViewController {
 
     // MARK: - Alerts
-    func showEnterFeedAlertView(_ feedURL: String) {
+    func showEnterFeedAlertView(_ feedURL: String = String()) {
         let alertController = UIAlertController(title: nil,
-                                                message: "Add a new feed",
+                                                message: "Enter a new feed",
                                                 preferredStyle: .alert)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -38,8 +38,7 @@ extension BaseViewController {
                 textField.text = feedURL
             }
 
-            //textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
-            //textField.text = "https://justinpot.com/feed"
+            ///textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
         }
 
         present(alertController, animated: true)
@@ -54,10 +53,10 @@ extension BaseViewController {
     }
 
     // MARK: - Common alert
-    func showAlertMessage(_ message : String) {
+    func showAlertMessage(_ message: String) {
         let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: "Ok", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)

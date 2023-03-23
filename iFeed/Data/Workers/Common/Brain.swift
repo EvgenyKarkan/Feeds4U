@@ -10,7 +10,7 @@ import CoreData
 
 final class Brain {
    
-    // MARK: - Readonly properties
+    // MARK: - Properties
     let parser: Parser
     let coreDater: CoreDataManager
     let presenter: Presenter

@@ -42,7 +42,7 @@ extension FeedListViewController {
                     guard let results = results, !results.isEmpty else {
                         let noResultsAlert = UIAlertController(
                             title: alertController.title,
-                            message: "No results found",
+                            message: "Sorry, we couldn't find any matches for your search",
                             preferredStyle: .alert
                         )
                         let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel)
