@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PetProjectTools
 
 final class FeedCell: UITableViewCell, Reusable {
 

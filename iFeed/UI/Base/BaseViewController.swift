@@ -25,6 +25,10 @@ class BaseViewController: UIViewController, ParserDelegate {
     func addFeedPressed(_ URL: String) {
         fatalError()
     }
+
+    func searchForFeedsPressed(with webPage: String) {
+        fatalError()
+    }
     
     // MARK: - Parsing
     func startParsingURL(_ string: String) {
@@ -47,7 +51,7 @@ class BaseViewController: UIViewController, ParserDelegate {
     
     func didFailParsingFeed() {
         hideSpinner()
-        showInvalidRSSAlert()
+        showInvalidFeedAlert()
     }
 }
 
@@ -57,6 +61,8 @@ extension BaseViewController {
     func showSpinner() {
         spinner = UIActivityIndicatorView(style: .large)
         spinner?.center = view.center
+        spinner?.color = UIColor(named: "Tangerine")
+        spinner?.backgroundColor = .white
         spinner?.startAnimating()
 
         guard let spinner else {

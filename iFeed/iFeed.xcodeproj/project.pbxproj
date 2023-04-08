@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E1C2D8929BA390600B4FE36 /* PetProjectTools in Frameworks */ = {isa = PBXBuildFile; productRef = 2E1C2D8829BA390600B4FE36 /* PetProjectTools */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
@@ -42,6 +41,8 @@
 		2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */; };
 		2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* BaseView.swift */; };
 		2E2305152954EAA900B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2305142954EAA900B1F930 /* FeedKit */; };
+		2E38DDA129E0C97E00839B66 /* FeedSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDA029E0C97E00839B66 /* FeedSearchDTO.swift */; };
+		2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,9 @@
 		2E2304FD2954ABDB00B1F930 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseViewController+Alert.swift"; sourceTree = "<group>"; };
 		2E2304FF2954ABDB00B1F930 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		2E38DDA029E0C97E00839B66 /* FeedSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchDTO.swift; sourceTree = "<group>"; };
+		2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchService.swift; sourceTree = "<group>"; };
+		2E8B7B1D29C6979C00FB91C8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E1C2D8929BA390600B4FE36 /* PetProjectTools in Frameworks */,
 				2E2305152954EAA900B1F930 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +107,7 @@
 				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
 				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
+				2E8B7B1D29C6979C00FB91C8 /* TODO.md */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -131,6 +135,7 @@
 			children = (
 				2E2304D42954ABC900B1F930 /* Base */,
 				2E2304CB2954ABC900B1F930 /* Search */,
+				2E8B7B1A29C6902800FB91C8 /* FeedSearch */,
 				2E2304CD2954ABC900B1F930 /* Common */,
 			);
 			path = Workers;
@@ -253,6 +258,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		2E8B7B1A29C6902800FB91C8 /* FeedSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */,
+				2E38DDA029E0C97E00839B66 /* FeedSearchDTO.swift */,
+			);
+			path = FeedSearch;
+			sourceTree = "<group>";
+		};
 		DE763D0B1B7E841300C8B54A = {
 			isa = PBXGroup;
 			children = (
@@ -290,7 +304,6 @@
 			name = iFeed;
 			packageProductDependencies = (
 				2E2305142954EAA900B1F930 /* FeedKit */,
-				2E1C2D8829BA390600B4FE36 /* PetProjectTools */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -327,7 +340,6 @@
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
 				2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
-				2E1C2D8729BA390600B4FE36 /* XCRemoteSwiftPackageReference "PetProjectTools" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -360,6 +372,7 @@
 				2E2304EA2954ABD300B1F930 /* MatchingEngine.swift in Sources */,
 				2E23050A2954ABDB00B1F930 /* BaseViewController.swift in Sources */,
 				2E2304DA2954ABC900B1F930 /* Analytics.swift in Sources */,
+				2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */,
 				2E2305082954ABDB00B1F930 /* FeedListViewController+Search.swift in Sources */,
 				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
 				2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */,
@@ -385,6 +398,7 @@
 				2E2304D92954ABC900B1F930 /* Brain.swift in Sources */,
 				2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */,
 				2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */,
+				2E38DDA129E0C97E00839B66 /* FeedSearchDTO.swift in Sources */,
 				2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,14 +713,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2E1C2D8729BA390600B4FE36 /* XCRemoteSwiftPackageReference "PetProjectTools" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/EvgenyKarkan/PetProjectTools.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.9;
-			};
-		};
 		2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nmdias/FeedKit";
@@ -718,11 +724,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2E1C2D8829BA390600B4FE36 /* PetProjectTools */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E1C2D8729BA390600B4FE36 /* XCRemoteSwiftPackageReference "PetProjectTools" */;
-			productName = PetProjectTools;
-		};
 		2E2305142954EAA900B1F930 /* FeedKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;

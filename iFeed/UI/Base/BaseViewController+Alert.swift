@@ -19,15 +19,12 @@ extension BaseViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: "Add", style: .default) { [self] _ in
-            if let textField = alertController.textFields?.first {
-                if !textField.text!.isEmpty {
-                    addFeedPressed(textField.text!)
-                }
-                else {
-                    showInvalidRSSAlert()
-                }
+        let nextAction = UIAlertAction(title: "Add", style: .default) { [weak self] _ in
+            guard let text = alertController.textFields?.first?.text else {
+                self?.showInvalidFeedAlert()
+                return
             }
+            self?.addFeedPressed(text)
         }
 
         alertController.addAction(nextAction)
@@ -44,17 +41,45 @@ extension BaseViewController {
         present(alertController, animated: true)
     }
 
-    func showInvalidRSSAlert() {
-        showAlertMessage("Sorry, we couldn't read this feed. Please try again later or check the URL to make sure it's valid.")
+    func showSearchForFeedsAlertView() {
+        let alertController = UIAlertController(title: nil,
+                                                message: "Please provide a webpage URL to search for its feeds",
+                                                preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(cancelAction)
+
+        let nextAction = UIAlertAction(title: "Search", style: .default) { [weak self] _ in
+            guard let text = alertController.textFields?.first?.text else {
+                self?.showInvalidFeedAlert()
+                return
+            }
+            self?.searchForFeedsPressed(with: text)
+        }
+
+        alertController.addAction(nextAction)
+        alertController.addTextField { textField in
+            textField.placeholder = "https://www.something.com"
+
+            textField.text = "https://stackoverflow.com"
+        }
+
+        present(alertController, animated: true)
     }
 
-    func showDuplicateRSSAlert() {
-        showAlertMessage("It looks like this feed already exists.\n Please enter a different one to continue.")  
+    func showInvalidFeedAlert() {
+        showAlert("Sorry, we couldn't read this feed. Please try again later or check the URL to make sure it's valid.")
+    }
+
+    func showDuplicateFeedAlert() {
+        showAlert("It looks like this feed already exists.\n Please enter a different one to continue.")
     }
 
     // MARK: - Common alert
-    func showAlertMessage(_ message: String) {
-        let alertController = UIAlertController(title: "Oops...", message: message, preferredStyle: .alert)
+    func showAlert(_ message: String) {
+        let alertController = UIAlertController(title: "Oops...",
+                                                message: message,
+                                                preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)

@@ -14,11 +14,46 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
     private var feedListView: FeedListView?
     private var provider: FeedListTableProvider?
     lazy var search: Search = Search()
+    lazy var service: FeedSearchService = FeedSearchService()
 
     private lazy var addButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add,
-                               target: self,
-                               action: #selector(addPressed))
+
+        var addAction: UIAction {
+            let title = "Enter a new feed"
+            let image = UIImage(systemName: "plus.circle")
+            let action = UIAction(title: title, image: image) { [weak self] _ in
+                self?.showEnterFeedAlertView()
+            }
+            return action
+        }
+
+        var searchAction: UIAction {
+            let title = "Search for feeds"
+            let image = UIImage(systemName: "globe")
+            let action = UIAction(title: title, image: image) { [weak self] _ in
+                self?.showSearchForFeedsAlertView()
+            }
+            return action
+        }
+
+        var contextMenu: UIMenu {
+            let menu = UIMenu(title: "Add a new feed",
+                              children: [addAction, searchAction])
+            return menu
+        }
+
+        var button: UIButton {
+            let image = UIImage(systemName: "plus")
+
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
+            button.menu = contextMenu
+            button.showsMenuAsPrimaryAction = true
+
+            return button
+        }
+
+        return UIBarButtonItem(customView: button)
     }()
 
     private lazy var searchButton: UIBarButtonItem = {
@@ -76,7 +111,7 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
     
     // MARK: - Actions
     @objc func addPressed (_ sender: UIButton) {        
-        showEnterFeedAlertView(String())
+        showEnterFeedAlertView()
     }
     
     @objc func trashPressed (_ sender: UIButton) {
@@ -87,14 +122,26 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
     }
     
     // MARK: - Base override
-    override func addFeedPressed (_ URL: String) {
+    override func addFeedPressed(_ URL: String) {
         if Brain.brain.isDuplicateURL(URL) {
-            showDuplicateRSSAlert()
+            showDuplicateFeedAlert()
         }
         else {
             showSpinner()
             startParsingURL(URL)
         }
+    }
+
+    override func searchForFeedsPressed(with webPage: String) {
+        showSpinner()
+
+        service.searchFeeds(on: webPage, completion: { [weak self] result in
+            print("RESULT --- > \(result)")
+
+            DispatchQueue.main.async {
+                self?.hideSpinner()
+            }
+        })
     }
     
     // MARK: - ParserDelegate API
