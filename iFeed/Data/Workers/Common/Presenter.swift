@@ -24,9 +24,9 @@ final class Presenter {
         appearance.backgroundColor = UIColor(named: "Tangerine")
         appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
 
-        navigationVC.navigationBar.standardAppearance = appearance
-        navigationVC.navigationBar.scrollEdgeAppearance = appearance
-        navigationVC.navigationBar.tintColor = .systemBackground
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().tintColor = .systemBackground
 
         navigationVC.viewControllers = [FeedListViewController()]
 

@@ -110,11 +110,11 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
     }
     
     // MARK: - Actions
-    @objc func addPressed (_ sender: UIButton) {        
+    @objc func addPressed() {
         showEnterFeedAlertView()
     }
     
-    @objc func trashPressed (_ sender: UIButton) {
+    @objc func trashPressed() {
         guard let tableView = feedListView?.tableView else {
             return
         }
@@ -136,10 +136,18 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
         showSpinner()
 
         service.searchFeeds(on: webPage, completion: { [weak self] result in
-            print("RESULT --- > \(result)")
-
             DispatchQueue.main.async {
                 self?.hideSpinner()
+
+                switch result {
+                case .success(let data):
+                    let resultsVC = FeedSearchResultsViewController.create(with: data, webPage: webPage)
+                    self?.present(resultsVC, animated: true)
+                case .failure(let error):
+                    print("error --- > \(error)")
+
+                    /// show arror
+                }
             }
         })
     }
@@ -171,9 +179,8 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
         }
 
         let feed = Brain.brain.feedForIndexPath(indexPath: indexPath)
-        let feedItems = feed.sortedItems()
 
-        guard !feedItems.isEmpty else {
+        guard let feedItems = feed?.sortedItems(), !feedItems.isEmpty else {
             return
         }
         
@@ -188,8 +195,9 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
             return
         }
-        
-        let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath: indexPath)
+        guard let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath: indexPath) else {
+            return
+        }
         
         Brain.brain.coreDater.deleteObject(feedToDelete)
         Brain.brain.coreDater.saveContext()

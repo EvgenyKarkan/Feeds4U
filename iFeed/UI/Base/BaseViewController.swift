@@ -79,3 +79,14 @@ extension BaseViewController {
         spinner = nil
     }
 }
+
+// MARK: - Instance From Nib
+extension UIViewController {
+
+    static func instanceFromNib() -> Self {
+        func instantiateFromNib<T: UIViewController>(_ viewType: T.Type) -> T {
+            return T.init(nibName: String(describing: T.self), bundle: nil)
+        }
+        return instantiateFromNib(self)
+    }
+}

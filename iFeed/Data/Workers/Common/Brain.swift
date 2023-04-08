@@ -40,7 +40,7 @@ final class Brain {
         return coreDater.createEntity(name: name)
     }
     
-    func feedForIndexPath(indexPath: IndexPath) -> Feed {
+    func feedForIndexPath(indexPath: IndexPath) -> Feed? {
         var feed: Feed?
         let allFeeds = coreDater.allFeeds()
         
@@ -49,7 +49,7 @@ final class Brain {
         }
         assert(feed != nil, "Feed for index path is nil")
         
-        return feed!
+        return feed
     }
     
     func isDuplicateURL(_ rssURL: String) -> Bool {
