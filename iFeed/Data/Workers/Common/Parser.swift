@@ -9,8 +9,8 @@
 import FeedKit
 import Foundation
 
-// MARK: - ParserDelegate
-protocol ParserDelegate: AnyObject {
+// MARK: - ParserDelegateProtocol
+protocol ParserDelegateProtocol: AnyObject {
     func didStartParsingFeed()
     func didEndParsingFeed(_ feed: Feed)
     func didFailParsingFeed()
@@ -22,7 +22,7 @@ final class Parser {
     static let parser = Parser()
     
     // MARK: - Properties
-    weak var delegate: ParserDelegate?
+    weak var delegate: ParserDelegateProtocol?
    
     // MARK: - Public API
     func beginParsingURL(_ url: URL) {
@@ -39,9 +39,8 @@ final class Parser {
                             self?.finishRSSParsing(rssFeed: rssFeed, url: url)
                         case .atom(let atomFeed):
                             self?.finishAtomParsing(atomFeed: atomFeed, url: url)
-                        default:
-                            self?.delegate?.didFailParsingFeed()
-                            break
+                        case .json(let jsonFeed):
+                            self?.finishJsonParsing(jsonFeed: jsonFeed, url: url)
                         }
                     case .failure(let error):
                         print("GOT PARSING ERROR ---> \(error.localizedDescription)")
@@ -66,11 +65,12 @@ final class Parser {
 
         /// Create Feed Items
         rssFeed.items?.forEach({ rrsFeedItem in
-            guard let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+            guard let link = rrsFeedItem.link,
+                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
                 return
             }
-            feedItem.title = rrsFeedItem.title ?? String()
-            feedItem.link = rrsFeedItem.link ?? String()
+            feedItem.title = rrsFeedItem.title ?? "N/A"
+            feedItem.link = link
             feedItem.publishDate = rrsFeedItem.pubDate ?? Date()
 
             /// Set relationship
@@ -95,12 +95,43 @@ final class Parser {
 
         /// Create Feed Items
         atomFeed.entries?.forEach({ atomFeedItem in
-            guard let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+            guard let link = atomFeedItem.links?.first?.attributes?.href,
+                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
                 return
             }
-            feedItem.title = atomFeedItem.title ?? String()
-            feedItem.link = atomFeedItem.links?.first?.attributes?.href ?? String()
+            feedItem.title = atomFeedItem.title ?? "N/A"
+            feedItem.link = link
             feedItem.publishDate = atomFeedItem.published ?? Date()
+
+            /// Set relationship
+            feedItem.feed = feed
+        })
+
+        delegate?.didEndParsingFeed(feed)
+    }
+
+    private func finishJsonParsing(jsonFeed: JSONFeed, url: URL) {
+        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
+            delegate?.didFailParsingFeed()
+            return
+        }
+
+        ///dump(jsonFeed)
+
+        /// Create Feed
+        feed.title = jsonFeed.title
+        feed.rssURL = url.absoluteString
+        feed.summary = jsonFeed.description
+
+        /// Create Feed Items
+        jsonFeed.items?.forEach({ jsonFeedItem in
+            guard let link = jsonFeedItem.url,
+                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                return
+            }
+            feedItem.title = jsonFeedItem.title ?? "N/A"
+            feedItem.link = link
+            feedItem.publishDate = jsonFeedItem.datePublished ?? Date()
 
             /// Set relationship
             feedItem.feed = feed
