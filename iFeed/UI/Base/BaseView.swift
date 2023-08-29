@@ -31,31 +31,11 @@ class BaseView: UIView {
         initialViewSetup()
     }
     
-    // MARK: - Base override
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        tableView.frame = CGRect(
-            x: .zero,
-            y: .zero,
-            width: bounds.width,
-            height: bounds.height
-        )
-
-        label.sizeToFit()
-        label.frame = CGRect(
-            x: bounds.midX - label.bounds.midX,
-            y: bounds.midY - label.bounds.midY,
-            width: label.frame.width,
-            height: label.frame.height
-        )
-        label.frame = label.frame.integral
-    }
-    
     // MARK: - Public API
     func initialViewSetup() {
         backgroundColor = .systemBackground
-        
+
+        /// Label
         label.backgroundColor = backgroundColor
         label.font = .systemFont(ofSize: 18)
         label.textAlignment = .center
@@ -63,10 +43,27 @@ class BaseView: UIView {
         label.text = "Add a new feed to get started"
         label.textColor = UIColor(named: "Tangerine")
         addSubview(label)
-        
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+
+        /// Tableview
         tableView.backgroundColor = backgroundColor
         tableView.cellLayoutMarginsFollowReadableWidth = false
         addSubview(tableView)
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        ])
 
         let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: FeedCell.reuseId)
