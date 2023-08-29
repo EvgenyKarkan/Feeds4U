@@ -8,6 +8,7 @@
 
 import CoreData
 
+#warning("FIX ENTITY NAME IDS")
 let kFeed = "Feed"
 let kFeedItem = "FeedItem"
 

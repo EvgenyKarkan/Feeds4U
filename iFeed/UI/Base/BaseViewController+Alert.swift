@@ -10,11 +10,13 @@ import UIKit
 
 extension BaseViewController {
 
-    // MARK: - Alerts
-    func showEnterFeedAlertView(_ feedURL: String = String()) {
-        let alertController = UIAlertController(title: nil,
-                                                message: "Enter a new feed",
-                                                preferredStyle: .alert)
+    // MARK: - Enter Feed Alert
+    func showEnterFeedAlertView(_ feedURL: String? = nil) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Enter a new feed",
+            preferredStyle: .alert
+        )
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
@@ -31,20 +33,27 @@ extension BaseViewController {
         alertController.addTextField { textField in
             textField.placeholder = "https://www.something.com/rss"
 
-            if !feedURL.isEmpty {
-                textField.text = feedURL
+            /// Try to handle redirect link from `application(_ application: UIApplication, open url: URL, ...)`
+            if let feedString = feedURL, !feedString.isEmpty {
+                textField.text = feedString
+            /// Try to handle copied to pasteboard link
+            } else if let copiedText = UIPasteboard.general.url {
+                textField.text = copiedText.absoluteString
             }
 
-            ///textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
+            //textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
         }
 
         present(alertController, animated: true)
     }
 
+    // MARK: - Search For Feeds Alert
     func showSearchForFeedsAlertView() {
-        let alertController = UIAlertController(title: nil,
-                                                message: "Please provide a webpage URL to search for its feeds",
-                                                preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: nil,
+            message: "Provide a webpage URL to search for its feeds",
+            preferredStyle: .alert
+        )
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(cancelAction)
@@ -61,28 +70,27 @@ extension BaseViewController {
         alertController.addTextField { textField in
             textField.placeholder = "https://www.something.com"
 
-            textField.text = "https://stackoverflow.com"
+            /// Try to handle copied to pasteboard link
+            if let copiedText = UIPasteboard.general.url {
+                textField.text = copiedText.absoluteString
+            }
         }
-
         present(alertController, animated: true)
     }
 
-    func showInvalidFeedAlert() {
-        showAlert("Sorry, we couldn't read this feed. Please try again later or check the URL to make sure it's valid.")
-    }
+    func showErrorAlertView(error: Error) {
+        let action = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil
+        )
 
-    func showDuplicateFeedAlert() {
-        showAlert("It looks like this feed already exists.\n Please enter a different one to continue.")
-    }
-
-    // MARK: - Common alert
-    func showAlert(_ message: String) {
-        let alertController = UIAlertController(title: "Oops...",
-                                                message: message,
-                                                preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
+        let alertController = UIAlertController(
+            title: "Error",
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        alertController.addAction(action)
 
         present(alertController, animated: true)
     }

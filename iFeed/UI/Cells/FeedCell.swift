@@ -18,13 +18,19 @@ final class FeedCell: UITableViewCell, Reusable {
 
     var titleText: String? {
         didSet {
-            topLabel.text = titleText
+            guard let text = titleText else { return }
+
+            topLabel.text = text
+            topLabel.isHidden = text.isEmpty
         }
     }
 
     var subTitleText: String? {
         didSet {
-            bottomLabel.text = subTitleText
+            guard let text = subTitleText else { return }
+
+            bottomLabel.text = text
+            bottomLabel.isHidden = text.isEmpty
         }
     }
 

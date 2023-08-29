@@ -8,6 +8,24 @@
         "revision" : "68493a33d862c33c9a9f67ec729b3b7df1b20ade",
         "version" : "9.1.2"
       }
+    },
+    {
+      "identity" : "kractivityindicatorview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krimpedance/KRActivityIndicatorView.git",
+      "state" : {
+        "revision" : "bcb0e841d6de0cd343a32bd5056580a56d06c0bc",
+        "version" : "3.0.7"
+      }
+    },
+    {
+      "identity" : "krprogresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krimpedance/KRProgressHUD",
+      "state" : {
+        "revision" : "265142816d8f8ea93840accaf4ac7c49998e77c2",
+        "version" : "3.4.7"
+      }
     }
   ],
   "version" : 2

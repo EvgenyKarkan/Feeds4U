@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Performs local search
+
 struct Search {
     
     private var matchingEngine: MatchingEngine?

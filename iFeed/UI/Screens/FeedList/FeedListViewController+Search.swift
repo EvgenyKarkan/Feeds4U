@@ -10,7 +10,7 @@ import UIKit
 
 extension FeedListViewController {
     
-    @objc func searchPressed (_ sender: UIButton) {
+    @objc func searchPressed(_ sender: UIButton) {
         showSpinner()
         
         search.fillMatchingEngine {
@@ -42,7 +42,7 @@ extension FeedListViewController {
                     guard let results = results, !results.isEmpty else {
                         let noResultsAlert = UIAlertController(
                             title: alertController.title,
-                            message: "Sorry, we couldn't find any matches for your search",
+                            message: "There aren't any results that match your search",
                             preferredStyle: .alert
                         )
                         let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel)

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,21 +19,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IuH-Aj-r4I">
-                        <rect key="frame" x="17" y="16" width="287" height="39"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IuH-Aj-r4I">
+                        <rect key="frame" x="17" y="16" width="287" height="38"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="04d-6a-vJN" userLabel="Labels Stack View">
-                                <rect key="frame" x="0.0" y="0.0" width="242.5" height="39"/>
+                                <rect key="frame" x="0.0" y="0.0" width="242.5" height="38"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY0-ad-CRo" userLabel="Top Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY0-ad-CRo" userLabel="Top Label">
                                         <rect key="frame" x="0.0" y="0.0" width="242.5" height="19"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qho-ko-04P" userLabel="Bottom Label">
-                                        <rect key="frame" x="0.0" y="24" width="242.5" height="15"/>
+                                        <rect key="frame" x="0.0" y="24" width="242.5" height="14"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                         <nil key="textColor"/>
@@ -41,17 +42,17 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wQH-db-7WP" userLabel="Right Stack View">
-                                <rect key="frame" x="252.5" y="0.0" width="34.5" height="39"/>
+                                <rect key="frame" x="252.5" y="9" width="34.5" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJr-n6-j7q" userLabel="Count Label">
-                                        <rect key="frame" x="0.0" y="13.5" width="6" height="12"/>
+                                        <rect key="frame" x="0.0" y="4" width="6" height="12"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2L4-Yd-o5Q" userLabel="Dot View">
-                                        <rect key="frame" x="11" y="16.5" width="6" height="6"/>
+                                        <rect key="frame" x="11" y="7" width="6" height="6"/>
                                         <color key="backgroundColor" name="Tangerine"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" identifier="f" id="Hj6-hT-fVj"/>
@@ -59,7 +60,7 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ItM-vh-hq9">
-                                        <rect key="frame" x="22" y="11.5" width="12.5" height="16.5"/>
+                                        <rect key="frame" x="22" y="2" width="12.5" height="16.5"/>
                                         <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                     </imageView>
                                 </subviews>
@@ -72,7 +73,7 @@
                     <constraint firstItem="IuH-Aj-r4I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" identifier="a" id="9VT-2l-9m7"/>
                     <constraint firstItem="IuH-Aj-r4I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="17" identifier="b" id="Pme-u4-A1M"/>
                     <constraint firstAttribute="trailing" secondItem="IuH-Aj-r4I" secondAttribute="trailing" constant="16" identifier="b" id="fYX-Lq-Oza"/>
-                    <constraint firstAttribute="bottom" secondItem="IuH-Aj-r4I" secondAttribute="bottom" priority="999" constant="15" identifier="d" id="gaf-d9-2j2"/>
+                    <constraint firstAttribute="bottom" secondItem="IuH-Aj-r4I" secondAttribute="bottom" constant="16" identifier="d" id="gaf-d9-2j2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -86,7 +87,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <namedColor name="Tangerine">
             <color red="0.99000000953674316" green="0.69999998807907104" blue="0.23000000417232513" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -52,7 +52,7 @@ final class Brain {
         return feed
     }
     
-    func isDuplicateURL(_ rssURL: String) -> Bool {
+    func isAlreadySavedURL(_ rssURL: String) -> Bool {
         var returnValue: Bool = false
         let allItems: [Feed] = Brain.brain.coreDater.allFeeds()
         

@@ -42,11 +42,15 @@
 		2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304FF2954ABDB00B1F930 /* BaseView.swift */; };
 		2E2305152954EAA900B1F930 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2305142954EAA900B1F930 /* FeedKit */; };
 		2E38DDA129E0C97E00839B66 /* FeedSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDA029E0C97E00839B66 /* FeedSearchDTO.swift */; };
-		2E38DDAD29E1A25000839B66 /* FeedSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDAB29E1A25000839B66 /* FeedSearchResultsViewController.swift */; };
-		2E38DDAE29E1A25000839B66 /* FeedSearchResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E38DDAC29E1A25000839B66 /* FeedSearchResultsViewController.xib */; };
 		2E38DDB129E1CA9200839B66 /* FeedSearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDAF29E1CA9100839B66 /* FeedSearchResultsCell.swift */; };
 		2E38DDB229E1CA9200839B66 /* FeedSearchResultsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E38DDB029E1CA9100839B66 /* FeedSearchResultsCell.xib */; };
+		2E38DDB529E20F2600839B66 /* FeedSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDB329E20F2600839B66 /* FeedSearchResultsViewController.swift */; };
+		2E38DDB629E20F2600839B66 /* FeedSearchResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E38DDB429E20F2600839B66 /* FeedSearchResultsViewController.xib */; };
+		2E38DDB929E2375F00839B66 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */; };
+		2E38DDBB29E2379A00839B66 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */; };
+		2E84AF2C2A9D62EC0041E8FC /* FeedSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84AF2B2A9D62EC0041E8FC /* FeedSearchResults.swift */; };
 		2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */; };
+		2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE34A832A92DC54009634FB /* KRProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,10 +89,13 @@
 		2E2304FE2954ABDB00B1F930 /* BaseViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseViewController+Alert.swift"; sourceTree = "<group>"; };
 		2E2304FF2954ABDB00B1F930 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2E38DDA029E0C97E00839B66 /* FeedSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchDTO.swift; sourceTree = "<group>"; };
-		2E38DDAB29E1A25000839B66 /* FeedSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResultsViewController.swift; sourceTree = "<group>"; };
-		2E38DDAC29E1A25000839B66 /* FeedSearchResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedSearchResultsViewController.xib; sourceTree = "<group>"; };
 		2E38DDAF29E1CA9100839B66 /* FeedSearchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResultsCell.swift; sourceTree = "<group>"; };
 		2E38DDB029E1CA9100839B66 /* FeedSearchResultsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedSearchResultsCell.xib; sourceTree = "<group>"; };
+		2E38DDB329E20F2600839B66 /* FeedSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResultsViewController.swift; sourceTree = "<group>"; };
+		2E38DDB429E20F2600839B66 /* FeedSearchResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedSearchResultsViewController.xib; sourceTree = "<group>"; };
+		2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
+		2E84AF2B2A9D62EC0041E8FC /* FeedSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResults.swift; sourceTree = "<group>"; };
 		2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchService.swift; sourceTree = "<group>"; };
 		2E8B7B1D29C6979C00FB91C8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DE763D141B7E841300C8B54A /* iFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */,
 				2E2305152954EAA900B1F930 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +142,7 @@
 			children = (
 				2E2304C92954ABC900B1F930 /* Feed.swift */,
 				2E2304C82954ABC900B1F930 /* FeedItem.swift */,
+				2E84AF2B2A9D62EC0041E8FC /* FeedSearchResults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +201,7 @@
 		2E2304EC2954ABDB00B1F930 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				2E38DDB729E2374A00839B66 /* Extensions */,
 				2E2304FC2954ABDB00B1F930 /* Base */,
 				2E2304ED2954ABDB00B1F930 /* Cells */,
 				2E2304F02954ABDB00B1F930 /* Screens */,
@@ -262,12 +272,21 @@
 		2E38DDA629E1A20200839B66 /* FeedSearchResults */ = {
 			isa = PBXGroup;
 			children = (
-				2E38DDAC29E1A25000839B66 /* FeedSearchResultsViewController.xib */,
-				2E38DDAB29E1A25000839B66 /* FeedSearchResultsViewController.swift */,
 				2E38DDB029E1CA9100839B66 /* FeedSearchResultsCell.xib */,
 				2E38DDAF29E1CA9100839B66 /* FeedSearchResultsCell.swift */,
+				2E38DDB429E20F2600839B66 /* FeedSearchResultsViewController.xib */,
+				2E38DDB329E20F2600839B66 /* FeedSearchResultsViewController.swift */,
 			);
 			path = FeedSearchResults;
+			sourceTree = "<group>";
+		};
+		2E38DDB729E2374A00839B66 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
+				2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2E8B7B1A29C6902800FB91C8 /* FeedSearch */ = {
@@ -316,6 +335,7 @@
 			name = iFeed;
 			packageProductDependencies = (
 				2E2305142954EAA900B1F930 /* FeedKit */,
+				2EE34A832A92DC54009634FB /* KRProgressHUD */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -352,6 +372,7 @@
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
 				2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -368,11 +389,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E2304C32954ABBA00B1F930 /* Images.xcassets in Resources */,
+				2E38DDB629E20F2600839B66 /* FeedSearchResultsViewController.xib in Resources */,
 				2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */,
 				2E38DDB229E1CA9200839B66 /* FeedSearchResultsCell.xib in Resources */,
 				2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */,
 				2E2305012954ABDB00B1F930 /* FeedCell.xib in Resources */,
-				2E38DDAE29E1A25000839B66 /* FeedSearchResultsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,10 +406,12 @@
 			files = (
 				2E2304EA2954ABD300B1F930 /* MatchingEngine.swift in Sources */,
 				2E23050A2954ABDB00B1F930 /* BaseViewController.swift in Sources */,
+				2E38DDB929E2375F00839B66 /* UIViewController+Ext.swift in Sources */,
 				2E2304DA2954ABC900B1F930 /* Analytics.swift in Sources */,
 				2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */,
 				2E2305082954ABDB00B1F930 /* FeedListViewController+Search.swift in Sources */,
 				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
+				2E38DDBB29E2379A00839B66 /* UIViewController+ErrorAlert.swift in Sources */,
 				2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */,
 				2E2305092954ABDB00B1F930 /* FeedListView.swift in Sources */,
 				2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */,
@@ -411,10 +434,11 @@
 				2E38DDB129E1CA9200839B66 /* FeedSearchResultsCell.swift in Sources */,
 				2E2304D62954ABC900B1F930 /* FeedItem.swift in Sources */,
 				2E2304D92954ABC900B1F930 /* Brain.swift in Sources */,
-				2E38DDAD29E1A25000839B66 /* FeedSearchResultsViewController.swift in Sources */,
 				2E23050B2954ABDB00B1F930 /* BaseViewController+Alert.swift in Sources */,
+				2E38DDB529E20F2600839B66 /* FeedSearchResultsViewController.swift in Sources */,
 				2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */,
 				2E38DDA129E0C97E00839B66 /* FeedSearchDTO.swift in Sources */,
+				2E84AF2C2A9D62EC0041E8FC /* FeedSearchResults.swift in Sources */,
 				2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,6 +492,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -566,6 +591,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				PROVISIONING_PROFILE = "7b35ab6e-d369-4c7c-8f20-1591392be633";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -619,6 +645,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -737,6 +764,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krimpedance/KRProgressHUD";
+			requirement = {
+				kind = exactVersion;
+				version = 3.4.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -744,6 +779,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
+		};
+		2EE34A832A92DC54009634FB /* KRProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */;
+			productName = KRProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 

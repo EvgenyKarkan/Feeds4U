@@ -2,89 +2,129 @@
 //  FeedSearchResultsViewController.swift
 //  iFeed
 //
-//  Created by Evgeny Karkan on 08.04.2023.
+//  Created by Evgeny Karkan on 09.04.2023.
 //  Copyright © 2023 Evgeny Karkan. All rights reserved.
 //
 
 import UIKit
 
-class FeedSearchResultsViewController: UITableViewController {
-        
+final class FeedSearchResultsViewController: UITableViewController {
+
+    // MARK: - Properties
+    private var searchResults: FeedSearchDTO = []
+    private var webPageTitle: String = String()
+    private var feedParseCallback: ((Feed) -> Void)?
+
+    private var reuseId = FeedSearchResultsCell.reuseId
+    private lazy var parser = Parser()
+
+    // MARK: - Constructor
+    /// Returns `UINavigationController` with `Self` embedded into as `rootViewController`
+    static func create(with data: FeedSearchDTO,
+                       webPage: String,
+                       parsingCallback: ((Feed) -> Void)?) -> UINavigationController {
+        let vc = FeedSearchResultsViewController.instanceFromNib()
+        vc.searchResults = data
+        vc.webPageTitle = webPage
+        vc.feedParseCallback = parsingCallback
+
+        let navigationVC = UINavigationController(rootViewController: vc)
+        navigationVC.modalPresentationStyle = .fullScreen
+
+        return navigationVC
+    }
+
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        parser.delegate = self
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.title = webPageTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(dismissScreen)
+        )
+
+        let nibName = String(describing: FeedSearchResultsCell.self)
+        tableView.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: reuseId)
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+    }
+
+    // MARK: - Action
+    @objc private func dismissScreen() {
+        dismiss(animated: true)
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return searchResults.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as? FeedSearchResultsCell,
+            !searchResults.isEmpty, indexPath.row < searchResults.count else {
+            return UITableViewCell()
+        }
 
-        // Configure the cell...
+        let element: FeedSearchElement = searchResults[indexPath.row]
+        var isAlreadyStored = false
+
+        if let urlString = element.selfURL,
+            let url = URL(string: urlString), Brain.brain.isAlreadySavedURL(url.absoluteString) {
+            isAlreadyStored = true
+        }
+
+        let state: AddedState = isAlreadyStored ? .added : .notAdded
+        let model: FeedSearchResults = FeedSearchResults(data: element, state: state)
+
+        cell.updateWithResults(model)
 
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < searchResults.count else {
+            return
+        }
+
+        let model: FeedSearchElement = searchResults[indexPath.row]
+
+        guard let urlString = model.selfURL,
+            let url = URL(string: urlString) else {
+            return
+        }
+
+        /// Consider to move it to parser and return some method from protocol
+        if Brain.brain.isAlreadySavedURL(url.absoluteString) {
+            showAlreadySavedFeedAlert()
+        }
+        else {
+            showSpinner()
+            parser.beginParsingURL(url)
+        }
     }
-    */
+}
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+// MARK: - ParserDelegateProtocol
+extension FeedSearchResultsViewController: ParserDelegateProtocol {
+
+    func didEndParsingFeed(_ feed: Feed) {
+        hideSpinner()
+
+        dump(feed)
+
+        feedParseCallback?(feed)
+        tableView.reloadData()
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func didFailParsingFeed() {
+        hideSpinner()
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

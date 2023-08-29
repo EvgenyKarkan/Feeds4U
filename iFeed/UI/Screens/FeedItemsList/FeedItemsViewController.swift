@@ -87,7 +87,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         startParsingURL(url)
     }
     
-    // MARK: - ParserDelegate
+    // MARK: - ParserDelegateProtocol
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
 

@@ -8,16 +8,16 @@
 
 import UIKit
 
-final class FeedListViewController: BaseViewController, TableProviderProtocol {
+final class FeedListViewController: BaseViewController {
 
     // MARK: - Properties
     private var feedListView: FeedListView?
     private var provider: FeedListTableProvider?
     lazy var search: Search = Search()
-    lazy var service: FeedSearchService = FeedSearchService()
+    private lazy var service: FeedSearchService = FeedSearchService()
 
+    // MARK: - Private Properties
     private lazy var addButton: UIBarButtonItem = {
-
         var addAction: UIAction {
             let title = "Enter a new feed"
             let image = UIImage(systemName: "plus.circle")
@@ -57,15 +57,19 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
     }()
 
     private lazy var searchButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .search,
-                               target: self,
-                               action: #selector(searchPressed))
+        return UIBarButtonItem(
+            barButtonSystemItem: .search,
+            target: self,
+            action: #selector(searchPressed)
+        )
     }()
 
     private lazy var trashButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .trash,
-                               target: self,
-                               action: #selector(trashPressed))
+        return UIBarButtonItem(
+            barButtonSystemItem: .trash,
+            target: self,
+            action: #selector(trashPressed)
+        )
     }()
     
     // MARK: - Deinit
@@ -109,22 +113,10 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
         feedListView?.reloadTableView()
     }
     
-    // MARK: - Actions
-    @objc func addPressed() {
-        showEnterFeedAlertView()
-    }
-    
-    @objc func trashPressed() {
-        guard let tableView = feedListView?.tableView else {
-            return
-        }
-        tableView.setEditing(!tableView.isEditing, animated: true)
-    }
-    
     // MARK: - Base override
     override func addFeedPressed(_ URL: String) {
-        if Brain.brain.isDuplicateURL(URL) {
-            showDuplicateFeedAlert()
+        if Brain.brain.isAlreadySavedURL(URL) {
+            showAlreadySavedFeedAlert()
         }
         else {
             showSpinner()
@@ -141,18 +133,23 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
 
                 switch result {
                 case .success(let data):
-                    let resultsVC = FeedSearchResultsViewController.create(with: data, webPage: webPage)
+                    let callback: ((Feed) -> Void)? = { feed in
+                        self?.didEndParsingFeed(feed)
+                    }
+                    let resultsVC = FeedSearchResultsViewController.create(
+                        with: data,
+                        webPage: webPage,
+                        parsingCallback: callback
+                    )
                     self?.present(resultsVC, animated: true)
                 case .failure(let error):
-                    print("error --- > \(error)")
-
-                    /// show arror
+                    self?.showErrorAlertView(error: error)
                 }
             }
         })
     }
     
-    // MARK: - ParserDelegate API
+    // MARK: - ParserDelegateProtocol base override
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
 
@@ -171,8 +168,11 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
             navigationItem.rightBarButtonItems?.append(searchButton)
         }
     }
+}
+
+// MARK: - TableProviderProtocol
+extension FeedListViewController: TableProviderProtocol {
     
-    // MARK: - TableProviderProtocol
     func cellDidPress(at indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
             return
@@ -183,49 +183,59 @@ final class FeedListViewController: BaseViewController, TableProviderProtocol {
         guard let feedItems = feed?.sortedItems(), !feedItems.isEmpty else {
             return
         }
-        
+
         let itemsVC = FeedItemsViewController()
         itemsVC.feed = feed
         itemsVC.feedItems = feedItems
-        
+
         navigationController?.pushViewController(itemsVC, animated: true)
     }
-    
+
     func cellNeedsDelete(at indexPath: IndexPath) {
-        guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
+        guard indexPath.row < Brain.brain.coreDater.allFeeds().count,
+            let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath: indexPath) else {
             return
         }
-        guard let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath: indexPath) else {
-            return
-        }
-        
+
         Brain.brain.coreDater.deleteObject(feedToDelete)
         Brain.brain.coreDater.saveContext()
-        
-        provider?.dataSource = Brain.brain.coreDater.allFeeds()
-    
-        feedListView?.tableView.beginUpdates()
-        feedListView?.tableView.deleteRows(at: [indexPath], with: .automatic)
-        feedListView?.tableView.endUpdates()
-        
-        /// Hide `trash` & `search` for no data source
-        if provider?.dataSource.isEmpty == true {
-            addTrashButton(false)
-            
-            feedListView?.tableView.setEditing(false, animated: false)
-            feedListView?.tableView.alpha = .zero
 
-            navigationItem.rightBarButtonItems?.removeLast()
+        provider?.dataSource = Brain.brain.coreDater.allFeeds()
+
+        feedListView?.tableView.beginUpdates()
+        feedListView?.tableView.deleteRows(at: [indexPath], with: .fade)
+        feedListView?.tableView.endUpdates()
+
+        /// Hide `trash` & `search` if no data source
+        if provider?.dataSource.isEmpty == true {
+            DispatchQueue.main.async(execute: { [self] in
+                addTrashButton(false)
+
+                feedListView?.tableView.setEditing(false, animated: false)
+                feedListView?.tableView.alpha = .zero
+
+                navigationItem.rightBarButtonItems?.removeLast()
+            })
         }
     }
-    
-    // MARK: - Helpers
-    private func addTrashButton(_ add: Bool) {
-        if add {
-            navigationItem.setLeftBarButtonItems([trashButton], animated: true)
+}
+
+// MARK: - Actions + Helpers
+private extension FeedListViewController {
+
+    @objc func addPressed() {
+        showEnterFeedAlertView()
+    }
+
+    @objc func trashPressed() {
+        guard let tableView = feedListView?.tableView else {
+            return
         }
-        else {
-            navigationItem.setLeftBarButtonItems(nil, animated: true)
-        }
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+
+    func addTrashButton(_ add: Bool) {
+        let items: [UIBarButtonItem]? = add ? [trashButton] : nil
+        navigationItem.setLeftBarButtonItems(items, animated: true)
     }
 }

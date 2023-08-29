@@ -7,18 +7,22 @@
 //
 
 import UIKit
+import KRProgressHUD
 
-class BaseViewController: UIViewController, ParserDelegate {
-
-    // MARK: - Properties
-    private var spinner: UIActivityIndicatorView?
+class BaseViewController: UIViewController {
 
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Feeds4U"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: String(),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
     }
 
     // MARK: - Add feed
@@ -41,14 +45,15 @@ class BaseViewController: UIViewController, ParserDelegate {
         parser.delegate = self
         parser.beginParsingURL(url)
     }
-    
-    // MARK: - ParserDelegate
-    func didStartParsingFeed() {}
-    
-    func didEndParsingFeed(_ feed: Feed) {
+}
+
+// MARK: - ParserDelegateProtocol
+extension BaseViewController: ParserDelegateProtocol {
+
+    @objc func didEndParsingFeed(_ feed: Feed) {
         hideSpinner()
     }
-    
+
     func didFailParsingFeed() {
         hideSpinner()
         showInvalidFeedAlert()
@@ -56,37 +61,18 @@ class BaseViewController: UIViewController, ParserDelegate {
 }
 
 // MARK: - Spinner helper
-extension BaseViewController {
+extension UIViewController {
 
     func showSpinner() {
-        spinner = UIActivityIndicatorView(style: .large)
-        spinner?.center = view.center
-        spinner?.color = UIColor(named: "Tangerine")
-        spinner?.backgroundColor = .white
-        spinner?.startAnimating()
+        let color = UIColor(named: "Tangerine") ?? .orange
 
-        guard let spinner else {
-            return
-        }
-
-        view.addSubview(spinner)
-        view.bringSubviewToFront(spinner)
+        KRProgressHUD
+           .set(style: .custom(background: color, text: .white, icon: nil))
+           .set(activityIndicatorViewColors: [.white, color])
+           .show()
     }
 
     func hideSpinner() {
-        spinner?.stopAnimating()
-        spinner?.removeFromSuperview()
-        spinner = nil
-    }
-}
-
-// MARK: - Instance From Nib
-extension UIViewController {
-
-    static func instanceFromNib() -> Self {
-        func instantiateFromNib<T: UIViewController>(_ viewType: T.Type) -> T {
-            return T.init(nibName: String(describing: T.self), bundle: nil)
-        }
-        return instantiateFromNib(self)
+        KRProgressHUD.dismiss()
     }
 }

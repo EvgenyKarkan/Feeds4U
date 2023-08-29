@@ -17,19 +17,20 @@ enum FeedSearchError: LocalizedError {
     case endpoint(Error)
     case dataDecoding
 
-    var localizedDescription: String {
+    // MARK: - LocalizedError
+    var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "Sorry, but it looks like the URL you entered is invalid"
+            return "The URL you entered doesn't seem to be valid"
         case .endpoint(let error):
-            return "Sorry, the \(error.localizedDescription) error has occurred while trying to access the service"
+            return "The \(error.localizedDescription) error has occurred while trying to access the service"
         case .dataDecoding:
-            return "Sorry, a data decoding error has occurred"
+            return "A data decoding error has occurred"
         }
     }
 }
 
-// MARK: - FeedSearchService
+// MARK: - FeedSearchService, performs web search
 final class FeedSearchService {
 
     func searchFeeds(on webPage: String, completion: @escaping FeedSearchResultCompletion) {

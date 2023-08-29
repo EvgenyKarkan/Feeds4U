@@ -16,6 +16,10 @@ protocol ParserDelegateProtocol: AnyObject {
     func didFailParsingFeed()
 }
 
+extension ParserDelegateProtocol {
+    func didStartParsingFeed() {}
+}
+
 final class Parser {
 
     // MARK: - Singleton
@@ -91,7 +95,7 @@ final class Parser {
         /// Create Feed
         feed.title = atomFeed.title
         feed.rssURL = url.absoluteString
-        feed.summary = (atomFeed.subtitle?.value ?? atomFeed.rights) ?? "N/A"
+        feed.summary = (atomFeed.subtitle?.value ?? atomFeed.rights) ?? String()
 
         /// Create Feed Items
         atomFeed.entries?.forEach({ atomFeedItem in
