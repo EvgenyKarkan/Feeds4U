@@ -178,7 +178,7 @@ extension FeedListViewController: TableProviderProtocol {
             return
         }
 
-        let feed = Brain.brain.feedForIndexPath(indexPath: indexPath)
+        let feed = Brain.brain.feedForIndexPath(indexPath)
 
         guard let feedItems = feed?.sortedItems(), !feedItems.isEmpty else {
             return
@@ -193,7 +193,7 @@ extension FeedListViewController: TableProviderProtocol {
 
     func cellNeedsDelete(at indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count,
-            let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath: indexPath) else {
+            let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath) else {
             return
         }
 

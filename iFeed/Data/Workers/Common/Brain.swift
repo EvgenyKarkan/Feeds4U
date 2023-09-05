@@ -40,16 +40,15 @@ final class Brain {
         return coreDater.createEntity(name: name)
     }
     
-    func feedForIndexPath(indexPath: IndexPath) -> Feed? {
-        var feed: Feed?
+    func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
+        let index = indexPath.row
         let allFeeds = coreDater.allFeeds()
-        
-        if !allFeeds.isEmpty && indexPath.row < allFeeds.count {
-            feed = allFeeds[indexPath.row]
+
+        guard !allFeeds.isEmpty, index < allFeeds.count else {
+            return nil
         }
-        assert(feed != nil, "Feed for index path is nil")
         
-        return feed
+        return allFeeds[index]
     }
     
     func isAlreadySavedURL(_ rssURL: String) -> Bool {
