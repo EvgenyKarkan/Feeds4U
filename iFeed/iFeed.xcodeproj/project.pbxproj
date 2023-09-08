@@ -47,7 +47,6 @@
 		2E38DDB529E20F2600839B66 /* FeedSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDB329E20F2600839B66 /* FeedSearchResultsViewController.swift */; };
 		2E38DDB629E20F2600839B66 /* FeedSearchResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E38DDB429E20F2600839B66 /* FeedSearchResultsViewController.xib */; };
 		2E38DDB929E2375F00839B66 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */; };
-		2E38DDBB29E2379A00839B66 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */; };
 		2E84AF2C2A9D62EC0041E8FC /* FeedSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84AF2B2A9D62EC0041E8FC /* FeedSearchResults.swift */; };
 		2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */; };
 		2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE34A832A92DC54009634FB /* KRProgressHUD */; };
@@ -94,7 +93,6 @@
 		2E38DDB329E20F2600839B66 /* FeedSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResultsViewController.swift; sourceTree = "<group>"; };
 		2E38DDB429E20F2600839B66 /* FeedSearchResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedSearchResultsViewController.xib; sourceTree = "<group>"; };
 		2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
-		2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		2E84AF2B2A9D62EC0041E8FC /* FeedSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchResults.swift; sourceTree = "<group>"; };
 		2E8B7B1B29C6905700FB91C8 /* FeedSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchService.swift; sourceTree = "<group>"; };
 		2E8B7B1D29C6979C00FB91C8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
-				2E38DDBA29E2379A00839B66 /* UIViewController+ErrorAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -411,7 +408,6 @@
 				2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */,
 				2E2305082954ABDB00B1F930 /* FeedListViewController+Search.swift in Sources */,
 				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
-				2E38DDBB29E2379A00839B66 /* UIViewController+ErrorAlert.swift in Sources */,
 				2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */,
 				2E2305092954ABDB00B1F930 /* FeedListView.swift in Sources */,
 				2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */,
