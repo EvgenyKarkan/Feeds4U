@@ -71,8 +71,10 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
             return
         }
 
-        item.wasRead = true
-        Brain.brain.coreDater.saveContext()
+        if !item.wasRead.boolValue {
+            item.wasRead = true
+            Brain.brain.coreDater.saveContext()
+        }
         
         let safariVC = SafariViewController(url: url)
         present(safariVC, animated: true)
