@@ -80,7 +80,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         present(safariVC, animated: true)
     }
     
-    // MARK: - FeedListViewProtocol
+    // MARK: - FeedItemsViewDelegate
     func didPullToRefresh(_ sender: UIRefreshControl) {
         guard let url = feed?.rssURL, !url.isEmpty else {
             return
