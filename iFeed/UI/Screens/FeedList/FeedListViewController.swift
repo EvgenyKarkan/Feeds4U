@@ -28,7 +28,7 @@ final class FeedListViewController: BaseViewController {
         }
 
         var searchAction: UIAction {
-            let title = "Search for feeds"
+            let title = "Explore feeds"
             let image = UIImage(systemName: "globe")
             let action = UIAction(title: title, image: image) { [weak self] _ in
                 self?.showSearchForFeedsAlertView()

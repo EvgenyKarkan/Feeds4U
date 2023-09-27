@@ -47,7 +47,7 @@ extension BaseViewController {
         present(alertController, animated: true)
     }
 
-    // MARK: - Search For Feeds Alert
+    // MARK: - Explore Feeds Alert
     func showSearchForFeedsAlertView() {
         let alertController = UIAlertController(
             title: nil,
