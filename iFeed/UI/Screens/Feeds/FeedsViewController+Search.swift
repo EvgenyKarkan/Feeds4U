@@ -1,5 +1,5 @@
 //
-//  FeedListViewController+Search.swift
+//  FeedsViewController+Search.swift
 //  iFeed
 //
 //  Created by Julius Bahr on 20.04.18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension FeedListViewController {
+extension FeedsViewController {
     
     @objc func searchPressed(_ sender: UIButton) {
         showSpinner()

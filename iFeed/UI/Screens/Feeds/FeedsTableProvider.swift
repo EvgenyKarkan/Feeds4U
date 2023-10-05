@@ -1,5 +1,5 @@
 //
-//  FeedListTableProvider.swift
+//  FeedsTableProvider.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FeedListTableProvider: BaseTableProvider {
+final class FeedsTableProvider: BaseTableProvider {
     
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

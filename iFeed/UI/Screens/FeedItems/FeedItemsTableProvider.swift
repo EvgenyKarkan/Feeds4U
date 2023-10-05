@@ -13,6 +13,7 @@ final class FeedItemsTableProvider: BaseTableProvider {
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy hh:mm"
+        formatter.timeZone = .current
         return formatter
     }()
     

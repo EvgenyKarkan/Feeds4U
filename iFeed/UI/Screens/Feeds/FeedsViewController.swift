@@ -1,5 +1,5 @@
 //
-//  FeedListViewController.swift
+//  FeedsViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/14/15.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-final class FeedListViewController: BaseViewController {
+final class FeedsViewController: BaseViewController {
 
     // MARK: - Properties
-    private var feedListView: FeedListView?
-    private var provider: FeedListTableProvider?
+    private var feedListView: FeedsView?
+    private var provider: FeedsTableProvider?
     lazy var search: Search = Search()
     private lazy var service: FeedSearchService = FeedSearchService()
 
@@ -79,9 +79,9 @@ final class FeedListViewController: BaseViewController {
     
     // MARK: - Life cycle
     override func loadView() {
-        provider = FeedListTableProvider(delegateObject: self)
+        provider = FeedsTableProvider(delegateObject: self)
         
-        feedListView = FeedListView(frame: UIScreen.main.bounds)
+        feedListView = FeedsView(frame: UIScreen.main.bounds)
         feedListView?.tableView.delegate = provider
         feedListView?.tableView.dataSource = provider
 
@@ -171,7 +171,7 @@ final class FeedListViewController: BaseViewController {
 }
 
 // MARK: - TableProviderProtocol
-extension FeedListViewController: TableProviderProtocol {
+extension FeedsViewController: TableProviderProtocol {
     
     func cellDidPress(at indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
@@ -221,7 +221,7 @@ extension FeedListViewController: TableProviderProtocol {
 }
 
 // MARK: - Actions + Helpers
-private extension FeedListViewController {
+private extension FeedsViewController {
 
     @objc func addPressed() {
         showEnterFeedAlertView()

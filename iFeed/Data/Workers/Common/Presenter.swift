@@ -28,7 +28,7 @@ final class Presenter {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = .systemBackground
 
-        navigationVC.viewControllers = [FeedListViewController()]
+        navigationVC.viewControllers = [FeedsViewController()]
 
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
@@ -42,7 +42,7 @@ final class Presenter {
 
         navigationVC.popToRootViewController(animated: false)
 
-        if let feedListVC = navigationVC.topViewController as? FeedListViewController {
+        if let feedListVC = navigationVC.topViewController as? FeedsViewController {
             feedListVC.showEnterFeedAlertView(specifier)
         }
     }
