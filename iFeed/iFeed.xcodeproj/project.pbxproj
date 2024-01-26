@@ -756,8 +756,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nmdias/FeedKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				kind = exactVersion;
+				version = 9.1.2;
 			};
 		};
 		2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */ = {
