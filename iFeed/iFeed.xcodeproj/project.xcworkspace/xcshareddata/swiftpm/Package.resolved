@@ -1,4 +1,5 @@
 {
+  "originHash" : "e2d8eceb41cb61372dd733bc8a82aad15bbf672ca0381065d73b06657e3e7436",
   "pins" : [
     {
       "identity" : "feedkit",
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krimpedance/KRActivityIndicatorView.git",
       "state" : {
-        "revision" : "bcb0e841d6de0cd343a32bd5056580a56d06c0bc",
-        "version" : "3.0.7"
+        "revision" : "925de8a9c15d9d7c2ca746dbe198549241b8b2b2",
+        "version" : "3.0.8"
       }
     },
     {
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

@@ -41,7 +41,7 @@ class BaseView: UIView {
         label.textAlignment = .center
         label.numberOfLines = .zero
         label.text = "Add a new feed to get started"
-        label.textColor = UIColor(named: "Tangerine")
+        label.textColor = UIColor(resource: .tangerine)
         addSubview(label)
 
         label.translatesAutoresizingMaskIntoConstraints = false

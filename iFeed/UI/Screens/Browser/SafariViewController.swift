@@ -14,7 +14,7 @@ final class SafariViewController: SFSafariViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        preferredBarTintColor = UIColor(named: "Tangerine")
+        preferredBarTintColor = UIColor(resource: .tangerine)
         preferredControlTintColor = .systemBackground
     }
     

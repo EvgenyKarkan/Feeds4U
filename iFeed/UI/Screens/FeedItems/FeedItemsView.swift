@@ -23,7 +23,7 @@ final class FeedItemsView: BaseView {
     override func initialViewSetup() {
         super.initialViewSetup()
         
-        refreshControl.tintColor = UIColor(named: "Tangerine")
+        refreshControl.tintColor = UIColor(resource: .tangerine)
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }

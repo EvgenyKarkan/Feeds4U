@@ -21,7 +21,7 @@ final class Presenter {
     func showStartScreen() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(named: "Tangerine")
+        appearance.backgroundColor = UIColor(resource: .tangerine)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
 
         UINavigationBar.appearance().standardAppearance = appearance

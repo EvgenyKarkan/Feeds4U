@@ -64,7 +64,7 @@ extension BaseViewController: ParserDelegateProtocol {
 extension UIViewController {
 
     func showSpinner() {
-        let color = UIColor(named: "Tangerine") ?? .orange
+        let color = UIColor(resource: .tangerine)
 
         KRProgressHUD
            .set(style: .custom(background: color, text: .white, icon: nil))
