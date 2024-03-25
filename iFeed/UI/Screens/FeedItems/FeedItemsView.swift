@@ -18,16 +18,16 @@ final class FeedItemsView: BaseView {
     // MARK: - Property
     weak var delegate: FeedItemsViewDelegate?
     private lazy var refreshControl = UIRefreshControl()
-    
+
     // MARK: - Base override
     override func initialViewSetup() {
         super.initialViewSetup()
-        
+
         refreshControl.tintColor = UIColor(resource: .tangerine)
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
-    
+
     // MARK: - Action
     @objc private func refresh(_ sender: UIRefreshControl) {
         delegate?.didPullToRefresh(sender)

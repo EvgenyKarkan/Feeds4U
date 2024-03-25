@@ -23,12 +23,12 @@ final class FeedSearchResultsViewController: UITableViewController {
     static func create(with data: FeedSearchDTO,
                        webPage: String,
                        parsingCallback: ((Feed) -> Void)?) -> UINavigationController {
-        let vc = FeedSearchResultsViewController.instanceFromNib()
-        vc.searchResults = data
-        vc.webPageTitle = webPage
-        vc.feedParseCallback = parsingCallback
+        let vcr = FeedSearchResultsViewController.instanceFromNib()
+        vcr.searchResults = data
+        vcr.webPageTitle = webPage
+        vcr.feedParseCallback = parsingCallback
 
-        let navigationVC = UINavigationController(rootViewController: vc)
+        let navigationVC = UINavigationController(rootViewController: vcr)
         navigationVC.modalPresentationStyle = .fullScreen
 
         return navigationVC
@@ -103,8 +103,7 @@ final class FeedSearchResultsViewController: UITableViewController {
         /// Consider to move it to parser and return some method from protocol
         if Brain.brain.isAlreadySavedURL(url.absoluteString) {
             showAlreadySavedFeedAlert()
-        }
-        else {
+        } else {
             showSpinner()
             parser.beginParsingURL(url)
         }

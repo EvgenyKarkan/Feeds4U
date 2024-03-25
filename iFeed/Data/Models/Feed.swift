@@ -16,30 +16,30 @@ class Feed: NSManagedObject {
     @NSManaged var title: String?
     @NSManaged var summary: String?
     @NSManaged var feedItems: NSSet
-    
+
     /// Sorted `feedItems` by publish date
     func sortedItems() -> [FeedItem] {
         guard let unsortedItems: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
             return []
         }
-        
+
         let sortedArray = unsortedItems.sorted(by: { (item1: FeedItem, item2: FeedItem) -> Bool in
             return item1.publishDate > item2.publishDate
         })
-        
+
         return sortedArray
     }
-    
+
     /// Unread `feedItems`
     func unreadItems() -> [FeedItem] {
         guard let items: [FeedItem] = feedItems.allObjects as? [FeedItem] else {
             return []
         }
-        
+
         let unReadItem = items.filter({ (item: FeedItem) -> Bool in
             return item.wasRead.boolValue == false
         })
-        
+
         return unReadItem
     }
 }

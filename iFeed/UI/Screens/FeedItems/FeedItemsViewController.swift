@@ -18,7 +18,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
     var feed: Feed?
     var feedItems: [FeedItem]?
     var searchTitle: String?
-    
+
     // MARK: - Deinit
     deinit {
         provider?.delegate = nil
@@ -28,7 +28,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
     // MARK: - Life cycle
     override func loadView() {
         provider = FeedItemsTableProvider(delegateObject: self)
-        
+
         feedItemsView = FeedItemsView(frame: UIScreen.main.bounds)
         feedItemsView?.tableView.delegate = provider
         feedItemsView?.tableView.dataSource = provider
@@ -45,7 +45,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         if searchTitle != nil {
             feedItemsView?.hideRefreshControl()
         }
-        
+
         guard let feedItems = feedItems, !feedItems.isEmpty else {
             return
         }
@@ -58,7 +58,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
 
         feedItemsView?.reloadTableView()
     }
-    
+
     // MARK: - TableProviderProtocol
     func cellDidPress(at indexPath: IndexPath) {
         guard let items = feedItems, !items.isEmpty, indexPath.row < items.count else {
@@ -66,7 +66,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         }
 
         let item = items[indexPath.row]
-    
+
         guard let url = URL(string: item.link) else {
             return
         }
@@ -124,8 +124,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
             if isUniqueItem {
                 /// Create a relationship
                 item.feed = selfFeed
-            }
-            else {
+            } else {
                 Brain.brain.coreDater.deleteObject(item)
             }
         }

@@ -16,12 +16,12 @@ final class FeedItemsTableProvider: BaseTableProvider {
         formatter.timeZone = .current
         return formatter
     }()
-    
+
     // MARK: - Overriden base
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell else {
             return UITableViewCell()
@@ -34,10 +34,10 @@ final class FeedItemsTableProvider: BaseTableProvider {
         cell.wasReadCell = item.wasRead.boolValue
         cell.titleText = item.title
         cell.subTitleText = Self.dateFormatter.string(from: item.publishDate)
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }

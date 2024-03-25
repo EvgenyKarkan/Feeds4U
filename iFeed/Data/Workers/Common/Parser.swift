@@ -24,16 +24,16 @@ final class Parser {
 
     // MARK: - Singleton
     static let parser = Parser()
-    
+
     // MARK: - Properties
     weak var delegate: ParserDelegateProtocol?
-   
+
     // MARK: - Public API
     func beginParsingURL(_ url: URL) {
         delegate?.didStartParsingFeed()
-    
+
         let parser = FeedParser(URL: url)
-    
+
         parser.parseAsync { (result) in
             DispatchQueue.main.async { [weak self] in
                 switch result {
@@ -60,7 +60,7 @@ final class Parser {
             return
         }
 
-        //dump(rssFeed)
+        /// dump(rssFeed)
 
         /// Create Feed
         feed.title = rssFeed.title
@@ -90,7 +90,7 @@ final class Parser {
             return
         }
 
-        //dump(atomFeed)
+        /// dump(atomFeed)
 
         /// Create Feed
         feed.title = atomFeed.title
@@ -120,7 +120,7 @@ final class Parser {
             return
         }
 
-        ///dump(jsonFeed)
+        /// dump(jsonFeed)
 
         /// Create Feed
         feed.title = jsonFeed.title

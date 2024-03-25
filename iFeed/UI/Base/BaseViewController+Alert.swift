@@ -41,7 +41,7 @@ extension BaseViewController {
                 textField.text = copiedText.absoluteString
             }
 
-            //textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
+            // textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
         }
 
         present(alertController, animated: true)

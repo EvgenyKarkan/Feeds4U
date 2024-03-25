@@ -11,46 +11,46 @@ import Foundation
 /// Performs local search
 
 struct Search {
-    
+
     private var matchingEngine: MatchingEngine?
     private let coreDataManager = Brain.brain.coreDater
-    
+
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         /// Get all FeedItems
         let allFeedItems = coreDataManager.allFeedItems()
-        
+
         /// Create a matching engine based on these feed items
         guard !allFeedItems.isEmpty else {
             completion()
             return
         }
-        
+
         let textualData = allFeedItems.map { (feedItem) -> TextualData in
             return TextualData(inputString: feedItem.title,
                                origin: nil,
                                originObject: feedItem)
         }
-        
+
         matchingEngine = MatchingEngine()
         matchingEngine?.fillMatchingEngine(with: textualData,
                                            onlyRemoveFrequentStopwords: true,
                                            completion: completion)
     }
-    
+
     func search(for searchTerm: String, resultsFound: ([FeedItem]?) -> Void) {
         guard matchingEngine?.isFilled ?? false else {
             resultsFound(nil)
             return
         }
-        
+
         let query = TextualData(inputString: searchTerm,
                                 origin: nil,
                                 originObject: nil)
-        
+
         try? matchingEngine?.results(betterThan: 0.005, for: query, resultsFound: { (results) in
             if let results = results, !results.isEmpty {
                 var feedItems: [FeedItem] = []
-                
+
                 /// We need to convert back the textual matches to the originating FeedItems
                 results.forEach { (result) in
                     result.textualResults.forEach { (textualData) in

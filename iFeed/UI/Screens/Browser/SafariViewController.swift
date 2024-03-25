@@ -17,7 +17,7 @@ final class SafariViewController: SFSafariViewController {
         preferredBarTintColor = UIColor(resource: .tangerine)
         preferredControlTintColor = .systemBackground
     }
-    
+
     deinit {
         URLCache.shared.removeAllCachedResponses()
     }

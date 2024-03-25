@@ -15,33 +15,33 @@ import UIKit
 }
 
 class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
-   
+
     // MARK: - Properties
     var dataSource: [AnyObject] = []
     weak var delegate: TableProviderProtocol?
-    
+
     // MARK: - Designated init
     required init(delegateObject: TableProviderProtocol) {
         delegate = delegateObject
     }
-    
+
     // MARK: - UITableViewDelegate & UITableViewDatasource API    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return .zero
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         fatalError()
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.cellDidPress(at: indexPath)
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         delegate?.cellNeedsDelete?(at: indexPath)

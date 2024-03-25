@@ -15,7 +15,7 @@ final class Analytics {
 
     // MARK: - Singleton
     static let analytics = Analytics()
-    
+
     // MARK: - APIs
     func startCrashlytics() {
         #if __RELEASE__

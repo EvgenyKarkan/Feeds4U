@@ -12,11 +12,11 @@ final class Presenter {
 
     // MARK: - Singleton
     static let presenter = Presenter()
-    
+
     // MARK: - Properties
     lazy var window = UIWindow(frame: UIScreen.main.bounds)
     private lazy var navigationVC = UINavigationController()
-    
+
     // MARK: - Public APIs
     func showStartScreen() {
         let appearance = UINavigationBarAppearance()
@@ -33,7 +33,7 @@ final class Presenter {
         window.rootViewController = navigationVC
         window.makeKeyAndVisible()
     }
-    
+
     func openURL(_ url: URL) {
         guard let specifier = (url as NSURL).resourceSpecifier,
             !specifier.isEmpty else {

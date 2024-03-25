@@ -14,9 +14,9 @@ class BaseViewController: UIViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = "Feeds4U"
-        
+
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: String(),
             style: .plain,
@@ -33,7 +33,7 @@ class BaseViewController: UIViewController {
     func searchForFeedsPressed(with webPage: String) {
         fatalError()
     }
-    
+
     // MARK: - Parsing
     func startParsingURL(_ string: String) {
         guard !string.isEmpty, let url = URL(string: string) else {

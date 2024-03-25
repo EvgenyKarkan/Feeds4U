@@ -13,24 +13,24 @@ class BaseView: UIView {
     // MARK: - Properties
     private(set) lazy var tableView = UITableView()
     private(set) lazy var label = UILabel()
-    
+
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         initialViewSetup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-    
+
     init() {
         super.init(frame: .zero)
-        
+
         initialViewSetup()
     }
-    
+
     // MARK: - Public API
     func initialViewSetup() {
         backgroundColor = .systemBackground

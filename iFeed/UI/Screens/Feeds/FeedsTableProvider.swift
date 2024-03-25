@@ -9,12 +9,12 @@
 import UIKit
 
 final class FeedsTableProvider: BaseTableProvider {
-    
+
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell else {
             return UITableViewCell()
@@ -27,7 +27,7 @@ final class FeedsTableProvider: BaseTableProvider {
         cell.titleText = feed.title
         cell.subTitleText = feed.summary
         cell.itemsCountText = feed.unreadItems().count.description
-        
+
         return cell
     }
 }

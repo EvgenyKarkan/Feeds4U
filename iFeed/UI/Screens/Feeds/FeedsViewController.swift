@@ -71,23 +71,23 @@ final class FeedsViewController: BaseViewController {
             action: #selector(trashPressed)
         )
     }()
-    
+
     // MARK: - Deinit
     deinit {
         provider?.delegate = nil
     }
-    
+
     // MARK: - Life cycle
     override func loadView() {
         provider = FeedsTableProvider(delegateObject: self)
-        
+
         feedListView = FeedsView(frame: UIScreen.main.bounds)
         feedListView?.tableView.delegate = provider
         feedListView?.tableView.dataSource = provider
 
         view = feedListView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,28 +97,26 @@ final class FeedsViewController: BaseViewController {
         if !allFeeds.isEmpty {
             addTrashButton(true)
             rightItems = [addButton, searchButton]
-        }
-        else {
+        } else {
             feedListView?.tableView.alpha = .zero
             rightItems = [addButton]
         }
 
         navigationItem.setRightBarButtonItems(rightItems, animated: true)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         provider?.dataSource = Brain.brain.coreDater.allFeeds()
         feedListView?.reloadTableView()
     }
-    
+
     // MARK: - Base override
     override func addFeedPressed(_ URL: String) {
         if Brain.brain.isAlreadySavedURL(URL) {
             showAlreadySavedFeedAlert()
-        }
-        else {
+        } else {
             showSpinner()
             startParsingURL(URL)
         }
@@ -148,7 +146,7 @@ final class FeedsViewController: BaseViewController {
             }
         })
     }
-    
+
     // MARK: - ParserDelegateProtocol base override
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
@@ -172,7 +170,7 @@ final class FeedsViewController: BaseViewController {
 
 // MARK: - TableProviderProtocol
 extension FeedsViewController: TableProviderProtocol {
-    
+
     func cellDidPress(at indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
             return

@@ -12,7 +12,7 @@ final class Cacher {
 
     // MARK: - Singleton
     static let cacher = Cacher()
-    
+
     // MARK: - APIs
     func startToCache() {
         /// Configure cache to minimize its capacity
