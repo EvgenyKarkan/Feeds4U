@@ -3,3 +3,6 @@ excluded:
 
 disabled_rules:
   - line_length
+
+opt_in_rules:
+  - force_unwrapping
