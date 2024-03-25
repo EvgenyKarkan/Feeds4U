@@ -24,7 +24,7 @@ final class CoreDataManager {
         // The directory the application uses to store the Core Data store file.
         // This code uses a directory named "com.EvgenyKarkan.iFeed" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[urls.count-1]
+        return urls[urls.count - 1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -50,11 +50,12 @@ final class CoreDataManager {
         } catch var error1 as NSError {
             error = error1
             coordinator = nil
+
             // Report any error we got.
-            var dict                               = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey]        = "Failed to initialize the application's saved data" as AnyObject?
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
             dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
-            dict[NSUnderlyingErrorKey]             = error
+            dict[NSUnderlyingErrorKey] = error
 
             error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
@@ -93,18 +94,21 @@ final class CoreDataManager {
             var error: NSError?
 
             if moc.hasChanges {
+                print("CONTEXT HAS CHANGES!!! NEED TO SAVE")
                 do {
                     try moc.save()
                 } catch let error1 as NSError {
                     error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(String(describing: error)), \(error!.userInfo)")
+                    print("Unresolved error \(String(describing: error)), \(error!.userInfo)")
 
                     #if __DEBUG__
                         abort()
                     #endif
                 }
+            } else {
+                print("CONTEXT HAS NO CHANGES...")
             }
         }
     }
@@ -131,7 +135,7 @@ final class CoreDataManager {
         do {
             try result = managedObjectContext!.fetch(request)
         } catch let error1 as NSError {
-            NSLog("Unresolved error \(error1), \(error1.userInfo)")
+            print("Unresolved error \(error1), \(error1.userInfo)")
 
             #if __DEBUG__
                 abort()
@@ -153,21 +157,21 @@ final class CoreDataManager {
             request.entity = description
         }
 
-        var result: [FeedItem]?
+        var array: [FeedItem]?
 
         do {
-            try result = managedObjectContext!.fetch(request)
+            try array = managedObjectContext!.fetch(request)
         } catch let error1 as NSError {
-            NSLog("Unresolved error \(error1), \(error1.userInfo)")
+            print("Unresolved error \(error1), \(error1.userInfo)")
 
             #if __DEBUG__
                 abort()
             #endif
         }
 
-        assert(result != nil, "Found nil feed item array")
+        assert(array != nil, "Found nil feed item array")
 
-        return result!
+        return array!
     }
 
     func deleteObject(_ entityObject: NSManagedObject) {
