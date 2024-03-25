@@ -72,23 +72,25 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         }
 
         if !item.wasRead.boolValue {
-            item.wasRead = true
+            item.wasRead = NSNumber.init(value: true)
             Brain.brain.coreDater.saveContext()
+
+            provider?.dataSource = items
         }
-        
+
         let safariVC = SafariViewController(url: url)
         present(safariVC, animated: true)
     }
-    
+
     // MARK: - FeedItemsViewDelegate
     func didPullToRefresh(_ sender: UIRefreshControl) {
         guard let url = feed?.rssURL, !url.isEmpty else {
             return
         }
-        
+
         startParsingURL(url)
     }
-    
+
     // MARK: - ParserDelegateProtocol
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
@@ -132,6 +134,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         Brain.brain.coreDater.saveContext()
 
         provider?.dataSource = selfFeed.sortedItems()
+        feedItems = selfFeed.sortedItems()
 
         feedItemsView?.reloadTableView()
         feedItemsView?.endRefreshing()
