@@ -14,6 +14,7 @@ func isValidURL(urlString: String) -> Bool {
 8. ❌ Entering a search query validation on alertview
 
 9. ❌ Licenses in Settings, package plus search API
+   ⚠️ Settings Bundle
     https://github.com/nmdias/FeedKit/blob/master/LICENSE
     https://github.com/JuliusBahr/SimpleSimilarity/blob/master/LICENSE
     

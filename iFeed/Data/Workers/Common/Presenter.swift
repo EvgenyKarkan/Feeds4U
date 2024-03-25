@@ -14,7 +14,7 @@ final class Presenter {
     static let presenter = Presenter()
 
     // MARK: - Properties
-    lazy var window = UIWindow(frame: UIScreen.main.bounds)
+    private lazy var window = UIWindow(frame: UIScreen.main.bounds)
     private lazy var navigationVC = UINavigationController()
 
     // MARK: - Public APIs
