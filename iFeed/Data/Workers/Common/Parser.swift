@@ -33,8 +33,9 @@ final class Parser {
         delegate?.didStartParsingFeed()
 
         let parser = FeedParser(URL: url)
+        let backgroundQueue = DispatchQueue(label: #function, qos: .background)
 
-        parser.parseAsync { (result) in
+        parser.parseAsync(queue: backgroundQueue) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let parsedFeed):
