@@ -68,11 +68,11 @@ final class FeedCell: UITableViewCell, Reusable {
 // MARK: - Reusable
 /// To be adopted by reusable view subclasses in order to have dynamic reuse identifier
 
-public protocol Reusable: AnyObject {
+protocol Reusable: AnyObject {
     static var reuseId: String { get }
 }
 
-public extension Reusable {
+extension Reusable {
     static var reuseId: String {
         return String(describing: self)
     }
