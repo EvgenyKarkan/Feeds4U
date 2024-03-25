@@ -42,9 +42,9 @@ final class CoreDataManager {
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         let url = applicationDocumentsDirectory.appendingPathComponent("iFeed.sqlite")
 
-        var error: NSError? = nil
+        var error: NSError?
         var failureReason = "There was an error creating or loading the application's saved data."
-        
+
         do {
             try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch var error1 as NSError {
@@ -90,7 +90,7 @@ final class CoreDataManager {
     // MARK: - Core Data Saving support
     func saveContext () {
         if let moc = managedObjectContext {
-            var error: NSError? = nil
+            var error: NSError?
 
             if moc.hasChanges {
                 do {
@@ -130,8 +130,7 @@ final class CoreDataManager {
 
         do {
             try result = managedObjectContext!.fetch(request)
-        }
-        catch let error1 as NSError {
+        } catch let error1 as NSError {
             NSLog("Unresolved error \(error1), \(error1.userInfo)")
 
             #if __DEBUG__
@@ -158,8 +157,7 @@ final class CoreDataManager {
 
         do {
             try result = managedObjectContext!.fetch(request)
-        }
-        catch let error1 as NSError {
+        } catch let error1 as NSError {
             NSLog("Unresolved error \(error1), \(error1.userInfo)")
 
             #if __DEBUG__

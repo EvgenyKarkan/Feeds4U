@@ -1,0 +1,5 @@
+excluded:
+- Libs
+
+disabled_rules:
+  - line_length

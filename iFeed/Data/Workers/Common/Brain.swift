@@ -55,10 +55,8 @@ final class Brain {
         var returnValue: Bool = false
         let allItems: [Feed] = Brain.brain.coreDater.allFeeds()
 
-        for item: Feed in allItems {
-            if rssURL == item.rssURL {
-                returnValue = true
-            }
+        for item: Feed in allItems where item.rssURL == rssURL {
+            returnValue = true
         }
 
         return returnValue
