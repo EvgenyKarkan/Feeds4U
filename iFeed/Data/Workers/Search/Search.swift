@@ -17,14 +17,12 @@ struct Search {
 
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         /// Get all FeedItems
-        let allFeedItems = coreDataManager.allFeedItems()
-
-        /// Create a matching engine based on these feed items
-        guard !allFeedItems.isEmpty else {
+        guard let allFeedItems = coreDataManager.allFeedItems(), !allFeedItems.isEmpty else {
             completion()
             return
         }
 
+        /// Create a matching engine based on these feed items
         let textualData = allFeedItems.map { (feedItem) -> TextualData in
             return TextualData(inputString: feedItem.title,
                                origin: nil,

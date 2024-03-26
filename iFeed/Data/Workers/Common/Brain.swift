@@ -36,10 +36,6 @@ final class Brain {
         cacher.startToCache()
     }
 
-    func createEntity(name: String) -> NSManagedObject {
-        return coreDater.createEntity(name: name)
-    }
-
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
         let index = indexPath.row
         let allFeeds = coreDater.allFeeds()
@@ -60,5 +56,17 @@ final class Brain {
         }
 
         return returnValue
+    }
+}
+
+// MARK: - EntityCreatable
+extension Brain: EntityCreatable {
+
+    func createFeedEntity() -> NSManagedObject? {
+        return coreDater.createFeedEntity()
+    }
+
+    func createFeedItemEntity() -> NSManagedObject? {
+        return coreDater.createFeedItemEntity()
     }
 }

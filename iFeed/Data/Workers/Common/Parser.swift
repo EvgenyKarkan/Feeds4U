@@ -56,7 +56,7 @@ final class Parser {
     }
 
     private func finishRSSParsing(rssFeed: RSSFeed, url: URL) {
-        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
+        guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -71,7 +71,7 @@ final class Parser {
         /// Create Feed Items
         rssFeed.items?.forEach({ rrsFeedItem in
             guard let link = rrsFeedItem.link,
-                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                let feedItem = Brain.brain.createFeedItemEntity() as? FeedItem else {
                 return
             }
             feedItem.title = rrsFeedItem.title ?? "N/A"
@@ -86,7 +86,7 @@ final class Parser {
     }
 
     private func finishAtomParsing(atomFeed: AtomFeed, url: URL) {
-        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
+        guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -101,7 +101,7 @@ final class Parser {
         /// Create Feed Items
         atomFeed.entries?.forEach({ atomFeedItem in
             guard let link = atomFeedItem.links?.first?.attributes?.href,
-                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                let feedItem = Brain.brain.createFeedItemEntity() as? FeedItem else {
                 return
             }
             feedItem.title = atomFeedItem.title ?? "N/A"
@@ -116,7 +116,7 @@ final class Parser {
     }
 
     private func finishJsonParsing(jsonFeed: JSONFeed, url: URL) {
-        guard let feed: Feed = Brain.brain.createEntity(name: kFeed) as? Feed else {
+        guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -131,7 +131,7 @@ final class Parser {
         /// Create Feed Items
         jsonFeed.items?.forEach({ jsonFeedItem in
             guard let link = jsonFeedItem.url,
-                let feedItem = Brain.brain.createEntity(name: kFeedItem) as? FeedItem else {
+                let feedItem = Brain.brain.createFeedItemEntity() as? FeedItem else {
                 return
             }
             feedItem.title = jsonFeedItem.title ?? "N/A"

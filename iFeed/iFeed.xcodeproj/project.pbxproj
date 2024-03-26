@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		089C36F52BB22B9200337EB4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreatable.swift; sourceTree = "<group>"; };
 		2E2304B92954ABBA00B1F930 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		2E2304BB2954ABBA00B1F930 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				2E2304D12954ABC900B1F930 /* Cacher.swift */,
 				2E2304D22954ABC900B1F930 /* Presenter.swift */,
 				2E2304D32954ABC900B1F930 /* Parser.swift */,
+				089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				2E2305082954ABDB00B1F930 /* FeedsViewController+Search.swift in Sources */,
 				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
 				2E2305052954ABDB00B1F930 /* FeedItemsTableProvider.swift in Sources */,
+				089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */,
 				2E2305092954ABDB00B1F930 /* FeedsView.swift in Sources */,
 				2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */,
 				2E2304E92954ABD300B1F930 /* IndexMatrix.swift in Sources */,
