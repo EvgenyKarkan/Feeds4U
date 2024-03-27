@@ -119,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0845E16F2BB4E0A900BB318A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0845E16D2BB4B86800BB318A /* String+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2E2304B82954ABBA00B1F930 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +148,7 @@
 			children = (
 				2E2304C72954ABC900B1F930 /* Models */,
 				2E2304CA2954ABC900B1F930 /* Workers */,
+				0845E16F2BB4E0A900BB318A /* Extensions */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -209,10 +218,10 @@
 		2E2304EC2954ABDB00B1F930 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				2E38DDB729E2374A00839B66 /* Extensions */,
 				2E2304FC2954ABDB00B1F930 /* Base */,
 				2E2304ED2954ABDB00B1F930 /* Cells */,
 				2E2304F02954ABDB00B1F930 /* Screens */,
+				2E38DDB729E2374A00839B66 /* Extensions */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -292,7 +301,6 @@
 			isa = PBXGroup;
 			children = (
 				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
-				0845E16D2BB4B86800BB318A /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
