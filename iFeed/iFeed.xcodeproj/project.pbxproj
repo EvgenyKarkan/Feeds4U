@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */; };
+		0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E16D2BB4B86800BB318A /* String+Ext.swift */; };
 		089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		0845E16D2BB4B86800BB318A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		089C36F52BB22B9200337EB4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreatable.swift; sourceTree = "<group>"; };
 		2E2304B92954ABBA00B1F930 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
 				2E8B7B1D29C6979C00FB91C8 /* TODO.md */,
 				089C36F52BB22B9200337EB4 /* Settings.bundle */,
+				0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
+				0845E16D2BB4B86800BB318A /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -372,6 +378,13 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				"zh-Hans",
+				hi,
+				ar,
+				ru,
+				uk,
+				fr,
 			);
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (
@@ -397,6 +410,7 @@
 				2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */,
 				2E38DDB229E1CA9200839B66 /* FeedSearchResultsCell.xib in Resources */,
 				2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */,
+				0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */,
 				2E2305012954ABDB00B1F930 /* FeedCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,7 +434,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Apple Silicon support\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -451,6 +465,7 @@
 				2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */,
 				2E2305062954ABDB00B1F930 /* FeedsViewController.swift in Sources */,
 				2E2305022954ABDB00B1F930 /* SafariViewController.swift in Sources */,
+				0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */,
 				2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */,
 				2E2304D82954ABC900B1F930 /* Search.swift in Sources */,
 				2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */,

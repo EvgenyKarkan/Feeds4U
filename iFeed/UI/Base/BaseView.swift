@@ -40,7 +40,7 @@ class BaseView: UIView {
         label.font = .systemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = .zero
-        label.text = "Add a new feed to get started"
+        label.text = String.localized(key: LocalizableKeys.addNewFeed)
         label.textColor = UIColor(resource: .tangerine)
         addSubview(label)
 

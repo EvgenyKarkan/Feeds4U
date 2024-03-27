@@ -21,11 +21,11 @@ enum FeedSearchError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "The URL you entered doesn't seem to be valid"
+            return String.localized(key: LocalizableKeys.Errors.invalidURL)
         case .endpoint(let error):
-            return "The \(error.localizedDescription) error has occurred while trying to access the service"
+            return String(format: String.localized(key: LocalizableKeys.Errors.service), error.localizedDescription)
         case .dataDecoding:
-            return "A data decoding error has occurred"
+            return String.localized(key: LocalizableKeys.Errors.dataDecoding)
         }
     }
 }

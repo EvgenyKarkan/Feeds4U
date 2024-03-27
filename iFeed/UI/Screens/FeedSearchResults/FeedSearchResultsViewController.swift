@@ -80,7 +80,7 @@ final class FeedSearchResultsViewController: UITableViewController {
             isAlreadyStored = true
         }
 
-        let state: AddedState = isAlreadyStored ? .added : .notAdded
+        let state: AddState = isAlreadyStored ? .added : .notAdded
         let model: FeedSearchResults = FeedSearchResults(data: element, state: state)
 
         cell.updateWithResults(model)

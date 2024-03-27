@@ -14,14 +14,15 @@ extension BaseViewController {
     func showEnterFeedAlertView(_ feedURL: String? = nil) {
         let alertController = UIAlertController(
             title: nil,
-            message: "Enter a new feed",
+            message: String.localized(key: LocalizableKeys.enterNewFeed),
             preferredStyle: .alert
         )
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: "Add", style: .default) { [weak self] _ in
+        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.add),
+                                       style: .default) { [weak self] _ in
             guard let text = alertController.textFields?.first?.text else {
                 self?.showInvalidFeedAlert()
                 return
@@ -51,14 +52,14 @@ extension BaseViewController {
     func showSearchForFeedsAlertView() {
         let alertController = UIAlertController(
             title: nil,
-            message: "Provide a webpage URL to search for its feeds",
+            message: String.localized(key: LocalizableKeys.provideURL),
             preferredStyle: .alert
         )
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: "Search", style: .default) { [weak self] _ in
+        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.search), style: .default) { [weak self] _ in
             guard let text = alertController.textFields?.first?.text else {
                 self?.showInvalidFeedAlert()
                 return
@@ -80,13 +81,13 @@ extension BaseViewController {
 
     func showErrorAlertView(error: Error) {
         let action = UIAlertAction(
-            title: "OK",
+            title: String.localized(key: LocalizableKeys.confirmation),
             style: .default,
             handler: nil
         )
 
         let alertController = UIAlertController(
-            title: "Error",
+            title: String.localized(key: LocalizableKeys.Errors.error),
             message: error.localizedDescription,
             preferredStyle: .alert
         )

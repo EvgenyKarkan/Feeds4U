@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum AddedState {
+enum AddState {
     case added
     case notAdded
 }
 
 struct FeedSearchResults {
     let data: FeedSearchElement
-    let state: AddedState
+    let state: AddState
 }

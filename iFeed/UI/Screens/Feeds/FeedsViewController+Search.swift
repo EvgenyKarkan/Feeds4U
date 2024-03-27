@@ -23,12 +23,12 @@ extension FeedsViewController {
 
     func showEnterSearch() {
         let alertController = UIAlertController(
-            title: "Search",
-            message: "Search works best when you enter more than one word.",
+            title: String.localized(key: LocalizableKeys.search),
+            message: String.localized(key: LocalizableKeys.searchDescription),
             preferredStyle: .alert
         )
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
         let nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
@@ -42,10 +42,11 @@ extension FeedsViewController {
                     guard let results = results, !results.isEmpty else {
                         let noResultsAlert = UIAlertController(
                             title: alertController.title,
-                            message: "There aren't any results that match your search",
+                            message: String.localized(key: LocalizableKeys.Errors.noSearchResults),
                             preferredStyle: .alert
                         )
-                        let noResultsCancelAction = UIAlertAction(title: "OK", style: .cancel)
+                        let noResultsCancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.confirmation),
+                                                                  style: .cancel)
                         noResultsAlert.addAction(noResultsCancelAction)
 
                         if self?.presentedViewController == nil {
@@ -61,7 +62,7 @@ extension FeedsViewController {
 
         alertController.addAction(nextAction)
         alertController.addTextField { textField in
-            textField.placeholder = "Cute kittens"
+            textField.placeholder = String.localized(key: LocalizableKeys.searchPlaceholder)
         }
 
         present(alertController, animated: true)
@@ -70,7 +71,8 @@ extension FeedsViewController {
     private func showSearchResults(results: [FeedItem], for query: String) {
         let feedItemsViewController = FeedItemsViewController()
         feedItemsViewController.feedItems = results
-        feedItemsViewController.searchTitle = "Search: \(query)"
+        feedItemsViewController.searchTitle = "\(String.localized(key: LocalizableKeys.search))\(":") \(query)"
+
         navigationController?.pushViewController(feedItemsViewController, animated: true)
     }
 }

@@ -21,12 +21,12 @@ extension UIViewController {
     // MARK: - Common alert
     func showAlert(_ message: String) {
         let alertController = UIAlertController(
-            title: "Oops...",
+            title: String.localized(key: LocalizableKeys.Errors.generic),
             message: message,
             preferredStyle: .alert
         )
 
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: String.localized(key: LocalizableKeys.confirmation), style: .default)
         alertController.addAction(okAction)
 
         present(alertController, animated: true)
@@ -34,10 +34,10 @@ extension UIViewController {
 
     // MARK: - Specific alerts
     func showInvalidFeedAlert() {
-        showAlert("It's not possible to read this feed. Try again later or check the URL to make sure it's valid.")
+        showAlert(String.localized(key: LocalizableKeys.Errors.unreadableFeed))
     }
 
     func showAlreadySavedFeedAlert() {
-        showAlert("It looks like this feed already exists.\n Enter a different one to continue.")
+        showAlert(String.localized(key: LocalizableKeys.Errors.preExistedFeed))
     }
 }
