@@ -59,15 +59,22 @@ Please note that these populations are approximate and can vary based on differe
 ✅Hindi: approximately 341 million speakers
 ✅Arabic: approximately 315 million speakers
 ✅French: approximately 274 million people
-Portuguese: approximately 215 million speakers
+✅Ukrainian
 ✅Russian: approximately 155 million speakers
+German
+Turkish
+Tatar
+Persian
+Portuguese: approximately 215 million speakers
 Japanese: approximately 125 million speakers
 Indonesian
 Hausa (Nigeria)
 Bangla (India, Bangladesh)
 Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
 Oromo (Ethiopia)
-✅ Ukrainian
+Filipino (Philipines)
+Korean
+
 
 11. ❌ Automate with Fastlane
 
