@@ -43,9 +43,11 @@ extension BaseViewController {
             /// Try to handle redirect link from `application(_ application: UIApplication, open url: URL, ...)`
             if let feedString = feedURL, !feedString.isEmpty {
                 textField.text = feedString
+                nextAction.isEnabled = true
             /// Try to handle copied to pasteboard link
             } else if let copiedText = UIPasteboard.general.url {
                 textField.text = copiedText.absoluteString
+                nextAction.isEnabled = true
             }
 
             // textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
@@ -87,6 +89,7 @@ extension BaseViewController {
             /// Try to handle copied to pasteboard link
             if let copiedText = UIPasteboard.general.url {
                 textField.text = copiedText.absoluteString
+                nextAction.isEnabled = true
             }
         }
         present(alertController, animated: true)
