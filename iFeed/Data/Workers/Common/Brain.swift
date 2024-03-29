@@ -14,7 +14,6 @@ final class Brain {
     let parser: Parser
     let coreDater: CoreDataManager
     let presenter: Presenter
-    let analytics: Analytics
     let cacher: Cacher
 
     // MARK: - Singleton
