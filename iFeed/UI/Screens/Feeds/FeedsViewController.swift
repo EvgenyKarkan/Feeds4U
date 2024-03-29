@@ -19,7 +19,7 @@ final class FeedsViewController: BaseViewController {
     // MARK: - Private Properties
     private lazy var addButton: UIBarButtonItem = {
         var addAction: UIAction {
-            let title = String.localized(key: LocalizableKeys.enterNewFeed)
+            let title = String.localized(key: LocalizableKeys.Feed.enterNew)
             let image = UIImage(systemName: "plus.circle")
             let action = UIAction(title: title, image: image) { [weak self] _ in
                 self?.showEnterFeedAlertView()
@@ -28,7 +28,7 @@ final class FeedsViewController: BaseViewController {
         }
 
         var searchAction: UIAction {
-            let title = String.localized(key: LocalizableKeys.exploreFeed)
+            let title = String.localized(key: LocalizableKeys.Feed.explore)
             let image = UIImage(systemName: "globe")
             let action = UIAction(title: title, image: image) { [weak self] _ in
                 self?.showSearchForFeedsAlertView()
@@ -37,7 +37,7 @@ final class FeedsViewController: BaseViewController {
         }
 
         var contextMenu: UIMenu {
-            let menu = UIMenu(title: String.localized(key: LocalizableKeys.addNewFeedLite),
+            let menu = UIMenu(title: String.localized(key: LocalizableKeys.Feed.addNewLite),
                               children: [addAction, searchAction])
             return menu
         }

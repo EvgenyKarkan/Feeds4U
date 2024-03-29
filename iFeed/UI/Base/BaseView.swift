@@ -40,7 +40,7 @@ class BaseView: UIView {
         label.font = .systemFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = .zero
-        label.text = String.localized(key: LocalizableKeys.addNewFeed)
+        label.text = String.localized(key: LocalizableKeys.Feed.addNew)
         label.textColor = UIColor(resource: .tangerine)
         addSubview(label)
 

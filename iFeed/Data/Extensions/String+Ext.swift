@@ -10,17 +10,22 @@ import Foundation
 
 enum LocalizableKeys {
     static let add = "add"
-    static let addNewFeed = "addNewFeed"
-    static let addNewFeedLite = "addNewFeed.lite"
     static let cancel = "cancel"
     static let confirmation = "confirmation"
-    static let enterNewFeed = "enterNewFeed"
-    static let exploreFeed = "exploreFeed"
     static let provideURL = "provideURL"
 
-    static let search = "search"
-    static let searchDescription = "search.description"
-    static let searchPlaceholder = "search.placeholder"
+    enum Feed {
+        static let addNew = "addNewFeed"
+        static let addNewLite = "addNewFeed.lite"
+        static let enterNew = "enterNewFeed"
+        static let explore = "exploreFeed"
+    }
+
+    enum Search {
+        static let search = "search"
+        static let description = "search.description"
+        static let placeholder = "search.placeholder"
+    }
 
     enum Errors {
         static let error = "error"

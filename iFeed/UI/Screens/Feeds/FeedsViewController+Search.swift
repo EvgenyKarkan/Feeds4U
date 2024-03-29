@@ -23,8 +23,8 @@ extension FeedsViewController {
 
     func showEnterSearch() {
         let alertController = UIAlertController(
-            title: String.localized(key: LocalizableKeys.search),
-            message: String.localized(key: LocalizableKeys.searchDescription),
+            title: String.localized(key: LocalizableKeys.Search.search),
+            message: String.localized(key: LocalizableKeys.Search.description),
             preferredStyle: .alert
         )
 
@@ -62,7 +62,7 @@ extension FeedsViewController {
 
         alertController.addAction(nextAction)
         alertController.addTextField { textField in
-            textField.placeholder = String.localized(key: LocalizableKeys.searchPlaceholder)
+            textField.placeholder = String.localized(key: LocalizableKeys.Search.placeholder)
         }
 
         present(alertController, animated: true)
@@ -71,7 +71,7 @@ extension FeedsViewController {
     private func showSearchResults(results: [FeedItem], for query: String) {
         let feedItemsViewController = FeedItemsViewController()
         feedItemsViewController.feedItems = results
-        feedItemsViewController.searchTitle = "\(String.localized(key: LocalizableKeys.search))\(":") \(query)"
+        feedItemsViewController.searchTitle = "\(String.localized(key: LocalizableKeys.Search.search))\(":") \(query)"
 
         navigationController?.pushViewController(feedItemsViewController, animated: true)
     }

@@ -10,6 +10,12 @@
             "value" : "إضافة"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32,6 +38,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "जोड़ें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
           }
         },
         "ru" : {
@@ -63,6 +81,12 @@
             "value" : "أضف تغذية جديدة للبدء"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge einen neuen Feed hinzu, um zu beginnen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -85,6 +109,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "शुरू करने के लिए एक नया फ़ीड जोड़ें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione um novo feed para começar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed para começar"
           }
         },
         "ru" : {
@@ -116,6 +152,12 @@
             "value" : "إضافة تغذية جديدة"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge einen neuen Feed hinzu."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -138,6 +180,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "नया फ़ीड जोड़ें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed"
           }
         },
         "ru" : {
@@ -169,6 +223,12 @@
             "value" : "إلغاء"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -191,6 +251,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "रद्द करें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
         "ru" : {
@@ -222,6 +294,12 @@
             "value" : "حسنًا"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -244,6 +322,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ठीक है"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "ru" : {
@@ -275,6 +365,12 @@
             "value" : "أدخل تغذية جديدة"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib einen neuen Feed ein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -297,6 +393,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "नया फ़ीड दर्ज करें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite um novo feed"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduza um novo feed"
           }
         },
         "ru" : {
@@ -328,6 +436,12 @@
             "value" : "خطأ"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -350,6 +464,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "त्रुटि"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
           }
         },
         "ru" : {
@@ -381,6 +507,12 @@
             "value" : "حدث خطأ في فك تشفير البيانات"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Datenentschlüsselungsfehler ist aufgetreten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -403,6 +535,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "डेटा डिकोडिंग में त्रुटि आ गई है"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro de decodificação de dados"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro de descodificação de dados"
           }
         },
         "ru" : {
@@ -434,6 +578,12 @@
             "value" : "عفوًا..."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oh..."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -458,10 +608,22 @@
             "value" : "ओह..."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Упс..."
+            "value" : "Ой..."
           }
         },
         "uk" : {
@@ -487,6 +649,12 @@
             "value" : "العنوان URL الذي أدخلته لا يبدو صحيحًا"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die eingegebene URL scheint ungültig zu sein."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -509,6 +677,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "आपके द्वारा दर्ज URL मान्य नहीं लगता"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A URL que você inseriu não parece ser válida"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O URL que introduziu parece não ser válido"
           }
         },
         "ru" : {
@@ -540,6 +720,12 @@
             "value" : "لا توجد نتائج تطابق بحثك"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es gibt keine Ergebnisse, die deiner Suche entsprechen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -562,6 +748,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ऐसा कोई भी परिणाम नहीं है जो आपकी खोज से मेल खाता हो"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há resultados que correspondam à sua pesquisa"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não existem resultados que correspondam à sua pesquisa"
           }
         },
         "ru" : {
@@ -593,6 +791,12 @@
             "value" : "يبدو أن هذه التغذية موجودة بالفعل.\\n أدخل واحدة مختلفة للمتابعة."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es sieht so aus, als ob dieser Feed bereits existiert.\\n Gib einen anderen ein, um fortzufahren."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -615,6 +819,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है।\\n जारी रखने के लिए एक अलग दर्ज करें।"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que este feed já existe.\\n Insira um diferente para continuar."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que este feed já existe.\\n Insira outro para continuar."
           }
         },
         "ru" : {
@@ -646,6 +862,12 @@
             "value" : "حدث خطأ %@ أثناء محاولة الوصول إلى الخدمة"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Versuch, auf den Dienst zuzugreifen, ist der Fehler %@ aufgetreten."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -668,6 +890,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "सेवा तक पहुँचने के दौरान %@ त्रुटि आई है"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O erro %@ ocorreu ao tentar acessar o serviço"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu o erro %@ ao tentar aceder ao serviço"
           }
         },
         "ru" : {
@@ -699,6 +933,12 @@
             "value" : "لا يمكن قراءة هذا التغذية. حاول مرة أخرى في وقت لاحق أو تحقق من عنوان URL للتأكد من صحته."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht möglich, diesen Feed zu lesen. Versuche es später erneut oder überprüfe die URL, um sicherzustellen, dass sie gültig ist."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -721,6 +961,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "इस फ़ीड को पढ़ना संभव नहीं है। बाद में पुन: प्रयास करें या URL की जांच करें ताकि यह सही हो।"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
           }
         },
         "ru" : {
@@ -752,6 +1004,12 @@
             "value" : "استكشاف التغذيات"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeds erkunden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -774,6 +1032,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "फ़ीड्स का अन्वेषण करें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar feeds"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar feeds"
           }
         },
         "ru" : {
@@ -805,6 +1075,12 @@
             "value" : "قدم عنوان URL لصفحة الويب للبحث عن تغذيتها"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib eine Webseite-URL an, um nach ihren Feeds zu suchen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -827,6 +1103,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "उसके फ़ीड्स के लिए एक वेबपेज URL प्रदान करें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forneça uma URL da página da web para pesquisar seus feeds"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forneça um URL de página web para pesquisar os seus feeds"
           }
         },
         "ru" : {
@@ -858,6 +1146,12 @@
             "value" : "بحث"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -880,6 +1174,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "खोजें"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisar"
           }
         },
         "ru" : {
@@ -911,6 +1217,12 @@
             "value" : "يعمل البحث بشكل أفضل عند إدخال أكثر من كلمة واحدة."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Suche funktioniert am besten, wenn du mehr als ein Wort eingibst."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -933,6 +1245,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "जब आप एक से अधिक शब्द दर्ज करते हैं तो खोज सबसे अच्छी तरह से काम करती है।"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pesquisa funciona melhor quando você insere mais de uma palavra."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pesquisa funciona melhor quando insere mais do que uma palavra."
           }
         },
         "ru" : {
@@ -964,6 +1288,12 @@
             "value" : "قطط لطيفة"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niedliche Kätzchen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -986,6 +1316,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्यारे बिल्लियाँ"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gatinhos fofos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gatinhos fofos"
           }
         },
         "ru" : {

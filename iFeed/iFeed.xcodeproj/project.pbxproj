@@ -393,6 +393,9 @@
 				ru,
 				uk,
 				fr,
+				de,
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = DE763D0B1B7E841300C8B54A;
 			packageReferences = (

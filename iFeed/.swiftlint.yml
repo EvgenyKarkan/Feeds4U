@@ -6,3 +6,5 @@ disabled_rules:
 
 opt_in_rules:
   - force_unwrapping
+  - private_outlet
+  - private_action

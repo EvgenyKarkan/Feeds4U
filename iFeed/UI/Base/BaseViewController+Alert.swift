@@ -14,7 +14,7 @@ extension BaseViewController {
     func showEnterFeedAlertView(_ feedURL: String? = nil) {
         let alertController = UIAlertController(
             title: nil,
-            message: String.localized(key: LocalizableKeys.enterNewFeed),
+            message: String.localized(key: LocalizableKeys.Feed.enterNew),
             preferredStyle: .alert
         )
 
@@ -59,7 +59,8 @@ extension BaseViewController {
         let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.search), style: .default) { [weak self] _ in
+        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.Search.search),
+                                       style: .default) { [weak self] _ in
             guard let text = alertController.textFields?.first?.text else {
                 self?.showInvalidFeedAlert()
                 return
