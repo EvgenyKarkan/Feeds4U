@@ -1,9 +1,6 @@
 6. ❌ Check caching, URLCache - investigate it.
        --- How to cache for SFSafariViewController, and load webpage if offline?
        --- Good read https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
-       
-7. ✅ Entering a feed validation on alertview
-8. ✅ Entering a search query validation on alertview
 
 9. ❌ Licenses in Settings, package plus search API
    ⚠️ Settings Bundle
@@ -71,11 +68,6 @@ Korean
 Italian
 Thai
 
-
-11. ❌ Automate with Fastlane
-
-
-
 /// ENGLISH
 
 Oops...
@@ -98,3 +90,26 @@ The URL you entered doesn't seem to be valid
 The %@ error has occurred while trying to access the service
 A data decoding error has occurred
 Une erreur de décodage des données s'est produite
+
+
+11. ❌ Automate with CI/CD (Fastlane)
+
+BITRISE
+- https://devcenter.bitrise.io/en/getting-started.html 
+- https://medium.com/@ajayrbhanushali/bitrise-ci-cd-for-ios-apps-8b2c44c4a555
+- https://www.runway.team/blog/how-to-set-up-a-ci-cd-pipeline-ios-app-using-bitrise
+- https://codewithchris.com/bitrise-ios/
+- https://www.linkedin.com/pulse/25-bitrise-integration-steps-you-should-know-ios-apps-moataz-nabil/
+- https://medium.com/ne-digital/ios-build-test-and-deliver-using-bitrise-part-1-build-d210b8e60a2d
+- https://medium.com/ne-digital/ios-build-test-and-deliver-using-bitrise-part-2-test-94c7bc56adc3
+- https://docs.fastlane.tools/best-practices/continuous-integration/bitrise/ - Integrating Fastlane into Bitrise
+
+- increment build number
+- if branch is dev then execute tests, no need to generate build
+- if branch is release then test plus build ipa (ad-hoc, release)
+
+
+/// Firebase GDPR
+/// https://www.reddit.com/r/gdpr/comments/9v3bor/comment/e9a35yn/
+/// https://firebase.google.com/support/privacy#firebase_support_for_gdpr_and_ccpa
+/// https://dev.srdanstanic.com/firebase-crashlytics-analytics-gdpr-user-data-management/ !!!
