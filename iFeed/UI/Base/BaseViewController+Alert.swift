@@ -48,6 +48,10 @@ extension BaseViewController {
             } else if let copiedText = UIPasteboard.general.url {
                 textField.text = copiedText.absoluteString
                 nextAction.isEnabled = true
+
+                /// Clear data once it is set
+                UIPasteboard.general.url = nil
+                UIPasteboard.general.string = nil
             }
 
             // textField.text = "http://rss.cnn.com/rss/cnn_topstories.rss"
@@ -90,6 +94,10 @@ extension BaseViewController {
             if let copiedText = UIPasteboard.general.url {
                 textField.text = copiedText.absoluteString
                 nextAction.isEnabled = true
+
+                /// Clear data once it is set
+                UIPasteboard.general.url = nil
+                UIPasteboard.general.string = nil
             }
         }
         present(alertController, animated: true)
