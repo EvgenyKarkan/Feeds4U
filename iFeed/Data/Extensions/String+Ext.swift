@@ -44,4 +44,20 @@ extension String {
     static func localized(key: String) -> String {
         return NSLocalizedString(key, comment: String())
     }
+
+    var isValidURL: Bool {
+        guard !isEmpty, !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return false
+        }
+
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches = detector.matches(in: self,
+                                           options: [],
+                                           range: NSRange(location: .zero, length: utf16.count))
+            return !matches.isEmpty
+        } catch {
+            return false
+        }
+    }
 }

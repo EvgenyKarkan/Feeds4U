@@ -31,7 +31,7 @@ extension FeedsViewController {
         let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
+        nextAction = UIAlertAction(title: alertController.title, style: .default) { [weak self] _ in
             guard let query = alertController.textFields?.first?.text,
                 !query.trimmingCharacters(in: .whitespaces).isEmpty else {
                 return
@@ -59,10 +59,16 @@ extension FeedsViewController {
                 }
             })
         }
+        nextAction?.isEnabled = false
+
+        guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
         alertController.addTextField { textField in
             textField.placeholder = String.localized(key: LocalizableKeys.Search.placeholder)
+            textField.addTarget(self,
+                                action: #selector(self.textFieldDidChangeForSearchInput(_:)),
+                                for: .editingChanged)
         }
 
         present(alertController, animated: true)

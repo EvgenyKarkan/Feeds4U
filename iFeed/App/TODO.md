@@ -2,16 +2,8 @@
        --- How to cache for SFSafariViewController, and load webpage if offline?
        --- Good read https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
        
-7. ❌ Entering a feed validation on alertview
-```
-func isValidURL(urlString: String) -> Bool {
-    if let url = NSURL(string: urlString), url.host != nil {
-        return true
-    }
-    return false
-}
-```
-8. ❌ Entering a search query validation on alertview
+7. ✅ Entering a feed validation on alertview
+8. ✅ Entering a search query validation on alertview
 
 9. ❌ Licenses in Settings, package plus search API
    ⚠️ Settings Bundle

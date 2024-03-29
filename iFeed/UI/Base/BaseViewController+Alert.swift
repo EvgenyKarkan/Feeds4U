@@ -10,7 +10,7 @@ import UIKit
 
 extension BaseViewController {
 
-    // MARK: - Enter Feed Alert
+    // MARK: - Enter Feed Alert, enter a direct feed URL
     func showEnterFeedAlertView(_ feedURL: String? = nil) {
         let alertController = UIAlertController(
             title: nil,
@@ -21,18 +21,24 @@ extension BaseViewController {
         let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.add),
-                                       style: .default) { [weak self] _ in
+        nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.add),
+                                   style: .default) { [weak self] _ in
             guard let text = alertController.textFields?.first?.text else {
                 self?.showInvalidFeedAlert()
                 return
             }
             self?.addFeedPressed(text)
         }
+        nextAction?.isEnabled = false
+
+        guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
         alertController.addTextField { textField in
             textField.placeholder = "https://www.something.com/rss"
+            textField.addTarget(self,
+                                action: #selector(self.textFieldDidChangeForURLInput(_:)),
+                                for: .editingChanged)
 
             /// Try to handle redirect link from `application(_ application: UIApplication, open url: URL, ...)`
             if let feedString = feedURL, !feedString.isEmpty {
@@ -48,7 +54,7 @@ extension BaseViewController {
         present(alertController, animated: true)
     }
 
-    // MARK: - Explore Feeds Alert
+    // MARK: - Explore Feeds Alert, enter a web URL to search for its feeds
     func showSearchForFeedsAlertView() {
         let alertController = UIAlertController(
             title: nil,
@@ -59,7 +65,7 @@ extension BaseViewController {
         let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel)
         alertController.addAction(cancelAction)
 
-        let nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.Search.search),
+        nextAction = UIAlertAction(title: String.localized(key: LocalizableKeys.Search.search),
                                        style: .default) { [weak self] _ in
             guard let text = alertController.textFields?.first?.text else {
                 self?.showInvalidFeedAlert()
@@ -67,10 +73,16 @@ extension BaseViewController {
             }
             self?.searchForFeedsPressed(with: text)
         }
+        nextAction?.isEnabled = false
+
+        guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
         alertController.addTextField { textField in
             textField.placeholder = "https://www.something.com"
+            textField.addTarget(self,
+                                action: #selector(self.textFieldDidChangeForURLInput(_:)),
+                                for: .editingChanged)
 
             /// Try to handle copied to pasteboard link
             if let copiedText = UIPasteboard.general.url {
@@ -95,5 +107,29 @@ extension BaseViewController {
         alertController.addAction(action)
 
         present(alertController, animated: true)
+    }
+}
+
+// MARK: - Private
+extension BaseViewController {
+
+    @objc func textFieldDidChangeForURLInput(_ textField: UITextField) {
+        guard let text = textField.text, !text.isEmpty,
+            !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            nextAction?.isEnabled = false
+            return
+        }
+
+        nextAction?.isEnabled = text.isValidURL
+    }
+
+    @objc func textFieldDidChangeForSearchInput(_ textField: UITextField) {
+        guard let text = textField.text, !text.isEmpty,
+            !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            nextAction?.isEnabled = false
+            return
+        }
+
+        nextAction?.isEnabled = true
     }
 }

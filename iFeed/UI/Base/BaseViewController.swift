@@ -11,6 +11,9 @@ import KRProgressHUD
 
 class BaseViewController: UIViewController {
 
+    // MARK: - Properties
+    var nextAction: UIAlertAction?
+
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
