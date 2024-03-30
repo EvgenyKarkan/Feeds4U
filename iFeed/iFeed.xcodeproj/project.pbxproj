@@ -10,6 +10,7 @@
 		0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */; };
 		0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E16D2BB4B86800BB318A /* String+Ext.swift */; };
 		089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */; };
+		08BCAB462BB76C9200F06D8D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C36F52BB22B9200337EB4 /* Settings.bundle */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
@@ -128,13 +129,13 @@
 		2E2304B82954ABBA00B1F930 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2E8B7B1D29C6979C00FB91C8 /* TODO.md */,
 				2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */,
 				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
 				2E2304B92954ABBA00B1F930 /* Colors.xcassets */,
 				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
 				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
-				2E8B7B1D29C6979C00FB91C8 /* TODO.md */,
 				089C36F52BB22B9200337EB4 /* Settings.bundle */,
 				0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */,
 			);
@@ -413,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08BCAB462BB76C9200F06D8D /* Settings.bundle in Resources */,
 				2E2304C32954ABBA00B1F930 /* Images.xcassets in Resources */,
 				2E38DDB629E20F2600839B66 /* FeedSearchResultsViewController.xib in Resources */,
 				2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */,

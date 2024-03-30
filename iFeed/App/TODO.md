@@ -2,16 +2,19 @@
        --- How to cache for SFSafariViewController, and load webpage if offline?
        --- Good read https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
 
-9. ❌ Licenses in Settings, package plus search API
-   ⚠️ Settings Bundle
-    https://github.com/nmdias/FeedKit/blob/master/LICENSE
-    https://github.com/JuliusBahr/SimpleSimilarity/blob/master/LICENSE
+9. ✅ Licenses in Settings, package plus search API
+
+- https://gist.github.com/zetachang/4111314
+
+    ✅ Settings Bundle
+    ✅ https://github.com/nmdias/FeedKit/blob/master/LICENSE
+    ✅ https://github.com/JuliusBahr/SimpleSimilarity/blob/master/LICENSE
     
-    https://github.com/krimpedance/KRProgressHUD/blob/master/LICENSE
-    https://github.com/krimpedance/KRActivityIndicatorView/blob/master/LICENSE
+    ✅ https://github.com/krimpedance/KRProgressHUD/blob/master/LICENSE
+    ✅ https://github.com/krimpedance/KRActivityIndicatorView/blob/master/LICENSE
     
-    https://github.com/DBeath/feedsearch/blob/master/LICENSE
-    https://github.com/DBeath/feedsearch-crawler/blob/master/LICENSE
+    ✅ https://github.com/DBeath/feedsearch/blob/master/LICENSE
+    ✅ https://github.com/DBeath/feedsearch-crawler/blob/master/LICENSE
     
     https://feedsearch.dev
 
@@ -91,6 +94,8 @@ The %@ error has occurred while trying to access the service
 A data decoding error has occurred
 Une erreur de décodage des données s'est produite
 
+- Localize Settings Bundle
+https://useyourloaf.com/blog/localizing-iphone-app-settings-strings/
 
 11. ❌ Automate with CI/CD (Fastlane)
 

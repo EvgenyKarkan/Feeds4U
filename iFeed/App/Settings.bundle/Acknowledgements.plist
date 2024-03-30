@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>FeedKit</string>
+			<key>Title</key>
+			<string>FeedKit</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>SimpleSimilarity</string>
+			<key>Title</key>
+			<string>SimpleSimilarity</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>KRProgressHUD</string>
+			<key>Title</key>
+			<string>KRProgressHUD</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>KRActivityIndicatorView</string>
+			<key>Title</key>
+			<string>KRActivityIndicatorView</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>feedsearch</string>
+			<key>Title</key>
+			<string>feedsearch</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>feedsearch-crawler</string>
+			<key>Title</key>
+			<string>feedsearch-crawler</string>
+		</dict>
+	</array>
+</dict>
+</plist>

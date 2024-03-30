@@ -24,14 +24,12 @@ final class Brain {
         parser = Parser.parser
         coreDater = CoreDataManager.manager
         presenter = Presenter.presenter
-        analytics = Analytics.analytics
         cacher = Cacher.cacher
     }
 
     // MARK: - Public APIs
     func startServices() {
         presenter.showStartScreen()
-        analytics.startCrashlytics()
         cacher.startToCache()
     }
 
