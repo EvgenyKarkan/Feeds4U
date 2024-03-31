@@ -25,7 +25,7 @@ As of my last update, here is a list of the top 20 countries by population:
 1. ✅**China**: Approximately 1.41 billion
 2. **India**: Approximately 1.39 billion
 3. ✅**United States**: Approximately 331 million
-4. **Indonesia**: Approximately 276 million
+4. ✅**Indonesia**: Approximately 276 million
 5. **Pakistan**: Approximately 243 million
 6. ✅**Brazil**: Approximately 214 million
 7. **Nigeria**: Approximately 211 million
@@ -57,23 +57,24 @@ Please note that these populations are approximate and can vary based on differe
 ✅Russian: approximately 155 million speakers
 ✅German
 ✅Portuguese: approximately 215 million speakers
+✅ Indonesian
 
-Turkish
-Persian
-Japanese: approximately 125 million speakers
-Indonesian
+Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
 Hausa (Nigeria)
 Bangla (India, Bangladesh)
-Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
+Japanese: approximately 125 million speakers
 Oromo (Ethiopia)
 Filipino (Philipines)
+Turkish
+Persian
 Korean
 Italian
 Thai
 
+
 /// ENGLISH
 
-Oops...
+Oh...
 OK
 It's not possible to read this feed. Try again later or check the URL to make sure it's valid.
 It looks like this feed already exists.\n Enter a different one to continue.
@@ -92,7 +93,7 @@ Cute kittens
 The URL you entered doesn't seem to be valid
 The %@ error has occurred while trying to access the service
 A data decoding error has occurred
-Une erreur de décodage des données s'est produite
+
 
 - Localize Settings Bundle
 https://useyourloaf.com/blog/localizing-iphone-app-settings-strings/

@@ -40,6 +40,12 @@
             "value" : "जोड़ें"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -109,6 +115,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "शुरू करने के लिए एक नया फ़ीड जोड़ें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan umpan baru untuk memulai"
           }
         },
         "pt-BR" : {
@@ -182,6 +194,12 @@
             "value" : "नया फ़ीड जोड़ें"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan umpan baru"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -251,6 +269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "रद्द करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batalkan"
           }
         },
         "pt-BR" : {
@@ -324,6 +348,12 @@
             "value" : "ठीक है"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oke"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -393,6 +423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "नया फ़ीड दर्ज करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan umpan baru"
           }
         },
         "pt-BR" : {
@@ -466,6 +502,12 @@
             "value" : "त्रुटि"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -535,6 +577,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "डेटा डिकोडिंग में त्रुटि आ गई है"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan dekoding data telah terjadi"
           }
         },
         "pt-BR" : {
@@ -608,6 +656,12 @@
             "value" : "ओह..."
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oh..."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -677,6 +731,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "आपके द्वारा दर्ज URL मान्य नहीं लगता"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL yang Anda masukkan sepertinya tidak valid"
           }
         },
         "pt-BR" : {
@@ -750,6 +810,12 @@
             "value" : "ऐसा कोई भी परिणाम नहीं है जो आपकी खोज से मेल खाता हो"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada hasil yang cocok dengan pencarian Anda"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -819,6 +885,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है।\\n जारी रखने के लिए एक अलग दर्ज करें।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sepertinya umpan ini sudah ada.\\n Masukkan yang berbeda untuk melanjutkan."
           }
         },
         "pt-BR" : {
@@ -892,6 +964,12 @@
             "value" : "सेवा तक पहुँचने के दौरान %@ त्रुटि आई है"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan %@ telah terjadi saat mencoba mengakses layanan"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -961,6 +1039,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "इस फ़ीड को पढ़ना संभव नहीं है। बाद में पुन: प्रयास करें या URL की जांच करें ताकि यह सही हो।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak mungkin membaca umpan ini. Coba lagi nanti atau periksa URL untuk memastikan itu valid."
           }
         },
         "pt-BR" : {
@@ -1034,6 +1118,12 @@
             "value" : "फ़ीड्स का अन्वेषण करें"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jelajahi umpan"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1103,6 +1193,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "उसके फ़ीड्स के लिए एक वेबपेज URL प्रदान करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berikan URL halaman web untuk mencari umpannya"
           }
         },
         "pt-BR" : {
@@ -1176,6 +1272,12 @@
             "value" : "खोजें"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cari"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1247,6 +1349,12 @@
             "value" : "जब आप एक से अधिक शब्द दर्ज करते हैं तो खोज सबसे अच्छी तरह से काम करती है।"
           }
         },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencarian berfungsi lebih baik saat Anda memasukkan lebih dari satu kata."
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1316,6 +1424,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्यारे बिल्लियाँ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anak kucing lucu"
           }
         },
         "pt-BR" : {
