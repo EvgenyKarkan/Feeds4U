@@ -77,7 +77,7 @@ Thai
 Oh...
 OK
 It's not possible to read this feed. Try again later or check the URL to make sure it's valid.
-It looks like this feed already exists.\n Enter a different one to continue.
+It looks like this feed already exists. Enter a different one to continue.
 Add a new feed to get started
 Enter a new feed
 Cancel

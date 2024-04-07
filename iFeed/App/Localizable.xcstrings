@@ -853,74 +853,74 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "يبدو أن هذه التغذية موجودة بالفعل.\\n أدخل واحدة مختلفة للمتابعة."
+            "state" : "needs_review",
+            "value" : "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Es sieht so aus, als ob dieser Feed bereits existiert.\\n Gib einen anderen ein, um fortzufahren."
+            "state" : "needs_review",
+            "value" : "Es sieht so aus, als ob dieser Feed bereits existiert. Gib einen anderen ein, um fortzufahren."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "It looks like this feed already exists.\\n Enter a different one to continue."
+            "value" : "It looks like this feed already exists. Enter a different one to continue."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parece que este feed ya existe.\\n Ingresa uno diferente para continuar."
+            "value" : "Parece que este feed ya existe. Ingresa uno diferente para continuar."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il semble que ce flux existe déjà.\\n Entrez-en un autre pour continuer."
+            "value" : "Il semble que ce flux existe déjà. Entrez-en un autre pour continuer."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है।\\n जारी रखने के लिए एक अलग दर्ज करें।"
+            "state" : "needs_review",
+            "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है। जारी रखने के लिए एक अलग दर्ज करें।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sepertinya umpan ini sudah ada.\\n Masukkan yang berbeda untuk melanjutkan."
+            "state" : "needs_review",
+            "value" : "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Parece que este feed já existe.\\n Insira um diferente para continuar."
+            "state" : "needs_review",
+            "value" : "Parece que este feed já existe. Insira um diferente para continuar."
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Parece que este feed já existe.\\n Insira outro para continuar."
+            "state" : "needs_review",
+            "value" : "Parece que este feed já existe. Insira outro para continuar."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Похоже, эта лента уже существует.\\n Введите другую, чтобы продолжить."
+            "value" : "Похоже, эта лента уже существует. Введите другую, чтобы продолжить."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Схоже, що ця стрічка вже існує.\\n Введіть іншу, щоб продовжити."
+            "state" : "needs_review",
+            "value" : "Схоже, що ця стрічка вже існує. Введіть іншу, щоб продовжити."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "看起来这个源已经存在。\\n 输入另一个以继续。"
+            "state" : "needs_review",
+            "value" : "看起来这个源已经存在。输入另一个以继续。"
           }
         }
       }
