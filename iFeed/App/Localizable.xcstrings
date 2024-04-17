@@ -853,13 +853,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Es sieht so aus, als ob dieser Feed bereits existiert. Gib einen anderen ein, um fortzufahren."
           }
         },
@@ -883,25 +883,25 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है। जारी रखने के लिए एक अलग दर्ज करें।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Parece que este feed já existe. Insira um diferente para continuar."
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Parece que este feed já existe. Insira outro para continuar."
           }
         },
@@ -913,13 +913,13 @@
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Схоже, що ця стрічка вже існує. Введіть іншу, щоб продовжити."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "看起来这个源已经存在。输入另一个以继续。"
           }
         }
