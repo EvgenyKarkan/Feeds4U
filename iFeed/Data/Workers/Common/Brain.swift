@@ -14,7 +14,6 @@ final class Brain {
     let parser: Parser
     let coreDater: CoreDataManager
     let presenter: Presenter
-    let cacher: Cacher
 
     // MARK: - Singleton
     static let brain = Brain()
@@ -24,13 +23,11 @@ final class Brain {
         parser = Parser.parser
         coreDater = CoreDataManager.manager
         presenter = Presenter.presenter
-        cacher = Cacher.cacher
     }
 
     // MARK: - Public APIs
     func startServices() {
         presenter.showStartScreen()
-        cacher.startToCache()
     }
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {

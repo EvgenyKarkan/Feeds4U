@@ -21,7 +21,6 @@
 		2E2304D82954ABC900B1F930 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CC2954ABC900B1F930 /* Search.swift */; };
 		2E2304D92954ABC900B1F930 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CE2954ABC900B1F930 /* Brain.swift */; };
 		2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D02954ABC900B1F930 /* CoreDataManager.swift */; };
-		2E2304DC2954ABC900B1F930 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D12954ABC900B1F930 /* Cacher.swift */; };
 		2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D22954ABC900B1F930 /* Presenter.swift */; };
 		2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D32954ABC900B1F930 /* Parser.swift */; };
 		2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */; };
@@ -71,7 +70,6 @@
 		2E2304CC2954ABC900B1F930 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		2E2304CE2954ABC900B1F930 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		2E2304D02954ABC900B1F930 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		2E2304D12954ABC900B1F930 /* Cacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		2E2304D22954ABC900B1F930 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		2E2304D32954ABC900B1F930 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableProvider.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 			children = (
 				2E2304CE2954ABC900B1F930 /* Brain.swift */,
 				2E2304D02954ABC900B1F930 /* CoreDataManager.swift */,
-				2E2304D12954ABC900B1F930 /* Cacher.swift */,
 				2E2304D22954ABC900B1F930 /* Presenter.swift */,
 				2E2304D32954ABC900B1F930 /* Parser.swift */,
 				089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */,
@@ -469,7 +466,6 @@
 				2E2304E72954ABD300B1F930 /* MatchingEngineAlgorithm.swift in Sources */,
 				2E2304EB2954ABD300B1F930 /* TextualDataImport.swift in Sources */,
 				2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */,
-				2E2304DC2954ABC900B1F930 /* Cacher.swift in Sources */,
 				2E2305042954ABDB00B1F930 /* FeedItemsViewController.swift in Sources */,
 				2E2304E82954ABD300B1F930 /* StringsForBagOfWords.swift in Sources */,
 				2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */,
