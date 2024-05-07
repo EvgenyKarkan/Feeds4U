@@ -139,4 +139,10 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         feedItemsView?.reloadTableView()
         feedItemsView?.endRefreshing()
     }
+
+    override func didFailParsingFeed() {
+        super.didFailParsingFeed()
+
+        feedItemsView?.scrollToTop()
+    }
 }

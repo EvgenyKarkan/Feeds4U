@@ -57,7 +57,7 @@ extension BaseViewController: ParserDelegateProtocol {
         hideSpinner()
     }
 
-    func didFailParsingFeed() {
+    @objc func didFailParsingFeed() {
         hideSpinner()
         showInvalidFeedAlert()
     }

@@ -46,6 +46,7 @@ final class FeedSearchService {
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.attribution = .user
 
         let session = URLSession(configuration: configuration)
 

@@ -44,4 +44,11 @@ final class FeedItemsView: BaseView {
     func hideRefreshControl() {
         refreshControl.removeFromSuperview()
     }
+
+    func scrollToTop() {
+        DispatchQueue.main.async {
+            self.endRefreshing()
+            self.tableView.setContentOffset(.zero, animated: true)
+        }
+    }
 }
