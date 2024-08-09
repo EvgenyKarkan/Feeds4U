@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KRProgressHUD
 
 class BaseViewController: UIViewController {
 
@@ -60,22 +59,5 @@ extension BaseViewController: ParserDelegateProtocol {
     @objc func didFailParsingFeed() {
         hideSpinner()
         showInvalidFeedAlert()
-    }
-}
-
-// MARK: - Spinner helper
-extension UIViewController {
-
-    func showSpinner() {
-        let color = UIColor(resource: .tangerine)
-
-        KRProgressHUD
-           .set(style: .custom(background: color, text: .white, icon: nil))
-           .set(activityIndicatorViewColors: [.white, color])
-           .show()
-    }
-
-    func hideSpinner() {
-        KRProgressHUD.dismiss()
     }
 }

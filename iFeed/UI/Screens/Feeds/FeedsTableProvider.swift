@@ -16,11 +16,9 @@ final class FeedsTableProvider: BaseTableProvider {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell else {
-            return UITableViewCell()
-        }
-        guard !dataSource.isEmpty, indexPath.row < dataSource.count,
-            let feed: Feed = dataSource[indexPath.row] as? Feed else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell,
+              !dataSource.isEmpty, indexPath.row < dataSource.count,
+              let feed: Feed = dataSource[indexPath.row] as? Feed else {
             return UITableViewCell()
         }
 

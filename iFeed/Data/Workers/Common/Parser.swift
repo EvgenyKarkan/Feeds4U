@@ -8,6 +8,7 @@
 
 import FeedKit
 import Foundation
+import Dispatch
 
 // MARK: - ParserDelegateProtocol
 protocol ParserDelegateProtocol: AnyObject {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dispatch
 
 // MARK: - FeedItemsViewDelegate
 protocol FeedItemsViewDelegate: AnyObject {

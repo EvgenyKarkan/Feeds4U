@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dispatch
 
 final class FeedsViewController: BaseViewController {
 
@@ -37,9 +38,10 @@ final class FeedsViewController: BaseViewController {
         }
 
         var contextMenu: UIMenu {
-            let menu = UIMenu(title: String.localized(key: LocalizableKeys.Feed.addNewLite),
-                              children: [addAction, searchAction])
-            return menu
+            return UIMenu(
+                title: String.localized(key: LocalizableKeys.Feed.addNewLite),
+                children: [addAction, searchAction]
+            )
         }
 
         var button: UIButton {

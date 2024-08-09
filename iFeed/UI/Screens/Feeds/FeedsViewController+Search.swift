@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dispatch
 
 extension FeedsViewController {
 

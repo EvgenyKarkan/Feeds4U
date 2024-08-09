@@ -14,7 +14,7 @@ class BaseView: UIView {
     private(set) lazy var tableView = UITableView()
     private(set) lazy var label = UILabel()
 
-    // MARK: - Initializers
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -42,9 +42,8 @@ class BaseView: UIView {
         label.numberOfLines = .zero
         label.text = String.localized(key: LocalizableKeys.Feed.addNew)
         label.textColor = UIColor(resource: .tangerine)
-        addSubview(label)
-
         label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
 
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -54,9 +53,8 @@ class BaseView: UIView {
         /// Tableview
         tableView.backgroundColor = backgroundColor
         tableView.cellLayoutMarginsFollowReadableWidth = false
-        addSubview(tableView)
-
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(tableView)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

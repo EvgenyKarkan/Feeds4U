@@ -7,6 +7,7 @@
 //
 
 import UIKit.UIViewController
+import KRProgressHUD
 
 extension UIViewController {
 
@@ -39,5 +40,22 @@ extension UIViewController {
 
     func showAlreadySavedFeedAlert() {
         showAlert(String.localized(key: LocalizableKeys.Errors.preExistedFeed))
+    }
+}
+
+// MARK: - Spinner helper
+extension UIViewController {
+
+    func showSpinner() {
+        let color = UIColor(resource: .tangerine)
+
+        KRProgressHUD
+           .set(style: .custom(background: color, text: .white, icon: nil))
+           .set(activityIndicatorViewColors: [.white, color])
+           .show()
+    }
+
+    func hideSpinner() {
+        KRProgressHUD.dismiss()
     }
 }
