@@ -79,7 +79,7 @@
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ਜੋੜੋ"
+            "value" : "ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
         "pt-BR" : {
@@ -177,6 +177,12 @@
             "value" : "Tambahkan umpan baru untuk memulai"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -258,6 +264,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tambahkan umpan baru"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
         "pt-BR" : {
@@ -343,6 +355,12 @@
             "value" : "Batalkan"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੱਦ ਕਰੋ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -424,6 +442,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oke"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਠੀਕ ਹੈ"
           }
         },
         "pt-BR" : {
@@ -509,6 +533,12 @@
             "value" : "Masukkan umpan baru"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇੱਕ ਨਵੀਂ ਫੀਡ ਦਰਜ ਕਰੋ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -590,6 +620,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kesalahan"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " ਗਲਤੀ।"
           }
         },
         "pt-BR" : {
@@ -675,6 +711,12 @@
             "value" : "Kesalahan dekoding data telah terjadi"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇੱਕ ਡਾਟਾ ਡਿਕੋਡਿੰਗ ਗਲਤੀ ਆਈ ਹੈ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -756,6 +798,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oh..."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਓਹ..."
           }
         },
         "pt-BR" : {
@@ -841,6 +889,12 @@
             "value" : "URL yang Anda masukkan sepertinya tidak valid"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਤੁਸੀਂ ਦਿੱਤਾ URL ਵੈਧ ਨਹੀਂ ਲੱਗਦਾ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -922,6 +976,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tidak ada hasil yang cocok dengan pencarian Anda"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਤੁਹਾਡੇ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਣ ਵਾਲਾ ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਹੈ।"
           }
         },
         "pt-BR" : {
@@ -1007,6 +1067,12 @@
             "value" : "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਲੱਗਦਾ ਹੈ ਕਿ ਇਹ ਫੀਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਇੱਕ ਹੋਰ ਫੀਡ ਦਰਜ ਕਰੋ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1088,6 +1154,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kesalahan %@ telah terjadi saat mencoba mengakses layanan"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਜਦੋਂ ਸਰਵਿਸ 'ਤੇ ਪਹੁੰਚ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਸੀ ਤਾਂ %@ ਗਲਤੀ ਆਈ।"
           }
         },
         "pt-BR" : {
@@ -1173,6 +1245,12 @@
             "value" : "Tidak mungkin membaca umpan ini. Coba lagi nanti atau periksa URL untuk memastikan itu valid."
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਹ ਫੀਡ ਪੜ੍ਹਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ URL ਨੂੰ ਚੈਕ ਕਰੋ ਕਿ ਇਹ ਵੈਧ ਹੈ ਕਿ ਨਹੀਂ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1254,6 +1332,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jelajahi umpan"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫੀਡਸ ਦੀ ਪੜਚੋਲ ਕਰੋ।"
           }
         },
         "pt-BR" : {
@@ -1339,6 +1423,12 @@
             "value" : "Berikan URL halaman web untuk mencari umpannya"
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਸਦੀ ਫੀਡ ਲੱਭਣ ਲਈ ਇੱਕ ਵੈਬਪੇਜ URL ਦਿਓ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1420,6 +1510,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cari"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਖੋਜ ਕਰੋ।"
           }
         },
         "pt-BR" : {
@@ -1505,6 +1601,12 @@
             "value" : "Pencarian berfungsi lebih baik saat Anda memasukkan lebih dari satu kata."
           }
         },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਖੋਜ ਸਭ ਤੋਂ ਵਧੀਆ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰਦੀ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਇੱਕ ਤੋਂ ਵੱਧ ਸ਼ਬਦ ਦਰਜ ਕਰਦੇ ਹੋ।"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1586,6 +1688,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anak kucing lucu"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸੁਹਣੇ ਬਿੱਲੀਆਂ ਦੇ ਬੱਚੇ।"
           }
         },
         "pt-BR" : {

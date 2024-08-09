@@ -95,13 +95,13 @@ fi
 As of my last update, here is a list of the top 20 countries by population:
 
 1. ✅**China**: Approximately 1.41 billion
-2. **India**: Approximately 1.39 billion
+2. ✅**India**: Approximately 1.39 billion
 3. ✅**United States**: Approximately 331 million
 4. ✅**Indonesia**: Approximately 276 million
 5. **Pakistan**: Approximately 243 million
 6. ✅**Brazil**: Approximately 214 million
 7. **Nigeria**: Approximately 211 million
-8. **Bangladesh**: Approximately 169 million
+8. ✅**Bangladesh**: Approximately 169 million
 9. ✅**Russia**: Approximately 146 million
 10. ✅**Mexico**: Approximately 129 million
 11. **Japan**: Approximately 126 million
@@ -130,12 +130,11 @@ Please note that these populations are approximate and can vary based on differe
 ✅German
 ✅Portuguese: approximately 215 million speakers
 ✅Indonesian
+✅Bangla (India, Bangladesh)
+✅Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
 
-Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
-Bangla (India, Bangladesh)
 
 Hausa (Nigeria)
-
 Japanese: approximately 125 million speakers
 Oromo (Ethiopia)
 Filipino (Philipines)
