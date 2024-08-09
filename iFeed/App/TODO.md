@@ -129,11 +129,13 @@ Please note that these populations are approximate and can vary based on differe
 ✅Russian: approximately 155 million speakers
 ✅German
 ✅Portuguese: approximately 215 million speakers
-✅ Indonesian
+✅Indonesian
 
 Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
-Hausa (Nigeria)
 Bangla (India, Bangladesh)
+
+Hausa (Nigeria)
+
 Japanese: approximately 125 million speakers
 Oromo (Ethiopia)
 Filipino (Philipines)
@@ -146,7 +148,7 @@ Thai
 
 /// ENGLISH
 
-Oh...
+Oops...
 OK
 It's not possible to read this feed. Try again later or check the URL to make sure it's valid.
 It looks like this feed already exists. Enter a different one to continue.

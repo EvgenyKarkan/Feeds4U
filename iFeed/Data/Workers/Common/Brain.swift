@@ -26,7 +26,7 @@ final class Brain {
     }
 
     // MARK: - Public APIs
-    func startServices() {
+    func start() {
         presenter.showStartScreen()
     }
 

@@ -10,6 +10,12 @@
             "value" : "إضافة"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "যোগ করুন।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26,6 +32,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agregar"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idagdag"
           }
         },
         "fr" : {
@@ -46,6 +58,30 @@
             "value" : "Tambahkan"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਜੋੜੋ"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -62,6 +98,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Добавить"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่ม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekle"
           }
         },
         "uk" : {
@@ -85,6 +133,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "أضف تغذية جديدة للبدء"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "শুরু করতে একটি নতুন ফিড যোগ করুন।"
           }
         },
         "de" : {
@@ -164,6 +218,12 @@
             "value" : "إضافة تغذية جديدة"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি নতুন ফিড যোগ করুন।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -239,6 +299,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "إلغاء"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বাতিল করুন।"
           }
         },
         "de" : {
@@ -318,6 +384,12 @@
             "value" : "حسنًا"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঠিক আছে"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -393,6 +465,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "أدخل تغذية جديدة"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি নতুন ফিড প্রবেশ করান।"
           }
         },
         "de" : {
@@ -472,6 +550,12 @@
             "value" : "خطأ"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ত্রুটি।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -547,6 +631,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "حدث خطأ في فك تشفير البيانات"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি ডেটা ডিকোডিং ত্রুটি ঘটেছে।"
           }
         },
         "de" : {
@@ -626,6 +716,12 @@
             "value" : "عفوًا..."
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ওহ..."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -701,6 +797,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "العنوان URL الذي أدخلته لا يبدو صحيحًا"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আপনি যে URL প্রবেশ করেছেন তা বৈধ বলে মনে হচ্ছে না।"
           }
         },
         "de" : {
@@ -780,6 +882,12 @@
             "value" : "لا توجد نتائج تطابق بحثك"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আপনার অনুসন্ধানের সাথে মেলে এমন কোনো ফলাফল নেই।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -855,6 +963,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মনে হচ্ছে এই ফিডটি ইতিমধ্যেই বিদ্যমান। চালিয়ে যাওয়ার জন্য একটি ভিন্ন ফিড প্রবেশ করান।"
           }
         },
         "de" : {
@@ -934,6 +1048,12 @@
             "value" : "حدث خطأ %@ أثناء محاولة الوصول إلى الخدمة"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সার্ভিসে প্রবেশ করার সময় %@ ত্রুটি ঘটেছে।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1009,6 +1129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "لا يمكن قراءة هذا التغذية. حاول مرة أخرى في وقت لاحق أو تحقق من عنوان URL للتأكد من صحته."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এই ফিড পড়া সম্ভব নয়। পরে আবার চেষ্টা করুন বা URL চেক করুন এটি বৈধ কিনা নিশ্চিত করতে।"
           }
         },
         "de" : {
@@ -1088,6 +1214,12 @@
             "value" : "استكشاف التغذيات"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফিডগুলি অন্বেষণ করুন।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1163,6 +1295,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "قدم عنوان URL لصفحة الويب للبحث عن تغذيتها"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফিডগুলি খুঁজে পেতে ওয়েবপেজের URL দিন।"
           }
         },
         "de" : {
@@ -1242,6 +1380,12 @@
             "value" : "بحث"
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "অনুসন্ধান করুন।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1319,6 +1463,12 @@
             "value" : "يعمل البحث بشكل أفضل عند إدخال أكثر من كلمة واحدة."
           }
         },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একাধিক শব্দ প্রবেশ করালে অনুসন্ধান সেরা কাজ করে।"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1394,6 +1544,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "قطط لطيفة"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মিষ্টি বিড়ালছানা।"
           }
         },
         "de" : {
