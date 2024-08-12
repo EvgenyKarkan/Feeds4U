@@ -159,6 +159,12 @@
             "value" : "Agregar un nuevo feed para comenzar"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magdagdag ng bagong feed para makapagsimula"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -246,6 +252,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agregar un nuevo feed"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magdagdag ng bagong feed"
           }
         },
         "fr" : {
@@ -337,6 +349,12 @@
             "value" : "Cancelar"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kanselahin"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -424,6 +442,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aceptar"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "fr" : {
@@ -515,6 +539,12 @@
             "value" : "Ingresar un nuevo feed"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magpasok ng bagong feed"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -599,6 +629,12 @@
           }
         },
         "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        },
+        "fil" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Error"
@@ -693,6 +729,12 @@
             "value" : "Ha ocurrido un error al decodificar los datos"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagkaroon ng error sa pag-decode ng data"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -780,6 +822,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ups..."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naku..."
           }
         },
         "fr" : {
@@ -871,6 +919,12 @@
             "value" : "La URL que ingresaste parece no ser válida"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mukhang hindi wasto ang URL na iyong inilagay"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -958,6 +1012,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No hay resultados que coincidan con tu búsqueda"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walang resulta na tumutugma sa iyong paghahanap"
           }
         },
         "fr" : {
@@ -1049,6 +1109,12 @@
             "value" : "Parece que este feed ya existe. Ingresa uno diferente para continuar."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mukhang mayroon nang feed na ito. Magpasok ng iba pa para magpatuloy."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1136,6 +1202,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ha ocurrido un error %@ al intentar acceder al servicio"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ang %@ error ay naganap habang sinusubukang i-access ang serbisyo"
           }
         },
         "fr" : {
@@ -1227,6 +1299,12 @@
             "value" : "No es posible leer este feed. Inténtalo de nuevo más tarde o verifica la URL para asegurarte de que sea válida."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi mabasa ang feed na ito. Subukang muli mamaya o i-check ang URL para matiyak na tama ito."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1314,6 +1392,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explorar feeds"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mag-explore ng mga feed"
           }
         },
         "fr" : {
@@ -1405,6 +1489,12 @@
             "value" : "Proporciona una URL de página web para buscar sus feeds"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magbigay ng URL ng webpage para hanapin ang mga feed nito"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1492,6 +1582,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Buscar"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maghanap"
           }
         },
         "fr" : {
@@ -1583,6 +1679,12 @@
             "value" : "La búsqueda funciona mejor cuando ingresas más de una palabra."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mas maganda ang resulta ng paghahanap kapag naglagay ka ng higit sa isang salita."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1670,6 +1772,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lindos gatitos"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga cute na kuting"
           }
         },
         "fr" : {
