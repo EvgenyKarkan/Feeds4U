@@ -192,3 +192,6 @@ BITRISE
 /// https://www.reddit.com/r/gdpr/comments/9v3bor/comment/e9a35yn/
 /// https://firebase.google.com/support/privacy#firebase_support_for_gdpr_and_ccpa
 /// https://dev.srdanstanic.com/firebase-crashlytics-analytics-gdpr-user-data-management/ !!!
+
+
+12. ❌ Safari pre-warming after adding new feeds
