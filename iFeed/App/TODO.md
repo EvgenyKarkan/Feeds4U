@@ -106,7 +106,7 @@ As of my last update, here is a list of the top 20 countries by population:
 10. ✅**Mexico**: Approximately 129 million
 11. **Japan**: Approximately 126 million
 12. **Ethiopia**: Approximately 121 million
-13. **Philippines**: Approximately 113 million
+13. ✅**Philippines**: Approximately 113 million
 14. ✅**Egypt**: Approximately 104 million
 15. **Vietnam**: Approximately 98 million
 16. **DR Congo**: Approximately 101 million
@@ -132,12 +132,11 @@ Please note that these populations are approximate and can vary based on differe
 ✅Indonesian
 ✅Bangla (India, Bangladesh)
 ✅Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
-
+✅Filipino (Philipines)
 
 Hausa (Nigeria)
 Japanese: approximately 125 million speakers
 Oromo (Ethiopia)
-Filipino (Philipines)
 Turkish
 Persian
 Korean
