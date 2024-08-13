@@ -8,12 +8,14 @@
 
 import UIKit
 import Foundation
+import SafariServices
 
 final class FeedItemsViewController: BaseViewController, TableProviderProtocol, FeedItemsViewDelegate {
 
     // MARK: - Properties
     private var feedItemsView: FeedItemsView?
     private var provider: FeedItemsTableProvider?
+    private var prewarmingToken: SFSafariViewController.PrewarmingToken?
 
     var feed: Feed?
     var feedItems: [FeedItem]?
@@ -51,12 +53,25 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         }
 
         provider?.dataSource = feedItems
+
+        /// Pre-warming Safari connections
+        prewarmConnections(to: feedItems)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         feedItemsView?.reloadTableView()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        /// View controller is about to be popped or dismissed
+        if isMovingFromParent || isBeingDismissed {
+            prewarmingToken?.invalidate()
+            prewarmingToken = nil
+        }
     }
 
     // MARK: - TableProviderProtocol
@@ -95,12 +110,12 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
     override func didEndParsingFeed(_ feed: Feed) {
         super.didEndParsingFeed(feed)
 
-        guard let selfFeed = self.feed else {
+        guard let currentFeed = self.feed else {
             return
         }
 
         /// Existed feed items
-        let existFeedItems: [FeedItem] = (selfFeed.feedItems.allObjects as? [FeedItem]) ?? []
+        let existFeedItems: [FeedItem] = (currentFeed.feedItems.allObjects as? [FeedItem]) ?? []
         let existedTitles: [String] = existFeedItems.map(\.title)
         let existedLinks: [String] = existFeedItems.map(\.link)
         let existedDates: [TimeInterval] = existFeedItems.map(\.publishDate.timeIntervalSince1970)
@@ -115,6 +130,9 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         /// Delete temporary incoming `feed`
         Brain.brain.coreDater.deleteObject(feed)
 
+        /// Pre-warming Safari support
+        var uniqueIncomingItems: [FeedItem] = []
+
         /// Iterate over incoming feed items to find a new item to add to existing feed object
         for item: FeedItem in incomingItems {
             let isUniqueTitle = !existedTitles.contains(item.title)
@@ -125,7 +143,8 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
 
             if isUniqueItem {
                 /// Create a relationship
-                item.feed = selfFeed
+                item.feed = currentFeed
+                uniqueIncomingItems.append(item)
             } else {
                 Brain.brain.coreDater.deleteObject(item)
             }
@@ -133,16 +152,34 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
 
         Brain.brain.coreDater.saveContext()
 
-        provider?.dataSource = selfFeed.sortedItems()
-        feedItems = selfFeed.sortedItems()
+        provider?.dataSource = currentFeed.sortedItems()
+        feedItems = currentFeed.sortedItems()
 
         feedItemsView?.reloadTableView()
         feedItemsView?.endRefreshing()
+
+        /// Pre-warming Safari connections
+        prewarmConnections(to: uniqueIncomingItems)
     }
 
     override func didFailParsingFeed() {
         super.didFailParsingFeed()
 
         feedItemsView?.scrollToTop()
+    }
+}
+
+// MARK: - Private
+private extension FeedItemsViewController {
+
+    func prewarmConnections(to items: [FeedItem]) {
+        let urls: [URL] = items.compactMap({ URL(string: $0.link) })
+
+        guard !urls.isEmpty else {
+            return
+        }
+
+        prewarmingToken = SFSafariViewController.prewarmConnections(to: urls)
+        dump(prewarmingToken)
     }
 }
