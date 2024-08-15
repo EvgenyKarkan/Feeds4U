@@ -10,6 +10,12 @@
             "value" : "إضافة"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадаць"
+          }
+        },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
@@ -100,6 +106,12 @@
             "value" : "Добавить"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -133,6 +145,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "أضف تغذية جديدة للبدء"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадайце новы фід, каб пачаць"
           }
         },
         "bn" : {
@@ -183,6 +201,12 @@
             "value" : "Tambahkan umpan baru untuk memulai"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi un nuovo feed per iniziare"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,6 +231,12 @@
             "value" : "Добавьте новую ленту, чтобы начать"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto një feed të ri për të filluar"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,6 +258,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "إضافة تغذية جديدة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадаць новы фід"
           }
         },
         "bn" : {
@@ -278,6 +314,12 @@
             "value" : "Tambahkan umpan baru"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi un nuovo feed"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -302,6 +344,12 @@
             "value" : "Добавить новую ленту"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto një feed të ri"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -323,6 +371,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "إلغاء"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адмяніць"
           }
         },
         "bn" : {
@@ -373,6 +427,12 @@
             "value" : "Batalkan"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -397,6 +457,12 @@
             "value" : "Отмена"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anulo"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -418,6 +484,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "حسنًا"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "bn" : {
@@ -468,6 +540,12 @@
             "value" : "Oke"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -492,6 +570,12 @@
             "value" : "Понятно"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -513,6 +597,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "أدخل تغذية جديدة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увядзіце новы фід"
           }
         },
         "bn" : {
@@ -563,6 +653,12 @@
             "value" : "Masukkan umpan baru"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci un nuovo feed"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -587,6 +683,12 @@
             "value" : "Введите новую ленту"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futni një feed të ri"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -608,6 +710,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "خطأ"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Памылка"
           }
         },
         "bn" : {
@@ -658,6 +766,12 @@
             "value" : "Kesalahan"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Errore"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -682,6 +796,12 @@
             "value" : "Ошибка"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gabim"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -703,6 +823,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "حدث خطأ في فك تشفير البيانات"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адбылася памылка дэкадавання дадзеных"
           }
         },
         "bn" : {
@@ -753,6 +879,12 @@
             "value" : "Kesalahan dekoding data telah terjadi"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si è verificato un errore di decodifica dei dati"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -777,6 +909,12 @@
             "value" : "Произошла ошибка декодирования данных"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ka ndodhur një gabim gjatë deshifrimit të të dhënave"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -798,6 +936,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "عفوًا..."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ой..."
           }
         },
         "bn" : {
@@ -848,6 +992,12 @@
             "value" : "Oh..."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -872,6 +1022,12 @@
             "value" : "Ой..."
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -893,6 +1049,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "العنوان URL الذي أدخلته لا يبدو صحيحًا"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведзены вамі URL не здаецца сапраўдным"
           }
         },
         "bn" : {
@@ -943,6 +1105,12 @@
             "value" : "URL yang Anda masukkan sepertinya tidak valid"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'URL che hai inserito non sembra essere valido"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -967,6 +1135,12 @@
             "value" : "Введенный вами URL, кажется, недействителен"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL-ja që keni futur nuk duket të jetë e vlefshme"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -988,6 +1162,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "لا توجد نتائج تطابق بحثك"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Няма вынікаў, якія адпавядаюць вашаму пошуку"
           }
         },
         "bn" : {
@@ -1038,6 +1218,12 @@
             "value" : "Tidak ada hasil yang cocok dengan pencarian Anda"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non ci sono risultati che corrispondono alla tua ricerca"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1062,6 +1248,12 @@
             "value" : "Нет результатов, соответствующих вашему поиску"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk ka asnjë rezultat që përputhet me kërkimin tuaj"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1083,6 +1275,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Здаецца, гэты фід ужо існуе. Увядзіце іншы, каб працягнуць."
           }
         },
         "bn" : {
@@ -1133,6 +1331,12 @@
             "value" : "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sembra che questo feed esista già. Inserisci uno diverso per continuare."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1157,6 +1361,12 @@
             "value" : "Похоже, эта лента уже существует. Введите другую, чтобы продолжить."
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duket se ky feed ekziston tashmë. Futni një tjetër për të vazhduar."
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1178,6 +1388,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "حدث خطأ %@ أثناء محاولة الوصول إلى الخدمة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падчас спроб доступу да службы адбылася памылка %@"
           }
         },
         "bn" : {
@@ -1228,6 +1444,12 @@
             "value" : "Kesalahan %@ telah terjadi saat mencoba mengakses layanan"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si è verificato l'errore %@ mentre si tentava di accedere al servizio"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1252,6 +1474,12 @@
             "value" : "Произошла ошибка %@ при попытке доступа к сервису"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gabimi %@ ka ndodhur gjatë përpjekjes për të hyrë në shërbim"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1273,6 +1501,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "لا يمكن قراءة هذا التغذية. حاول مرة أخرى في وقت لاحق أو تحقق من عنوان URL للتأكد من صحته."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немагчыма прачытаць гэты фід. Паспрабуйце пазней або праверце URL, каб пераканацца, што ён сапраўдны."
           }
         },
         "bn" : {
@@ -1323,6 +1557,12 @@
             "value" : "Tidak mungkin membaca umpan ini. Coba lagi nanti atau periksa URL untuk memastikan itu valid."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è possibile leggere questo feed. Riprova più tardi o controlla l'URL per assicurarti che sia valido."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1347,6 +1587,12 @@
             "value" : "Невозможно прочитать эту ленту. Попробуйте снова позже или проверьте URL, чтобы убедиться, что он правильный."
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk është e mundur të lexoni këtë feed. Provoni përsëri më vonë ose kontrolloni URL-në për t'u siguruar që është e vlefshme."
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1368,6 +1614,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "استكشاف التغذيات"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прагляд фідаў"
           }
         },
         "bn" : {
@@ -1418,6 +1670,12 @@
             "value" : "Jelajahi umpan"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esplora feed"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1442,6 +1700,12 @@
             "value" : "Исследуйте ленты"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eksploro feed-et"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1463,6 +1727,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "قدم عنوان URL لصفحة الويب للبحث عن تغذيتها"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увядзіце URL вэб-старонкі, каб знайсці яе фіды"
           }
         },
         "bn" : {
@@ -1513,6 +1783,12 @@
             "value" : "Berikan URL halaman web untuk mencari umpannya"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fornisci un URL di una pagina web per cercare i suoi feed"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1537,6 +1813,12 @@
             "value" : "Укажите URL веб-страницы для поиска ее лент"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jepni një URL të një faqeje në internet për të kërkuar feed-et e saj"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1558,6 +1840,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "بحث"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук"
           }
         },
         "bn" : {
@@ -1608,6 +1896,12 @@
             "value" : "Cari"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1632,6 +1926,12 @@
             "value" : "Поиск"
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërko"
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1653,6 +1953,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "يعمل البحث بشكل أفضل عند إدخال أكثر من كلمة واحدة."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук працуе лепш, калі вы ўводзіце больш за адно слова."
           }
         },
         "bn" : {
@@ -1703,6 +2009,12 @@
             "value" : "Pencarian berfungsi lebih baik saat Anda memasukkan lebih dari satu kata."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La ricerca funziona meglio se inserisci più di una parola."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1727,6 +2039,12 @@
             "value" : "Поиск работает лучше, когда вы вводите более одного слова."
           }
         },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkimi funksionon më mirë kur futni më shumë se një fjalë."
+          }
+        },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1748,6 +2066,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "قطط لطيفة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мілыя кацяняты"
           }
         },
         "bn" : {
@@ -1798,6 +2122,12 @@
             "value" : "Anak kucing lucu"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gattini carini"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1820,6 +2150,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Милые котята"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mace të lezetshme"
           }
         },
         "uk" : {
