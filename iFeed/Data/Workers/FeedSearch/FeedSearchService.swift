@@ -56,7 +56,7 @@ final class FeedSearchService {
                 return
             }
             guard let dtoData = data,
-                let dto = try? JSONDecoder().decode(FeedSearchDTO.self, from: dtoData) else {
+                let dto: FeedSearchDTO = try? JSONDecoder().decode(FeedSearchDTO.self, from: dtoData) else {
                 completion(FeedSearchResult.failure(FeedSearchError.dataDecoding))
                 return
             }

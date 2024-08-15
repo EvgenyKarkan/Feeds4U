@@ -15,7 +15,7 @@ final class FeedSearchResultsViewController: UITableViewController {
     private var webPageTitle: String = String()
     private var feedParseCallback: ((Feed) -> Void)?
 
-    private var reuseId = FeedSearchResultsCell.reuseId
+    private let reuseId = FeedSearchResultsCell.reuseId
     private lazy var parser = Parser()
 
     // MARK: - Constructor
@@ -24,7 +24,16 @@ final class FeedSearchResultsViewController: UITableViewController {
                        webPage: String,
                        parsingCallback: ((Feed) -> Void)?) -> UINavigationController {
         let vcr = FeedSearchResultsViewController.instanceFromNib()
-        vcr.searchResults = data
+
+        /// Filter data from items with invalid URL
+        let filteredData: FeedSearchDTO = data.compactMap { element -> FeedSearchElement? in
+            if let urlString = element.selfURL, URL(string: urlString) != nil {
+                return element
+            }
+            return nil
+        }
+
+        vcr.searchResults = filteredData
         vcr.webPageTitle = webPage
         vcr.feedParseCallback = parsingCallback
 
@@ -116,7 +125,7 @@ extension FeedSearchResultsViewController: ParserDelegateProtocol {
     func didEndParsingFeed(_ feed: Feed) {
         hideSpinner()
 
-        dump(feed)
+        ///dump(feed)
 
         feedParseCallback?(feed)
         tableView.reloadData()
