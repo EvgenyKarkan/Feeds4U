@@ -88,6 +88,12 @@
             "value" : "ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,10 +213,28 @@
             "value" : "Aggiungi un nuovo feed per iniziare"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始するには、新しいフィードを追加してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작하려면 새 피드를 추가하세요"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj nowy kanał, aby rozpocząć"
           }
         },
         "pt-BR" : {
@@ -235,6 +259,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shto një feed të ri për të filluar"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่มฟีดใหม่เพื่อเริ่มต้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başlamak için yeni bir besleme ekleyin"
           }
         },
         "uk" : {
@@ -320,10 +356,28 @@
             "value" : "Aggiungi un nuovo feed"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフィードを追加"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 피드 추가"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : " ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj nowy kanał"
           }
         },
         "pt-BR" : {
@@ -348,6 +402,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shto një feed të ri"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่มฟีดใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni bir besleme ekle"
           }
         },
         "uk" : {
@@ -433,10 +499,28 @@
             "value" : "Annulla"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਰੱਦ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
           }
         },
         "pt-BR" : {
@@ -461,6 +545,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anulo"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยกเลิก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal"
           }
         },
         "uk" : {
@@ -546,10 +642,28 @@
             "value" : "OK"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਠੀਕ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "pt-BR" : {
@@ -574,6 +688,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตกลง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamam"
           }
         },
         "uk" : {
@@ -659,10 +785,28 @@
             "value" : "Inserisci un nuovo feed"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフィードを入力してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 피드를 입력하세요"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਇੱਕ ਨਵੀਂ ਫੀਡ ਦਰਜ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadź nowy kanał"
           }
         },
         "pt-BR" : {
@@ -687,6 +831,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Futni një feed të ri"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อนฟีดใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni bir besleme girin"
           }
         },
         "uk" : {
@@ -772,10 +928,28 @@
             "value" : "Errore"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오류"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : " ਗਲਤੀ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Błąd"
           }
         },
         "pt-BR" : {
@@ -800,6 +974,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gabim"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อผิดพลาด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata"
           }
         },
         "uk" : {
@@ -885,10 +1071,28 @@
             "value" : "Si è verificato un errore di decodifica dei dati"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データのデコード中にエラーが発生しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "데이터 디코딩 오류가 발생했습니다"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਇੱਕ ਡਾਟਾ ਡਿਕੋਡਿੰਗ ਗਲਤੀ ਆਈ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wystąpił błąd dekodowania danych"
           }
         },
         "pt-BR" : {
@@ -913,6 +1117,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ka ndodhur një gabim gjatë deshifrimit të të dhënave"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกิดข้อผิดพลาดในการถอดรหัสข้อมูล"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir veri çözme hatası oluştu"
           }
         },
         "uk" : {
@@ -998,10 +1214,28 @@
             "value" : "Oops..."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おっと…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이런…"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਓਹ..."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ups..."
           }
         },
         "pt-BR" : {
@@ -1026,6 +1260,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oops..."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โอ๊ะ..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata..."
           }
         },
         "uk" : {
@@ -1111,10 +1357,28 @@
             "value" : "L'URL che hai inserito non sembra essere valido"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "入力されたURLは有効ではないようです"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "입력한 URL이 유효하지 않은 것 같습니다"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਤੁਸੀਂ ਦਿੱਤਾ URL ਵੈਧ ਨਹੀਂ ਲੱਗਦਾ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadzony URL wydaje się być nieprawidłowy"
           }
         },
         "pt-BR" : {
@@ -1139,6 +1403,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL-ja që keni futur nuk duket të jetë e vlefshme"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL ที่คุณป้อนไม่ถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girdiğiniz URL geçerli görünmüyor"
           }
         },
         "uk" : {
@@ -1224,10 +1500,28 @@
             "value" : "Non ci sono risultati che corrispondono alla tua ricerca"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索に一致する結果がありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색어와 일치하는 결과가 없습니다"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਤੁਹਾਡੇ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਣ ਵਾਲਾ ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak wyników pasujących do twojego wyszukiwania"
           }
         },
         "pt-BR" : {
@@ -1252,6 +1546,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuk ka asnjë rezultat që përputhet me kërkimin tuaj"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีผลลัพธ์ที่ตรงกับการค้นหาของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aramanızla eşleşen sonuç bulunamadı"
           }
         },
         "uk" : {
@@ -1337,10 +1643,28 @@
             "value" : "Sembra che questo feed esista già. Inserisci uno diverso per continuare."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このフィードはすでに存在するようです。続行するには別のものを入力してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 피드는 이미 존재하는 것 같습니다. 계속하려면 다른 피드를 입력하세요."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਲੱਗਦਾ ਹੈ ਕਿ ਇਹ ਫੀਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਇੱਕ ਹੋਰ ਫੀਡ ਦਰਜ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wygląda na to, że ten kanał już istnieje. Wprowadź inny, aby kontynuować."
           }
         },
         "pt-BR" : {
@@ -1365,6 +1689,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Duket se ky feed ekziston tashmë. Futni një tjetër për të vazhduar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูเหมือนว่าฟีดนี้มีอยู่แล้ว โปรดป้อนฟีดอื่นเพื่อดำเนินการต่อ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu besleme zaten mevcut gibi görünüyor. Devam etmek için farklı bir tane girin."
           }
         },
         "uk" : {
@@ -1450,10 +1786,28 @@
             "value" : "Si è verificato l'errore %@ mentre si tentava di accedere al servizio"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サービスにアクセスしようとしたときに%@エラーが発生しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서비스에 액세스하려는 동안 %@ 오류가 발생했습니다"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਜਦੋਂ ਸਰਵਿਸ 'ਤੇ ਪਹੁੰਚ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਸੀ ਤਾਂ %@ ਗਲਤੀ ਆਈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wystąpił błąd %@ podczas próby uzyskania dostępu do usługi"
           }
         },
         "pt-BR" : {
@@ -1478,6 +1832,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gabimi %@ ka ndodhur gjatë përpjekjes për të hyrë në shërbim"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกิดข้อผิดพลาด %@ ขณะพยายามเข้าถึงบริการ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hizmete erişmeye çalışırken %@ hatası oluştu"
           }
         },
         "uk" : {
@@ -1563,10 +1929,28 @@
             "value" : "Non è possibile leggere questo feed. Riprova più tardi o controlla l'URL per assicurarti che sia valido."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このフィードを読み込むことができません。後でもう一度試すか、URLが有効であることを確認してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 피드를 읽을 수 없습니다. 나중에 다시 시도하거나 URL이 유효한지 확인하세요."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਇਹ ਫੀਡ ਪੜ੍ਹਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ URL ਨੂੰ ਚੈਕ ਕਰੋ ਕਿ ਇਹ ਵੈਧ ਹੈ ਕਿ ਨਹੀਂ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie można odczytać tego kanału. Spróbuj ponownie później lub sprawdź, czy URL jest poprawny."
           }
         },
         "pt-BR" : {
@@ -1591,6 +1975,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nuk është e mundur të lexoni këtë feed. Provoni përsëri më vonë ose kontrolloni URL-në për t'u siguruar që është e vlefshme."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถอ่านฟีดนี้ได้ โปรดลองใหม่อีกครั้งในภายหลังหรือตรวจสอบ URL เพื่อให้แน่ใจว่าถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu beslemeyi okumak mümkün değil. Daha sonra tekrar deneyin veya URL'nin geçerli olduğundan emin olun."
           }
         },
         "uk" : {
@@ -1676,10 +2072,28 @@
             "value" : "Esplora feed"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィードを探索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "피드 탐색"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਫੀਡਸ ਦੀ ਪੜਚੋਲ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przeglądaj kanały"
           }
         },
         "pt-BR" : {
@@ -1704,6 +2118,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eksploro feed-et"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรวจฟีด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beslemeleri keşfet"
           }
         },
         "uk" : {
@@ -1789,10 +2215,28 @@
             "value" : "Fornisci un URL di una pagina web per cercare i suoi feed"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィードを検索するには、ウェブページのURLを入力してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "피드를 검색하려면 웹페이지 URL을 입력하세요"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਇਸਦੀ ਫੀਡ ਲੱਭਣ ਲਈ ਇੱਕ ਵੈਬਪੇਜ URL ਦਿਓ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podaj URL strony internetowej, aby wyszukać jej kanały"
           }
         },
         "pt-BR" : {
@@ -1817,6 +2261,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jepni një URL të një faqeje në internet për të kërkuar feed-et e saj"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อน URL ของหน้าเว็บเพื่อค้นหาฟีดของหน้า"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beslemelerini aramak için bir web sayfası URL'si girin"
           }
         },
         "uk" : {
@@ -1902,10 +2358,28 @@
             "value" : "Cerca"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਖੋਜ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szukaj"
           }
         },
         "pt-BR" : {
@@ -1930,6 +2404,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kërko"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค้นหา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ara"
           }
         },
         "uk" : {
@@ -2015,10 +2501,28 @@
             "value" : "La ricerca funziona meglio se inserisci più di una parola."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索は、複数の単語を入力することで最適に機能します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "두 개 이상의 단어를 입력하면 검색이 더 잘 작동합니다."
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਖੋਜ ਸਭ ਤੋਂ ਵਧੀਆ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰਦੀ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਇੱਕ ਤੋਂ ਵੱਧ ਸ਼ਬਦ ਦਰਜ ਕਰਦੇ ਹੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyszukiwanie działa najlepiej, gdy wpiszesz więcej niż jedno słowo."
           }
         },
         "pt-BR" : {
@@ -2043,6 +2547,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kërkimi funksionon më mirë kur futni më shumë se një fjalë."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การค้นหาจะทำงานได้ดีที่สุดเมื่อคุณป้อนมากกว่าหนึ่งคำ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arama, birden fazla kelime girdiğinizde en iyi şekilde çalışır."
           }
         },
         "uk" : {
@@ -2128,10 +2644,28 @@
             "value" : "Gattini carini"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "かわいい子猫"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "귀여운 고양이들"
+          }
+        },
         "pa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ਸੁਹਣੇ ਬਿੱਲੀਆਂ ਦੇ ਬੱਚੇ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Słodkie kotki"
           }
         },
         "pt-BR" : {
@@ -2156,6 +2690,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mace të lezetshme"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลูกแมวน่ารัก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sevimli kedicikler"
           }
         },
         "uk" : {

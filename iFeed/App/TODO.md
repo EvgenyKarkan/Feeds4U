@@ -104,18 +104,18 @@ As of my last update, here is a list of the top 20 countries by population:
 8. ✅**Bangladesh**: Approximately 169 million
 9. ✅**Russia**: Approximately 146 million
 10. ✅**Mexico**: Approximately 129 million
-11. **Japan**: Approximately 126 million
+11. ✅**Japan**: Approximately 126 million
 12. **Ethiopia**: Approximately 121 million
 13. ✅**Philippines**: Approximately 113 million
 14. ✅**Egypt**: Approximately 104 million
 15. **Vietnam**: Approximately 98 million
 16. **DR Congo**: Approximately 101 million
-17. **Turkey**: Approximately 88 million
+17. ✅ **Turkey**: Approximately 88 million
 18. **Iran**: Approximately 86 million
 19. ✅**Germany**: Approximately 84 million
-20. **Thailand**: Approximately 70 million
-21 Italy 
-22 South Korea
+20. ✅**Thailand**: Approximately 70 million
+21 ✅Italy 
+22 ✅South Korea
 
 Please note that these populations are approximate and can vary based on different sources and methodologies used for counting.
 
@@ -133,15 +133,15 @@ Please note that these populations are approximate and can vary based on differe
 ✅Bangla (India, Bangladesh)
 ✅Punjabi Gurmukhi: approximately 95 million speakers (India + Pakistan)
 ✅Filipino (Philipines)
+✅Japanese: approximately 125 million speakers
+✅Turkish
+✅Korean
+✅Italian
+✅Thai
 
 Hausa (Nigeria)
-Japanese: approximately 125 million speakers
-Oromo (Ethiopia)
-Turkish
 Persian
-Korean
-Italian
-Thai
+Oromo (Ethiopia)
 
 
 /// ENGLISH
