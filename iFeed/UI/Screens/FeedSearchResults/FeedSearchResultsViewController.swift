@@ -125,8 +125,6 @@ extension FeedSearchResultsViewController: ParserDelegateProtocol {
     func didEndParsingFeed(_ feed: Feed) {
         hideSpinner()
 
-        ///dump(feed)
-
         feedParseCallback?(feed)
         tableView.reloadData()
     }
