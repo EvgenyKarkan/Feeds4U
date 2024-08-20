@@ -14,6 +14,7 @@ import Dispatch
 protocol ParserDelegateProtocol: AnyObject {
     func didStartParsingFeed()
     func didEndParsingFeed(_ feed: Feed)
+    #warning("ADD ERROR ARGUMENT HERE")
     func didFailParsingFeed()
 }
 
@@ -34,7 +35,7 @@ final class Parser {
         delegate?.didStartParsingFeed()
 
         let parser = FeedParser(URL: url)
-        let backgroundQueue = DispatchQueue(label: #function, qos: .background)
+        let backgroundQueue = DispatchQueue(label: #function, qos: .userInitiated)
 
         parser.parseAsync(queue: backgroundQueue) { result in
             DispatchQueue.main.async { [weak self] in
@@ -49,6 +50,7 @@ final class Parser {
                             self?.finishJsonParsing(jsonFeed: jsonFeed, url: url)
                         }
                     case .failure(let error):
+                        #warning("HANDLE ERROR ON UI")
                         print("GOT PARSING ERROR ---> \(error.localizedDescription)")
                         self?.delegate?.didFailParsingFeed()
                     }

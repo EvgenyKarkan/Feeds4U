@@ -132,5 +132,7 @@ extension FeedSearchResultsViewController: ParserDelegateProtocol {
     func didFailParsingFeed() {
         hideSpinner()
         tableView.reloadData()
+
+        #warning("ADD ERROR HANDLING")
     }
 }

@@ -19,8 +19,8 @@ extension UIViewController {
         return instantiateFromNib(self)
     }
 
-    // MARK: - Common alert
-    func showAlert(_ message: String) {
+    // MARK: - Common error alert
+    func showErrorAlert(_ message: String) {
         let alertController = UIAlertController(
             title: String.localized(key: LocalizableKeys.Errors.generic),
             message: message,
@@ -35,11 +35,11 @@ extension UIViewController {
 
     // MARK: - Specific alerts
     func showInvalidFeedAlert() {
-        showAlert(String.localized(key: LocalizableKeys.Errors.unreadableFeed))
+        showErrorAlert(String.localized(key: LocalizableKeys.Errors.unreadableFeed))
     }
 
     func showAlreadySavedFeedAlert() {
-        showAlert(String.localized(key: LocalizableKeys.Errors.preExistedFeed))
+        showErrorAlert(String.localized(key: LocalizableKeys.Errors.preExistedFeed))
     }
 }
 
