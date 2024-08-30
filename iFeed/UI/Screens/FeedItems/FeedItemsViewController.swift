@@ -180,6 +180,5 @@ private extension FeedItemsViewController {
         }
 
         prewarmingToken = SFSafariViewController.prewarmConnections(to: urls)
-        //dump(prewarmingToken)
     }
 }
