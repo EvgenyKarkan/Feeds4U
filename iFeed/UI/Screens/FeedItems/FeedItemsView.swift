@@ -17,7 +17,7 @@ protocol FeedItemsViewDelegate: AnyObject {
 final class FeedItemsView: BaseView {
 
     // MARK: - Property
-    weak var delegate: FeedItemsViewDelegate?
+    weak var delegate: (any FeedItemsViewDelegate)?
     private lazy var refreshControl = UIRefreshControl()
 
     // MARK: - Base override

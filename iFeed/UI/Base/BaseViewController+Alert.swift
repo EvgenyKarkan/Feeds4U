@@ -103,7 +103,7 @@ extension BaseViewController {
         present(alertController, animated: true)
     }
 
-    func showErrorAlertView(error: Error) {
+    func showErrorAlertView(error: any Error) {
         let action = UIAlertAction(
             title: String.localized(key: LocalizableKeys.confirmation),
             style: .default,

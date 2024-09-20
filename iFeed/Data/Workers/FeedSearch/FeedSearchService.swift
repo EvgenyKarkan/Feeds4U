@@ -9,12 +9,12 @@
 import Foundation
 
 // MARK: - Type definitions
-typealias FeedSearchResult = Swift.Result<FeedSearchDTO, Error>
+typealias FeedSearchResult = Swift.Result<FeedSearchDTO, any Error>
 typealias FeedSearchResultCompletion = (FeedSearchResult) -> Void
 
 enum FeedSearchError: LocalizedError {
     case invalidURL
-    case endpoint(Error)
+    case endpoint(any Error)
     case dataDecoding
 
     // MARK: - LocalizedError

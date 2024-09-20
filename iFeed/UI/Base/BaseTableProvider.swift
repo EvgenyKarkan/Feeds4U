@@ -18,10 +18,10 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - Properties
     var dataSource: [AnyObject] = []
-    weak var delegate: TableProviderProtocol?
+    weak var delegate: (any TableProviderProtocol)?
 
     // MARK: - Designated init
-    required init(delegateObject: TableProviderProtocol) {
+    required init(delegateObject: any TableProviderProtocol) {
         delegate = delegateObject
     }
 

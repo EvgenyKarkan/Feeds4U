@@ -28,14 +28,14 @@ final class Parser {
     static let parser = Parser()
 
     // MARK: - Properties
-    weak var delegate: ParserDelegateProtocol?
+    weak var delegate: (any ParserDelegateProtocol)?
 
     // MARK: - Public API
     func beginParsingURL(_ url: URL) {
         delegate?.didStartParsingFeed()
 
         let parser = FeedParser(URL: url)
-        let backgroundQueue = DispatchQueue(label: #function, qos: .userInitiated)
+        let backgroundQueue = DispatchQueue(label: #function, qos: .default)
 
         parser.parseAsync(queue: backgroundQueue) { result in
             DispatchQueue.main.async { [weak self] in
