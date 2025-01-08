@@ -1,11 +1,11 @@
 Feeds4U
 ===========
 
-Simple RSS reader app.
+Simple RSS reader app.  
 RSS, Atom, JSON feeds.
 
 ## Contributions
-Please ensure that all pull requests are directed to the 'develop' branch.  
+Please ensure that all pull requests are directed to the `develop` branch.  
 
 ## Important Note      
 You are free to use the code as you see fit, but please refrain from using any app icons or image assets, as their usage is strictly prohibited.  
