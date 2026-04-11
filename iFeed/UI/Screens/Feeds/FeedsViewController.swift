@@ -208,13 +208,13 @@ extension FeedsViewController: TableProviderProtocol {
 
         /// Hide `trash` & `search` if no data source
         if provider?.dataSource.isEmpty == true {
-            DispatchQueue.main.async(execute: { [self] in
-                addTrashButton(false)
+            DispatchQueue.main.async(execute: { [weak self] in
+                self?.addTrashButton(false)
 
-                feedListView?.tableView.setEditing(false, animated: false)
-                feedListView?.tableView.alpha = .zero
+                self?.feedListView?.tableView.setEditing(false, animated: false)
+                self?.feedListView?.tableView.alpha = .zero
 
-                navigationItem.rightBarButtonItems?.removeLast()
+                self?.navigationItem.rightBarButtonItems?.removeLast()
             })
         }
     }

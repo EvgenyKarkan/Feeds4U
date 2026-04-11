@@ -18,10 +18,19 @@ final class FeedCell: UITableViewCell, Reusable {
 
     var titleText: String? {
         didSet {
-            guard let text = titleText else { return }
+            guard let text = titleText, !text.isEmpty else {
+                topLabel.isHidden = true
+                return
+            }
 
-            topLabel.text = text
-            topLabel.isHidden = text.isEmpty
+            // TODO: - Put this logic out of Cell
+            let cleanedText = text
+                .components(separatedBy: .whitespacesAndNewlines)
+                .filter { !$0.isEmpty }
+                .joined(separator: " ")
+
+            topLabel.text = cleanedText
+            topLabel.isHidden = cleanedText.isEmpty
         }
     }
 

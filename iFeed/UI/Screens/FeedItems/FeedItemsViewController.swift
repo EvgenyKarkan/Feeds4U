@@ -93,7 +93,29 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
             provider?.dataSource = items
         }
 
-        let safariVC = SafariViewController(url: url)
+        let configuration = SFSafariViewController.Configuration()
+
+        let safariVC = SFSafariViewController(url: url, configuration: configuration)
+
+        let zoomOptions = UIViewController.Transition.ZoomOptions()
+        zoomOptions.alignmentRectProvider = { context in
+            guard let sourceView = context.zoomedViewController.view else {
+                return .zero
+            }
+            // Align to the center of the source view with some inset for a dramatic effect
+            return sourceView.bounds.insetBy(dx: 20, dy: 20)
+        }
+        zoomOptions.dimmingColor = .tangerine
+        zoomOptions.dimmingVisualEffect = UIBlurEffect(style: .prominent)
+
+        safariVC.preferredTransition = .zoom(options: zoomOptions) { [weak self] _ in
+            guard let self = self,
+                  let tableView = self.feedItemsView?.tableView,
+                  let cell = tableView.cellForRow(at: indexPath) else {
+                return nil
+            }
+            return cell
+        }
         present(safariVC, animated: true)
     }
 
@@ -116,9 +138,9 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
 
         /// Existed feed items
         let existFeedItems: [FeedItem] = (currentFeed.feedItems.allObjects as? [FeedItem]) ?? []
-        let existedTitles: [String] = existFeedItems.map(\.title)
-        let existedLinks: [String] = existFeedItems.map(\.link)
-        let existedDates: [TimeInterval] = existFeedItems.map(\.publishDate.timeIntervalSince1970)
+        let existedTitles: Set<String> = Set(existFeedItems.map(\.title))
+        let existedLinks: Set<String> = Set(existFeedItems.map(\.link))
+        let existedDates: Set<TimeInterval> = Set(existFeedItems.map(\.publishDate.timeIntervalSince1970))
 
         print("existFeedItems ---- \(existFeedItems.count)")
 
@@ -172,13 +194,57 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
 // MARK: - Private
 private extension FeedItemsViewController {
 
+    /// Pre-warms Safari connections for feed item URLs to improve loading performance
+    ///
+    /// Safari's connection prewarming establishes network connections in advance, allowing web pages
+    /// to load faster when the user actually taps on a feed item. This method processes feed items,
+    /// validates their URLs, and requests Safari to prewarm connections to unique URLs.
+    ///
+    /// - Parameter items: Array of feed items whose URLs should be prewarmed
+    ///
+    /// - Note: This method is called in two scenarios:
+    ///   1. When initially loading a feed (`viewDidLoad`) - prewarms all feed items
+    ///   2. After refreshing a feed (`didEndParsingFeed`) - prewarms only new unique items
     func prewarmConnections(to items: [FeedItem]) {
-        let urls: [URL] = items.compactMap({ URL(string: $0.link) })
+        // Step 1: Clean up any existing prewarming token
+        // -----------------------------------------------
+        // If we previously prewarmed connections, invalidate that token to free up system resources.
+        // This prevents resource leaks when the method is called multiple times (e.g., during refresh).
+        prewarmingToken?.invalidate()
 
-        guard !urls.isEmpty else {
+        // Step 2: Extract and deduplicate valid URLs from feed items
+        // -----------------------------------------------------------
+        // - Filter out items with empty link strings (prevents URL creation failures)
+        // - Convert link strings to URL objects (compactMap removes nil values from invalid URLs)
+        // - Use Set to automatically eliminate duplicate URLs, improving both:
+        //   * Performance: O(n) deduplication
+        //   * Resource efficiency: Don't prewarm the same URL multiple times
+        let uniqueURLs = Set(items.compactMap { item -> URL? in
+            guard !item.link.isEmpty else { return nil }
+            return URL(string: item.link)
+        })
+
+        // Step 3: Validate we have URLs to prewarm
+        // -----------------------------------------
+        // If no valid URLs were found, clear the token and exit early
+        guard !uniqueURLs.isEmpty else {
+            prewarmingToken = nil
             return
         }
 
-        prewarmingToken = SFSafariViewController.prewarmConnections(to: urls)
+        // Step 4: Limit the number of connections to prewarm
+        // ---------------------------------------------------
+        // Safari's connection prewarming has practical system limits. Prewarming too many connections
+        // can be wasteful and may not provide benefits beyond the first few items the user is likely
+        // to tap. Limiting to 10 URLs balances performance with resource usage.
+        // Note: Set is unordered, so prefix() gives arbitrary 10 items, not necessarily the "first" ones
+        let urlsToPrewarm = Array(uniqueURLs.prefix(10))
+
+        // Step 5: Request Safari to prewarm connections
+        // ----------------------------------------------
+        // Store the token so we can invalidate it later when:
+        // - The view controller is dismissed/popped (in viewWillDisappear)
+        // - New items are being prewarmed (Step 1 of this method)
+        prewarmingToken = SFSafariViewController.prewarmConnections(to: urlsToPrewarm)
     }
 }

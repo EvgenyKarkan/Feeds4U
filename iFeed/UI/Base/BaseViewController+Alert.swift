@@ -34,10 +34,10 @@ extension BaseViewController {
         guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
-        alertController.addTextField { textField in
+        alertController.addTextField { [weak self] textField in
             textField.placeholder = "https://www.something.com/rss"
             textField.addTarget(self,
-                                action: #selector(self.textFieldDidChangeForURLInput(_:)),
+                                action: #selector(self?.textFieldDidChangeForURLInput(_:)),
                                 for: .editingChanged)
 
             /// Try to handle redirect link from `application(_ application: UIApplication, open url: URL, ...)`
@@ -84,10 +84,10 @@ extension BaseViewController {
         guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
-        alertController.addTextField { textField in
+        alertController.addTextField { [weak self] textField in
             textField.placeholder = "https://www.something.com"
             textField.addTarget(self,
-                                action: #selector(self.textFieldDidChangeForURLInput(_:)),
+                                action: #selector(self?.textFieldDidChangeForURLInput(_:)),
                                 for: .editingChanged)
 
             /// Try to handle copied to pasteboard link

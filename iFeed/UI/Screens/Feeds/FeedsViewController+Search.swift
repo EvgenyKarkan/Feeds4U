@@ -65,10 +65,10 @@ extension FeedsViewController {
         guard let nextAction = nextAction else { return }
 
         alertController.addAction(nextAction)
-        alertController.addTextField { textField in
+        alertController.addTextField { [weak self] textField in
             textField.placeholder = String.localized(key: LocalizableKeys.Search.placeholder)
             textField.addTarget(self,
-                                action: #selector(self.textFieldDidChangeForSearchInput(_:)),
+                                action: #selector(self?.textFieldDidChangeForSearchInput(_:)),
                                 for: .editingChanged)
         }
 

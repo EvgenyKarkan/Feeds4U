@@ -91,5 +91,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
+	<key>UIUserInterfaceStyle</key>
+	<string></string>
 </dict>
 </plist>
