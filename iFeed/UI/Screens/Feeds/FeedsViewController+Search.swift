@@ -15,9 +15,10 @@ extension FeedsViewController {
         showSpinner()
 
         search.fillMatchingEngine {
-            DispatchQueue.main.async { [self] in
-                hideSpinner()
-                showEnterSearch()
+            DispatchQueue.main.async { [weak self] in
+                self?.hideSpinner({
+                    self?.showEnterSearch()
+                })
             }
         }
     }

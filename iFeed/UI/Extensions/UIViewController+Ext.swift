@@ -55,7 +55,7 @@ extension UIViewController {
            .show()
     }
 
-    func hideSpinner() {
-        KRProgressHUD.dismiss()
+    func hideSpinner(_ completion: (() -> Void)? = nil) {
+        KRProgressHUD.dismiss(completion)
     }
 }
