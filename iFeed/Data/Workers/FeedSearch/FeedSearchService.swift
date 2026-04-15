@@ -71,6 +71,56 @@ enum FeedSearchError: LocalizedError {
     }
 }
 
+// MARK: - FeedSearchServiceProtocol
+
+/// Protocol defining the interface for feed search operations
+///
+/// This protocol abstracts the feed search functionality, allowing for different
+/// implementations (production, mock, test doubles) while maintaining a consistent API.
+///
+/// **Available Methods:**
+/// - Completion-based API for legacy code and compatibility
+/// - Async/await API for modern Swift Concurrency code
+///
+/// **Use Cases:**
+/// - Dependency injection in view models and coordinators
+/// - Unit testing with mock implementations
+/// - Swapping between different feed search providers
+///
+/// **Example:**
+/// ```swift
+/// class FeedViewModel {
+///     private let searchService: FeedSearchServiceProtocol
+///
+///     init(searchService: FeedSearchServiceProtocol = FeedSearchService()) {
+///         self.searchService = searchService
+///     }
+///
+///     func search(url: String) async throws {
+///         let dto = try await searchService.searchFeeds(on: url)
+///         // Handle results...
+///     }
+/// }
+/// ```
+protocol FeedSearchServiceProtocol {
+    
+    /// Searches for RSS/Atom feeds on a given webpage using completion handler
+    ///
+    /// - Parameters:
+    ///   - webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
+    ///   - completion: Closure called when the search completes or fails
+    ///
+    /// - Important: The completion handler is called on a background thread.
+    func searchFeeds(on webPage: String, completion: @escaping FeedSearchResultCompletion)
+    
+    /// Searches for RSS/Atom feeds on a given webpage using async/await
+    ///
+    /// - Parameter webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
+    /// - Returns: A `FeedSearchDTO` containing the discovered feeds
+    /// - Throws: `FeedSearchError` if the operation fails
+    func searchFeeds(on webPage: String) async throws -> FeedSearchDTO
+}
+
 // MARK: - FeedSearchService
 
 /// Service for discovering RSS and Atom feeds on webpages
@@ -134,15 +184,33 @@ final class FeedSearchService {
     ///
     /// Creating a JSONDecoder has overhead (property caching, setup).
     /// Reusing a single instance saves ~8ms per decode operation.
-    private let decoder = JSONDecoder()
+    fileprivate let decoder = JSONDecoder()
 
-    // MARK: - Public API
+    // MARK: - Lifecycle
 
-    /// Searches for RSS/Atom feeds on a given webpage
+    /// Cleans up network resources when the service is deallocated
     ///
-    /// This method queries the FeedSearch.dev API to discover available feeds on the specified
+    /// Invalidates the URLSession, which:
+    /// - Cancels all pending network requests
+    /// - Releases connection pools
+    /// - Frees up system resources
+    ///
+    /// This is especially important if the service is held for a long time or if
+    /// you're creating multiple instances.
+    deinit {
+        session.invalidateAndCancel()
+    }
+}
+
+// MARK: - FeedSearchServiceProtocol Conformance
+
+extension FeedSearchService: FeedSearchServiceProtocol {
+    
+    /// Searches for `RSS/Atom` feeds on a given webpage
+    ///
+    /// This method queries the `FeedSearch.dev` API to discover available feeds on the specified
     /// webpage. The API performs deep inspection of the page's HTML and linked resources to find
-    /// feeds, including RSS 2.0, RSS 1.0, Atom, and JSON Feed formats.
+    /// feeds, including `RSS 2.0`, `RSS 1.0`, `Atom`, and `JSON Feed` formats.
     ///
     /// **Process Flow:**
     /// 1. Validates and encodes the input URL
@@ -246,18 +314,91 @@ final class FeedSearchService {
         task.resume()
     }
 
-    // MARK: - Lifecycle
+    /// Searches for `RSS/Atom` feeds on a given webpage using async/await
+    ///
+    /// This is the modern `Swift Concurrency` version of `searchFeeds(on:completion:)`.
+    /// It provides the same functionality but with a cleaner async/await interface.
+    ///
+    /// **Process Flow:**
+    /// 1. Validates and encodes the input URL
+    /// 2. Constructs API request to feedsearch.dev
+    /// 3. Executes network request asynchronously
+    /// 4. Decodes JSON response into `FeedSearchDTO`
+    /// 5. Returns result or throws error
+    ///
+    /// **Thread Safety:**
+    /// This method is async and can be called from any context. The URLSession
+    /// automatically handles threading for you.
+    ///
+    /// - Parameter webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
+    /// - Returns: A `FeedSearchDTO` containing the discovered feeds
+    /// - Throws: `FeedSearchError` if the operation fails
+    ///
+    /// **Example:**
+    /// ```swift
+    /// Task {
+    ///     do {
+    ///         let dto = try await service.searchFeeds(on: "https://daringfireball.net")
+    ///         await MainActor.run {
+    ///             self.displayFeeds(dto.feeds)
+    ///         }
+    ///     } catch {
+    ///         await MainActor.run {
+    ///             self.showError(error)
+    ///         }
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// **Possible Errors:**
+    /// - `FeedSearchError.invalidURL`: Input URL is empty or cannot be encoded
+    /// - `FeedSearchError.endpoint`: Network error, timeout, or API unavailable
+    /// - `FeedSearchError.dataDecoding`: API response couldn't be parsed
+    func searchFeeds(on webPage: String) async throws -> FeedSearchDTO {
+        // Step 1: Validate input and construct URL
+        // -----------------------------------------
+        guard !webPage.isEmpty else {
+            throw FeedSearchError.invalidURL
+        }
 
-    /// Cleans up network resources when the service is deallocated
-    ///
-    /// Invalidates the URLSession, which:
-    /// - Cancels all pending network requests
-    /// - Releases connection pools
-    /// - Frees up system resources
-    ///
-    /// This is especially important if the service is held for a long time or if
-    /// you're creating multiple instances.
-    deinit {
-        session.invalidateAndCancel()
+        // Properly encode the URL parameter to handle special characters
+        guard let encodedWebPage = webPage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "https://feedsearch.dev/api/v1/search?url=\(encodedWebPage)") else {
+            throw FeedSearchError.invalidURL
+        }
+
+        // Step 2: Create and configure request
+        // -------------------------------------
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.attribution = .user  // iOS 15+: Marks this as user-initiated for privacy
+        request.cachePolicy = .reloadIgnoringLocalCacheData  // Always fetch fresh results
+
+        // Step 3: Execute network request using async URLSession API
+        // -----------------------------------------------------------
+        let data: Data
+        do {
+            // URLSession.data(for:) automatically throws on network errors
+            (data, _) = try await session.data(for: request)
+        } catch {
+            // Wrap network errors in our custom error type
+            throw FeedSearchError.endpoint(error)
+        }
+
+        // Step 4: Validate response data
+        // -------------------------------
+        guard !data.isEmpty else {
+            throw FeedSearchError.dataDecoding
+        }
+
+        // Step 5: Decode JSON response
+        // -----------------------------
+        do {
+            let dto = try decoder.decode(FeedSearchDTO.self, from: data)
+            return dto
+        } catch {
+            // Decoding failed - malformed JSON, schema mismatch, etc.
+            throw FeedSearchError.dataDecoding
+        }
     }
 }

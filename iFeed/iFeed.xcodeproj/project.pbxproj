@@ -12,6 +12,9 @@
 		089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseViewController.swift */; };
 		08BCAB462BB76C9200F06D8D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C36F52BB22B9200337EB4 /* Settings.bundle */; };
+		08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 08E20D612F90483500059CED /* OHHTTPStubs */; };
+		08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08E20D632F90483500059CED /* OHHTTPStubsSwift */; };
+		08E20D6C2F90573400059CED /* FeedSearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E20D6A2F90573400059CED /* FeedSearchServiceTests.swift */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
@@ -53,12 +56,27 @@
 		2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE34A832A92DC54009634FB /* KRProgressHUD */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		08E20D5A2F90478D00059CED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE763D0C1B7E841300C8B54A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE763D131B7E841300C8B54A;
+			remoteInfo = iFeed;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0845E16D2BB4B86800BB318A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		089C36F52BB22B9200337EB4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreatable.swift; sourceTree = "<group>"; };
+		08A7D1462F76B8A3008BDBBB /* CODE_REVIEW_IMPROVEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_REVIEW_IMPROVEMENTS.md; sourceTree = "<group>"; };
+		08A7D1492F76B950008BDBBB /* REVIEW_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = REVIEW_SUMMARY.md; sourceTree = "<group>"; };
+		08A7D14A2F76B9A2008BDBBB /* ARCHITECTURE_DIAGRAMS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ARCHITECTURE_DIAGRAMS.md; sourceTree = "<group>"; };
 		08AAA5872BEAC92A002AB2A3 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		08E20D562F90478C00059CED /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08E20D6A2F90573400059CED /* FeedSearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchServiceTests.swift; sourceTree = "<group>"; };
 		2E2304B92954ABBA00B1F930 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		2E2304BB2954ABBA00B1F930 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -102,6 +120,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		08E20D532F90478C00059CED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */,
+				08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE763D111B7E841300C8B54A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -114,12 +141,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0845E16F2BB4E0A900BB318A /* Extensions */ = {
+		08E20D692F90569900059CED /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				0845E16D2BB4B86800BB318A /* String+Ext.swift */,
+				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		08E20D6B2F90573400059CED /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				08E20D6A2F90573400059CED /* FeedSearchServiceTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		2E2304B82954ABBA00B1F930 /* App */ = {
@@ -143,7 +179,6 @@
 			children = (
 				2E2304C72954ABC900B1F930 /* Models */,
 				2E2304CA2954ABC900B1F930 /* Workers */,
-				0845E16F2BB4E0A900BB318A /* Extensions */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -214,7 +249,6 @@
 				2E2304FC2954ABDB00B1F930 /* Base */,
 				2E2304ED2954ABDB00B1F930 /* Cells */,
 				2E2304F02954ABDB00B1F930 /* Screens */,
-				2E38DDB729E2374A00839B66 /* Extensions */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -281,14 +315,6 @@
 			path = FeedSearchResults;
 			sourceTree = "<group>";
 		};
-		2E38DDB729E2374A00839B66 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		2E8B7B1A29C6902800FB91C8 /* FeedSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,8 +330,13 @@
 				2E2304B82954ABBA00B1F930 /* App */,
 				2E2304EC2954ABDB00B1F930 /* UI */,
 				2E2304C62954ABC900B1F930 /* Data */,
+				08E20D692F90569900059CED /* Extensions */,
 				2E2304E02954ABD300B1F930 /* Libs */,
+				08E20D6B2F90573400059CED /* Tests */,
 				DE763D151B7E841300C8B54A /* Products */,
+				08A7D1462F76B8A3008BDBBB /* CODE_REVIEW_IMPROVEMENTS.md */,
+				08A7D1492F76B950008BDBBB /* REVIEW_SUMMARY.md */,
+				08A7D14A2F76B9A2008BDBBB /* ARCHITECTURE_DIAGRAMS.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -313,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				DE763D141B7E841300C8B54A /* iFeed.app */,
+				08E20D562F90478C00059CED /* iFeedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,6 +352,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		08E20D552F90478C00059CED /* iFeedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08E20D5F2F90478D00059CED /* Build configuration list for PBXNativeTarget "iFeedTests" */;
+			buildPhases = (
+				08E20D522F90478C00059CED /* Sources */,
+				08E20D532F90478C00059CED /* Frameworks */,
+				08E20D542F90478C00059CED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08E20D5B2F90478D00059CED /* PBXTargetDependency */,
+			);
+			name = iFeedTests;
+			packageProductDependencies = (
+				08E20D612F90483500059CED /* OHHTTPStubs */,
+				08E20D632F90483500059CED /* OHHTTPStubsSwift */,
+			);
+			productName = iFeedTests;
+			productReference = 08E20D562F90478C00059CED /* iFeedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DE763D131B7E841300C8B54A /* iFeed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE763D331B7E841300C8B54A /* Build configuration list for PBXNativeTarget "iFeed" */;
@@ -351,10 +405,14 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = EVK;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = "Evgeny Karkan";
 				TargetAttributes = {
+					08E20D552F90478C00059CED = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = DE763D131B7E841300C8B54A;
+					};
 					DE763D131B7E841300C8B54A = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 7VW32GE5L3;
@@ -389,17 +447,26 @@
 			packageReferences = (
 				2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
 				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
+				08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				DE763D131B7E841300C8B54A /* iFeed */,
+				08E20D552F90478C00059CED /* iFeedTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		08E20D542F90478C00059CED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE763D121B7E841300C8B54A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,6 +506,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		08E20D522F90478C00059CED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08E20D6C2F90573400059CED /* FeedSearchServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE763D101B7E841300C8B54A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,7 +557,108 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		08E20D5B2F90478D00059CED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE763D131B7E841300C8B54A /* iFeed */;
+			targetProxy = 08E20D5A2F90478D00059CED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		08E20D5C2F90478D00059CED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.evgenykarkan.iFeedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iFeed.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iFeed";
+			};
+			name = Debug;
+		};
+		08E20D5D2F90478D00059CED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.evgenykarkan.iFeedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iFeed.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iFeed";
+			};
+			name = Release;
+		};
+		08E20D5E2F90478D00059CED /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.evgenykarkan.iFeedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iFeed.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iFeed";
+			};
+			name = AdHoc;
+		};
 		DE0799B92249888900A6BB21 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -850,6 +1026,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		08E20D5F2F90478D00059CED /* Build configuration list for PBXNativeTarget "iFeedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08E20D5C2F90478D00059CED /* Debug */,
+				08E20D5D2F90478D00059CED /* Release */,
+				08E20D5E2F90478D00059CED /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DE763D0F1B7E841300C8B54A /* Build configuration list for PBXProject "iFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -873,6 +1059,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 		2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nmdias/FeedKit";
@@ -892,6 +1086,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		08E20D612F90483500059CED /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubs;
+		};
+		08E20D632F90483500059CED /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubsSwift;
+		};
 		2E2305142954EAA900B1F930 /* FeedKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */;

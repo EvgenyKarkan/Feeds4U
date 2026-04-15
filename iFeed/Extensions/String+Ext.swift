@@ -52,9 +52,11 @@ extension String {
 
         do {
             let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            let matches = detector.matches(in: self,
-                                           options: [],
-                                           range: NSRange(location: .zero, length: utf16.count))
+            let matches = detector.matches(
+                in: self,
+                options: [],
+                range: NSRange(location: .zero, length: utf16.count)
+            )
             return !matches.isEmpty
         } catch {
             return false
