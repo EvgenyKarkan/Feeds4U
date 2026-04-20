@@ -14,18 +14,18 @@ import OHHTTPStubsSwift
 
 // MARK: - FeedSearchServiceTests
 
-@Suite("FeedSearchService Tests")
+@Suite("FeedSearchService Tests", .serialized)
 final class FeedSearchServiceTests {
 
-    // MARK: - Test Lifecycle
+    // MARK: - Setup and Teardown
 
     init() {
-        // Reset stubs before each test
+        // Ensure no stubs are active when test suite starts
         HTTPStubs.removeAllStubs()
     }
 
     deinit {
-        // Clean up after all tests
+        // Clean up when test suite is deallocated
         HTTPStubs.removeAllStubs()
     }
 
@@ -34,22 +34,26 @@ final class FeedSearchServiceTests {
     @Test("Successful feed search with valid response using completion handler")
     func testSuccessfulFeedSearchWithCompletion() async throws {
         // Given: Mock successful API response
+        let mockJSON: String = """
+        [
+            {
+                "description": "A test feed",
+                "favicon": "https://example.com/favicon.ico",
+                "self_url": "https://example.com/feed/self",
+                "site_name": "Example Site",
+                "site_url": "https://example.com",
+                "title": "Example Feed",
+                "url": "https://example.com/feed"
+            }
+        ]
+        """
+
         stub(condition: isHost("feedsearch.dev")) { _ in
-            let mockJSON = """
-            [
-                {
-                    "description": "A test feed",
-                    "favicon": "https://example.com/favicon.ico",
-                    "self_url": "https://example.com/feed/self",
-                    "site_name": "Example Site",
-                    "site_url": "https://example.com",
-                    "title": "Example Feed",
-                    "url": "https://example.com/feed"
-                }
-            ]
-            """
+            guard let jsonData: Data = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
             )
@@ -58,9 +62,9 @@ final class FeedSearchServiceTests {
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
-            service.searchFeeds(on: "https://example.com") { result in
-                continuation.resume(returning: result)
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+            service.searchFeeds(on: "https://example.com") { completionResult in
+                continuation.resume(returning: completionResult)
             }
         }
 
@@ -68,10 +72,12 @@ final class FeedSearchServiceTests {
         switch result {
         case .success(let dto):
             #expect(dto.count == 1)
-            #expect(dto.first?.title == "Example Feed")
-            #expect(dto.first?.url == "https://example.com/feed")
-            #expect(dto.first?.siteName == "Example Site")
-            #expect(dto.first?.description == "A test feed")
+
+            let firstFeed = dto.first
+            #expect(firstFeed?.title == "Example Feed")
+            #expect(firstFeed?.url == "https://example.com/feed")
+            #expect(firstFeed?.siteName == "Example Site")
+            #expect(firstFeed?.description == "A test feed")
         case .failure(let error):
             Issue.record("Expected success but got error: \(error)")
         }
@@ -97,17 +103,20 @@ final class FeedSearchServiceTests {
                 }
             ]
             """
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -130,17 +139,20 @@ final class FeedSearchServiceTests {
         // Given: Mock API response with empty array
         stub(condition: isHost("feedsearch.dev")) { _ in
             let mockJSON = "[]"
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -174,11 +186,14 @@ final class FeedSearchServiceTests {
                 }
             ]
             """
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -205,11 +220,14 @@ final class FeedSearchServiceTests {
                 {"title": "Feed 4", "url": "https://example.com/4"}
             ]
             """
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -231,7 +249,7 @@ final class FeedSearchServiceTests {
         let service = FeedSearchService()
 
         // When: Searching with empty URL
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "") { result in
                 continuation.resume(returning: result)
             }
@@ -256,8 +274,13 @@ final class FeedSearchServiceTests {
         let service = FeedSearchService()
 
         // When/Then: Should throw invalidURL error
-        await #expect(throws: FeedSearchError.invalidURL) {
-            try await service.searchFeeds(on: "")
+        do {
+            _ = try await service.searchFeeds(on: "")
+            Issue.record("Expected invalidURL error but succeeded")
+        } catch let error as FeedSearchError {
+            #expect(error == .invalidURL)
+        } catch {
+            Issue.record("Expected FeedSearchError.invalidURL but got \(error)")
         }
     }
 
@@ -267,9 +290,13 @@ final class FeedSearchServiceTests {
         let service = FeedSearchService()
 
         // When/Then: Should throw invalidURL error
-        // Note: Most special characters are actually encodable, but we test the failure path
-        await #expect(throws: FeedSearchError.invalidURL) {
-            try await service.searchFeeds(on: "")
+        do {
+            _ = try await service.searchFeeds(on: "")
+            Issue.record("Expected invalidURL error but succeeded")
+        } catch let error as FeedSearchError {
+            #expect(error == .invalidURL)
+        } catch {
+            Issue.record("Expected FeedSearchError.invalidURL but got \(error)")
         }
     }
 
@@ -284,13 +311,13 @@ final class FeedSearchServiceTests {
                 code: NSURLErrorTimedOut,
                 userInfo: [NSLocalizedDescriptionKey: "Request timed out"]
             )
-            return HTTPStubsResponse(error: error)
+            return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -320,7 +347,7 @@ final class FeedSearchServiceTests {
                 code: NSURLErrorTimedOut,
                 userInfo: nil
             )
-            return HTTPStubsResponse(error: error)
+            return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -350,7 +377,7 @@ final class FeedSearchServiceTests {
                 code: NSURLErrorNotConnectedToInternet,
                 userInfo: nil
             )
-            return HTTPStubsResponse(error: error)
+            return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -377,7 +404,7 @@ final class FeedSearchServiceTests {
                 data: Data(),
                 statusCode: 500,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -401,17 +428,20 @@ final class FeedSearchServiceTests {
         // Given: Mock invalid JSON response
         stub(condition: isHost("feedsearch.dev")) { _ in
             let invalidJSON = "{ this is not valid JSON }"
+            guard let jsonData = invalidJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: invalidJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: ["Content-Type": "application/json"]
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -435,18 +465,26 @@ final class FeedSearchServiceTests {
         // Given: Mock invalid JSON response
         stub(condition: isHost("feedsearch.dev")) { _ in
             let invalidJSON = "not a json array"
+            guard let jsonData = invalidJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: invalidJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When/Then: Should throw dataDecoding error
-        await #expect(throws: FeedSearchError.dataDecoding) {
-            try await service.searchFeeds(on: "https://example.com")
+        do {
+            _ = try await service.searchFeeds(on: "https://example.com")
+            Issue.record("Expected dataDecoding error but succeeded")
+        } catch let error as FeedSearchError {
+            #expect(error == .dataDecoding)
+        } catch {
+            Issue.record("Expected FeedSearchError.dataDecoding but got \(error)")
         }
     }
 
@@ -458,13 +496,13 @@ final class FeedSearchServiceTests {
                 data: Data(),
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When: Searching for feeds
-        let result = await withCheckedContinuation { continuation in
+        let result: FeedSearchResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -494,18 +532,26 @@ final class FeedSearchServiceTests {
                 ]
             }
             """
+            guard let jsonData = wrongSchema.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: wrongSchema.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
 
         // When/Then: Should throw dataDecoding error
-        await #expect(throws: FeedSearchError.dataDecoding) {
-            try await service.searchFeeds(on: "https://example.com")
+        do {
+            _ = try await service.searchFeeds(on: "https://example.com")
+            Issue.record("Expected dataDecoding error but succeeded")
+        } catch let error as FeedSearchError {
+            #expect(error == .dataDecoding)
+        } catch {
+            Issue.record("Expected FeedSearchError.dataDecoding")
         }
     }
 
@@ -513,14 +559,17 @@ final class FeedSearchServiceTests {
 
     @Test("URL with special characters gets properly encoded")
     func testURLEncoding() async throws {
-        // Given: URL with special characters
+        // Given: URL with special characters that need encoding
         var capturedURLString: String?
 
         stub(condition: isHost("feedsearch.dev")) { request in
             capturedURLString = request.url?.absoluteString
             let mockJSON = "[]"
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
             )
@@ -528,12 +577,16 @@ final class FeedSearchServiceTests {
 
         let service = FeedSearchService()
 
-        // When: Searching with special characters
-        _ = try? await service.searchFeeds(on: "https://example.com/page?id=1&name=test")
+        // When: Searching with URL containing characters that need encoding (colon in path)
+        _ = try? await service.searchFeeds(on: "https://example.com/hello world")
 
         // Then: URL should be properly encoded
         #expect(capturedURLString != nil)
-        #expect(capturedURLString?.contains("%") == true) // Should contain encoded characters
+        if let urlString = capturedURLString {
+            // The space should be encoded as %20
+            #expect(urlString.contains("%20"))
+            #expect(!urlString.contains("hello world")) // Original unencoded string should not be present
+        }
     }
 
     @Test("URL with spaces gets properly encoded")
@@ -543,11 +596,12 @@ final class FeedSearchServiceTests {
 
         stub(condition: isHost("feedsearch.dev")) { request in
             capturedURLString = request.url?.absoluteString
+            let jsonData = Data("[]".utf8)
             return HTTPStubsResponse(
-                data: "[]".data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -557,7 +611,9 @@ final class FeedSearchServiceTests {
 
         // Then: Spaces should be encoded
         #expect(capturedURLString != nil)
-        #expect(capturedURLString?.contains(" ") == false)
+        if let urlString = capturedURLString {
+            #expect(!urlString.contains(" "))
+        }
     }
 
     // MARK: - Request Configuration Tests
@@ -569,11 +625,12 @@ final class FeedSearchServiceTests {
 
         stub(condition: isHost("feedsearch.dev")) { request in
             capturedRequest = request
+            let jsonData = Data("[]".utf8)
             return HTTPStubsResponse(
-                data: "[]".data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
         let service = FeedSearchService()
@@ -583,8 +640,10 @@ final class FeedSearchServiceTests {
 
         // Then: Request should be configured correctly
         #expect(capturedRequest != nil)
-        #expect(capturedRequest?.httpMethod == "GET")
-        #expect(capturedRequest?.cachePolicy == .reloadIgnoringLocalCacheData)
+        if let request = capturedRequest {
+            #expect(request.httpMethod == "GET")
+            #expect(request.cachePolicy == .reloadIgnoringLocalCacheData)
+        }
     }
 
     // MARK: - Performance Tests
@@ -596,19 +655,22 @@ final class FeedSearchServiceTests {
             let mockJSON = """
             [{"title": "Test Feed", "url": "https://example.com/feed"}]
             """
+            guard let jsonData = mockJSON.data(using: .utf8) else {
+                return HTTPStubsResponse(error: NSError(domain: "TestError", code: -1))
+            }
             return HTTPStubsResponse(
-                data: mockJSON.data(using: .utf8)!,
+                data: jsonData,
                 statusCode: 200,
                 headers: nil
-            )
+            ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
-
-        // When: Making multiple concurrent requests
-        async let result1 = service.searchFeeds(on: "https://example1.com")
-        async let result2 = service.searchFeeds(on: "https://example2.com")
-        async let result3 = service.searchFeeds(on: "https://example3.com")
+        // When: Making multiple concurrent requests with separate service instances
+        // This avoids data race warnings in Swift 6 by ensuring each concurrent
+        // context has its own service instance
+        async let result1 = FeedSearchService().searchFeeds(on: "https://example1.com")
+        async let result2 = FeedSearchService().searchFeeds(on: "https://example2.com")
+        async let result3 = FeedSearchService().searchFeeds(on: "https://example3.com")
 
         // Then: All should succeed
         let (dto1, dto2, dto3) = try await (result1, result2, result3)

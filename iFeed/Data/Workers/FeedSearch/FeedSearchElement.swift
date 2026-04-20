@@ -1,5 +1,5 @@
 //
-//  FeedSearchDTO.swift
+//  FeedSearchElement.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 08.04.2023.

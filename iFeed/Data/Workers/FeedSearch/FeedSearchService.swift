@@ -103,8 +103,8 @@ enum FeedSearchError: LocalizedError {
 /// }
 /// ```
 protocol FeedSearchServiceProtocol {
-    
-    /// Searches for RSS/Atom feeds on a given webpage using completion handler
+
+    /// Searches for RSS/Atom feeds on a given webpage using `completion handler`
     ///
     /// - Parameters:
     ///   - webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
@@ -112,8 +112,8 @@ protocol FeedSearchServiceProtocol {
     ///
     /// - Important: The completion handler is called on a background thread.
     func searchFeeds(on webPage: String, completion: @escaping FeedSearchResultCompletion)
-    
-    /// Searches for RSS/Atom feeds on a given webpage using async/await
+
+    /// Searches for RSS/Atom feeds on a given webpage using `async/await`
     ///
     /// - Parameter webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
     /// - Returns: A `FeedSearchDTO` containing the discovered feeds
@@ -205,7 +205,7 @@ final class FeedSearchService {
 // MARK: - FeedSearchServiceProtocol Conformance
 
 extension FeedSearchService: FeedSearchServiceProtocol {
-    
+
     /// Searches for `RSS/Atom` feeds on a given webpage
     ///
     /// This method queries the `FeedSearch.dev` API to discover available feeds on the specified
