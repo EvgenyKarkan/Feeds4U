@@ -11,6 +11,7 @@
 		0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E16D2BB4B86800BB318A /* String+Ext.swift */; };
 		0854F37B2F95BC22000F4B5C /* FeedSearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0854F37A2F95BC22000F4B5C /* FeedSearchServiceTests.swift */; };
 		0854F37E2F96EDA7000F4B5C /* FeedSearchElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0854F37C2F96ED83000F4B5C /* FeedSearchElementTests.swift */; };
+		08742A582F981A8900F7AF93 /* SimpleSimilarity in Frameworks */ = {isa = PBXBuildFile; productRef = 08742A572F981A8900F7AF93 /* SimpleSimilarity */; };
 		089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseViewController.swift */; };
 		08BCAB462BB76C9200F06D8D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C36F52BB22B9200337EB4 /* Settings.bundle */; };
@@ -29,11 +30,6 @@
 		2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D22954ABC900B1F930 /* Presenter.swift */; };
 		2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D32954ABC900B1F930 /* Parser.swift */; };
 		2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */; };
-		2E2304E72954ABD300B1F930 /* MatchingEngineAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E22954ABD300B1F930 /* MatchingEngineAlgorithm.swift */; };
-		2E2304E82954ABD300B1F930 /* StringsForBagOfWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E32954ABD300B1F930 /* StringsForBagOfWords.swift */; };
-		2E2304E92954ABD300B1F930 /* IndexMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E42954ABD300B1F930 /* IndexMatrix.swift */; };
-		2E2304EA2954ABD300B1F930 /* MatchingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E52954ABD300B1F930 /* MatchingEngine.swift */; };
-		2E2304EB2954ABD300B1F930 /* TextualDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304E62954ABD300B1F930 /* TextualDataImport.swift */; };
 		2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304EE2954ABDB00B1F930 /* FeedCell.swift */; };
 		2E2305012954ABDB00B1F930 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304EF2954ABDB00B1F930 /* FeedCell.xib */; };
 		2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */; };
@@ -93,11 +89,6 @@
 		2E2304D22954ABC900B1F930 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		2E2304D32954ABC900B1F930 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableProvider.swift; sourceTree = "<group>"; };
-		2E2304E22954ABD300B1F930 /* MatchingEngineAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngineAlgorithm.swift; sourceTree = "<group>"; };
-		2E2304E32954ABD300B1F930 /* StringsForBagOfWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsForBagOfWords.swift; sourceTree = "<group>"; };
-		2E2304E42954ABD300B1F930 /* IndexMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMatrix.swift; sourceTree = "<group>"; };
-		2E2304E52954ABD300B1F930 /* MatchingEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingEngine.swift; sourceTree = "<group>"; };
-		2E2304E62954ABD300B1F930 /* TextualDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextualDataImport.swift; sourceTree = "<group>"; };
 		2E2304EE2954ABDB00B1F930 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		2E2304EF2954ABDB00B1F930 /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItemsView.swift; sourceTree = "<group>"; };
@@ -136,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */,
+				08742A582F981A8900F7AF93 /* SimpleSimilarity in Frameworks */,
 				2E2305152954EAA900B1F930 /* FeedKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,26 +218,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		2E2304E02954ABD300B1F930 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-				2E2304E12954ABD300B1F930 /* SimpleSimilarity */,
-			);
-			path = Libs;
-			sourceTree = "<group>";
-		};
-		2E2304E12954ABD300B1F930 /* SimpleSimilarity */ = {
-			isa = PBXGroup;
-			children = (
-				2E2304E22954ABD300B1F930 /* MatchingEngineAlgorithm.swift */,
-				2E2304E32954ABD300B1F930 /* StringsForBagOfWords.swift */,
-				2E2304E42954ABD300B1F930 /* IndexMatrix.swift */,
-				2E2304E52954ABD300B1F930 /* MatchingEngine.swift */,
-				2E2304E62954ABD300B1F930 /* TextualDataImport.swift */,
-			);
-			path = SimpleSimilarity;
-			sourceTree = "<group>";
-		};
 		2E2304EC2954ABDB00B1F930 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,7 +306,6 @@
 				2E2304EC2954ABDB00B1F930 /* UI */,
 				2E2304C62954ABC900B1F930 /* Data */,
 				08E20D692F90569900059CED /* Extensions */,
-				2E2304E02954ABD300B1F930 /* Libs */,
 				08E20D6B2F90573400059CED /* Tests */,
 				DE763D151B7E841300C8B54A /* Products */,
 				08A7D1462F76B8A3008BDBBB /* CODE_REVIEW_IMPROVEMENTS.md */,
@@ -394,6 +365,7 @@
 			packageProductDependencies = (
 				2E2305142954EAA900B1F930 /* FeedKit */,
 				2EE34A832A92DC54009634FB /* KRProgressHUD */,
+				08742A572F981A8900F7AF93 /* SimpleSimilarity */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -451,6 +423,7 @@
 				2E2305132954EAA900B1F930 /* XCRemoteSwiftPackageReference "FeedKit" */,
 				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 				08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
+				08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -522,7 +495,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E2304EA2954ABD300B1F930 /* MatchingEngine.swift in Sources */,
 				2E38DDB929E2375F00839B66 /* UIViewController+Ext.swift in Sources */,
 				2E8B7B1C29C6905700FB91C8 /* FeedSearchService.swift in Sources */,
 				2E2305082954ABDB00B1F930 /* FeedsViewController+Search.swift in Sources */,
@@ -532,13 +504,9 @@
 				089C36F72BB23E6E00337EB4 /* EntityCreatable.swift in Sources */,
 				2E2305092954ABDB00B1F930 /* FeedsView.swift in Sources */,
 				2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */,
-				2E2304E92954ABD300B1F930 /* IndexMatrix.swift in Sources */,
 				2E2304D72954ABC900B1F930 /* Feed.swift in Sources */,
-				2E2304E72954ABD300B1F930 /* MatchingEngineAlgorithm.swift in Sources */,
-				2E2304EB2954ABD300B1F930 /* TextualDataImport.swift in Sources */,
 				2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */,
 				2E2305042954ABDB00B1F930 /* FeedItemsViewController.swift in Sources */,
-				2E2304E82954ABD300B1F930 /* StringsForBagOfWords.swift in Sources */,
 				2E23050C2954ABDB00B1F930 /* BaseView.swift in Sources */,
 				2E2305062954ABDB00B1F930 /* FeedsViewController.swift in Sources */,
 				0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */,
@@ -1069,6 +1037,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EvgenyKarkan/SimpleSimilarity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -1096,6 +1072,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		08742A572F981A8900F7AF93 /* SimpleSimilarity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */;
+			productName = SimpleSimilarity;
+		};
 		08E20D612F90483500059CED /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;

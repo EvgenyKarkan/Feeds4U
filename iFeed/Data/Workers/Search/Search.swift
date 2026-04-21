@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import SimpleSimilarity
 
 /// Performs local search over feed items using a text matching engine
 ///

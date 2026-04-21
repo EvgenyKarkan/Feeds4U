@@ -1,5 +1,5 @@
 {
-  "originHash" : "6e6ffb47fe7eacfc71d330a779faddb85b1e02eb1bd7fe1fa44d9fb5e6271ec1",
+  "originHash" : "1ea3884bf71ac4cd31fb4daadb27f66f6d8249b2253e35a203f88b280606b902",
   "pins" : [
     {
       "identity" : "feedkit",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
         "version" : "9.1.0"
+      }
+    },
+    {
+      "identity" : "simplesimilarity",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EvgenyKarkan/SimpleSimilarity",
+      "state" : {
+        "revision" : "7719a0ced7ee18f2f8d2b86bd737bf149b08670d",
+        "version" : "1.0.0"
       }
     }
   ],
