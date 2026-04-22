@@ -36,7 +36,10 @@ final class FeedCell: UITableViewCell, Reusable {
 
     var subTitleText: String? {
         didSet {
-            guard let text = subTitleText else { return }
+            guard let text = subTitleText else {
+                bottomLabel.isHidden = true
+                return
+            }
 
             bottomLabel.text = text
             bottomLabel.isHidden = text.isEmpty

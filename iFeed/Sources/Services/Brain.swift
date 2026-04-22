@@ -13,7 +13,6 @@ final class Brain {
     // MARK: - Properties
     let parser: Parser
     let coreDater: CoreDataManager
-    let presenter: Presenter
 
     // MARK: - Singleton
     static let brain = Brain()
@@ -22,12 +21,6 @@ final class Brain {
     init() {
         parser = Parser.parser
         coreDater = CoreDataManager.manager
-        presenter = Presenter.presenter
-    }
-
-    // MARK: - Public APIs
-    func start() {
-        presenter.showStartScreen()
     }
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {

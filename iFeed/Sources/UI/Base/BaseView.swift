@@ -33,7 +33,7 @@ class BaseView: UIView {
         lbl.backgroundColor = backgroundColor
         lbl.font = .systemFont(ofSize: 18)
         lbl.textAlignment = .center
-        lbl.numberOfLines = 0
+        lbl.numberOfLines = .zero
         lbl.text = String.localized(key: LocalizableKeys.Feed.addNew)
         lbl.textColor = UIColor(resource: .tangerine)
         lbl.translatesAutoresizingMaskIntoConstraints = false

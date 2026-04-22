@@ -28,7 +28,6 @@
 		2E2304D72954ABC900B1F930 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304C92954ABC900B1F930 /* Feed.swift */; };
 		2E2304D92954ABC900B1F930 /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304CE2954ABC900B1F930 /* Brain.swift */; };
 		2E2304DB2954ABC900B1F930 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D02954ABC900B1F930 /* CoreDataManager.swift */; };
-		2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D22954ABC900B1F930 /* Presenter.swift */; };
 		2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D32954ABC900B1F930 /* Parser.swift */; };
 		2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */; };
 		2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304EE2954ABDB00B1F930 /* FeedCell.swift */; };
@@ -88,7 +87,6 @@
 		2E2304C92954ABC900B1F930 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		2E2304CE2954ABC900B1F930 /* Brain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		2E2304D02954ABC900B1F930 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		2E2304D22954ABC900B1F930 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		2E2304D32954ABC900B1F930 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		2E2304D52954ABC900B1F930 /* BaseTableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableProvider.swift; sourceTree = "<group>"; };
 		2E2304EE2954ABDB00B1F930 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -154,9 +152,8 @@
 				08742A622F9842AF00F7AF93 /* Parser */,
 				08742A5F2F98411C00F7AF93 /* Search */,
 				2E8B7B1A29C6902800FB91C8 /* FeedSearch */,
-				08742A642F9845EC00F7AF93 /* CoreDataManager */,
+				08742A642F9845EC00F7AF93 /* CoreData */,
 				2E2304CE2954ABC900B1F930 /* Brain.swift */,
-				2E2304D22954ABC900B1F930 /* Presenter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -188,13 +185,13 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		08742A642F9845EC00F7AF93 /* CoreDataManager */ = {
+		08742A642F9845EC00F7AF93 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				2E2304D02954ABC900B1F930 /* CoreDataManager.swift */,
 				089C36F62BB23E6E00337EB4 /* EntityCreatable.swift */,
 			);
-			path = CoreDataManager;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		08E20D692F90569900059CED /* Extensions */ = {
@@ -516,7 +513,6 @@
 				2E2305062954ABDB00B1F930 /* FeedsViewController.swift in Sources */,
 				0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */,
 				2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */,
-				2E2304DD2954ABC900B1F930 /* Presenter.swift in Sources */,
 				2E2305072954ABDB00B1F930 /* FeedsTableProvider.swift in Sources */,
 				2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */,
 				2E38DDB129E1CA9200839B66 /* FeedSearchResultsCell.swift in Sources */,
