@@ -22,15 +22,24 @@ extension ParserDelegateProtocol {
     func didStartParsingFeed() {}
 }
 
+// MARK: - ParserProtocol
+protocol ParserProtocol {
+    func beginParsingURL(_ url: URL)
+}
+
+// MARK: - Parser class
 final class Parser {
 
     // MARK: - Singleton
-    static let parser = Parser()
+    static let parser = Parser() // remove singleton
 
     // MARK: - Properties
     weak var delegate: (any ParserDelegateProtocol)?
+}
 
-    // MARK: - Public API
+// MARK: - ParserProtocol, Public API
+extension Parser: ParserProtocol {
+
     func beginParsingURL(_ url: URL) {
         delegate?.didStartParsingFeed()
 
@@ -57,8 +66,12 @@ final class Parser {
             }
         }
     }
+}
 
-    private func finishRSSParsing(rssFeed: RSSFeed, url: URL) {
+// MARK: - Private
+private extension Parser {
+
+    func finishRSSParsing(rssFeed: RSSFeed, url: URL) {
         guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return
@@ -88,7 +101,7 @@ final class Parser {
         delegate?.didEndParsingFeed(feed)
     }
 
-    private func finishAtomParsing(atomFeed: AtomFeed, url: URL) {
+    func finishAtomParsing(atomFeed: AtomFeed, url: URL) {
         guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return
@@ -118,7 +131,7 @@ final class Parser {
         delegate?.didEndParsingFeed(feed)
     }
 
-    private func finishJsonParsing(jsonFeed: JSONFeed, url: URL) {
+    func finishJsonParsing(jsonFeed: JSONFeed, url: URL) {
         guard let feed: Feed = Brain.brain.createFeedEntity() as? Feed else {
             delegate?.didFailParsingFeed()
             return

@@ -37,8 +37,11 @@ struct Search {
     ///
     /// Reused instance to avoid creating multiple managers.
     private let coreDataManager = Brain.brain.coreDater
+}
 
-    // MARK: - Public API
+// MARK: - Searchable Conformance
+
+extension Search: Searchable {
 
     /// Fills the matching engine with all available feed items
     ///
@@ -120,7 +123,7 @@ struct Search {
     ///     }
     /// }
     /// ```
-    func search(for searchTerm: String, resultsFound: ([FeedItem]?) -> Void) {
+    func search(for searchTerm: String, resultsFound: @escaping ([FeedItem]?) -> Void) {
         // Verify the matching engine is ready
         guard matchingEngine?.isFilled ?? false else {
             resultsFound(nil)

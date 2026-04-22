@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Feed)
-class Feed: NSManagedObject {
+final class Feed: NSManagedObject {
 
     @NSManaged var rssURL: String
     @NSManaged var title: String?
