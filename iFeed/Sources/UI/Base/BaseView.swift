@@ -11,13 +11,38 @@ import UIKit
 class BaseView: UIView {
 
     // MARK: - Properties
-    private(set) lazy var tableView = UITableView()
-    private(set) lazy var label = UILabel()
+    private(set) lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = backgroundColor
+        table.cellLayoutMarginsFollowReadableWidth = false
+        table.translatesAutoresizingMaskIntoConstraints = false
+
+        // Performance optimizations
+        table.estimatedRowHeight = 44
+        table.rowHeight = UITableView.automaticDimension
+
+        // Register cell once during initialization
+        let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
+        table.register(nib, forCellReuseIdentifier: FeedCell.reuseId)
+
+        return table
+    }()
+
+    private(set) lazy var label: UILabel = {
+        let lbl = UILabel()
+        lbl.backgroundColor = backgroundColor
+        lbl.font = .systemFont(ofSize: 18)
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 0
+        lbl.text = String.localized(key: LocalizableKeys.Feed.addNew)
+        lbl.textColor = UIColor(resource: .tangerine)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
 
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         initialViewSetup()
     }
 
@@ -27,7 +52,6 @@ class BaseView: UIView {
 
     init() {
         super.init(frame: .zero)
-
         initialViewSetup()
     }
 
@@ -35,39 +59,29 @@ class BaseView: UIView {
     func initialViewSetup() {
         backgroundColor = .systemBackground
 
-        /// Label
-        label.backgroundColor = backgroundColor
-        label.font = .systemFont(ofSize: 18)
-        label.textAlignment = .center
-        label.numberOfLines = .zero
-        label.text = String.localized(key: LocalizableKeys.Feed.addNew)
-        label.textColor = UIColor(resource: .tangerine)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        // Add subviews
         addSubview(label)
-
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-
-        /// Tableview
-        tableView.backgroundColor = backgroundColor
-        tableView.cellLayoutMarginsFollowReadableWidth = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tableView)
 
+        // Setup constraints once
+        setupConstraints()
+    }
+
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
+            // Label constraints
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+            // TableView constraints
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
-
-        let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: FeedCell.reuseId)
-    }
-
-    func reloadTableView() {
-        tableView.reloadData()
     }
 }
