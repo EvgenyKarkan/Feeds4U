@@ -518,6 +518,213 @@ struct FeedSearchElementTests {
         }
     }
 
+    // MARK: - Computed Property Tests (rssURL)
+
+    @Test("rssURL returns selfURL when both selfURL and url are present")
+    func testRSSURLPrioritizesSelfURL() {
+        // Given: Element with both selfURL and url
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: "https://example.com/feed/self",
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: "https://example.com/feed"
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return selfURL (priority)
+        #expect(rssURL == "https://example.com/feed/self")
+    }
+
+    @Test("rssURL returns url when selfURL is nil")
+    func testRSSURLFallbacksToURL() {
+        // Given: Element with only url (selfURL is nil)
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: nil,
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: "https://example.com/feed.xml"
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return url as fallback
+        #expect(rssURL == "https://example.com/feed.xml")
+    }
+
+    @Test("rssURL returns nil when both selfURL and url are nil")
+    func testRSSURLReturnsNilWhenBothNil() {
+        // Given: Element with both selfURL and url as nil
+        let element = FeedSearchElement(
+            description: "Test",
+            favicon: nil,
+            selfURL: nil,
+            siteName: "Test Site",
+            siteURL: nil,
+            title: "Test Title",
+            url: nil
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return nil
+        #expect(rssURL == nil)
+    }
+
+    @Test("rssURL returns nil for empty element")
+    func testRSSURLWithEmptyElement() {
+        // Given: Element with all fields nil
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: nil,
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: nil
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return nil
+        #expect(rssURL == nil)
+    }
+
+    @Test("rssURL handles empty string in selfURL")
+    func testRSSURLWithEmptySelfURL() {
+        // Given: Element with empty selfURL and valid url
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: "",
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: "https://example.com/feed"
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return empty selfURL (it's not nil, so it has priority)
+        #expect(rssURL == "")
+    }
+
+    @Test("rssURL handles empty string in url when selfURL is nil")
+    func testRSSURLWithEmptyURL() {
+        // Given: Element with nil selfURL and empty url
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: nil,
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: ""
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return empty string from url
+        #expect(rssURL == "")
+    }
+
+    @Test("rssURL preserves exact URL format from selfURL")
+    func testRSSURLPreservesExactFormat() {
+        // Given: Element with complex URLs
+        let selfURLValue = "https://feeds.example.com/feed?format=rss&category=tech&lang=en#main"
+        let element = FeedSearchElement(
+            description: nil,
+            favicon: nil,
+            selfURL: selfURLValue,
+            siteName: nil,
+            siteURL: nil,
+            title: nil,
+            url: "https://example.com/simple-feed"
+        )
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should preserve exact selfURL format
+        #expect(rssURL == selfURLValue)
+    }
+
+    @Test("rssURL works with decoded JSON using selfURL")
+    func testRSSURLFromDecodedJSONWithSelfURL() async throws {
+        // Given: JSON with both self_url and url
+        let json = """
+        {
+            "title": "Test Feed",
+            "url": "https://example.com/feed",
+            "self_url": "https://example.com/feed/canonical"
+        }
+        """
+
+        let jsonData = try #require(json.data(using: .utf8))
+        let decoder = JSONDecoder()
+        let element = try decoder.decode(FeedSearchElement.self, from: jsonData)
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return self_url
+        #expect(rssURL == "https://example.com/feed/canonical")
+    }
+
+    @Test("rssURL works with decoded JSON using url fallback")
+    func testRSSURLFromDecodedJSONWithURLFallback() async throws {
+        // Given: JSON with only url (no self_url)
+        let json = """
+        {
+            "title": "Test Feed",
+            "url": "https://example.com/rss.xml"
+        }
+        """
+
+        let jsonData = try #require(json.data(using: .utf8))
+        let decoder = JSONDecoder()
+        let element = try decoder.decode(FeedSearchElement.self, from: jsonData)
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return url as fallback
+        #expect(rssURL == "https://example.com/rss.xml")
+    }
+
+    @Test("rssURL returns nil for decoded JSON with neither field")
+    func testRSSURLFromDecodedJSONWithNoURLs() async throws {
+        // Given: JSON without url or self_url
+        let json = """
+        {
+            "title": "Feed Without URL",
+            "description": "This feed has no URL fields"
+        }
+        """
+
+        let jsonData = try #require(json.data(using: .utf8))
+        let decoder = JSONDecoder()
+        let element = try decoder.decode(FeedSearchElement.self, from: jsonData)
+
+        // When: Accessing rssURL
+        let rssURL = element.rssURL
+
+        // Then: Should return nil
+        #expect(rssURL == nil)
+    }
+
     // MARK: - Real-World API Response Tests
 
     @Test("Decode typical feedsearch.dev API response")

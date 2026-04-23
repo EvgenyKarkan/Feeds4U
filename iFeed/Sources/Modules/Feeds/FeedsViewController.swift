@@ -133,11 +133,24 @@ final class FeedsViewController: BaseViewController {
 
                 switch result {
                 case .success(let data):
+                    /// Filter data from items with invalid URL
+                    let filteredData: FeedSearchDTO = data.compactMap { element -> FeedSearchElement? in
+                        if let urlString = element.rssURL, URL(string: urlString) != nil {
+                            return element
+                        }
+                        return nil
+                    }
+                    guard !filteredData.isEmpty else {
+                        // TODO: - Handle this case on UI
+                        self?.showErrorAlertView(error: NSError(domain: #function, code: #line))
+                        return
+                    }
+
                     let callback: ((Feed) -> Void)? = { feed in
                         self?.didEndParsingFeed(feed)
                     }
                     let resultsVC = FeedSearchResultsViewController.create(
-                        with: data,
+                        with: filteredData,
                         webPage: webPage,
                         parsingCallback: callback
                     )

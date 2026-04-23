@@ -23,6 +23,11 @@ struct FeedSearchElement: Codable {
     let title: String?
     let url: String?
 
+    var rssURL: String? {
+        /// Take `.selfURL` as priority and fallback to `.url` if nil
+        return selfURL ?? url
+    }
+
     // MARK: - Codable
     enum CodingKeys: String, CodingKey {
         case description

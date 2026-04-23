@@ -8,11 +8,11 @@
 
 import UIKit
 
-final class FeedSearchResultsViewController: UITableViewController {
+final class FeedSearchResultsViewController: UITableViewController { // TODO: - consider renaming this UX, `search` may be confusing
 
     // MARK: - Properties
-    private var searchResults: FeedSearchDTO = []
-    private var webPageTitle: String = String()
+    private lazy var searchResults: FeedSearchDTO = []
+    private lazy var webPageTitle: String = String()
     private var feedParseCallback: ((Feed) -> Void)?
 
     private let reuseId = FeedSearchResultsCell.reuseId
@@ -23,21 +23,12 @@ final class FeedSearchResultsViewController: UITableViewController {
     static func create(with data: FeedSearchDTO,
                        webPage: String,
                        parsingCallback: ((Feed) -> Void)?) -> UINavigationController {
-        let vcr = FeedSearchResultsViewController.instanceFromNib()
+        let resultsController = FeedSearchResultsViewController.instanceFromNib()
+        resultsController.searchResults = data
+        resultsController.webPageTitle = webPage
+        resultsController.feedParseCallback = parsingCallback
 
-        /// Filter data from items with invalid URL
-        let filteredData: FeedSearchDTO = data.compactMap { element -> FeedSearchElement? in
-            if let urlString = element.selfURL, URL(string: urlString) != nil {
-                return element
-            }
-            return nil
-        }
-
-        vcr.searchResults = filteredData
-        vcr.webPageTitle = webPage
-        vcr.feedParseCallback = parsingCallback
-
-        let navigationVC = UINavigationController(rootViewController: vcr)
+        let navigationVC = UINavigationController(rootViewController: resultsController)
         navigationVC.modalPresentationStyle = .fullScreen
 
         return navigationVC
@@ -84,7 +75,7 @@ final class FeedSearchResultsViewController: UITableViewController {
         let element: FeedSearchElement = searchResults[indexPath.row]
         var isAlreadyStored = false
 
-        if let urlString = element.selfURL,
+        if let urlString = element.rssURL,
             let url = URL(string: urlString), Brain.brain.isAlreadySavedURL(url.absoluteString) {
             isAlreadyStored = true
         }
@@ -104,7 +95,7 @@ final class FeedSearchResultsViewController: UITableViewController {
 
         let model: FeedSearchElement = searchResults[indexPath.row]
 
-        guard let urlString = model.selfURL,
+        guard let urlString = model.rssURL,
             let url = URL(string: urlString) else {
             return
         }
