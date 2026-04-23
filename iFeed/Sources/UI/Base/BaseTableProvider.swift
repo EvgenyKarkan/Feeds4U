@@ -8,20 +8,20 @@
 
 import UIKit
 
-// MARK: - TableProviderProtocol
-@objc protocol TableProviderProtocol: AnyObject {
-    func cellDidPress(at indexPath: IndexPath)
-    @objc optional func cellNeedsDelete(at indexPath: IndexPath)
+// MARK: - TableProviderDelegate
+@objc protocol TableProviderDelegate: AnyObject {
+    func tableProvider(_ provider: BaseTableProvider, didSelectRowAt indexPath: IndexPath)
+    @objc optional func tableProvider(_ provider: BaseTableProvider, didDeleteRowAt indexPath: IndexPath)
 }
 
 class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: - Properties
     var dataSource: [AnyObject] = []
-    weak var delegate: (any TableProviderProtocol)?
+    weak var delegate: (any TableProviderDelegate)?
 
     // MARK: - Designated init
-    required init(delegateObject: any TableProviderProtocol) {
+    required init(delegateObject: any TableProviderDelegate) {
         delegate = delegateObject
     }
 
@@ -35,15 +35,19 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fatalError()
+        fatalError("Subclasses must override cellForRowAt")
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.cellDidPress(at: indexPath)
+        delegate?.tableProvider(self, didSelectRowAt: indexPath)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        delegate?.cellNeedsDelete?(at: indexPath)
+        guard editingStyle == .delete else {
+            return
+        }
+        delegate?.tableProvider?(self, didDeleteRowAt: indexPath)
     }
 }

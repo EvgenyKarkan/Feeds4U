@@ -183,10 +183,10 @@ final class FeedsViewController: BaseViewController {
     }
 }
 
-// MARK: - TableProviderProtocol
-extension FeedsViewController: TableProviderProtocol {
+// MARK: - TableProviderDelegate
+extension FeedsViewController: TableProviderDelegate {
 
-    func cellDidPress(at indexPath: IndexPath) {
+    func tableProvider(_ provider: BaseTableProvider, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count else {
             return
         }
@@ -204,7 +204,7 @@ extension FeedsViewController: TableProviderProtocol {
         navigationController?.pushViewController(itemsVC, animated: true)
     }
 
-    func cellNeedsDelete(at indexPath: IndexPath) {
+    func tableProvider(_ provider: BaseTableProvider, didDeleteRowAt indexPath: IndexPath) {
         guard indexPath.row < Brain.brain.coreDater.allFeeds().count,
             let feedToDelete: Feed = Brain.brain.feedForIndexPath(indexPath) else {
             return
@@ -213,14 +213,14 @@ extension FeedsViewController: TableProviderProtocol {
         Brain.brain.coreDater.deleteObject(feedToDelete)
         Brain.brain.coreDater.saveContext()
 
-        provider?.dataSource = Brain.brain.coreDater.allFeeds()
+        self.provider?.dataSource = Brain.brain.coreDater.allFeeds()
 
         feedListView?.tableView.beginUpdates()
         feedListView?.tableView.deleteRows(at: [indexPath], with: .fade)
         feedListView?.tableView.endUpdates()
 
         /// Hide `trash` & `search` if no data source
-        if provider?.dataSource.isEmpty == true {
+        if self.provider?.dataSource.isEmpty == true {
             DispatchQueue.main.async(execute: { [weak self] in
                 self?.addTrashButton(false)
 

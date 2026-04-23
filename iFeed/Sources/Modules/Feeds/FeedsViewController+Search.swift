@@ -57,6 +57,8 @@ extension FeedsViewController {
                         return
                     }
 
+                    print("⚠️ results --- \(results)")
+
                     self?.showSearchResults(results: results, for: query)
                 }
             })

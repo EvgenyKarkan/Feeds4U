@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import SafariServices
 
-final class FeedItemsViewController: BaseViewController, TableProviderProtocol, FeedItemsViewDelegate {
+final class FeedItemsViewController: BaseViewController, TableProviderDelegate, FeedItemsViewDelegate {
 
     // MARK: - Properties
     private var feedItemsView: FeedItemsView?
@@ -74,8 +74,8 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
         }
     }
 
-    // MARK: - TableProviderProtocol
-    func cellDidPress(at indexPath: IndexPath) {
+    // MARK: - TableProviderDelegate
+    func tableProvider(_ provider: BaseTableProvider, didSelectRowAt indexPath: IndexPath) {
         guard let items = feedItems, !items.isEmpty, indexPath.row < items.count else {
             return
         }
@@ -90,7 +90,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderProtocol, 
             item.wasRead = NSNumber.init(value: true)
             Brain.brain.coreDater.saveContext()
 
-            provider?.dataSource = items
+            self.provider?.dataSource = items
         }
 
         let configuration = SFSafariViewController.Configuration()

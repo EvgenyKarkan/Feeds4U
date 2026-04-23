@@ -8,7 +8,10 @@
 
 import UIKit
 
-final class FeedSearchResultsViewController: UITableViewController { // TODO: - consider renaming this UX, `search` may be confusing
+// TODO: - consider renaming this UX, `search` may be confusing
+// Maybe ExploreRSSResultsViewController
+
+final class FeedSearchResultsViewController: UITableViewController {
 
     // MARK: - Properties
     private lazy var searchResults: FeedSearchDTO = []
