@@ -26,7 +26,9 @@ final class FeedItemsView: BaseView {
 
         refreshControl.tintColor = UIColor(resource: .tangerine)
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.addSubview(refreshControl)
+
+        refreshControl.layer.zPosition = -.infinity
+        tableView.refreshControl = refreshControl // iOS 10+ recommended
     }
 
     // MARK: - Action

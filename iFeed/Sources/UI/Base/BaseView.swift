@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseView: UIView {
+class BaseView: UIView { // rename to BaseFeedListView
 
     // MARK: - Properties
     private(set) lazy var tableView: UITableView = {

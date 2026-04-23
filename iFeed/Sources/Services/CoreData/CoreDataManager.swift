@@ -21,25 +21,23 @@ final class CoreDataManager {
     private init() {}
 
     // MARK: - Core Data stack
-    lazy var applicationDocumentsDirectory: URL = {
+    private lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file.
         // This code uses a directory named "com.EvgenyKarkan.iFeed" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count - 1]
     }()
 
-    lazy var managedObjectModel: NSManagedObjectModel? = {
+    private lazy var managedObjectModel: NSManagedObjectModel? = {
         // The managed object model for the application.
-        guard let modelURL: URL = Bundle.main.url(forResource: "iFeed", withExtension: "momd") else {
-            return nil
-        }
-        guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
+        guard let modelURL: URL = Bundle.main.url(forResource: "iFeed", withExtension: "momd"),
+            let model = NSManagedObjectModel(contentsOf: modelURL) else {
             return nil
         }
         return model
     }()
 
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+    private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         guard let model = managedObjectModel else {
             return nil
         }
@@ -82,7 +80,7 @@ final class CoreDataManager {
         return coordinator
     }()
 
-    lazy var managedObjectContext: NSManagedObjectContext? = {
+    private lazy var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
         // This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = persistentStoreCoordinator
