@@ -60,10 +60,24 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
         prewarmConnections(to: feedItems)
     }
 
+    /// Defers table reload until after any active transition completes.
+    ///
+    /// When `SFSafariViewController` is dismissed with a `.zoom` transition, this VC's
+    /// `viewWillAppear` fires mid-animation. An immediate `reloadTableView()` at that
+    /// point invalidates the cell the zoom is animating back to, causing the dismiss
+    /// gesture to silently fail — the user has to tap "Done" a second time.
+    /// Deferring the reload to the transition's completion callback keeps the cell
+    /// alive for the full duration of the zoom-out animation.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        feedItemsView?.reloadTableView()
+        if let coordinator = transitionCoordinator {
+            coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+                self?.feedItemsView?.reloadTableView()
+            }
+        } else {
+            feedItemsView?.reloadTableView()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,30 +110,7 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
             self.provider?.dataSource = items
         }
 
-        let configuration = SFSafariViewController.Configuration()
-
-        let safariVC = SFSafariViewController(url: url, configuration: configuration)
-
-        let zoomOptions = UIViewController.Transition.ZoomOptions()
-        zoomOptions.alignmentRectProvider = { context in
-            guard let sourceView = context.zoomedViewController.view else {
-                return .zero
-            }
-            // Align to the center of the source view with some inset for a dramatic effect
-            return sourceView.bounds.insetBy(dx: 20, dy: 20)
-        }
-        zoomOptions.dimmingColor = .tangerine
-        zoomOptions.dimmingVisualEffect = UIBlurEffect(style: .prominent)
-
-        safariVC.preferredTransition = .zoom(options: zoomOptions) { [weak self] _ in
-            guard let self = self,
-                  let tableView = self.feedItemsView?.tableView,
-                  let cell = tableView.cellForRow(at: indexPath) else {
-                return nil
-            }
-            return cell
-        }
-        present(safariVC, animated: true)
+        presentSafari(for: url, zoomingFrom: indexPath)
     }
 
     // MARK: - FeedItemsViewDelegate
@@ -197,6 +188,25 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
 
 // MARK: - Private
 private extension FeedItemsViewController {
+
+    func presentSafari(for url: URL, zoomingFrom indexPath: IndexPath) {
+        let configuration = SFSafariViewController.Configuration()
+
+        let safariVC = SFSafariViewController(url: url, configuration: configuration)
+
+        let zoomOptions = UIViewController.Transition.ZoomOptions()
+        zoomOptions.dimmingColor = .tangerine
+
+        safariVC.preferredTransition = .zoom(options: zoomOptions) { [weak self] _ in
+            guard let self,
+                  let tableView = self.feedItemsView?.tableView,
+                  let cell = tableView.cellForRow(at: indexPath) else {
+                return nil
+            }
+            return cell
+        }
+        present(safariVC, animated: true)
+    }
 
     /// Pre-warms Safari connections for feed item URLs to improve loading performance
     ///
