@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import CoreData
 
 struct FeedsViewState {
 
     let feeds: [Feed]
+    let unreadCounts: [NSManagedObjectID: Int]
 
-    init(feeds: [Feed] = []) {
+    init(feeds: [Feed] = [], unreadCounts: [NSManagedObjectID: Int] = [:]) {
         self.feeds = feeds
+        self.unreadCounts = unreadCounts
     }
 }

@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 final class FeedsTableProvider: BaseTableProvider {
+
+    // MARK: - Properties
+    var unreadCounts: [NSManagedObjectID: Int] = [:]
 
     // MARK: - Overriden base API
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -22,9 +26,11 @@ final class FeedsTableProvider: BaseTableProvider {
             return UITableViewCell()
         }
 
+        let count = unreadCounts[feed.objectID] ?? .zero
+
         cell.titleText = feed.title
         cell.subTitleText = feed.summary
-        cell.itemsCountText = feed.unreadItemsCount().description
+        cell.itemsCountText = count.description
 
         return cell
     }

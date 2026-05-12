@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData.NSManagedObjectID
 
 final class FeedsInteractor {
     // MARK: - Properties
@@ -72,6 +73,10 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
         return coreDataService.feed(at: indexPath)
+    }
+
+    func unreadCountsByFeed() -> [NSManagedObjectID: Int] {
+        return coreDataService.unreadCountsByFeed()
     }
 
     func saveContext() throws {

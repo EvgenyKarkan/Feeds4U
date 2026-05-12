@@ -60,8 +60,10 @@ final class NewCoreDataManager {
     nonisolated(unsafe) private static let feedSortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
     nonisolated(unsafe) private static let feedItemSortDescriptors = [NSSortDescriptor(key: "publishDate", ascending: false)]
 
-    // Predicate template — avoids format string parsing on every call
+    // Predicate templates — avoids format string parsing on every call
     nonisolated(unsafe) private static let rssURLPredicateTemplate = NSPredicate(format: "rssURL == $URL")
+    nonisolated(unsafe) private static let titleSearchPredicateTemplate = NSPredicate(format: "title CONTAINS[cd] $SEARCH_TEXT")
+    nonisolated(unsafe) private static let unreadPredicate = NSPredicate(format: "wasRead == NO OR wasRead == nil")
 
     private let storeLock = NSLock()
     private var _isStoreLoaded = false
@@ -126,7 +128,10 @@ final class NewCoreDataManager {
     }
 
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
-        persistentContainer.performBackgroundTask(block)
+        persistentContainer.performBackgroundTask { [weak self] context in
+            self?.configureContext(context)
+            block(context)
+        }
     }
 
     // MARK: - Save Operations
@@ -350,15 +355,11 @@ extension NewCoreDataManager: StorageProtocol {
         try? saveViewContext()
     }
 
-    // Uses cached predicate template + LIMIT 1 existence check — no full table scan, no object materialization
     func containsFeed(withRSSURL rssURL: String) -> Bool {
         let predicate = Self.rssURLPredicateTemplate.withSubstitutionVariables(["URL": rssURL])
         let request = NSFetchRequest<Feed>(entityName: EntityNames.feed.rawValue)
         request.predicate = predicate
-        request.fetchLimit = 1
-        request.includesPropertyValues = false
-        request.includesSubentities = false
-        return (try? viewContext.fetch(request))?.isEmpty == false
+        return (try? viewContext.count(for: request)) ?? 0 > 0
     }
 
     func feed(at indexPath: IndexPath) -> Feed? {
@@ -367,7 +368,33 @@ extension NewCoreDataManager: StorageProtocol {
         request.fetchOffset = indexPath.row
         request.fetchLimit = 1
         request.includesSubentities = false
+        request.includesPropertyValues = false
         return try? viewContext.fetch(request).first
+    }
+
+    func unreadCountsByFeed() -> [NSManagedObjectID: Int] {
+        let request = NSFetchRequest<NSDictionary>(entityName: EntityNames.feedItem.rawValue)
+        request.resultType = .dictionaryResultType
+        request.predicate = Self.unreadPredicate
+
+        let countExpression = NSExpressionDescription()
+        countExpression.name = "count"
+        countExpression.expression = NSExpression(forFunction: "count:", arguments: [NSExpression(forKeyPath: "title")])
+        countExpression.expressionResultType = .integer64AttributeType
+
+        request.propertiesToFetch = ["feed", countExpression]
+        request.propertiesToGroupBy = ["feed"]
+
+        guard let results = try? viewContext.fetch(request) else { return [:] }
+
+        var counts: [NSManagedObjectID: Int] = [:]
+        for dict in results {
+            if let feedID = dict["feed"] as? NSManagedObjectID,
+               let count = dict["count"] as? Int {
+                counts[feedID] = count
+            }
+        }
+        return counts
     }
 }
 
@@ -397,17 +424,15 @@ extension NewCoreDataManager {
 extension NewCoreDataManager {
 
     func fetchFeeds(matching searchText: String) throws -> [Feed] {
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        let predicate = Self.titleSearchPredicateTemplate.withSubstitutionVariables(["SEARCH_TEXT": searchText])
         return try fetchFeeds(filteredBy: predicate)
     }
 
     func fetchUnreadFeedItems() throws -> [FeedItem] {
-        let predicate = NSPredicate(format: "wasRead == NO OR wasRead == nil")
-        return try fetchFeedItems(filteredBy: predicate)
+        return try fetchFeedItems(filteredBy: Self.unreadPredicate)
     }
 
     func countUnreadItems() throws -> Int {
-        let predicate = NSPredicate(format: "wasRead == NO OR wasRead == nil")
-        return try count(entityName: EntityNames.feedItem.rawValue, predicate: predicate)
+        return try count(entityName: EntityNames.feedItem.rawValue, predicate: Self.unreadPredicate)
     }
 }

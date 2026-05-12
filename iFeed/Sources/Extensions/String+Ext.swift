@@ -48,6 +48,13 @@ extension String {
         return NSLocalizedString(key, comment: String())
     }
 
+    /// Collapses runs of whitespace/newlines into a single space and trims edges.
+    /// Single-pass via regex — avoids intermediate array allocations.
+    func collapsingWhitespace() -> String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+    }
+
     /// Whether the string contains a valid URL, as determined by `NSDataDetector` link checking.
     /// Returns `false` for empty or whitespace-only strings.
     var isValidURL: Bool {

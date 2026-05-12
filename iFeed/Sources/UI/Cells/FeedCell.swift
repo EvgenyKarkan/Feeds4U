@@ -22,15 +22,8 @@ final class FeedCell: UITableViewCell, Reusable {
                 topLabel.isHidden = true
                 return
             }
-
-            // TODO: - Put this logic out of Cell
-            let cleanedText = text
-                .components(separatedBy: .whitespacesAndNewlines)
-                .filter { !$0.isEmpty }
-                .joined(separator: " ")
-
-            topLabel.text = cleanedText
-            topLabel.isHidden = cleanedText.isEmpty
+            topLabel.text = text.collapsingWhitespace()
+            topLabel.isHidden = false
         }
     }
 
@@ -40,7 +33,6 @@ final class FeedCell: UITableViewCell, Reusable {
                 bottomLabel.isHidden = true
                 return
             }
-
             bottomLabel.text = text
             bottomLabel.isHidden = text.isEmpty
         }
@@ -67,13 +59,30 @@ final class FeedCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        titleText = nil
-        subTitleText = nil
-        itemsCountText = nil
-
         dotView.layer.cornerRadius = dotView.bounds.midY
         dotView.layer.cornerCurve = .continuous
         dotView.layer.masksToBounds = true
+
+        resetContent()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        resetContent()
+    }
+
+    private func resetContent() {
+        topLabel.text = nil
+        bottomLabel.text = nil
+        countLabel.text = nil
+
+        topLabel.isHidden = false
+        bottomLabel.isHidden = false
+        countLabel.isHidden = true
+        dotView.isHidden = true
+
+        wasReadCell = false
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {

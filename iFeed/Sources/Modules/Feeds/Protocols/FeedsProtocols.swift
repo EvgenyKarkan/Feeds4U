@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData.NSManagedObjectID
 
 protocol FeedsWireframeProtocol {
     /// Pushes the screen that displays items belonging to the selected feed.
@@ -50,6 +51,8 @@ protocol FeedsInteractorProtocol {
     func exploreFeeds(on webSite: String, completion: @escaping ExploreFeedsServiceResultCompletion)
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed?
+
+    func unreadCountsByFeed() -> [NSManagedObjectID: Int]
 
     func saveContext() throws
 

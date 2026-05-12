@@ -125,6 +125,7 @@ extension FeedsViewController: FeedsViewProtocol {
 
     func updateOnWillAppear(with viewState: FeedsViewState) {
         tableViewProvider?.dataSource = viewState.feeds
+        tableViewProvider?.unreadCounts = viewState.unreadCounts
         feedListView?.reloadTableView()
     }
 

@@ -32,14 +32,16 @@ extension FeedsPresenter: FeedsViewDelegate {
 
     func onViewDidLoad() {
         let allFeeds = interactor.getAllFeeds()
-        viewState = FeedsViewState(feeds: allFeeds)
+        let counts = interactor.unreadCountsByFeed()
+        viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
 
         view?.updateOnDidLoad(with: viewState)
     }
 
     func onViewWillAppear() {
         let allFeeds = interactor.getAllFeeds()
-        viewState = FeedsViewState(feeds: allFeeds)
+        let counts = interactor.unreadCountsByFeed()
+        viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
 
         view?.updateOnWillAppear(with: viewState)
     }

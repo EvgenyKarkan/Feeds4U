@@ -216,6 +216,10 @@ extension CoreDataManager: StorageProtocol {
 
         return allFeeds[index]
     }
+
+    func unreadCountsByFeed() -> [NSManagedObjectID: Int] {
+        return [:]
+    }
 }
 
 // MARK: - Private

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData.NSManagedObject
+import CoreData.NSManagedObjectID
 
 /// Provides factory methods for app-owned Core Data entities.
 protocol EntityCreating {
@@ -63,4 +64,7 @@ protocol StorageProtocol: EntityCreating, EntityDeleting {
     /// - Parameter rssURL: Absolute RSS URL string to look up.
     /// - Returns: `true` when a saved feed has the same RSS URL.
     func containsFeed(withRSSURL rssURL: String) -> Bool
+
+    /// Returns unread item counts grouped by feed object ID.
+    func unreadCountsByFeed() -> [NSManagedObjectID: Int]
 }

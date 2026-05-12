@@ -21,6 +21,8 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
     var feedItems: [FeedItem]?
     var searchTitle: String?
 
+    let storage = DIContainer().storage()
+
     // MARK: - Deinit
     deinit {
         provider?.delegate = nil
@@ -88,9 +90,8 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
 
         if !item.wasRead.boolValue {
             item.wasRead = NSNumber.init(value: true)
-            // Brain.brain.coreDater.saveContext()
 
-            DIContainer().storage().saveChanges() // Brain.brain.coreDater.saveViewContext()
+            storage.saveChanges()
 
             self.provider?.dataSource = items
         }
@@ -152,9 +153,7 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
         print("incomingItems ---- \(incomingItems.count)")
 
         /// Delete temporary incoming `feed`
-        //Brain.brain.coreDater.deleteObject(feed)
-
-        DIContainer().storage().delete(feed)
+        storage.delete(feed)
 
         /// Pre-warming Safari support
         var uniqueIncomingItems: [FeedItem] = []
@@ -172,16 +171,15 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
                 item.feed = currentFeed
                 uniqueIncomingItems.append(item)
             } else {
-//                Brain.brain.coreDater.deleteObject(item)
-
-                DIContainer().storage().delete(item)
+                storage.delete(item)
             }
         }
 
-        DIContainer().storage().saveChanges() // Brain.brain.coreDater.saveViewContext()
+        storage.saveChanges()
 
-        provider?.dataSource = currentFeed.sortedItems()
-        feedItems = currentFeed.sortedItems()
+        let sortedItems = currentFeed.sortedItems()
+        provider?.dataSource = sortedItems
+        feedItems = sortedItems
 
         feedItemsView?.reloadTableView()
         feedItemsView?.endRefreshing()
