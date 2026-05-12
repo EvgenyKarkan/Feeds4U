@@ -1,5 +1,5 @@
 //
-//  FeedSearchResults.swift
+//  ExploreFeedsResult.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 29.08.2023.
@@ -13,7 +13,7 @@ enum AddState {
     case notAdded
 }
 
-struct FeedSearchResults {
-    let data: FeedSearchElement
+struct ExploreFeedsResult {
+    let data: FeedExploreElement
     let state: AddState
 }

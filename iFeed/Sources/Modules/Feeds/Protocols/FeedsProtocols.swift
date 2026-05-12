@@ -27,7 +27,7 @@ protocol FeedsWireframeProtocol {
     ///   - results: Feed candidates returned by the feed discovery service.
     ///   - webPage: Web page URL used as the discovery source.
     ///   - onFeedSelected: Callback invoked with the selected feed URL.
-    func presentDiscoveredFeeds(_ results: FeedSearchDTO,
+    func presentDiscoveredFeeds(_ results: FeedExploreDTO,
                                 for webPage: String,
                                 onFeedSelected: @escaping ((String) -> Void))
 }
@@ -47,7 +47,7 @@ protocol FeedsInteractorProtocol {
     func performSearch(by searchTerm: String, completion: @escaping ([FeedItem]?) -> Void)
 
     // explore if a web site has RSS feeds
-    func exploreFeeds(on webSite: String, completion: @escaping FeedSearchResultCompletion)
+    func exploreFeeds(on webSite: String, completion: @escaping FeedExploreResultCompletion)
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed?
 
@@ -102,5 +102,5 @@ protocol FeedsDependencies {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol
     func localSearch() -> any Searchable
-    func exploreService() -> any FeedSearchServiceProtocol
+    func exploreService() -> any FeedExploreServiceProtocol
 }

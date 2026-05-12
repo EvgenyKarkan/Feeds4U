@@ -16,8 +16,8 @@ extension UIViewController {
     /// Creates a view controller instance from a nib file named after the view controller type.
     ///
     /// Use this helper for view controllers whose nib filename matches the class name.
-    /// For example, `FeedSearchResultsViewController.instanceFromNib()` loads a nib named
-    /// `FeedSearchResultsViewController.xib`.
+    /// For example, `ExploreFeedsResultsViewController.instanceFromNib()` loads a nib named
+    /// `ExploreFeedsResultsViewController.xib`.
     ///
     /// - Returns: A new instance of the receiving `UIViewController` subclass configured with
     ///   its matching nib name and the main bundle.

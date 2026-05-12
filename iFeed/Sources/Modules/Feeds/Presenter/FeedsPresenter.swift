@@ -83,7 +83,7 @@ extension FeedsPresenter: FeedsViewDelegate {
                 switch result {
                 case .success(let data):
                     /// Filter data from items with invalid URL
-                    let filteredData: FeedSearchDTO = data.compactMap { element -> FeedSearchElement? in
+                    let filteredData: FeedExploreDTO = data.compactMap { element -> FeedExploreElement? in
                         if let urlString = element.rssURL, URL(string: urlString) != nil {
                             return element
                         }

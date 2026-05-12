@@ -1,5 +1,5 @@
 //
-//  FeedSearchResultsViewController.swift
+//  ExploreFeedsResultsViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 09.04.2023.
@@ -8,25 +8,22 @@
 
 import UIKit
 
-// TODO: - consider renaming this UX, `search` may be confusing
-// Maybe ExploreRSSResultsViewController
-
-final class FeedSearchResultsViewController: UITableViewController {
+final class ExploreFeedsResultsViewController: UITableViewController {
 
     // MARK: - Properties
-    private lazy var searchResults: FeedSearchDTO = []
+    private lazy var searchResults: FeedExploreDTO = []
     private lazy var webPageTitle: String = String()
     private var selectionCallback: ((String) -> Void)?
     private var savedURLs: Set<String> = []
 
-    private let reuseId = FeedSearchResultsCell.reuseId
+    private let reuseId = ExploreFeedsResultCell.reuseId
 
     // MARK: - Constructor
     /// Returns `UINavigationController` with `Self` embedded into as `rootViewController`
-    static func create(with data: FeedSearchDTO,
+    static func create(with data: FeedExploreDTO,
                        webPage: String,
                        selectionCallback: @escaping ((String) -> Void)) -> UINavigationController {
-        let resultsController = FeedSearchResultsViewController.instanceFromNib()
+        let resultsController = ExploreFeedsResultsViewController.instanceFromNib()
         resultsController.searchResults = data
         resultsController.webPageTitle = webPage
         resultsController.selectionCallback = selectionCallback
@@ -48,7 +45,7 @@ final class FeedSearchResultsViewController: UITableViewController {
             action: #selector(dismissScreen)
         )
 
-        let nibName = String(describing: FeedSearchResultsCell.self)
+        let nibName = String(describing: ExploreFeedsResultCell.self)
         tableView.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: reuseId)
         tableView.estimatedRowHeight = UITableView.automaticDimension
 
@@ -70,16 +67,16 @@ final class FeedSearchResultsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as? FeedSearchResultsCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) as? ExploreFeedsResultCell,
             !searchResults.isEmpty, indexPath.row < searchResults.count else {
             return UITableViewCell()
         }
 
-        let element: FeedSearchElement = searchResults[indexPath.row]
+        let element: FeedExploreElement = searchResults[indexPath.row]
         let isAlreadyStored = element.rssURL.flatMap { URL(string: $0)?.absoluteString }.map { savedURLs.contains($0) } ?? false
 
         let state: AddState = isAlreadyStored ? .added : .notAdded
-        let model: FeedSearchResults = FeedSearchResults(data: element, state: state)
+        let model: ExploreFeedsResult = ExploreFeedsResult(data: element, state: state)
 
         cell.updateWithResults(model)
 
@@ -91,7 +88,7 @@ final class FeedSearchResultsViewController: UITableViewController {
             return
         }
 
-        let model: FeedSearchElement = searchResults[indexPath.row]
+        let model: FeedExploreElement = searchResults[indexPath.row]
 
         guard let urlString = model.rssURL, !urlString.isEmpty else {
             return

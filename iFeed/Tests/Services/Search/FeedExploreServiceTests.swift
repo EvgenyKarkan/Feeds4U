@@ -1,5 +1,5 @@
 //
-//  FeedSearchServiceTests.swift
+//  FeedExploreServiceTests.swift
 //  iFeedTests
 //
 //  Created by Evgeny Karkan on 16.04.2026.
@@ -12,10 +12,10 @@ import OHHTTPStubs
 import OHHTTPStubsSwift
 @testable import iFeed
 
-// MARK: - FeedSearchServiceTests
+// MARK: - FeedExploreServiceTests
 
-@Suite("FeedSearchService Tests", .serialized)
-final class FeedSearchServiceTests {
+@Suite("FeedExploreService Tests", .serialized)
+final class FeedExploreServiceTests {
 
     // MARK: - Setup and Teardown
 
@@ -59,10 +59,10 @@ final class FeedSearchServiceTests {
             )
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { completionResult in
                 continuation.resume(returning: completionResult)
             }
@@ -113,10 +113,10 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -149,10 +149,10 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -196,7 +196,7 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds using async/await
         let dto = try await service.searchFeeds(on: "https://example.com")
@@ -230,7 +230,7 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
         let dto = try await service.searchFeeds(on: "https://example.com")
@@ -246,10 +246,10 @@ final class FeedSearchServiceTests {
     @Test("Empty URL string throws invalid URL error with completion handler")
     func testEmptyURLWithCompletion() async throws {
         // Given: Service with empty URL
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching with empty URL
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "") { result in
                 continuation.resume(returning: result)
             }
@@ -260,8 +260,8 @@ final class FeedSearchServiceTests {
         case .success:
             Issue.record("Expected failure but got success")
         case .failure(let error):
-            guard let searchError = error as? FeedSearchError else {
-                Issue.record("Expected FeedSearchError but got \(type(of: error))")
+            guard let searchError = error as? FeedExploreError else {
+                Issue.record("Expected FeedExploreError but got \(type(of: error))")
                 return
             }
             #expect(searchError == .invalidURL)
@@ -271,32 +271,32 @@ final class FeedSearchServiceTests {
     @Test("Empty URL string throws invalid URL error with async/await")
     func testEmptyURLAsync() async throws {
         // Given: Service with empty URL
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw invalidURL error
         do {
             _ = try await service.searchFeeds(on: "")
             Issue.record("Expected invalidURL error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             #expect(error == .invalidURL)
         } catch {
-            Issue.record("Expected FeedSearchError.invalidURL but got \(error)")
+            Issue.record("Expected FeedExploreError.invalidURL but got \(error)")
         }
     }
 
     @Test("URL with special characters that can't be encoded fails gracefully")
     func testInvalidCharactersInURL() async throws {
         // Given: Service with problematic URL
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw invalidURL error
         do {
             _ = try await service.searchFeeds(on: "")
             Issue.record("Expected invalidURL error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             #expect(error == .invalidURL)
         } catch {
-            Issue.record("Expected FeedSearchError.invalidURL but got \(error)")
+            Issue.record("Expected FeedExploreError.invalidURL but got \(error)")
         }
     }
 
@@ -314,10 +314,10 @@ final class FeedSearchServiceTests {
             return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -328,9 +328,9 @@ final class FeedSearchServiceTests {
         case .success:
             Issue.record("Expected failure but got success")
         case .failure(let error):
-            guard let searchError = error as? FeedSearchError,
+            guard let searchError = error as? FeedExploreError,
                   case .endpoint(let underlyingError) = searchError else {
-                Issue.record("Expected FeedSearchError.endpoint but got \(error)")
+                Issue.record("Expected FeedExploreError.endpoint but got \(error)")
                 return
             }
             let nsError = underlyingError as NSError
@@ -350,13 +350,13 @@ final class FeedSearchServiceTests {
             return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw endpoint error
         do {
             _ = try await service.searchFeeds(on: "https://example.com")
             Issue.record("Expected error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             guard case .endpoint(let underlyingError) = error else {
                 Issue.record("Expected endpoint error but got \(error)")
                 return
@@ -364,7 +364,7 @@ final class FeedSearchServiceTests {
             let nsError = underlyingError as NSError
             #expect(nsError.code == NSURLErrorTimedOut)
         } catch {
-            Issue.record("Expected FeedSearchError but got \(type(of: error))")
+            Issue.record("Expected FeedExploreError but got \(type(of: error))")
         }
     }
 
@@ -380,19 +380,19 @@ final class FeedSearchServiceTests {
             return HTTPStubsResponse(error: error).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw endpoint error
         do {
             _ = try await service.searchFeeds(on: "https://example.com")
             Issue.record("Expected error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             guard case .endpoint = error else {
                 Issue.record("Expected endpoint error")
                 return
             }
         } catch {
-            Issue.record("Expected FeedSearchError")
+            Issue.record("Expected FeedExploreError")
         }
     }
 
@@ -407,17 +407,17 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
         // Then: Should fail with data decoding error (empty response)
         do {
             _ = try await service.searchFeeds(on: "https://example.com")
             Issue.record("Expected error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             #expect(error == .dataDecoding)
         } catch {
-            Issue.record("Expected FeedSearchError")
+            Issue.record("Expected FeedExploreError")
         }
     }
 
@@ -438,10 +438,10 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -452,8 +452,8 @@ final class FeedSearchServiceTests {
         case .success:
             Issue.record("Expected failure but got success")
         case .failure(let error):
-            guard let searchError = error as? FeedSearchError else {
-                Issue.record("Expected FeedSearchError")
+            guard let searchError = error as? FeedExploreError else {
+                Issue.record("Expected FeedExploreError")
                 return
             }
             #expect(searchError == .dataDecoding)
@@ -475,16 +475,16 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw dataDecoding error
         do {
             _ = try await service.searchFeeds(on: "https://example.com")
             Issue.record("Expected dataDecoding error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             #expect(error == .dataDecoding)
         } catch {
-            Issue.record("Expected FeedSearchError.dataDecoding but got \(error)")
+            Issue.record("Expected FeedExploreError.dataDecoding but got \(error)")
         }
     }
 
@@ -499,10 +499,10 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching for feeds
-        let result: FeedSearchResult = await withCheckedContinuation { continuation in
+        let result: FeedExploreResult = await withCheckedContinuation { continuation in
             service.searchFeeds(on: "https://example.com") { result in
                 continuation.resume(returning: result)
             }
@@ -513,8 +513,8 @@ final class FeedSearchServiceTests {
         case .success:
             Issue.record("Expected failure but got success")
         case .failure(let error):
-            guard let searchError = error as? FeedSearchError else {
-                Issue.record("Expected FeedSearchError")
+            guard let searchError = error as? FeedExploreError else {
+                Issue.record("Expected FeedExploreError")
                 return
             }
             #expect(searchError == .dataDecoding)
@@ -542,16 +542,16 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When/Then: Should throw dataDecoding error
         do {
             _ = try await service.searchFeeds(on: "https://example.com")
             Issue.record("Expected dataDecoding error but succeeded")
-        } catch let error as FeedSearchError {
+        } catch let error as FeedExploreError {
             #expect(error == .dataDecoding)
         } catch {
-            Issue.record("Expected FeedSearchError.dataDecoding")
+            Issue.record("Expected FeedExploreError.dataDecoding")
         }
     }
 
@@ -575,7 +575,7 @@ final class FeedSearchServiceTests {
             )
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching with URL containing characters that need encoding (colon in path)
         _ = try? await service.searchFeeds(on: "https://example.com/hello world")
@@ -604,7 +604,7 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Searching with spaces in URL
         _ = try? await service.searchFeeds(on: "https://example.com/my page")
@@ -633,7 +633,7 @@ final class FeedSearchServiceTests {
             ).responseTime(0.01)
         }
 
-        let service = FeedSearchService()
+        let service = FeedExploreService()
 
         // When: Making a request
         _ = try? await service.searchFeeds(on: "https://example.com")
@@ -668,9 +668,9 @@ final class FeedSearchServiceTests {
         // When: Making multiple concurrent requests with separate service instances
         // This avoids data race warnings in Swift 6 by ensuring each concurrent
         // context has its own service instance
-        async let result1 = FeedSearchService().searchFeeds(on: "https://example1.com")
-        async let result2 = FeedSearchService().searchFeeds(on: "https://example2.com")
-        async let result3 = FeedSearchService().searchFeeds(on: "https://example3.com")
+        async let result1 = FeedExploreService().searchFeeds(on: "https://example1.com")
+        async let result2 = FeedExploreService().searchFeeds(on: "https://example2.com")
+        async let result3 = FeedExploreService().searchFeeds(on: "https://example3.com")
 
         // Then: All should succeed
         let (dto1, dto2, dto3) = try await (result1, result2, result3)
@@ -681,11 +681,11 @@ final class FeedSearchServiceTests {
     }
 }
 
-// MARK: - FeedSearchError Equatable Extension for Testing
+// MARK: - FeedExploreError Equatable Extension for Testing
 
-extension FeedSearchError: @retroactive Equatable {
+extension FeedExploreError: @retroactive Equatable {
 
-    static func == (lhs: FeedSearchError, rhs: FeedSearchError) -> Bool {
+    static func == (lhs: FeedExploreError, rhs: FeedExploreError) -> Bool {
         switch (lhs, rhs) {
         case (.invalidURL, .invalidURL):
             return true

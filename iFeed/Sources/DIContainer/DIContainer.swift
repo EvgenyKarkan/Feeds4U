@@ -14,7 +14,7 @@ import Foundation
 protocol DIContainerProtocol: FeedsDependencies {
     func parser() -> any ParserProtocol
     func localSearch() -> any Searchable
-    func exploreService() -> any FeedSearchServiceProtocol
+    func exploreService() -> any FeedExploreServiceProtocol
     func storage() -> any StorageProtocol
 }
 
@@ -38,9 +38,9 @@ extension DIContainer: DIContainerProtocol {
         }
     }
 
-    func exploreService() -> any FeedSearchServiceProtocol {
+    func exploreService() -> any FeedExploreServiceProtocol {
         return shared {
-            return FeedSearchService()
+            return FeedExploreService()
         }
     }
 

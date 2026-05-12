@@ -1,5 +1,5 @@
 //
-//  FeedSearchResultsCell.swift
+//  ExploreFeedsResultCell.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 08.04.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FeedSearchResultsCell: UITableViewCell, Reusable {
+final class ExploreFeedsResultCell: UITableViewCell, Reusable {
 
     // MARK: - Properties
     @IBOutlet private weak var titleLabel: UILabel!
@@ -32,7 +32,7 @@ final class FeedSearchResultsCell: UITableViewCell, Reusable {
     }
 
     // MARK: - Public
-    func updateWithResults(_ model: FeedSearchResults) {
+    func updateWithResults(_ model: ExploreFeedsResult) {
         titleLabel.text = model.data.title?.capitalized
         descriptionLabel.text = model.data.description?.capitalized
 
@@ -48,7 +48,7 @@ final class FeedSearchResultsCell: UITableViewCell, Reusable {
 }
 
 // MARK: - Private
-private extension FeedSearchResultsCell {
+private extension ExploreFeedsResultCell {
 
     func resetUI() {
         titleLabel.text = nil
