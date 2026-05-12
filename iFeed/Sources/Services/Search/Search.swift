@@ -24,7 +24,6 @@ import SimpleSimilarity
 /// - Searching: O(log n) with matching engine optimizations
 /// - Results are sorted by publish date (newest first)
 struct Search {
-
     // MARK: - Private Properties
 
     /// The text matching engine that performs fuzzy search
@@ -36,11 +35,15 @@ struct Search {
     /// Core Data manager for accessing feed items
     ///
     /// Reused instance to avoid creating multiple managers.
-    private let coreDataManager = Brain.brain.coreDater
+    private let storage: any StorageProtocol
+
+    // MARK: - Init
+    init(storage: any StorageProtocol) {
+        self.storage = storage
+    }
 }
 
-// MARK: - Searchable Conformance
-
+// MARK: - Searchable
 extension Search: Searchable {
 
     /// Fills the matching engine with all available feed items
@@ -64,7 +67,7 @@ extension Search: Searchable {
     ///              If no feed items exist, completion is called immediately.
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         // Fetch all feed items from Core Data
-        guard let allFeedItems = coreDataManager.allFeedItems(), !allFeedItems.isEmpty else {
+        guard let allFeedItems = storage.allFeedItems(), !allFeedItems.isEmpty else {
             completion()
             return
         }

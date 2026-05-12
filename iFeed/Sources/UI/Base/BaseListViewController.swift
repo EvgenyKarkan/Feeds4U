@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  BaseListViewController.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 8/27/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseListViewController: UIViewController {
 
     // MARK: - Properties
     var nextAction: UIAlertAction?
@@ -50,7 +50,7 @@ class BaseViewController: UIViewController {
 }
 
 // MARK: - ParserDelegateProtocol
-extension BaseViewController: ParserDelegateProtocol {
+extension BaseListViewController: ParserDelegateProtocol {
 
     @objc func didEndParsingFeed(_ feed: Feed) {
         hideSpinner()

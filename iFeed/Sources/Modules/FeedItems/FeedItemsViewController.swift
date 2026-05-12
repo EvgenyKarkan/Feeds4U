@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import SafariServices
 
-final class FeedItemsViewController: BaseViewController, TableProviderDelegate, FeedItemsViewDelegate {
+final class FeedItemsViewController: BaseListViewController, TableProviderDelegate, FeedItemsViewDelegate {
 
     // MARK: - Properties
     private var feedItemsView: FeedItemsView?
@@ -29,7 +29,7 @@ final class FeedItemsViewController: BaseViewController, TableProviderDelegate, 
 
     // MARK: - Life cycle
     override func loadView() {
-        provider = FeedItemsTableProvider(delegateObject: self)
+        provider = FeedItemsTableProvider(delegate: self)
 
         feedItemsView = FeedItemsView(frame: UIScreen.main.bounds)
         feedItemsView?.tableView.delegate = provider
@@ -88,7 +88,13 @@ final class FeedItemsViewController: BaseViewController, TableProviderDelegate, 
 
         if !item.wasRead.boolValue {
             item.wasRead = NSNumber.init(value: true)
-            Brain.brain.coreDater.saveContext()
+            // Brain.brain.coreDater.saveContext()
+
+            do {
+                try? DIContainer().storage().saveContext() // Brain.brain.coreDater.saveViewContext()
+            } catch {
+                print("❌ Failed to save read status: \(error.localizedDescription)")
+            }
 
             self.provider?.dataSource = items
         }
@@ -150,7 +156,9 @@ final class FeedItemsViewController: BaseViewController, TableProviderDelegate, 
         print("incomingItems ---- \(incomingItems.count)")
 
         /// Delete temporary incoming `feed`
-        Brain.brain.coreDater.deleteObject(feed)
+        //Brain.brain.coreDater.deleteObject(feed)
+
+        DIContainer().storage().deleteObject(feed)
 
         /// Pre-warming Safari support
         var uniqueIncomingItems: [FeedItem] = []
@@ -168,11 +176,17 @@ final class FeedItemsViewController: BaseViewController, TableProviderDelegate, 
                 item.feed = currentFeed
                 uniqueIncomingItems.append(item)
             } else {
-                Brain.brain.coreDater.deleteObject(item)
+//                Brain.brain.coreDater.deleteObject(item)
+
+                DIContainer().storage().deleteObject(item)
             }
         }
 
-        Brain.brain.coreDater.saveContext()
+        do {
+            try? DIContainer().storage().saveContext() // Brain.brain.coreDater.saveViewContext()
+        } catch {
+            print("❌ Failed to save context: \(error.localizedDescription)")
+        }
 
         provider?.dataSource = currentFeed.sortedItems()
         feedItems = currentFeed.sortedItems()

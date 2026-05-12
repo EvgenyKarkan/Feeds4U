@@ -94,34 +94,23 @@ final class CoreDataManager {
 
         return managedObjectContext
     }()
+}
 
-    // MARK: - Core Data Saving support
-    func saveContext () {
-        if let moc = managedObjectContext {
-            var error: NSError?
+// MARK: - Public APIs, StorageProtocol conformance
+extension CoreDataManager: StorageProtocol {
 
-            if moc.hasChanges {
-                print("CONTEXT HAS CHANGES!!! NEED TO SAVE")
-                do {
-                    try moc.save()
-                } catch let error1 as NSError {
-                    error = error1
-                    // Replace this implementation with code to handle the error appropriately.
-                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    print("Unresolved error:")
-                    dump(error)
-
-                    #if __DEBUG__
-                        abort()
-                    #endif
-                }
-            } else {
-                print("CONTEXT HAS NO CHANGES...")
-            }
-        }
+    func createFeedEntity() -> NSManagedObject? {
+        return createEntity(name: EntityNames.feed.rawValue)
     }
 
-    // MARK: - Public
+    func createFeedItemEntity() -> NSManagedObject? {
+        return createEntity(name: EntityNames.feedItem.rawValue)
+    }
+
+    func deleteObject(_ entityObject: NSManagedObject) {
+        managedObjectContext?.delete(entityObject)
+    }
+
     func allFeeds() -> [Feed] {
         guard let moc = managedObjectContext else {
             return []
@@ -180,20 +169,52 @@ final class CoreDataManager {
         return array
     }
 
-    func deleteObject(_ entityObject: NSManagedObject) {
-        managedObjectContext?.delete(entityObject)
+    // Core Data Saving support
+    func saveContext() {
+        if let moc = managedObjectContext {
+            var error: NSError?
+
+            if moc.hasChanges {
+                print("CONTEXT HAS CHANGES!!! NEED TO SAVE")
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    print("Unresolved error:")
+                    dump(error)
+
+                    #if __DEBUG__
+                        abort()
+                    #endif
+                }
+            } else {
+                print("CONTEXT HAS NO CHANGES...")
+            }
+        }
     }
-}
 
-// MARK: - EntityCreatable
-extension CoreDataManager: EntityCreatable {
+    func isAlreadySavedURL(_ rssURL: String) -> Bool {
+        var returnValue: Bool = false
+        let allItems: [Feed] = allFeeds()
 
-    func createFeedEntity() -> NSManagedObject? {
-        return createEntity(name: EntityNames.feed.rawValue)
+        for item: Feed in allItems where item.rssURL == rssURL {
+            returnValue = true
+        }
+
+        return returnValue
     }
 
-    func createFeedItemEntity() -> NSManagedObject? {
-        return createEntity(name: EntityNames.feedItem.rawValue)
+    func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
+        let index = indexPath.row
+        let allFeeds = allFeeds()
+
+        guard !allFeeds.isEmpty, index < allFeeds.count else {
+            return nil
+        }
+
+        return allFeeds[index]
     }
 }
 

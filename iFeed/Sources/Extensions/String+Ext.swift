@@ -41,10 +41,15 @@ enum LocalizableKeys {
 
 extension String {
 
+    /// Returns the localized string for the given key from the main bundle's `Localizable.xcstrings`.
+    /// - Parameter key: The key used to look up the localized string.
+    /// - Returns: The localized string, or `key` itself if no localization is found.
     static func localized(key: String) -> String {
         return NSLocalizedString(key, comment: String())
     }
 
+    /// Whether the string contains a valid URL, as determined by `NSDataDetector` link checking.
+    /// Returns `false` for empty or whitespace-only strings.
     var isValidURL: Bool {
         guard !isEmpty, !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false

@@ -6,6 +6,6 @@
 //  Copyright (c) 2015 Evgeny Karkan. All rights reserved.
 //
 
-final class FeedsView: BaseView {
+final class FeedsView: BaseListView {
 
 }

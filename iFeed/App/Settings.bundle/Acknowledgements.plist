@@ -52,6 +52,14 @@
 			<key>Title</key>
 			<string>feedsearch-crawler</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>OHHTTPStubs</string>
+			<key>Title</key>
+			<string>OHHTTPStubs</string>
+		</dict>
 	</array>
 </dict>
 </plist>

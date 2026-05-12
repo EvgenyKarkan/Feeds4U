@@ -1,5 +1,5 @@
 //
-//  BaseView.swift
+//  BaseListView.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 9/5/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseView: UIView { // rename to BaseFeedListView
+class BaseListView: UIView {
 
     // MARK: - Properties
     private(set) lazy var tableView: UITableView = {

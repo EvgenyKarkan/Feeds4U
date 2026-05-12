@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/EvgenyKarkan/SimpleSimilarity",
       "state" : {
-        "revision" : "7719a0ced7ee18f2f8d2b86bd737bf149b08670d",
-        "version" : "1.0.0"
+        "revision" : "b622abfa872c7861e8ac95b436c67d8716349c0c",
+        "version" : "1.0.1"
       }
     }
   ],

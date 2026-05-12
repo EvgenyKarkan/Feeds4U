@@ -75,6 +75,22 @@ final class FeedCell: UITableViewCell, Reusable {
         dotView.layer.cornerCurve = .continuous
         dotView.layer.masksToBounds = true
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        guard editing else {
+            return
+        }
+
+        topLabel.text = nil
+        topLabel.fadeTransition(0.33)
+        topLabel.text = titleText
+
+        bottomLabel.text = nil
+        bottomLabel.fadeTransition(0.33)
+        bottomLabel.text = subTitleText
+    }
 }
 
 // MARK: - Reusable

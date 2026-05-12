@@ -14,7 +14,7 @@ protocol FeedItemsViewDelegate: AnyObject {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
 
-final class FeedItemsView: BaseView {
+final class FeedItemsView: BaseListView {
 
     // MARK: - Property
     weak var delegate: (any FeedItemsViewDelegate)?
@@ -27,7 +27,7 @@ final class FeedItemsView: BaseView {
         refreshControl.tintColor = UIColor(resource: .tangerine)
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
-        refreshControl.layer.zPosition = -.infinity
+        refreshControl.layer.zPosition = -CGFloat(Float.greatestFiniteMagnitude)
         tableView.refreshControl = refreshControl // iOS 10+ recommended
     }
 

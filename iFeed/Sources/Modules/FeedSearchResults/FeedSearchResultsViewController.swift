@@ -16,20 +16,19 @@ final class FeedSearchResultsViewController: UITableViewController {
     // MARK: - Properties
     private lazy var searchResults: FeedSearchDTO = []
     private lazy var webPageTitle: String = String()
-    private var feedParseCallback: ((Feed) -> Void)?
+    private var selectionCallback: ((String) -> Void)?
 
     private let reuseId = FeedSearchResultsCell.reuseId
-    private lazy var parser = Parser()
 
     // MARK: - Constructor
     /// Returns `UINavigationController` with `Self` embedded into as `rootViewController`
     static func create(with data: FeedSearchDTO,
                        webPage: String,
-                       parsingCallback: ((Feed) -> Void)?) -> UINavigationController {
+                       selectionCallback: @escaping ((String) -> Void)) -> UINavigationController {
         let resultsController = FeedSearchResultsViewController.instanceFromNib()
         resultsController.searchResults = data
         resultsController.webPageTitle = webPage
-        resultsController.feedParseCallback = parsingCallback
+        resultsController.selectionCallback = selectionCallback
 
         let navigationVC = UINavigationController(rootViewController: resultsController)
         navigationVC.modalPresentationStyle = .fullScreen
@@ -40,8 +39,6 @@ final class FeedSearchResultsViewController: UITableViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        parser.delegate = self
 
         navigationItem.title = webPageTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -79,7 +76,7 @@ final class FeedSearchResultsViewController: UITableViewController {
         var isAlreadyStored = false
 
         if let urlString = element.rssURL,
-            let url = URL(string: urlString), Brain.brain.isAlreadySavedURL(url.absoluteString) {
+           let url = URL(string: urlString), DIContainer().storage().isAlreadySavedURL(url.absoluteString) {
             isAlreadyStored = true
         }
 
@@ -98,35 +95,12 @@ final class FeedSearchResultsViewController: UITableViewController {
 
         let model: FeedSearchElement = searchResults[indexPath.row]
 
-        guard let urlString = model.rssURL,
-            let url = URL(string: urlString) else {
+        guard let urlString = model.rssURL, !urlString.isEmpty else {
             return
         }
 
-        /// Consider to move it to parser and return some method from protocol
-        if Brain.brain.isAlreadySavedURL(url.absoluteString) {
-            showAlreadySavedFeedAlert()
-        } else {
-            showSpinner()
-            parser.beginParsingURL(url)
-        }
-    }
-}
+        selectionCallback?(urlString)
 
-// MARK: - ParserDelegateProtocol
-extension FeedSearchResultsViewController: ParserDelegateProtocol {
-
-    func didEndParsingFeed(_ feed: Feed) {
-        hideSpinner()
-
-        feedParseCallback?(feed)
-        tableView.reloadData()
-    }
-
-    func didFailParsingFeed() {
-        hideSpinner()
-        tableView.reloadData()
-
-        #warning("ADD ERROR HANDLING")
+        // TODO: - handle successfull selection on UI - check mark shoudl turn orange
     }
 }

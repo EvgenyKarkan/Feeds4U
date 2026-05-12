@@ -94,6 +94,6 @@
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 	<key>UIUserInterfaceStyle</key>
-	<string></string>
+	<string>Light</string>
 </dict>
 </plist>

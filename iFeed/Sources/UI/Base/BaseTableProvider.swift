@@ -21,8 +21,8 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
     weak var delegate: (any TableProviderDelegate)?
 
     // MARK: - Designated init
-    required init(delegateObject: any TableProviderDelegate) {
-        delegate = delegateObject
+    required init(delegate: any TableProviderDelegate) {
+        self.delegate = delegate
     }
 
     // MARK: - UITableViewDelegate & UITableViewDatasource API    
