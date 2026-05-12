@@ -67,7 +67,7 @@ extension Search: Searchable {
     ///              If no feed items exist, completion is called immediately.
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
         // Fetch all feed items from Core Data
-        guard let allFeedItems = storage.allFeedItems(), !allFeedItems.isEmpty else {
+        guard let allFeedItems = storage.loadFeedItems(), !allFeedItems.isEmpty else {
             completion()
             return
         }

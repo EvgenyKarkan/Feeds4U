@@ -33,11 +33,11 @@ final class FeedsInteractor {
 extension FeedsInteractor: FeedsInteractorProtocol {
 
     func getAllFeeds() -> [Feed] {
-        return coreDataService.allFeeds()
+        return coreDataService.loadFeeds()
     }
 
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool {
-        return coreDataService.isAlreadySavedURL(url)
+        return coreDataService.containsFeed(withRSSURL: url)
     }
 
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void) {
@@ -71,15 +71,15 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
-        return coreDataService.feedForIndexPath(indexPath)
+        return coreDataService.feed(at: indexPath)
     }
 
     func saveContext() throws {
-        coreDataService.saveContext()
+        coreDataService.saveChanges()
     }
 
     func deleteFeed(_ feed: Feed) {
-        coreDataService.deleteObject(feed)
+        coreDataService.delete(feed)
         try? saveContext()
     }
 }

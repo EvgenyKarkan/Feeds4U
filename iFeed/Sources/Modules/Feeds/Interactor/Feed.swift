@@ -69,6 +69,14 @@ final class Feed: NSManagedObject {
         }
     }
 
+    /// Unread item count via SQL — no object materialization
+    func unreadItemsCount() -> Int {
+        guard let context = managedObjectContext else { return 0 }
+        let request = NSFetchRequest<any NSFetchRequestResult>(entityName: "FeedItem")
+        request.predicate = NSPredicate(format: "feed == %@ AND (wasRead == NO OR wasRead == nil)", self)
+        return (try? context.count(for: request)) ?? 0
+    }
+
     /// Unread `feedItems`
     func unreadItems() -> [FeedItem] {
         guard let items = feedItems.allObjects as? [FeedItem] else {
@@ -107,13 +115,11 @@ final class Feed: NSManagedObject {
         // Step 2: Filter to only unread items belonging to this feed
         // This is equivalent to SQL: WHERE feed = <this feed> AND wasRead = 0
         // The compound predicate ensures we only fetch relevant items from the database
-        fetchRequest.predicate = NSPredicate(format: "feed == %@ AND wasRead == NO", self)
+        fetchRequest.predicate = NSPredicate(format: "feed == %@ AND (wasRead == NO OR wasRead == nil)", self)
 
-        // Step 3: Execute the fetch request
         do {
             return try context.fetch(fetchRequest)
         } catch {
-            print("Failed to fetch unread items: \(error)")
             return []
         }
     }

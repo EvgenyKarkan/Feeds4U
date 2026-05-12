@@ -99,19 +99,19 @@ final class CoreDataManager {
 // MARK: - Public APIs, StorageProtocol conformance
 extension CoreDataManager: StorageProtocol {
 
-    func createFeedEntity() -> NSManagedObject? {
+    func makeFeed() -> NSManagedObject? {
         return createEntity(name: EntityNames.feed.rawValue)
     }
 
-    func createFeedItemEntity() -> NSManagedObject? {
+    func makeFeedItem() -> NSManagedObject? {
         return createEntity(name: EntityNames.feedItem.rawValue)
     }
 
-    func deleteObject(_ entityObject: NSManagedObject) {
-        managedObjectContext?.delete(entityObject)
+    func delete(_ object: NSManagedObject) {
+        managedObjectContext?.delete(object)
     }
 
-    func allFeeds() -> [Feed] {
+    func loadFeeds() -> [Feed] {
         guard let moc = managedObjectContext else {
             return []
         }
@@ -140,7 +140,7 @@ extension CoreDataManager: StorageProtocol {
         return array ?? []
     }
 
-    func allFeedItems() -> [FeedItem]? {
+    func loadFeedItems() -> [FeedItem]? {
         guard let moc = managedObjectContext else {
             return nil
         }
@@ -170,7 +170,7 @@ extension CoreDataManager: StorageProtocol {
     }
 
     // Core Data Saving support
-    func saveContext() {
+    func saveChanges() {
         if let moc = managedObjectContext {
             var error: NSError?
 
@@ -195,9 +195,9 @@ extension CoreDataManager: StorageProtocol {
         }
     }
 
-    func isAlreadySavedURL(_ rssURL: String) -> Bool {
+    func containsFeed(withRSSURL rssURL: String) -> Bool {
         var returnValue: Bool = false
-        let allItems: [Feed] = allFeeds()
+        let allItems: [Feed] = loadFeeds()
 
         for item: Feed in allItems where item.rssURL == rssURL {
             returnValue = true
@@ -206,9 +206,9 @@ extension CoreDataManager: StorageProtocol {
         return returnValue
     }
 
-    func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
+    func feed(at indexPath: IndexPath) -> Feed? {
         let index = indexPath.row
-        let allFeeds = allFeeds()
+        let allFeeds = loadFeeds()
 
         guard !allFeeds.isEmpty, index < allFeeds.count else {
             return nil

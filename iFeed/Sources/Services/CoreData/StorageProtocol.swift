@@ -9,22 +9,58 @@
 import Foundation
 import CoreData.NSManagedObject
 
-protocol EntityCreatable {
-    func createFeedEntity() -> NSManagedObject?
-    func createFeedItemEntity() -> NSManagedObject?
+/// Provides factory methods for app-owned Core Data entities.
+protocol EntityCreating {
+    /// Creates and inserts a new `Feed` managed object into the storage context.
+    ///
+    /// The returned object is unsaved until `saveChanges()` is called.
+    func makeFeed() -> NSManagedObject?
+
+    /// Creates and inserts a new `FeedItem` managed object into the storage context.
+    ///
+    /// The returned object is unsaved until `saveChanges()` is called.
+    func makeFeedItem() -> NSManagedObject?
 }
 
-protocol EntityDeleteable {
-    func deleteObject(_ entityObject: NSManagedObject)
+/// Provides deletion support for managed objects owned by the storage context.
+protocol EntityDeleting {
+    /// Marks a managed object for deletion from the storage context.
+    ///
+    /// The deletion is not persisted until `saveChanges()` is called.
+    ///
+    /// - Parameter object: Managed object to delete.
+    func delete(_ object: NSManagedObject)
 }
 
-protocol StorageProtocol: EntityCreatable, EntityDeleteable {
-    func allFeeds() -> [Feed]
-    func allFeedItems() -> [FeedItem]?
+/// Defines the app's storage facade for feeds and feed items.
+///
+/// `StorageProtocol` hides Core Data implementation details from modules such as
+/// parsing, search, and feed presentation. Methods intentionally keep legacy
+/// error behavior: some fetches return empty collections or `nil` instead of
+/// throwing because existing callers treat storage failures as empty state.
+protocol StorageProtocol: EntityCreating, EntityDeleting {
+    /// Loads every saved feed.
+    ///
+    /// - Returns: Saved feeds, or an empty array when storage cannot fetch them.
+    func loadFeeds() -> [Feed]
 
-    func feedForIndexPath(_ indexPath: IndexPath) -> Feed?
+    /// Loads every saved feed item.
+    ///
+    /// - Returns: Saved feed items, or `nil` when storage cannot fetch them.
+    func loadFeedItems() -> [FeedItem]?
 
-    func saveContext()
+    /// Returns the feed displayed at a table index path.
+    ///
+    /// - Parameter indexPath: Index path from a feed list table view.
+    /// - Returns: The feed at `indexPath.row`, or `nil` when the row is invalid.
+    func feed(at indexPath: IndexPath) -> Feed?
 
-    func isAlreadySavedURL(_ rssURL: String) -> Bool
+    /// Persists pending changes in the storage context.
+    func saveChanges()
+
+    /// Checks whether a feed with the supplied RSS URL is already stored.
+    ///
+    /// - Parameter rssURL: Absolute RSS URL string to look up.
+    /// - Returns: `true` when a saved feed has the same RSS URL.
+    func containsFeed(withRSSURL rssURL: String) -> Bool
 }

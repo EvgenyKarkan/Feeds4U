@@ -86,7 +86,7 @@ extension Parser: ParserProtocol {
 private extension Parser {
 
     func finishParsing(feedData: ParsedFeedData, url: URL) {
-        guard let feed: Feed = storage.createFeedEntity() as? Feed else {
+        guard let feed: Feed = storage.makeFeed() as? Feed else {
             delegate?.didFailParsingFeed()
             return
         }
@@ -96,7 +96,7 @@ private extension Parser {
         feed.summary = feedData.summary
 
         feedData.items.forEach { itemData in
-            guard let feedItem = storage.createFeedItemEntity() as? FeedItem else {
+            guard let feedItem = storage.makeFeedItem() as? FeedItem else {
                 return
             }
 

@@ -90,11 +90,7 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
             item.wasRead = NSNumber.init(value: true)
             // Brain.brain.coreDater.saveContext()
 
-            do {
-                try? DIContainer().storage().saveContext() // Brain.brain.coreDater.saveViewContext()
-            } catch {
-                print("❌ Failed to save read status: \(error.localizedDescription)")
-            }
+            DIContainer().storage().saveChanges() // Brain.brain.coreDater.saveViewContext()
 
             self.provider?.dataSource = items
         }
@@ -158,7 +154,7 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
         /// Delete temporary incoming `feed`
         //Brain.brain.coreDater.deleteObject(feed)
 
-        DIContainer().storage().deleteObject(feed)
+        DIContainer().storage().delete(feed)
 
         /// Pre-warming Safari support
         var uniqueIncomingItems: [FeedItem] = []
@@ -178,15 +174,11 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
             } else {
 //                Brain.brain.coreDater.deleteObject(item)
 
-                DIContainer().storage().deleteObject(item)
+                DIContainer().storage().delete(item)
             }
         }
 
-        do {
-            try? DIContainer().storage().saveContext() // Brain.brain.coreDater.saveViewContext()
-        } catch {
-            print("❌ Failed to save context: \(error.localizedDescription)")
-        }
+        DIContainer().storage().saveChanges() // Brain.brain.coreDater.saveViewContext()
 
         provider?.dataSource = currentFeed.sortedItems()
         feedItems = currentFeed.sortedItems()

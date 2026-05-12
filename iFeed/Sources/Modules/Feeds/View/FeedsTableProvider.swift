@@ -24,7 +24,7 @@ final class FeedsTableProvider: BaseTableProvider {
 
         cell.titleText = feed.title
         cell.subTitleText = feed.summary
-        cell.itemsCountText = feed.unreadItems().count.description
+        cell.itemsCountText = feed.unreadItemsCount().description
 
         return cell
     }

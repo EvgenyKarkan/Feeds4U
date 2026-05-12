@@ -17,6 +17,7 @@ final class FeedSearchResultsViewController: UITableViewController {
     private lazy var searchResults: FeedSearchDTO = []
     private lazy var webPageTitle: String = String()
     private var selectionCallback: ((String) -> Void)?
+    private var savedURLs: Set<String> = []
 
     private let reuseId = FeedSearchResultsCell.reuseId
 
@@ -50,6 +51,8 @@ final class FeedSearchResultsViewController: UITableViewController {
         let nibName = String(describing: FeedSearchResultsCell.self)
         tableView.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: reuseId)
         tableView.estimatedRowHeight = UITableView.automaticDimension
+
+        savedURLs = NewCoreDataManager.shared.savedFeedURLs()
     }
 
     // MARK: - Action
@@ -73,12 +76,7 @@ final class FeedSearchResultsViewController: UITableViewController {
         }
 
         let element: FeedSearchElement = searchResults[indexPath.row]
-        var isAlreadyStored = false
-
-        if let urlString = element.rssURL,
-           let url = URL(string: urlString), DIContainer().storage().isAlreadySavedURL(url.absoluteString) {
-            isAlreadyStored = true
-        }
+        let isAlreadyStored = element.rssURL.flatMap { URL(string: $0)?.absoluteString }.map { savedURLs.contains($0) } ?? false
 
         let state: AddState = isAlreadyStored ? .added : .notAdded
         let model: FeedSearchResults = FeedSearchResults(data: element, state: state)
@@ -100,7 +98,11 @@ final class FeedSearchResultsViewController: UITableViewController {
         }
 
         selectionCallback?(urlString)
+        savedURLs = NewCoreDataManager.shared.savedFeedURLs()
+
 
         // TODO: - handle successfull selection on UI - check mark shoudl turn orange
+
+        // tableView.reloadRows(at: [indexPath], with: .automatic) ?
     }
 }
