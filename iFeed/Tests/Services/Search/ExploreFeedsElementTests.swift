@@ -1,5 +1,5 @@
 //
-//  FeedExploreElementTests.swift
+//  ExploreFeedsElementTests.swift
 //  iFeedTests
 //
 //  Created by Evgeny Karkan on 21.04.2026.
@@ -10,14 +10,14 @@ import Foundation
 import Testing
 @testable import iFeed
 
-// MARK: - FeedExploreElementTests
+// MARK: - ExploreFeedsElementTests
 
-@Suite("FeedExploreElement Tests")
-struct FeedExploreElementTests {
+@Suite("ExploreFeedsElement Tests")
+struct ExploreFeedsElementTests {
 
     // MARK: - Decoding Success Cases
 
-    @Test("Decode FeedExploreElement with all fields populated")
+    @Test("Decode ExploreFeedsElement with all fields populated")
     func testDecodeWithAllFields() async throws {
         // Given: JSON with all fields
         let json = """
@@ -36,7 +36,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: All fields should be populated correctly
         #expect(element.description == "A comprehensive RSS feed")
@@ -48,7 +48,7 @@ struct FeedExploreElementTests {
         #expect(element.url == "https://example.com/feed")
     }
 
-    @Test("Decode FeedExploreElement with minimal fields")
+    @Test("Decode ExploreFeedsElement with minimal fields")
     func testDecodeWithMinimalFields() async throws {
         // Given: JSON with only required structure (all fields are optional)
         let json = """
@@ -61,7 +61,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Should succeed with only title populated
         #expect(element.title == "Minimal Feed")
@@ -73,7 +73,7 @@ struct FeedExploreElementTests {
         #expect(element.url == nil)
     }
 
-    @Test("Decode FeedExploreElement with all fields nil")
+    @Test("Decode ExploreFeedsElement with all fields nil")
     func testDecodeWithAllFieldsNil() async throws {
         // Given: JSON with all fields explicitly set to null
         let json = """
@@ -92,7 +92,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: All fields should be nil
         #expect(element.description == nil)
@@ -104,7 +104,7 @@ struct FeedExploreElementTests {
         #expect(element.url == nil)
     }
 
-    @Test("Decode FeedExploreElement with empty object")
+    @Test("Decode ExploreFeedsElement with empty object")
     func testDecodeEmptyObject() async throws {
         // Given: Empty JSON object
         let json = "{}"
@@ -113,7 +113,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: All fields should be nil (all are optional)
         #expect(element.description == nil)
@@ -125,7 +125,7 @@ struct FeedExploreElementTests {
         #expect(element.url == nil)
     }
 
-    @Test("Decode FeedExploreElement with partial fields")
+    @Test("Decode ExploreFeedsElement with partial fields")
     func testDecodeWithPartialFields() async throws {
         // Given: JSON with subset of fields
         let json = """
@@ -140,7 +140,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Only specified fields should be populated
         #expect(element.title == "Tech Blog")
@@ -169,7 +169,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Snake_case keys should map to camelCase properties
         #expect(element.selfURL == "https://example.com/self")
@@ -179,8 +179,8 @@ struct FeedExploreElementTests {
 
     @Test("Verify all CodingKeys are defined correctly")
     func testAllCodingKeys() {
-        // Given: FeedExploreElement.CodingKeys enum
-        let codingKeys = FeedExploreElement.CodingKeys.self
+        // Given: ExploreFeedsElement.CodingKeys enum
+        let codingKeys = ExploreFeedsElement.CodingKeys.self
 
         // Then: Verify all keys exist and have correct raw values
         #expect(codingKeys.description.rawValue == "description")
@@ -192,10 +192,10 @@ struct FeedExploreElementTests {
         #expect(codingKeys.url.rawValue == "url")
     }
 
-    // MARK: - Decoding Array (FeedExploreDTO)
+    // MARK: - Decoding Array (ExploreFeedsDTO)
 
-    @Test("Decode FeedExploreDTO with multiple elements")
-    func testDecodeFeedExploreDTO() async throws {
+    @Test("Decode ExploreFeedsDTO with multiple elements")
+    func testDecodeExploreFeedsDTO() async throws {
         // Given: JSON array with multiple feed elements
         let json = """
         [
@@ -219,8 +219,8 @@ struct FeedExploreElementTests {
         let jsonData = try #require(json.data(using: .utf8))
         let decoder = JSONDecoder()
 
-        // When: Decoding JSON array as FeedExploreDTO
-        let dto = try decoder.decode(FeedExploreDTO.self, from: jsonData)
+        // When: Decoding JSON array as ExploreFeedsDTO
+        let dto = try decoder.decode(ExploreFeedsDTO.self, from: jsonData)
 
         // Then: Should decode all elements correctly
         #expect(dto.count == 3)
@@ -232,7 +232,7 @@ struct FeedExploreElementTests {
         #expect(dto[2].siteName == nil)
     }
 
-    @Test("Decode empty FeedExploreDTO array")
+    @Test("Decode empty ExploreFeedsDTO array")
     func testDecodeEmptyDTO() async throws {
         // Given: Empty JSON array
         let json = "[]"
@@ -241,7 +241,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding empty array
-        let dto = try decoder.decode(FeedExploreDTO.self, from: jsonData)
+        let dto = try decoder.decode(ExploreFeedsDTO.self, from: jsonData)
 
         // Then: Should succeed with empty array
         #expect(dto.isEmpty)
@@ -250,10 +250,10 @@ struct FeedExploreElementTests {
 
     // MARK: - Encoding Tests
 
-    @Test("Encode FeedExploreElement with all fields")
+    @Test("Encode ExploreFeedsElement with all fields")
     func testEncodeWithAllFields() async throws {
-        // Given: FeedExploreElement with all fields populated
-        let element = FeedExploreElement(
+        // Given: ExploreFeedsElement with all fields populated
+        let element = ExploreFeedsElement(
             description: "Test description",
             favicon: "https://example.com/icon.png",
             selfURL: "https://example.com/self",
@@ -288,7 +288,7 @@ struct FeedExploreElementTests {
     @Test("Encode and decode round-trip preserves data")
     func testRoundTripEncoding() async throws {
         // Given: Original element
-        let original = FeedExploreElement(
+        let original = ExploreFeedsElement(
             description: "Round trip test",
             favicon: "https://example.com/favicon.ico",
             selfURL: "https://example.com/feed/self",
@@ -303,7 +303,7 @@ struct FeedExploreElementTests {
 
         // When: Encoding then decoding
         let jsonData = try encoder.encode(original)
-        let decoded = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let decoded = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Decoded should match original
         #expect(decoded.description == original.description)
@@ -315,10 +315,10 @@ struct FeedExploreElementTests {
         #expect(decoded.url == original.url)
     }
 
-    @Test("Encode FeedExploreElement with nil values")
+    @Test("Encode ExploreFeedsElement with nil values")
     func testEncodeWithNilValues() async throws {
         // Given: Element with all nil values
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: nil,
@@ -336,7 +336,7 @@ struct FeedExploreElementTests {
         // Then: Should encode as object with null values or omitted keys
         // (JSONEncoder typically includes null values by default)
         let decoder = JSONDecoder()
-        let decoded = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let decoded = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         #expect(decoded.description == nil)
         #expect(decoded.favicon == nil)
@@ -365,7 +365,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Should successfully decode known fields, ignoring unknown ones
         #expect(element.title == "Test Feed")
@@ -388,7 +388,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Empty strings should be preserved (not converted to nil)
         #expect(element.title == "")
@@ -412,7 +412,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Whitespace should be preserved
         #expect(element.title == "   ")
@@ -436,7 +436,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Special characters should be preserved
         #expect(element.title == "Tech Blog 🚀")
@@ -460,7 +460,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding JSON
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Long strings should be handled correctly
         #expect(element.title == "Test")
@@ -480,7 +480,7 @@ struct FeedExploreElementTests {
 
         // When/Then: Should throw decoding error
         #expect(throws: (any Error).self) {
-            try decoder.decode(FeedExploreElement.self, from: jsonData)
+            try decoder.decode(ExploreFeedsElement.self, from: jsonData)
         }
     }
 
@@ -498,7 +498,7 @@ struct FeedExploreElementTests {
 
         // When/Then: Should throw decoding error (title should be String, not Int)
         #expect(throws: (any Error).self) {
-            try decoder.decode(FeedExploreElement.self, from: jsonData)
+            try decoder.decode(ExploreFeedsElement.self, from: jsonData)
         }
     }
 
@@ -514,7 +514,7 @@ struct FeedExploreElementTests {
 
         // When/Then: Should throw decoding error
         #expect(throws: (any Error).self) {
-            try decoder.decode(FeedExploreElement.self, from: jsonData)
+            try decoder.decode(ExploreFeedsElement.self, from: jsonData)
         }
     }
 
@@ -523,7 +523,7 @@ struct FeedExploreElementTests {
     @Test("rssURL returns selfURL when both selfURL and url are present")
     func testRSSURLPrioritizesSelfURL() {
         // Given: Element with both selfURL and url
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: "https://example.com/feed/self",
@@ -543,7 +543,7 @@ struct FeedExploreElementTests {
     @Test("rssURL returns url when selfURL is nil")
     func testRSSURLFallbacksToURL() {
         // Given: Element with only url (selfURL is nil)
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: nil,
@@ -563,7 +563,7 @@ struct FeedExploreElementTests {
     @Test("rssURL returns nil when both selfURL and url are nil")
     func testRSSURLReturnsNilWhenBothNil() {
         // Given: Element with both selfURL and url as nil
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: "Test",
             favicon: nil,
             selfURL: nil,
@@ -583,7 +583,7 @@ struct FeedExploreElementTests {
     @Test("rssURL returns nil for empty element")
     func testRSSURLWithEmptyElement() {
         // Given: Element with all fields nil
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: nil,
@@ -603,7 +603,7 @@ struct FeedExploreElementTests {
     @Test("rssURL handles empty string in selfURL")
     func testRSSURLWithEmptySelfURL() {
         // Given: Element with empty selfURL and valid url
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: "",
@@ -623,7 +623,7 @@ struct FeedExploreElementTests {
     @Test("rssURL handles empty string in url when selfURL is nil")
     func testRSSURLWithEmptyURL() {
         // Given: Element with nil selfURL and empty url
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: nil,
@@ -644,7 +644,7 @@ struct FeedExploreElementTests {
     func testRSSURLPreservesExactFormat() {
         // Given: Element with complex URLs
         let selfURLValue = "https://feeds.example.com/feed?format=rss&category=tech&lang=en#main"
-        let element = FeedExploreElement(
+        let element = ExploreFeedsElement(
             description: nil,
             favicon: nil,
             selfURL: selfURLValue,
@@ -674,7 +674,7 @@ struct FeedExploreElementTests {
 
         let jsonData = try #require(json.data(using: .utf8))
         let decoder = JSONDecoder()
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // When: Accessing rssURL
         let rssURL = element.rssURL
@@ -695,7 +695,7 @@ struct FeedExploreElementTests {
 
         let jsonData = try #require(json.data(using: .utf8))
         let decoder = JSONDecoder()
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // When: Accessing rssURL
         let rssURL = element.rssURL
@@ -716,7 +716,7 @@ struct FeedExploreElementTests {
 
         let jsonData = try #require(json.data(using: .utf8))
         let decoder = JSONDecoder()
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // When: Accessing rssURL
         let rssURL = element.rssURL
@@ -746,7 +746,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding response
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: All fields should be correctly decoded
         #expect(element.url == "https://daringfireball.net/feeds/main")
@@ -772,7 +772,7 @@ struct FeedExploreElementTests {
         let decoder = JSONDecoder()
 
         // When: Decoding response
-        let element = try decoder.decode(FeedExploreElement.self, from: jsonData)
+        let element = try decoder.decode(ExploreFeedsElement.self, from: jsonData)
 
         // Then: Available fields should be decoded, others should be nil
         #expect(element.url == "https://example.com/feed.xml")

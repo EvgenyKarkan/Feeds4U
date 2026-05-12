@@ -13,7 +13,7 @@ final class FeedsInteractor {
     private let parser: any ParserProtocol
     private let coreDataService: any StorageProtocol
     private var localSearchService: any Searchable
-    private let exploreFeedsService: any FeedExploreServiceProtocol
+    private let exploreFeedsService: any ExploreFeedsServiceProtocol
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
 
@@ -21,7 +21,7 @@ final class FeedsInteractor {
     init(parser: any ParserProtocol,
          coreDataService: any StorageProtocol,
          localSearchService: any Searchable,
-         exploreFeedsService: any FeedExploreServiceProtocol) {
+         exploreFeedsService: any ExploreFeedsServiceProtocol) {
         self.parser = parser
         self.coreDataService = coreDataService
         self.localSearchService = localSearchService
@@ -66,7 +66,7 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     func exploreFeeds(on webSite: String,
-                      completion: @escaping FeedExploreResultCompletion) {
+                      completion: @escaping ExploreFeedsServiceResultCompletion) {
         exploreFeedsService.searchFeeds(on: webSite, completion: completion)
     }
 

@@ -14,6 +14,6 @@ enum AddState {
 }
 
 struct ExploreFeedsResult {
-    let data: FeedExploreElement
+    let data: ExploreFeedsElement
     let state: AddState
 }

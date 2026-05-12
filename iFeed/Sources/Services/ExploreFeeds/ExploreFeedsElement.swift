@@ -1,5 +1,5 @@
 //
-//  FeedExploreElement.swift
+//  ExploreFeedsElement.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 08.04.2023.
@@ -9,10 +9,10 @@
 import Foundation
 
 // MARK: - Type definitions
-typealias FeedExploreDTO = [FeedExploreElement]
+typealias ExploreFeedsDTO = [ExploreFeedsElement]
 
-// MARK: - FeedExploreElement
-struct FeedExploreElement: Codable {
+// MARK: - ExploreFeedsElement
+struct ExploreFeedsElement: Codable {
 
     // MARK: - Properties
     let description: String?

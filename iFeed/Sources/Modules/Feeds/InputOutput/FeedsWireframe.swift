@@ -42,7 +42,7 @@ extension FeedsWireframe: FeedsWireframeProtocol {
         navigationController.pushViewController(feedItemsViewController, animated: true)
     }
 
-    func presentDiscoveredFeeds(_ results: FeedExploreDTO,
+    func presentDiscoveredFeeds(_ results: ExploreFeedsDTO,
                                 for webPage: String,
                                 onFeedSelected: @escaping ((String) -> Void)) {
         let resultsVC = ExploreFeedsResultsViewController.create(

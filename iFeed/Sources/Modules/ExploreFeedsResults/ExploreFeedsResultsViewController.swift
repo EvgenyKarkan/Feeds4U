@@ -11,7 +11,7 @@ import UIKit
 final class ExploreFeedsResultsViewController: UITableViewController {
 
     // MARK: - Properties
-    private lazy var searchResults: FeedExploreDTO = []
+    private lazy var searchResults: ExploreFeedsDTO = []
     private lazy var webPageTitle: String = String()
     private var selectionCallback: ((String) -> Void)?
     private var savedURLs: Set<String> = []
@@ -20,7 +20,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
 
     // MARK: - Constructor
     /// Returns `UINavigationController` with `Self` embedded into as `rootViewController`
-    static func create(with data: FeedExploreDTO,
+    static func create(with data: ExploreFeedsDTO,
                        webPage: String,
                        selectionCallback: @escaping ((String) -> Void)) -> UINavigationController {
         let resultsController = ExploreFeedsResultsViewController.instanceFromNib()
@@ -72,7 +72,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
             return UITableViewCell()
         }
 
-        let element: FeedExploreElement = searchResults[indexPath.row]
+        let element: ExploreFeedsElement = searchResults[indexPath.row]
         let isAlreadyStored = element.rssURL.flatMap { URL(string: $0)?.absoluteString }.map { savedURLs.contains($0) } ?? false
 
         let state: AddState = isAlreadyStored ? .added : .notAdded
@@ -88,7 +88,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
             return
         }
 
-        let model: FeedExploreElement = searchResults[indexPath.row]
+        let model: ExploreFeedsElement = searchResults[indexPath.row]
 
         guard let urlString = model.rssURL, !urlString.isEmpty else {
             return

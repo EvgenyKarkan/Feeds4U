@@ -1,5 +1,5 @@
 //
-//  FeedExploreService.swift
+//  ExploreFeedsService.swift
 //  iFeed
 //
 //  Created by Evgeny Karkan on 19.03.2023.
@@ -12,20 +12,20 @@ import Foundation
 
 /// Result type for feed search operations
 ///
-/// Wraps either a successful `FeedExploreDTO` response or an error from the feed search API.
-typealias FeedExploreResult = Swift.Result<FeedExploreDTO, any Error>
+/// Wraps either a successful `ExploreFeedsDTO` response or an error from the feed search API.
+typealias ExploreFeedsServiceResult = Swift.Result<ExploreFeedsDTO, any Error>
 
 /// Completion handler for feed search operations
 ///
 /// - Parameter result: The result of the feed search operation, containing either
-///                     a `FeedExploreDTO` on success or an error on failure
-typealias FeedExploreResultCompletion = (FeedExploreResult) -> Void
+///                     a `ExploreFeedsDTO` on success or an error on failure
+typealias ExploreFeedsServiceResultCompletion = (ExploreFeedsServiceResult) -> Void
 
 /// Errors that can occur during feed search operations
 ///
 /// This enum represents all possible error states when searching for RSS/Atom feeds
 /// on a given webpage using the `FeedSearch API`.
-enum FeedExploreError: LocalizedError {
+enum ExploreFeedsError: LocalizedError {
 
     /// The provided URL is invalid or malformed
     ///
@@ -50,7 +50,7 @@ enum FeedExploreError: LocalizedError {
     ///
     /// This error occurs when:
     /// - The response data is empty
-    /// - The JSON structure doesn't match `FeedExploreDTO`
+    /// - The JSON structure doesn't match `ExploreFeedsDTO`
     /// - The response contains malformed or unexpected data
     case dataDecoding
 
@@ -71,7 +71,7 @@ enum FeedExploreError: LocalizedError {
     }
 }
 
-// MARK: - FeedExploreServiceProtocol
+// MARK: - ExploreFeedsServiceProtocol
 
 /// Protocol defining the interface for feed search operations
 ///
@@ -90,9 +90,9 @@ enum FeedExploreError: LocalizedError {
 /// **Example:**
 /// ```swift
 /// class FeedViewModel {
-///     private let searchService: FeedExploreServiceProtocol
+///     private let searchService: ExploreFeedsServiceProtocol
 ///
-///     init(searchService: FeedExploreServiceProtocol = FeedExploreService()) {
+///     init(searchService: ExploreFeedsServiceProtocol = ExploreFeedsService()) {
 ///         self.searchService = searchService
 ///     }
 ///
@@ -102,7 +102,7 @@ enum FeedExploreError: LocalizedError {
 ///     }
 /// }
 /// ```
-protocol FeedExploreServiceProtocol {
+protocol ExploreFeedsServiceProtocol {
 
     /// Searches for RSS/Atom feeds on a given webpage using `completion handler`
     ///
@@ -111,17 +111,17 @@ protocol FeedExploreServiceProtocol {
     ///   - completion: Closure called when the search completes or fails
     ///
     /// - Important: The completion handler is called on a background thread.
-    func searchFeeds(on webPage: String, completion: @escaping FeedExploreResultCompletion)
+    func searchFeeds(on webPage: String, completion: @escaping ExploreFeedsServiceResultCompletion)
 
     /// Searches for RSS/Atom feeds on a given webpage using `async/await`
     ///
     /// - Parameter webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
-    /// - Returns: A `FeedExploreDTO` containing the discovered feeds
-    /// - Throws: `FeedExploreError` if the operation fails
-    func searchFeeds(on webPage: String) async throws -> FeedExploreDTO
+    /// - Returns: A `ExploreFeedsDTO` containing the discovered feeds
+    /// - Throws: `ExploreFeedsError` if the operation fails
+    func searchFeeds(on webPage: String) async throws -> ExploreFeedsDTO
 }
 
-// MARK: - FeedExploreService
+// MARK: - ExploreFeedsService
 
 /// Service for discovering RSS and Atom feeds on webpages
 ///
@@ -135,7 +135,7 @@ protocol FeedExploreServiceProtocol {
 ///
 /// **Usage Example:**
 /// ```swift
-/// let service = FeedExploreService()
+/// let service = ExploreFeedsService()
 /// service.searchFeeds(on: "https://example.com") { result in
 ///     switch result {
 ///     case .success(let dto):
@@ -154,7 +154,7 @@ protocol FeedExploreServiceProtocol {
 ///
 /// - Important: This service creates network requests. Always call from a background queue
 ///              or handle the asynchronous completion appropriately on the main queue.
-final class FeedExploreService {
+final class ExploreFeedsService {
 
     // MARK: - Private Properties
 
@@ -202,9 +202,9 @@ final class FeedExploreService {
     }
 }
 
-// MARK: - FeedExploreServiceProtocol Conformance
+// MARK: - ExploreFeedsServiceProtocol Conformance
 
-extension FeedExploreService: FeedExploreServiceProtocol {
+extension ExploreFeedsService: ExploreFeedsServiceProtocol {
 
     /// Searches for `RSS/Atom` feeds on a given webpage
     ///
@@ -216,7 +216,7 @@ extension FeedExploreService: FeedExploreServiceProtocol {
     /// 1. Validates and encodes the input URL
     /// 2. Constructs API request to feedsearch.dev
     /// 3. Executes network request
-    /// 4. Decodes JSON response into `FeedExploreDTO`
+    /// 4. Decodes JSON response into `ExploreFeedsDTO`
     /// 5. Returns result via completion handler
     ///
     /// **Thread Safety:**
@@ -245,15 +245,15 @@ extension FeedExploreService: FeedExploreServiceProtocol {
     /// ```
     ///
     /// **Possible Errors:**
-    /// - `FeedExploreError.invalidURL`: Input URL is empty or cannot be encoded
-    /// - `FeedExploreError.endpoint`: Network error, timeout, or API unavailable
-    /// - `FeedExploreError.dataDecoding`: API response couldn't be parsed
-    func searchFeeds(on webPage: String, completion: @escaping FeedExploreResultCompletion) {
+    /// - `ExploreFeedsError.invalidURL`: Input URL is empty or cannot be encoded
+    /// - `ExploreFeedsError.endpoint`: Network error, timeout, or API unavailable
+    /// - `ExploreFeedsError.dataDecoding`: API response couldn't be parsed
+    func searchFeeds(on webPage: String, completion: @escaping ExploreFeedsServiceResultCompletion) {
         // Step 1: Validate input and construct URL
         // -----------------------------------------
         // Ensure we have a non-empty webpage URL before proceeding
         guard !webPage.isEmpty else {
-            completion(.failure(FeedExploreError.invalidURL))
+            completion(.failure(ExploreFeedsError.invalidURL))
             return
         }
 
@@ -262,7 +262,7 @@ extension FeedExploreService: FeedExploreServiceProtocol {
         // Example: "https://example.com/page?id=1&name=test" -> "https://example.com/page?id=1%26name=test"
         guard let encodedWebPage = webPage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "https://feedsearch.dev/api/v1/search?url=\(encodedWebPage)") else {
-            completion(.failure(FeedExploreError.invalidURL))
+            completion(.failure(ExploreFeedsError.invalidURL))
             return
         }
 
@@ -282,7 +282,7 @@ extension FeedExploreService: FeedExploreServiceProtocol {
             // ------------------------------
             // Check for network-level errors (timeout, no connection, DNS failure, etc.)
             if let error {
-                completion(.failure(FeedExploreError.endpoint(error)))
+                completion(.failure(ExploreFeedsError.endpoint(error)))
                 return
             }
 
@@ -291,22 +291,22 @@ extension FeedExploreService: FeedExploreServiceProtocol {
             // Ensure we received data and it's not empty before attempting to decode
             // Empty data would cause JSON decoding to fail anyway, so fail fast
             guard let dtoData = data, !dtoData.isEmpty else {
-                completion(.failure(FeedExploreError.dataDecoding))
+                completion(.failure(ExploreFeedsError.dataDecoding))
                 return
             }
 
             // Step 6: Decode JSON response
             // -----------------------------
-            // Parse the JSON response into our FeedExploreDTO model
+            // Parse the JSON response into our ExploreFeedsDTO model
             // Use do-catch for explicit error handling (better than try?)
             do {
                 guard let self else { return }  // Service was deallocated, abort
-                let dto = try self.decoder.decode(FeedExploreDTO.self, from: dtoData)
+                let dto = try self.decoder.decode(ExploreFeedsDTO.self, from: dtoData)
                 completion(.success(dto))
             } catch {
                 // Decoding failed - malformed JSON, schema mismatch, etc.
                 // In production, you might want to log the actual error for debugging
-                completion(.failure(FeedExploreError.dataDecoding))
+                completion(.failure(ExploreFeedsError.dataDecoding))
             }
         }
 
@@ -323,7 +323,7 @@ extension FeedExploreService: FeedExploreServiceProtocol {
     /// 1. Validates and encodes the input URL
     /// 2. Constructs API request to feedsearch.dev
     /// 3. Executes network request asynchronously
-    /// 4. Decodes JSON response into `FeedExploreDTO`
+    /// 4. Decodes JSON response into `ExploreFeedsDTO`
     /// 5. Returns result or throws error
     ///
     /// **Thread Safety:**
@@ -331,8 +331,8 @@ extension FeedExploreService: FeedExploreServiceProtocol {
     /// automatically handles threading for you.
     ///
     /// - Parameter webPage: The URL of the webpage to search for feeds (e.g., "https://example.com")
-    /// - Returns: A `FeedExploreDTO` containing the discovered feeds
-    /// - Throws: `FeedExploreError` if the operation fails
+    /// - Returns: A `ExploreFeedsDTO` containing the discovered feeds
+    /// - Throws: `ExploreFeedsError` if the operation fails
     ///
     /// **Example:**
     /// ```swift
@@ -351,20 +351,20 @@ extension FeedExploreService: FeedExploreServiceProtocol {
     /// ```
     ///
     /// **Possible Errors:**
-    /// - `FeedExploreError.invalidURL`: Input URL is empty or cannot be encoded
-    /// - `FeedExploreError.endpoint`: Network error, timeout, or API unavailable
-    /// - `FeedExploreError.dataDecoding`: API response couldn't be parsed
-    func searchFeeds(on webPage: String) async throws -> FeedExploreDTO {
+    /// - `ExploreFeedsError.invalidURL`: Input URL is empty or cannot be encoded
+    /// - `ExploreFeedsError.endpoint`: Network error, timeout, or API unavailable
+    /// - `ExploreFeedsError.dataDecoding`: API response couldn't be parsed
+    func searchFeeds(on webPage: String) async throws -> ExploreFeedsDTO {
         // Step 1: Validate input and construct URL
         // -----------------------------------------
         guard !webPage.isEmpty else {
-            throw FeedExploreError.invalidURL
+            throw ExploreFeedsError.invalidURL
         }
 
         // Properly encode the URL parameter to handle special characters
         guard let encodedWebPage = webPage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "https://feedsearch.dev/api/v1/search?url=\(encodedWebPage)") else {
-            throw FeedExploreError.invalidURL
+            throw ExploreFeedsError.invalidURL
         }
 
         // Step 2: Create and configure request
@@ -382,23 +382,23 @@ extension FeedExploreService: FeedExploreServiceProtocol {
             (data, _) = try await session.data(for: request)
         } catch {
             // Wrap network errors in our custom error type
-            throw FeedExploreError.endpoint(error)
+            throw ExploreFeedsError.endpoint(error)
         }
 
         // Step 4: Validate response data
         // -------------------------------
         guard !data.isEmpty else {
-            throw FeedExploreError.dataDecoding
+            throw ExploreFeedsError.dataDecoding
         }
 
         // Step 5: Decode JSON response
         // -----------------------------
         do {
-            let dto = try decoder.decode(FeedExploreDTO.self, from: data)
+            let dto = try decoder.decode(ExploreFeedsDTO.self, from: data)
             return dto
         } catch {
             // Decoding failed - malformed JSON, schema mismatch, etc.
-            throw FeedExploreError.dataDecoding
+            throw ExploreFeedsError.dataDecoding
         }
     }
 }
