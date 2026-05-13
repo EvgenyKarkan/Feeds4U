@@ -97,7 +97,6 @@ final class ExploreFeedsResultsViewController: UITableViewController {
         selectionCallback?(urlString)
         savedURLs = NewCoreDataManager.shared.savedFeedURLs()
 
-
         // TODO: - handle successfull selection on UI - check mark shoudl turn orange
 
         // tableView.reloadRows(at: [indexPath], with: .automatic) ?
