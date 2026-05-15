@@ -79,8 +79,10 @@ extension FeedsPresenter: FeedsViewDelegate {
         view?.showActivityIndicator()
 
         interactor.exploreFeeds(on: webSite) { [weak self] result in
+            nonisolated(unsafe) let presenter = self
+
             DispatchQueue.main.async {
-                self?.view?.hideActivityIndicator(nil)
+                presenter?.view?.hideActivityIndicator(nil)
 
                 switch result {
                 case .success(let data):
@@ -93,24 +95,24 @@ extension FeedsPresenter: FeedsViewDelegate {
                     }
                     guard !filteredData.isEmpty else {
                         // TODO: - Handle this case on UI
-                        self?.view?.showError(NSError(domain: #function, code: #line))
+                        presenter?.view?.showError(NSError(domain: #function, code: #line))
                         return
                     }
 
                     print(filteredData)
 
                     let callback: ((String) -> Void) = { selectedURL in
-                        self?.onViewNeedsToAddFeed(from: selectedURL)
+                        presenter?.onViewNeedsToAddFeed(from: selectedURL)
                     }
 
-                    self?.wireframe.presentDiscoveredFeeds(
+                    presenter?.wireframe.presentDiscoveredFeeds(
                         filteredData,
                         for: webSite,
                         onFeedSelected: callback
                     )
 
                 case .failure(let error):
-                    self?.view?.showError(error)
+                    presenter?.view?.showError(error)
                 }
             }
         }
@@ -119,10 +121,12 @@ extension FeedsPresenter: FeedsViewDelegate {
     func onViewDidPressSearch() {
         view?.showActivityIndicator()
 
-        interactor.fillSearchMatchingEngine {
-            DispatchQueue.main.async { [weak self] in
-                self?.view?.hideActivityIndicator {
-                    self?.view?.showEnterSearch()
+        interactor.fillSearchMatchingEngine { [weak self] in
+            nonisolated(unsafe) let presenter = self
+
+            DispatchQueue.main.async {
+                presenter?.view?.hideActivityIndicator {
+                    presenter?.view?.showEnterSearch()
                 }
             }
         }
@@ -133,12 +137,15 @@ extension FeedsPresenter: FeedsViewDelegate {
         view?.disableTableViewEditingStateIfNeeded()
 
         interactor.performSearch(by: searchTerm) { [weak self] feedItems in
+            nonisolated(unsafe) let feedItems = feedItems
+            nonisolated(unsafe) let presenter = self
+
             DispatchQueue.main.async {
                 guard let results = feedItems, !results.isEmpty else {
-                    self?.view?.showNoSearchResultsAlert()
+                    presenter?.view?.showNoSearchResultsAlert()
                     return
                 }
-                self?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
+                presenter?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
             }
         }
     }
@@ -154,7 +161,7 @@ extension FeedsPresenter: FeedsViewDelegate {
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath) {
         guard indexPath.row < getAllFeeds().count,
               let feed = feedForIndexPath(indexPath),
-              !feed.sortedItems().isEmpty else {
+              feed.feedItems.count > .zero else {
             return
         }
         wireframe.navigateToFeedItems(for: feed)

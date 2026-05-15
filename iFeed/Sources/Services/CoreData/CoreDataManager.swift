@@ -220,6 +220,10 @@ extension CoreDataManager: StorageProtocol {
     func unreadCountsByFeed() -> [NSManagedObjectID: Int] {
         return [:]
     }
+
+    func savedFeedURLs() -> Set<String> {
+        fatalError()
+    }
 }
 
 // MARK: - Private

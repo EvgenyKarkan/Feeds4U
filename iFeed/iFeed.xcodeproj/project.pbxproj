@@ -319,10 +319,10 @@
 			isa = PBXGroup;
 			children = (
 				08B00BFE2FB3AB66007BD039 /* ExploreFeedsResult.swift */,
-				08B00BFF2FB3AB66007BD039 /* ExploreFeedsResultCell.swift */,
 				08B00C002FB3AB66007BD039 /* ExploreFeedsResultCell.xib */,
-				08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */,
+				08B00BFF2FB3AB66007BD039 /* ExploreFeedsResultCell.swift */,
 				08B00C022FB3AB66007BD039 /* ExploreFeedsResultsViewController.xib */,
+				08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */,
 			);
 			path = ExploreFeedsResults;
 			sourceTree = "<group>";

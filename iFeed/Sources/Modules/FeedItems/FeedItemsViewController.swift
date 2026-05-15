@@ -146,9 +146,6 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
         /// Delete temporary incoming `feed`
         storage.delete(feed)
 
-        /// Pre-warming Safari support
-        var uniqueIncomingItems: [FeedItem] = []
-
         /// Iterate over incoming feed items to find a new item to add to existing feed object
         for item: FeedItem in incomingItems {
             let isUniqueTitle = !existedTitles.contains(item.title)
@@ -160,7 +157,6 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
             if isUniqueItem {
                 /// Create a relationship
                 item.feed = currentFeed
-                uniqueIncomingItems.append(item)
             } else {
                 storage.delete(item)
             }
@@ -176,7 +172,7 @@ final class FeedItemsViewController: BaseListViewController, TableProviderDelega
         feedItemsView?.endRefreshing()
 
         /// Pre-warming Safari connections
-        prewarmConnections(to: uniqueIncomingItems)
+        prewarmConnections(to: sortedItems)
     }
 
     override func didFailParsingFeed() {
@@ -208,17 +204,13 @@ private extension FeedItemsViewController {
         present(safariVC, animated: true)
     }
 
-    /// Pre-warms Safari connections for feed item URLs to improve loading performance
+    /// Pre-warms Safari connections for up to 10 unique feed item URLs.
     ///
-    /// Safari's connection prewarming establishes network connections in advance, allowing web pages
-    /// to load faster when the user actually taps on a feed item. This method processes feed items,
-    /// validates their URLs, and requests Safari to prewarm connections to unique URLs.
+    /// Called from `viewDidLoad` on initial load and from `didEndParsingFeed`
+    /// after a pull-to-refresh. Both call sites pass the full sorted item list
+    /// so the most relevant items are always covered.
     ///
-    /// - Parameter items: Array of feed items whose URLs should be prewarmed
-    ///
-    /// - Note: This method is called in two scenarios:
-    ///   1. When initially loading a feed (`viewDidLoad`) - prewarms all feed items
-    ///   2. After refreshing a feed (`didEndParsingFeed`) - prewarms only new unique items
+    /// - Parameter items: Feed items whose URLs should be prewarmed.
     func prewarmConnections(to items: [FeedItem]) {
         // Step 1: Clean up any existing prewarming token
         // -----------------------------------------------
@@ -234,7 +226,9 @@ private extension FeedItemsViewController {
         //   * Performance: O(n) deduplication
         //   * Resource efficiency: Don't prewarm the same URL multiple times
         let uniqueURLs = Set(items.compactMap { item -> URL? in
-            guard !item.link.isEmpty else { return nil }
+            guard !item.link.isEmpty else {
+                return nil
+            }
             return URL(string: item.link)
         })
 

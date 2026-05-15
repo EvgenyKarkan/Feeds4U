@@ -52,7 +52,7 @@ final class NewCoreDataManager {
 
     private let persistentContainer: NSPersistentContainer
 
-    var viewContext: NSManagedObjectContext {
+    private var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
 
@@ -396,10 +396,6 @@ extension NewCoreDataManager: StorageProtocol {
         }
         return counts
     }
-}
-
-// MARK: - Performance Helpers
-extension NewCoreDataManager {
 
     /// Single-fetch bulk lookup: returns all saved RSS URLs so callers can do O(1) Set membership
     /// checks instead of N individual database queries (e.g., in cellForRowAt).

@@ -31,7 +31,8 @@ protocol ParserProtocol {
 // MARK: - Parser class
 final class Parser: @unchecked Sendable {
     // MARK: - Properties
-    let storage: any StorageProtocol
+    private static let parsingQueue = DispatchQueue(label: "com.iFeed.parser", qos: .userInitiated)
+    private let storage: any StorageProtocol
     weak var delegate: (any ParserDelegateProtocol)?
 
     // MARK: - Init
@@ -52,9 +53,8 @@ extension Parser: ParserProtocol {
         delegate?.didStartParsingFeed()
 
         let parser = FeedParser(URL: url)
-        let backgroundQueue = DispatchQueue(label: #function, qos: .default)
 
-        parser.parseAsync(queue: backgroundQueue) { result in
+        parser.parseAsync(queue: Self.parsingQueue) { result in
             let parsedResult: ParsedFeedResult
 
             switch result {

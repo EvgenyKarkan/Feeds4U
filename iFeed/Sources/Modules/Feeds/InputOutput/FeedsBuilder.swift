@@ -11,7 +11,8 @@ import UIKit
 
 enum FeedsBuilder {
 
-    static func viewController(container: any FeedsDependencies) -> FeedsViewController {
+    static func viewController(container: any FeedsDependencies,
+                               delegate: any FeedsCoordinatingDelegate) -> FeedsViewController {
         /// Interactor
         let interactor = FeedsInteractor(
             parser: container.parser(),
@@ -22,6 +23,7 @@ enum FeedsBuilder {
 
         /// Wireframe
         let wireframe = FeedsWireframe()
+        wireframe.delegate = delegate
 
         /// View
         let viewController = FeedsViewController()

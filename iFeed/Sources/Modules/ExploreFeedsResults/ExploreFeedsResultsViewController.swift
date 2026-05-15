@@ -49,7 +49,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
         tableView.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: reuseId)
         tableView.estimatedRowHeight = UITableView.automaticDimension
 
-        savedURLs = NewCoreDataManager.shared.savedFeedURLs()
+        savedURLs = DIContainer().storage().savedFeedURLs()
     }
 
     // MARK: - Action
@@ -95,7 +95,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
         }
 
         selectionCallback?(urlString)
-        savedURLs = NewCoreDataManager.shared.savedFeedURLs()
+        savedURLs = DIContainer().storage().savedFeedURLs()
 
         // TODO: - handle successfull selection on UI - check mark shoudl turn orange
 

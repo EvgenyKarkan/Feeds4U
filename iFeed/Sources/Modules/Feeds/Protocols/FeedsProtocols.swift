@@ -107,3 +107,8 @@ protocol FeedsDependencies {
     func localSearch() -> any Searchable
     func exploreService() -> any ExploreFeedsServiceProtocol
 }
+
+/// Wireframe -> AppCoordinator
+protocol FeedsCoordinatingDelegate: AnyObject {
+    func onNeedToShowFeedDetails(for feed: Feed)
+}

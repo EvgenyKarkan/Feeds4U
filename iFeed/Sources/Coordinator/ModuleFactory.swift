@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 protocol ModuleFactoryProtocol {
-    func makeFeedsModule() -> UIViewController
+    func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
+    func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController
 }
 
 final class ModuleFactory {
@@ -26,7 +27,12 @@ final class ModuleFactory {
 // MARK: - ModuleFactoryProtocol
 extension ModuleFactory: ModuleFactoryProtocol {
 
-    func makeFeedsModule() -> UIViewController {
-        return FeedsBuilder.viewController(container: container)
+    func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController {
+        return FeedsBuilder.viewController(container: container, delegate: delegate)
+    }
+
+    func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController {
+        // TODO:
+        fatalError()
     }
 }

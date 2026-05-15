@@ -8,11 +8,10 @@
 
 import UIKit
 
-// TODO: - will hold a weak reference to coordinator and let it show the screens instead
-
 final class FeedsWireframe {
     // MARK: - Properties
     weak var viewController: FeedsViewController?
+    weak var delegate: (any FeedsCoordinatingDelegate)?
 }
 
 // MARK: - FeedsWireframeProtocol
@@ -22,6 +21,8 @@ extension FeedsWireframe: FeedsWireframeProtocol {
         guard let navigationController = viewController?.navigationController else {
             return
         }
+
+        //delegate?.onNeedToShowFeedDetails(for: feed)
 
         let itemsVC = FeedItemsViewController()
         itemsVC.feed = feed

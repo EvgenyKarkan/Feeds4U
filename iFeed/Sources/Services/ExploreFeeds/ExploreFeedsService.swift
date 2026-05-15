@@ -184,7 +184,7 @@ final class ExploreFeedsService {
     ///
     /// Creating a JSONDecoder has overhead (property caching, setup).
     /// Reusing a single instance saves ~8ms per decode operation.
-    fileprivate let decoder = JSONDecoder()
+    private let decoder = JSONDecoder()
 
     // MARK: - Lifecycle
 

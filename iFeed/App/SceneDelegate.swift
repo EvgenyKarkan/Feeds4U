@@ -31,7 +31,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         setupAppearance()
-
         setupWindow(with: windowScene)
 
         /// Handle a URL that caused the app to cold-launch (e.g. "feed://..." or "Feeds4U://...").
@@ -67,12 +66,8 @@ private extension SceneDelegate {
     func setupWindow(with windowScene: UIWindowScene) {
         navigationVC = UINavigationController()
 
-        let coordinator = Coordinator(
-            container: DIContainer(),
-            controller: navigationVC
-        )
-
-        navigationVC?.viewControllers = [coordinator.makeFeedsViewController()]
+        let coordinator = Coordinator(container: DIContainer(), controller: navigationVC)
+        coordinator.start()
 
         appCoordinator = coordinator
 
@@ -98,26 +93,30 @@ private extension SceneDelegate {
     var isRunningUnitTests: Bool {
         let processInfo = ProcessInfo.processInfo
         let environment = processInfo.environment
-        let arguments = processInfo.arguments
 
         // XCTest sets configuration and bundle environment values when it launches
         // the app as a unit-test host.
-        let hasXCTestEnvironment = environment["XCTestConfigurationFilePath"] != nil ||
-                                   environment["XCTestBundlePath"] != nil ||
-                                   environment.keys.contains { $0.hasPrefix("XCTest") }
+        if environment["XCTestConfigurationFilePath"] != nil ||
+            environment["XCTestBundlePath"] != nil ||
+            environment.keys.contains(where: { $0.hasPrefix("XCTest") }) {
+            return true
+        }
 
         // Some Xcode/test runner versions pass the XCTest configuration through
         // process arguments instead of, or in addition to, environment values.
-        let hasXCTestArguments = arguments.contains { $0 == "-XCTestConfigurationFilePath" } ||
-                                 arguments.contains { $0.hasSuffix(".xctest") || $0.hasSuffix(".xctestconfiguration") }
+        let arguments = processInfo.arguments
+        if arguments.contains(where: { $0 == "-XCTestConfigurationFilePath" }) ||
+            arguments.contains(where: { $0.hasSuffix(".xctest") || $0.hasSuffix(".xctestconfiguration") }) {
+            return true
+        }
 
         // When XCTest is already loaded, the test bundle or XCTestCase runtime
         // type is visible even if launch metadata differs between runners.
-        let hasLoadedXCTestRuntime = Bundle.allBundles.contains { $0.bundlePath.hasSuffix(".xctest") } ||
-                                     NSClassFromString("XCTest.XCTestCase") != nil
+        if Bundle.allBundles.contains(where: { $0.bundlePath.hasSuffix(".xctest") }) ||
+            NSClassFromString("XCTest.XCTestCase") != nil {
+            return true
+        }
 
-        return hasXCTestEnvironment ||
-               hasXCTestArguments ||
-               hasLoadedXCTestRuntime
+        return false
     }
 }

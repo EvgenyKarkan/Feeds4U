@@ -67,4 +67,7 @@ protocol StorageProtocol: EntityCreating, EntityDeleting {
 
     /// Returns unread item counts grouped by feed object ID.
     func unreadCountsByFeed() -> [NSManagedObjectID: Int]
+
+    /// Returns all saved RSS URLs.
+    func savedFeedURLs() -> Set<String>
 }
