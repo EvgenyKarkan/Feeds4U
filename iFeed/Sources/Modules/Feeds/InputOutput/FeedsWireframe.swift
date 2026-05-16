@@ -18,29 +18,11 @@ final class FeedsWireframe {
 extension FeedsWireframe: FeedsWireframeProtocol {
 
     func navigateToFeedItems(for feed: Feed) {
-        guard let navigationController = viewController?.navigationController else {
-            return
-        }
-
-        //delegate?.onNeedToShowFeedDetails(for: feed)
-
-        let itemsVC = FeedItemsViewController()
-        itemsVC.feed = feed
-        itemsVC.feedItems = feed.sortedItems()
-
-        navigationController.pushViewController(itemsVC, animated: true)
+        delegate?.onNeedToShowFeedDetails(for: feed)
     }
 
     func navigateToSearchResults(with results: [FeedItem], matching query: String) {
-        guard let navigationController = viewController?.navigationController else {
-            return
-        }
-
-        let feedItemsViewController = FeedItemsViewController()
-        feedItemsViewController.feedItems = results
-        feedItemsViewController.searchTitle = "\(String.localized(key: LocalizableKeys.Search.search))\(":") \(query)"
-
-        navigationController.pushViewController(feedItemsViewController, animated: true)
+        delegate?.onNeedToShowSearchResults(with: results, matching: query)
     }
 
     func presentDiscoveredFeeds(_ results: ExploreFeedsDTO,

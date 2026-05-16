@@ -16,7 +16,7 @@ enum FeedsBuilder {
         /// Interactor
         let interactor = FeedsInteractor(
             parser: container.parser(),
-            coreDataService: container.storage(),
+            storage: container.storage(),
             localSearchService: container.localSearch(),
             exploreFeedsService: container.exploreService()
         )

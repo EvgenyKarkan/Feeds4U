@@ -48,4 +48,9 @@ extension Coordinator: AppCoordinating {
         let feedItemsVC = moduleFactory.makeFeedItemsModule(for: feed, delegate: self)
         navigationController?.pushViewController(feedItemsVC, animated: true)
     }
+
+    func onNeedToShowSearchResults(with items: [FeedItem], matching query: String) {
+        let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query)
+        navigationController?.pushViewController(feedItemsVC, animated: true)
+    }
 }

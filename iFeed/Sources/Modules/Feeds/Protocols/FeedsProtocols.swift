@@ -111,4 +111,5 @@ protocol FeedsDependencies {
 /// Wireframe -> AppCoordinator
 protocol FeedsCoordinatingDelegate: AnyObject {
     func onNeedToShowFeedDetails(for feed: Feed)
+    func onNeedToShowSearchResults(with items: [FeedItem], matching query: String)
 }

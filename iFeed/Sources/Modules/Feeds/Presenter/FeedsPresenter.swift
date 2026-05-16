@@ -64,11 +64,9 @@ extension FeedsPresenter: FeedsViewDelegate {
                 self?.view?.appendParsedFeed(feed)
 
                 try? self?.interactor.saveContext()
-
                 self?.view?.updateOnDidEndParsingFeed()
 
             case .failure(let error):
-                print("❌ parsing error: \(error)")
                 self?.view?.showFeedParsingError()
             }
         }

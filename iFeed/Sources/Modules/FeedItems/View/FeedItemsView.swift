@@ -10,14 +10,14 @@ import UIKit
 import Dispatch
 
 // MARK: - FeedItemsViewDelegate
-protocol FeedItemsViewDelegate: AnyObject {
+protocol FeedItemsUIViewDelegate: AnyObject {
     func didPullToRefresh(_ sender: UIRefreshControl)
 }
 
 final class FeedItemsView: BaseListView {
 
     // MARK: - Property
-    weak var delegate: (any FeedItemsViewDelegate)?
+    weak var delegate: (any FeedItemsUIViewDelegate)?
     private lazy var refreshControl = UIRefreshControl()
 
     // MARK: - Base override
@@ -27,8 +27,8 @@ final class FeedItemsView: BaseListView {
         refreshControl.tintColor = UIColor(resource: .tangerine)
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
-        refreshControl.layer.zPosition = -CGFloat(Float.greatestFiniteMagnitude)
-        tableView.refreshControl = refreshControl // iOS 10+ recommended
+        tableView.refreshControl = refreshControl
+        refreshControl.layer.zPosition = tableView.layer.zPosition - 1
     }
 
     // MARK: - Action

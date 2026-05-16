@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - DIContainerProtocol
 
-/// Confroms to `FeedsDependencies` for Dependency Narrowing
-protocol DIContainerProtocol: FeedsDependencies {
+/// Conforms to `FeedsDependencies`, `FeedItemsDependencies` per the Interface Segregation Principle, Dependency Narrowing
+protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies {
     func parser() -> any ParserProtocol
     func localSearch() -> any Searchable
     func exploreService() -> any ExploreFeedsServiceProtocol

@@ -12,6 +12,7 @@ import UIKit
 protocol ModuleFactoryProtocol {
     func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
     func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController
+    func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController
 }
 
 final class ModuleFactory {
@@ -32,7 +33,10 @@ extension ModuleFactory: ModuleFactoryProtocol {
     }
 
     func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController {
-        // TODO:
-        fatalError()
+        return FeedItemsBuilder.viewController(feed: feed, container: container)
+    }
+
+    func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController {
+        return FeedItemsBuilder.searchResultsViewController(for: query, items: items, container: container)
     }
 }

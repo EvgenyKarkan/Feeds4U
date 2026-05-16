@@ -36,6 +36,7 @@ final class Parser: @unchecked Sendable {
     weak var delegate: (any ParserDelegateProtocol)?
 
     // MARK: - Init
+    // TODO: - Remove storage from parser, let client create the data objects and cache them
     init(storage: any StorageProtocol) {
         self.storage = storage
     }

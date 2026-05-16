@@ -12,7 +12,7 @@ import CoreData.NSManagedObjectID
 final class FeedsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
-    private let coreDataService: any StorageProtocol
+    private let storage: any StorageProtocol
     private var localSearchService: any Searchable
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
 
@@ -20,11 +20,11 @@ final class FeedsInteractor {
 
     // MARK: - Init
     init(parser: any ParserProtocol,
-         coreDataService: any StorageProtocol,
+         storage: any StorageProtocol,
          localSearchService: any Searchable,
          exploreFeedsService: any ExploreFeedsServiceProtocol) {
         self.parser = parser
-        self.coreDataService = coreDataService
+        self.storage = storage
         self.localSearchService = localSearchService
         self.exploreFeedsService = exploreFeedsService
     }
@@ -34,11 +34,11 @@ final class FeedsInteractor {
 extension FeedsInteractor: FeedsInteractorProtocol {
 
     func getAllFeeds() -> [Feed] {
-        return coreDataService.loadFeeds()
+        return storage.loadFeeds()
     }
 
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool {
-        return coreDataService.containsFeed(withRSSURL: url)
+        return storage.containsFeed(withRSSURL: url)
     }
 
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void) {
@@ -72,19 +72,19 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
-        return coreDataService.feed(at: indexPath)
+        return storage.feed(at: indexPath)
     }
 
     func unreadCountsByFeed() -> [NSManagedObjectID: Int] {
-        return coreDataService.unreadCountsByFeed()
+        return storage.unreadCountsByFeed()
     }
 
     func saveContext() throws {
-        coreDataService.saveChanges()
+        storage.saveChanges()
     }
 
     func deleteFeed(_ feed: Feed) {
-        coreDataService.delete(feed)
+        storage.delete(feed)
         try? saveContext()
     }
 }
