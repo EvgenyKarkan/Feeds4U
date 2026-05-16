@@ -15,12 +15,12 @@ struct FeedItemsViewState {
     // in case of search - items may belong to different feeds
     let feedItems: [FeedItem]?
 
-    let searhTitle: String?
+    let searchTitle: String?
 
     // MARK: - Init
-    init(feed: Feed? = nil, feedItems: [FeedItem]? = nil, searhTitle: String? = nil) {
+    init(feed: Feed? = nil, feedItems: [FeedItem]? = nil, searchTitle: String? = nil) {
         self.feed = feed
         self.feedItems = feedItems
-        self.searhTitle = searhTitle
+        self.searchTitle = searchTitle
     }
 }

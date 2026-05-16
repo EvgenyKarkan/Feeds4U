@@ -46,7 +46,7 @@ extension DIContainer: DIContainerProtocol {
 
     func storage() -> any StorageProtocol {
         return shared {
-            return NewCoreDataManager.shared
+            return CoreDataManager.shared
         }
     }
 }

@@ -55,23 +55,25 @@ extension String {
             .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
     }
 
+    private static let linkDetector: NSDataDetector? = {
+        return try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    }()
+
     /// Whether the string contains a valid URL, as determined by `NSDataDetector` link checking.
     /// Returns `false` for empty or whitespace-only strings.
     var isValidURL: Bool {
         guard !isEmpty, !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
         }
-
-        do {
-            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            let matches = detector.matches(
-                in: self,
-                options: [],
-                range: NSRange(location: .zero, length: utf16.count)
-            )
-            return !matches.isEmpty
-        } catch {
+        guard let detector = Self.linkDetector else {
             return false
         }
+
+        let matches = detector.matches(
+            in: self,
+            options: [],
+            range: NSRange(location: .zero, length: utf16.count)
+        )
+        return !matches.isEmpty
     }
 }

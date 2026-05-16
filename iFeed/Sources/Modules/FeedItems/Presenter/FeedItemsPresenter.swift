@@ -33,7 +33,7 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
         let viewState = FeedItemsViewState(
             feed: interactor.getFeed(),
             feedItems: feedItems,
-            searhTitle: interactor.getSearchTitle()
+            searchTitle: interactor.getSearchTitle()
         )
 
         view?.updateOnDidLoad(with: viewState)

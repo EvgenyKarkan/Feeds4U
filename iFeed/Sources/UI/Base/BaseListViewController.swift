@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let appName = "Feeds4U"
+}
+
 class BaseListViewController: UIViewController {
 
     // MARK: - Properties
@@ -17,7 +21,7 @@ class BaseListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Feeds4U"
+        title = Constants.appName
 
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: String(),
@@ -27,37 +31,11 @@ class BaseListViewController: UIViewController {
         )
     }
 
-    // MARK: - Add feed
     func addFeedPressed(_ URL: String) {
         fatalError()
     }
 
     func searchForFeedsPressed(with webPage: String) {
         fatalError()
-    }
-
-    // MARK: - Parsing
-    func startParsingURL(_ string: String) {
-        guard !string.isEmpty, let url = URL(string: string) else {
-            didFailParsingFeed()
-            return
-        }
-
-        let parser = Brain.brain.parser
-        parser.delegate = self
-        parser.beginParsingURL(url)
-    }
-}
-
-// MARK: - ParserDelegateProtocol
-extension BaseListViewController: ParserDelegateProtocol {
-
-    @objc func didEndParsingFeed(_ feed: Feed) {
-        hideSpinner()
-    }
-
-    @objc func didFailParsingFeed() {
-        hideSpinner()
-        showInvalidFeedAlert()
     }
 }

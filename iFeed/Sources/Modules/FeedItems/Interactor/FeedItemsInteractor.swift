@@ -124,10 +124,12 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
         storage.saveChanges()
 
         parsingCompletion?(.success(()))
+        parsingCompletion = nil
     }
 
     func didFailParsingFeed() {
         let error = NSError(domain: #function, code: #line)
         parsingCompletion?(.failure(error))
+        parsingCompletion = nil
     }
 }

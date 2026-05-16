@@ -77,8 +77,8 @@ extension FeedItemsViewController: FeedItemsViewProtocol {
 
         title = viewState.feed?.title
 
-        if viewState.searhTitle != nil {
-            title = viewState.searhTitle
+        if viewState.searchTitle != nil {
+            title = viewState.searchTitle
             feedItemsView?.hideRefreshControl()
         }
 

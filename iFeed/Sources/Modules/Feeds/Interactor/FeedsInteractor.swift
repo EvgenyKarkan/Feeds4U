@@ -94,10 +94,12 @@ extension FeedsInteractor: ParserDelegateProtocol {
 
     func didEndParsingFeed(_ feed: Feed) {
         parsingCompletion?(.success(feed))
+        parsingCompletion = nil
     }
 
     func didFailParsingFeed() {
         let error = NSError(domain: #function, code: #line)
         parsingCompletion?(.failure(error))
+        parsingCompletion = nil
     }
 }
