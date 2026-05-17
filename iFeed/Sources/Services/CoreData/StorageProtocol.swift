@@ -15,12 +15,12 @@ protocol EntityCreating {
     /// Creates and inserts a new `Feed` managed object into the storage context.
     ///
     /// The returned object is unsaved until `saveChanges()` is called.
-    func makeFeed() -> NSManagedObject?
+    func makeFeed() -> Feed?
 
     /// Creates and inserts a new `FeedItem` managed object into the storage context.
     ///
     /// The returned object is unsaved until `saveChanges()` is called.
-    func makeFeedItem() -> NSManagedObject?
+    func makeFeedItem() -> FeedItem?
 }
 
 /// Provides deletion support for managed objects owned by the storage context.
