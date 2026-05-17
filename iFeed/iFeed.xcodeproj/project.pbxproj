@@ -24,6 +24,7 @@
 		088B31612FAFA3AB00F783B5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088B31602FAFA3AB00F783B5 /* Coordinator.swift */; };
 		088B31632FAFC08800F783B5 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088B31622FAFC08800F783B5 /* ModuleFactory.swift */; };
 		089C36F72BB23E6E00337EB4 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */; };
+		08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */; };
 		08AF0D672FB92200000521AF /* REVISION.md in Resources */ = {isa = PBXBuildFile; fileRef = 08AF0D662FB92200000521AF /* REVISION.md */; };
 		08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */; };
@@ -103,6 +104,7 @@
 		088B31622FAFC08800F783B5 /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		089C36F52BB22B9200337EB4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
+		08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInstancesContainerTests.swift; sourceTree = "<group>"; };
 		08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListViewController.swift; sourceTree = "<group>"; };
 		08AF0D662FB92200000521AF /* REVISION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = REVISION.md; sourceTree = "<group>"; };
 		08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
@@ -313,6 +315,14 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		08A9780B2FBA4D620004E40D /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
 		08AF0D682FB933B9000521AF /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +450,7 @@
 		08E20D6B2F90573400059CED /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				08A9780B2FBA4D620004E40D /* DIContainer */,
 				08B083142FB2A60C007C63DD /* Services */,
 			);
 			path = Tests;
@@ -676,6 +687,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08B083152FB2A60C007C63DD /* ParsedFeedItemDataTests.swift in Sources */,
+				08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */,
 				08B083162FB2A60C007C63DD /* ParsedFeedDataTests.swift in Sources */,
 				08B00C0F2FB3AE92007BD039 /* ExploreFeedsServiceTests.swift in Sources */,
 				08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */,

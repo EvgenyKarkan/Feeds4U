@@ -207,11 +207,9 @@ extension FeedsViewController: FeedsViewProtocol {
         showInvalidFeedAlert()
     }
 
-    func appendParsedFeed(_ feed: Feed) {
-        tableViewProvider?.dataSource.append(feed)
-    }
-
-    func updateOnDidEndParsingFeed() {
+    func updateOnDidEndParsingFeed(with viewState: FeedsViewState) {
+        tableViewProvider?.dataSource = viewState.feeds
+        tableViewProvider?.unreadCounts = viewState.unreadCounts
         feedListView?.reloadTableView()
 
         /// Add `trash` only if there is no `leftBarButtonItem`

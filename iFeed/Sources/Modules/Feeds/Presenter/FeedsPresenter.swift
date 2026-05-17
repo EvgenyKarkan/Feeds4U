@@ -15,8 +15,6 @@ final class FeedsPresenter {
     private let interactor: any FeedsInteractorProtocol
     private weak var view: (any FeedsViewProtocol)?
 
-    var viewState = FeedsViewState()
-
     // MARK: - Init
     init(interactor: any FeedsInteractorProtocol,
          wireframe: any FeedsWireframeProtocol,
@@ -33,7 +31,7 @@ extension FeedsPresenter: FeedsViewDelegate {
     func onViewDidLoad() {
         let allFeeds = interactor.getAllFeeds()
         let counts = interactor.unreadCountsByFeed()
-        viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
+        let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
 
         view?.updateOnDidLoad(with: viewState)
     }
@@ -41,7 +39,7 @@ extension FeedsPresenter: FeedsViewDelegate {
     func onViewWillAppear() {
         let allFeeds = interactor.getAllFeeds()
         let counts = interactor.unreadCountsByFeed()
-        viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
+        let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
 
         view?.updateOnWillAppear(with: viewState)
     }
@@ -60,13 +58,19 @@ extension FeedsPresenter: FeedsViewDelegate {
             self?.view?.hideActivityIndicator(nil)
 
             switch result {
-            case .success(let feed):
-                self?.view?.appendParsedFeed(feed)
+            case .success( _):
+                guard let self = self else {
+                    return
+                }
+                try? self.interactor.saveContext()
 
-                try? self?.interactor.saveContext()
-                self?.view?.updateOnDidEndParsingFeed()
+                let allFeeds = self.interactor.getAllFeeds()
+                let counts = self.interactor.unreadCountsByFeed()
+                let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
 
-            case .failure(let error):
+                self.view?.updateOnDidEndParsingFeed(with: viewState)
+
+            case .failure( _):
                 self?.view?.showFeedParsingError()
             }
         }

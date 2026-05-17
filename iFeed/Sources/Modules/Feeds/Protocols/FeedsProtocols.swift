@@ -76,9 +76,7 @@ protocol FeedsViewProtocol: AnyObject {
     func showFeedIsAlreadySavedError()
     func showFeedParsingError()
 
-    func appendParsedFeed(_ feed: Feed)
-    func updateOnDidEndParsingFeed()
-
+    func updateOnDidEndParsingFeed(with viewState: FeedsViewState)
     func updateViewAfterFeedDeletionAtIndexPath(_ indexPath: IndexPath, feeds: [Feed])
 }
 
