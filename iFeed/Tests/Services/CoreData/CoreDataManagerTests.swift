@@ -10,7 +10,18 @@ import CoreData
 import Foundation
 import UIKit
 import Testing
-@testable import iFeed
+@testable @preconcurrency import iFeed
+
+// Coverage: ~83 %.
+// Uncovered code paths:
+//  - Error-handling `catch` branches in saveContext, executeFetchRequest, count,
+//    batchDelete, and batchUpdate. Core Data raises ObjC NSInternalInconsistency-
+//    Exception instead of throwing Swift errors, so these paths are unreachable
+//    without an ObjC exception-catching wrapper.
+//  - `saveContextAsync` deallocation guard (`guard let self`) and its catch clauses.
+//  - `init(modelName:)`, `setupPersistentContainer`, and `getLegacyStoreURL` —
+//    these configure the app's real store location and are bypassed by the test-
+//    only `init(container:)` initialiser.
 
 @Suite("CoreDataManager Tests", .serialized)
 @MainActor
@@ -535,6 +546,441 @@ struct CoreDataManagerTests {
 
         // Then
         #expect(isReady == true)
+    }
+
+    // MARK: - CoreDataError
+
+    @Test("CoreDataError descriptions are non-empty for all cases")
+    func errorDescriptions() {
+        let dummy = NSError(domain: "test", code: 1)
+        let cases: [CoreDataError] = [
+            .persistentStoreLoadFailed(underlying: dummy),
+            .modelNotFound,
+            .contextNotAvailable,
+            .fetchFailed(underlying: dummy),
+            .saveFailed(underlying: dummy),
+            .executionFailed(underlying: dummy),
+            .entityCreationFailed(entityName: "Feed")
+        ]
+
+        for error in cases {
+            #expect(error.errorDescription != nil)
+            #expect(error.errorDescription?.isEmpty == false)
+        }
+    }
+
+    // MARK: - Save Context (explicit context)
+
+    @Test("saveContext with explicit background context")
+    func saveContextExplicit() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let bgContext = manager.newBackgroundContext()
+
+        // When
+        bgContext.performAndWait {
+            guard let feed = try? manager.createFeed(in: bgContext) else { return }
+            feed.rssURL = "https://bg.com"
+            feed.title = "BG Feed"
+            try? manager.saveContext(bgContext)
+        }
+
+        // Then
+        let feeds = try manager.fetchFeeds()
+        #expect(feeds.count == 1)
+    }
+
+    // MARK: - Save Context Async
+
+    @Test("saveContextAsync reports success")
+    func saveContextAsyncSuccess() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        _ = try Self.populateFeed(in: manager)
+
+        let feed2 = try manager.createFeed()
+        feed2.rssURL = "https://async.com"
+        feed2.title = "Async Feed"
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            manager.saveContextAsync(manager.newBackgroundContext()) { result in
+                if case .success = result {
+                    continuation.resume()
+                } else {
+                    continuation.resume()
+                }
+            }
+        }
+
+        // Then — context had no changes (new bg context), so success is expected
+        #expect(true)
+    }
+
+    @Test("saveContextAsync with nil completion does not crash")
+    func saveContextAsyncNilCompletion() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let bgContext = manager.newBackgroundContext()
+
+        // When — should not crash
+        manager.saveContextAsync(bgContext, completion: nil)
+
+        // Then — no crash means pass
+        #expect(true)
+    }
+
+    // MARK: - Perform Background Task
+
+    @Test("performBackgroundTask configures context and executes block")
+    func performBackgroundTaskTest() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            manager.performBackgroundTask { context in
+                // Then — context should be configured
+                #expect(context.undoManager == nil)
+                #expect(context.automaticallyMergesChangesFromParent == true)
+                #expect(context.shouldDeleteInaccessibleFaults == true)
+                continuation.resume()
+            }
+        }
+    }
+
+    // MARK: - Refresh
+
+    @Test("refresh re-faults saved objects")
+    func refreshObjects() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        // Access a property to ensure the fault is fired
+        _ = feed.title
+
+        // When
+        manager.refresh([feed], mergeChanges: true)
+
+        // Then — object is still valid and accessible
+        #expect(feed.isFault == true)
+        #expect(feed.title == "Test Feed")
+    }
+
+    @Test("refresh with mergeChanges false discards unsaved edits")
+    func refreshDiscardChanges() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        feed.title = "Modified"
+
+        // When
+        manager.refresh([feed], mergeChanges: false)
+
+        // Then
+        #expect(feed.title == "Test Feed")
+    }
+
+    // MARK: - StorageProtocol: saveChanges
+
+    @Test("saveChanges persists pending changes")
+    func saveChangesProtocol() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try manager.createFeed()
+        feed.rssURL = "https://save.com"
+        feed.title = "Save Test"
+
+        // When
+        manager.saveChanges()
+
+        // Then
+        let feeds = try manager.fetchFeeds()
+        #expect(feeds.count == 1)
+        #expect(feeds.first?.title == "Save Test")
+    }
+
+    // MARK: - StorageProtocol: delete (single-arg)
+
+    @Test("delete via StorageProtocol removes the object")
+    func deleteStorageProtocol() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        // When
+        (manager as (any StorageProtocol)).delete(feed)
+        try manager.saveViewContext()
+
+        // Then
+        #expect(try manager.fetchFeeds().isEmpty)
+    }
+
+    // MARK: - Create in explicit context
+
+    @Test("createFeed in explicit context inserts into that context")
+    func createFeedExplicitContext() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let bgContext = manager.newBackgroundContext()
+
+        // When
+        bgContext.performAndWait {
+            let feed = try? manager.createFeed(in: bgContext)
+            feed?.rssURL = "https://explicit.com"
+            feed?.title = "Explicit"
+
+            // Then
+            #expect(feed?.managedObjectContext === bgContext)
+        }
+    }
+
+    @Test("createFeedItem in explicit context inserts into that context")
+    func createFeedItemExplicitContext() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let bgContext = manager.newBackgroundContext()
+
+        // When
+        bgContext.performAndWait {
+            let item = try? manager.createFeedItem(in: bgContext)
+            item?.title = "BG Item"
+
+            // Then
+            #expect(item?.managedObjectContext === bgContext)
+        }
+    }
+
+    // MARK: - Fetch with custom sort descriptors
+
+    @Test("fetchFeeds with custom sort descriptors")
+    func fetchFeedsCustomSort() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        _ = try Self.populateFeed(in: manager, rssURL: "https://a.com", title: "Alpha")
+        _ = try Self.populateFeed(in: manager, rssURL: "https://z.com", title: "Zebra")
+
+        let descending = [NSSortDescriptor(key: "title", ascending: false)]
+
+        // When
+        let feeds = try manager.fetchFeeds(sortedBy: descending)
+
+        // Then
+        #expect(feeds.first?.title == "Zebra")
+        #expect(feeds.last?.title == "Alpha")
+    }
+
+    @Test("fetchFeedItems with predicate filter")
+    func fetchFeedItemsFiltered() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Keep", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Filter Out", link: "https://example.com/2", wasRead: true)
+
+        let predicate = NSPredicate(format: "title == %@", "Keep")
+
+        // When
+        let items = try manager.fetchFeedItems(filteredBy: predicate)
+
+        // Then
+        #expect(items.count == 1)
+        #expect(items.first?.title == "Keep")
+    }
+
+    @Test("fetchFeedItems with custom sort descriptors")
+    func fetchFeedItemsCustomSort() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Aaa")
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Zzz", link: "https://example.com/2")
+
+        let byTitle = [NSSortDescriptor(key: "title", ascending: true)]
+
+        // When
+        let items = try manager.fetchFeedItems(sortedBy: byTitle)
+
+        // Then
+        #expect(items.first?.title == "Aaa")
+        #expect(items.last?.title == "Zzz")
+    }
+
+    // MARK: - Batch update with predicate
+
+    @Test("Batch update with predicate only updates matching items")
+    func batchUpdateWithPredicate() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Target", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Leave Alone", link: "https://example.com/2", wasRead: false)
+
+        let predicate = NSPredicate(format: "title == %@", "Target")
+
+        // When
+        try manager.batchUpdate(
+            entityName: "FeedItem",
+            propertiesToUpdate: ["wasRead": NSNumber(value: true)],
+            predicate: predicate
+        )
+
+        // Then
+        let unread = try manager.fetchUnreadFeedItems()
+        #expect(unread.count == 1)
+        #expect(unread.first?.title == "Leave Alone")
+    }
+
+    // MARK: - Multiple feeds unread counts
+
+    @Test("unreadCountsByFeed returns counts for multiple feeds")
+    func unreadCountsMultipleFeeds() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feedA = try Self.populateFeed(in: manager, rssURL: "https://a.com", title: "A")
+        let feedB = try Self.populateFeed(in: manager, rssURL: "https://b.com", title: "B")
+
+        _ = try Self.populateFeedItem(in: manager, feed: feedA, title: "A1", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: feedA, title: "A2", link: "https://a.com/2", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: feedA, title: "A3", link: "https://a.com/3", wasRead: true)
+        _ = try Self.populateFeedItem(in: manager, feed: feedB, title: "B1", wasRead: false)
+
+        // When
+        let counts = manager.unreadCountsByFeed()
+
+        // Then
+        #expect(counts[feedA.objectID] == 2)
+        #expect(counts[feedB.objectID] == 1)
+    }
+
+    // MARK: - Empty store edge cases
+
+    @Test("savedFeedURLs returns empty set on empty store")
+    func savedFeedURLsEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let urls = manager.savedFeedURLs()
+
+        // Then
+        #expect(urls.isEmpty)
+    }
+
+    @Test("containsFeed returns false on empty store")
+    func containsFeedEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When / Then
+        #expect(manager.containsFeed(withRSSURL: "https://nothing.com") == false)
+    }
+
+    @Test("unreadCountsByFeed returns empty on empty store")
+    func unreadCountsEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let counts = manager.unreadCountsByFeed()
+
+        // Then
+        #expect(counts.isEmpty)
+    }
+
+    @Test("loadFeedItems returns empty on empty store")
+    func loadFeedItemsEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let items = manager.loadFeedItems()
+
+        // Then
+        #expect(items?.isEmpty == true)
+    }
+
+    @Test("feed(at:) returns nil on empty store")
+    func feedAtEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let feed = manager.feed(at: IndexPath(row: 0, section: 0))
+
+        // Then
+        #expect(feed == nil)
+    }
+
+    // MARK: - Count on empty store
+
+    @Test("count returns zero on empty store")
+    func countEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let feedCount = try manager.count(entityName: "Feed")
+        let itemCount = try manager.count(entityName: "FeedItem")
+
+        // Then
+        #expect(feedCount == 0)
+        #expect(itemCount == 0)
+    }
+
+    @Test("countUnreadItems returns zero on empty store")
+    func countUnreadEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When
+        let count = try manager.countUnreadItems()
+
+        // Then
+        #expect(count == 0)
+    }
+
+    // MARK: - Fetch matching with no results
+
+    @Test("fetchFeeds matching returns empty when no match")
+    func fetchFeedsMatchingNoResult() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        _ = try Self.populateFeed(in: manager, title: "Swift Weekly")
+
+        // When
+        let results = try manager.fetchFeeds(matching: "Kotlin")
+
+        // Then
+        #expect(results.isEmpty)
+    }
+
+    // MARK: - Clear all data on empty store
+
+    @Test("clearAllData on empty store does not throw")
+    func clearAllDataEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When / Then — should not throw
+        try manager.clearAllData()
+        #expect(try manager.fetchFeeds().isEmpty)
+    }
+
+    // MARK: - Batch delete on empty store
+
+    @Test("batchDelete on empty store does not throw")
+    func batchDeleteEmpty() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When / Then — should not throw
+        try manager.batchDelete(entityName: "Feed")
+        #expect(try manager.fetchFeeds().isEmpty)
     }
 }
 

@@ -399,7 +399,6 @@ func onViewNeedsToAddFeed(from url: String) {
         do {
             let feed = try await interactor.startParsingFeed(url)
             view?.hideActivityIndicator(nil)
-            view?.appendParsedFeed(feed)
         } catch {
             view?.hideActivityIndicator(nil)
             view?.showFeedParsingError()
