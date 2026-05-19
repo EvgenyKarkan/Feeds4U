@@ -8,12 +8,7 @@
 
 import Foundation
 
-enum AddState {
-    case added
-    case notAdded
-}
-
 struct ExploreFeedsResult {
     let data: ExploreFeedsElement
-    let state: AddState
+    let isAdded: Bool
 }

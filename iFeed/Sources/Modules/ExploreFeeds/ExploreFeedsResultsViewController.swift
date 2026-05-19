@@ -75,8 +75,7 @@ final class ExploreFeedsResultsViewController: UITableViewController {
         let element: ExploreFeedsElement = searchResults[indexPath.row]
         let isAlreadyStored = element.rssURL.flatMap { URL(string: $0)?.absoluteString }.map { savedURLs.contains($0) } ?? false
 
-        let state: AddState = isAlreadyStored ? .added : .notAdded
-        let model: ExploreFeedsResult = ExploreFeedsResult(data: element, state: state)
+        let model = ExploreFeedsResult(data: element, isAdded: isAlreadyStored)
 
         cell.updateWithResults(model)
 

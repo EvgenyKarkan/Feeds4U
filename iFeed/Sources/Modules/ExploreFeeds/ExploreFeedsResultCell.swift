@@ -36,14 +36,8 @@ final class ExploreFeedsResultCell: UITableViewCell, Reusable {
         titleLabel.text = model.data.title?.capitalized
         descriptionLabel.text = model.data.description?.capitalized
 
-        switch model.state {
-        case .added:
-            checkMarkImageView.isHidden = false
-            addImageView.isHidden = true
-        case .notAdded:
-            addImageView.isHidden = false
-            checkMarkImageView.isHidden = true
-        }
+        checkMarkImageView.isHidden = !model.isAdded
+        addImageView.isHidden = model.isAdded
     }
 }
 

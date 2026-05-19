@@ -283,7 +283,7 @@
 			children = (
 				080CFB2F2FA2BA8A0054B292 /* Feeds */,
 				08B561D92FB7DF3400B6063E /* FeedItems */,
-				08B00C032FB3AB66007BD039 /* ExploreFeedsResults */,
+				08B00C032FB3AB66007BD039 /* ExploreFeeds */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			path = ExploreFeeds;
 			sourceTree = "<group>";
 		};
-		08B00C032FB3AB66007BD039 /* ExploreFeedsResults */ = {
+		08B00C032FB3AB66007BD039 /* ExploreFeeds */ = {
 			isa = PBXGroup;
 			children = (
 				08B00BFE2FB3AB66007BD039 /* ExploreFeedsResult.swift */,
@@ -349,7 +349,7 @@
 				08B00C022FB3AB66007BD039 /* ExploreFeedsResultsViewController.xib */,
 				08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */,
 			);
-			path = ExploreFeedsResults;
+			path = ExploreFeeds;
 			sourceTree = "<group>";
 		};
 		08B083102FB2A60C007C63DD /* Parser */ = {
@@ -361,20 +361,20 @@
 			path = Parser;
 			sourceTree = "<group>";
 		};
-		08B083132FB2A60C007C63DD /* Search */ = {
+		08B083132FB2A60C007C63DD /* ExploreFeeds */ = {
 			isa = PBXGroup;
 			children = (
 				08B00C0E2FB3AE92007BD039 /* ExploreFeedsServiceTests.swift */,
 				08B00C0D2FB3AE92007BD039 /* ExploreFeedsElementTests.swift */,
 			);
-			path = Search;
+			path = ExploreFeeds;
 			sourceTree = "<group>";
 		};
 		08B083142FB2A60C007C63DD /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				08B083102FB2A60C007C63DD /* Parser */,
-				08B083132FB2A60C007C63DD /* Search */,
+				08B083132FB2A60C007C63DD /* ExploreFeeds */,
 				08AF0D682FB933B9000521AF /* CoreData */,
 			);
 			path = Services;

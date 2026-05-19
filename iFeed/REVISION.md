@@ -203,13 +203,6 @@ Consider caching the detector as a static property.
 
 **File:** `Sources/Extensions/String+Ext.swift:60-76`
 
-#### 4.4 UIScreen.main.bounds Deprecation
-
-Both `FeedsViewController.loadView` and `FeedItemsViewController.loadView` use `UIScreen.main.bounds` which is deprecated in iOS 16+. Should use the view's own bounds or `.zero` and rely on Auto Layout.
-
-**File:** `Sources/Modules/Feeds/View/FeedsViewController.swift:79`
-**File:** `Sources/Modules/FeedItems/View/FeedItemsViewController.swift:22`
-
 ---
 
 ### 5. CODE SMELLS
@@ -302,7 +295,7 @@ Tests exist for:
 - `ExploreFeedsElementTests` -- DTO parsing
 
 Missing test coverage for:
-- **Core Data operations** (NewCoreDataManager) -- critical path, no tests
+- ✅ **Core Data operations** (NewCoreDataManager) -- critical path, no tests
 - **VIPER modules** -- no presenter, interactor, or wireframe tests
 - **Parser** -- no tests for the actual parsing flow + Core Data object creation
 - **Search** -- no tests for MatchingEngine integration
