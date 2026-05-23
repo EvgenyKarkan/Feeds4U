@@ -26,7 +26,7 @@ final class FeedsPresenter {
 }
 
 // MARK: - FeedsViewDelegate
-extension FeedsPresenter: FeedsViewDelegate {
+extension FeedsPresenter: @MainActor FeedsViewDelegate {
 
     func onViewDidLoad() {
         let allFeeds = interactor.getAllFeeds()
@@ -58,7 +58,7 @@ extension FeedsPresenter: FeedsViewDelegate {
             self?.view?.hideActivityIndicator(nil)
 
             switch result {
-            case .success( _):
+            case .success:
                 guard let self = self else {
                     return
                 }
@@ -70,57 +70,60 @@ extension FeedsPresenter: FeedsViewDelegate {
 
                 self.view?.updateOnDidEndParsingFeed(with: viewState)
 
-            case .failure( _):
+            case .failure:
                 self?.view?.showFeedParsingError()
             }
         }
     }
 
+    @MainActor
     func onViewNeedsToExploreFeeds(on webSite: String) {
         view?.disableTableViewEditingStateIfNeeded()
         view?.showActivityIndicator()
 
-        interactor.exploreFeeds(on: webSite) { [weak self] result in
-            nonisolated(unsafe) let presenter = self
+        wireframe.presentFeedExplorer(
+            for: webSite,
+            onChallengePresented: { [weak self] in
+                self?.view?.hideActivityIndicator(nil)
+            },
+            onResult: { [weak self] result in
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.hideActivityIndicator(nil)
 
-            DispatchQueue.main.async {
-                presenter?.view?.hideActivityIndicator(nil)
-
-                switch result {
-                case .success(let data):
-                    /// Filter data from items with invalid URL
-                    let filteredData: ExploreFeedsDTO = data.compactMap { element -> ExploreFeedsElement? in
-                        if let urlString = element.rssURL, URL(string: urlString) != nil {
-                            return element
+                    switch result {
+                    case .success(let data):
+                        /// Filter data from items with invalid URL
+                        let filteredData: ExploreFeedsDTO = data.compactMap { element -> ExploreFeedsElement? in
+                            if let urlString = element.rssURL, URL(string: urlString) != nil {
+                                return element
+                            }
+                            return nil
                         }
-                        return nil
+                        guard !filteredData.isEmpty else {
+                            // TODO: - Handle this case on UI
+                            self?.view?.showError(NSError(domain: #function, code: #line))
+                            return
+                        }
+
+                        let callback: ((String) -> Void) = { selectedURL in
+                            self?.onViewNeedsToAddFeed(from: selectedURL)
+                        }
+
+                        self?.wireframe.presentDiscoveredFeeds(
+                            filteredData,
+                            for: webSite,
+                            onFeedSelected: callback
+                        )
+
+                    case .failure(let error):
+                        self?.view?.showError(error)
                     }
-                    guard !filteredData.isEmpty else {
-                        // TODO: - Handle this case on UI
-                        presenter?.view?.showError(NSError(domain: #function, code: #line))
-                        return
-                    }
-
-                    print(filteredData)
-
-                    let callback: ((String) -> Void) = { selectedURL in
-                        presenter?.onViewNeedsToAddFeed(from: selectedURL)
-                    }
-
-                    presenter?.wireframe.presentDiscoveredFeeds(
-                        filteredData,
-                        for: webSite,
-                        onFeedSelected: callback
-                    )
-
-                case .failure(let error):
-                    presenter?.view?.showError(error)
                 }
             }
-        }
+        )
     }
 
-    func onViewDidPressSearch() {
+    func onViewNeedsToShowSearchInput() {
         view?.showActivityIndicator()
 
         interactor.fillSearchMatchingEngine { [weak self] in
@@ -160,6 +163,7 @@ extension FeedsPresenter: FeedsViewDelegate {
         return interactor.feedForIndexPath(indexPath)
     }
 
+    @MainActor
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath) {
         guard indexPath.row < getAllFeeds().count,
               let feed = feedForIndexPath(indexPath),

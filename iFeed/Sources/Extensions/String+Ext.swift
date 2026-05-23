@@ -77,3 +77,54 @@ extension String {
         return !matches.isEmpty
     }
 }
+
+extension String {
+
+    /// Detects Cloudflare anti-bot / challenge pages
+    var isCloudflareChallengePage: Bool {
+
+        let lowercased = self.lowercased()
+
+        // 1. Common Cloudflare challenge phrases
+        let cloudflareKeywords = [
+            "just a moment",
+            "checking your browser",
+            "verify you are human",
+            "enable javascript and cookies",
+            "cf-challenge",
+            "cloudflare",
+            "attention required",
+            "ray id",
+            "ddos protection by cloudflare",
+            "challenge-platform"
+        ]
+
+        let keywordMatch = cloudflareKeywords.contains { lowercased.contains($0) }
+
+        // 2. Cloudflare-specific HTML/JS markers
+        let cloudflareMarkers = [
+            "cf_chl_opt",
+            "cRay",
+            "cZone",
+            "/cdn-cgi/challenge-platform/",
+            "window._cf_chl_opt",
+            "challenge-platform/h/g/orchestrate",
+            "cf-browser-verification"
+        ]
+
+        let markerMatch = cloudflareMarkers.contains { self.contains($0) }
+
+        // 3. Meta / structural indicators
+        let structuralHints =
+            self.contains("content=\"noindex,nofollow\"") &&
+            self.contains("Enable JavaScript and cookies")
+
+        // 4. Ray ID pattern (very common in Cloudflare pages)
+        let rayIdMatch = self.range(
+            of: #"(?i)ray id:\s*[a-f0-9]{16,}"#,
+            options: .regularExpression
+        ) != nil
+
+        return keywordMatch || markerMatch || structuralHints || rayIdMatch
+    }
+}

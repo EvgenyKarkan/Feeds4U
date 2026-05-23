@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 
 protocol ModuleFactoryProtocol {
-    func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
+    @MainActor func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
     func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController
     func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController
+    func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController
 }
 
 final class ModuleFactory {
@@ -38,5 +39,9 @@ extension ModuleFactory: ModuleFactoryProtocol {
 
     func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController {
         return FeedItemsBuilder.searchResultsViewController(for: query, items: items, container: container)
+    }
+
+    func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController {
+        return ExploreFeedsBuilder.viewController(with: results, webPage: webPage, container: container)
     }
 }

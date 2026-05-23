@@ -9,6 +9,7 @@
 import Foundation
 import CoreData.NSManagedObjectID
 
+@MainActor
 protocol FeedsWireframeProtocol {
     /// Pushes the screen that displays items belonging to the selected feed.
     ///
@@ -21,6 +22,15 @@ protocol FeedsWireframeProtocol {
     ///   - results: Feed items matched by the local search engine.
     ///   - query: Original search query shown in the results title.
     func navigateToSearchResults(with results: [FeedItem], matching query: String)
+
+    /// Presents the WebView-based feed explorer that handles Cloudflare challenges.
+    ///
+    /// - Parameters:
+    ///   - webPage: Web page URL used as the discovery source.
+    ///   - onResult: Callback invoked with the feed search result.
+    func presentFeedExplorer(for webPage: String,
+                             onChallengePresented: @escaping () -> Void,
+                             onResult: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void)
 
     /// Presents discovered feed candidates for a web page.
     ///
@@ -88,7 +98,7 @@ protocol FeedsViewDelegate: AnyObject {
     func onViewNeedsToAddFeed(from url: String)
     func onViewNeedsToExploreFeeds(on webSite: String)
 
-    func onViewDidPressSearch() // on view needs to show Search Input ?
+    func onViewNeedsToShowSearchInput()
     func onViewNeedsToSearchFeeds(by searchTerm: String)
 
     func getAllFeeds() -> [Feed]
@@ -110,4 +120,5 @@ protocol FeedsDependencies {
 protocol FeedsCoordinatingDelegate: AnyObject {
     func onNeedToShowFeedDetails(for feed: Feed)
     func onNeedToShowSearchResults(with items: [FeedItem], matching query: String)
+    func onNeedToShowExploreFeeds(with results: ExploreFeedsDTO, webPage: String)
 }

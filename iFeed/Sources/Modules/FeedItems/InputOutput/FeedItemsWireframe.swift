@@ -81,12 +81,13 @@ extension FeedItemsWireframe: FeedItemsWireframeProtocol {
             return
         }
 
-        let configuration = SFSafariViewController.Configuration()
-
-        let safariVC = SFSafariViewController(url: url, configuration: configuration)
+        let safariVC = SFSafariViewController(
+            url: url,
+            configuration: SFSafariViewController.Configuration()
+        )
 
         let zoomOptions = UIViewController.Transition.ZoomOptions()
-        zoomOptions.dimmingColor = .tangerine
+        zoomOptions.dimmingVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
 
         safariVC.preferredTransition = .zoom(options: zoomOptions) { _ in
             return cell

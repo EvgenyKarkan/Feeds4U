@@ -32,7 +32,7 @@ final class ExploreFeedsResultCell: UITableViewCell, Reusable {
     }
 
     // MARK: - Public
-    func updateWithResults(_ model: ExploreFeedsResult) {
+    func updateWithResult(_ model: ExploreFeedsResult) {
         titleLabel.text = model.data.title?.capitalized
         descriptionLabel.text = model.data.description?.capitalized
 

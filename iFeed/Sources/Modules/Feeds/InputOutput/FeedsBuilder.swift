@@ -11,6 +11,7 @@ import UIKit
 
 enum FeedsBuilder {
 
+    @MainActor
     static func viewController(container: any FeedsDependencies,
                                delegate: any FeedsCoordinatingDelegate) -> FeedsViewController {
         /// Interactor

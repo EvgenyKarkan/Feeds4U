@@ -53,4 +53,13 @@ extension Coordinator: AppCoordinating {
         let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query)
         navigationController?.pushViewController(feedItemsVC, animated: true)
     }
+
+    func onNeedToShowExploreFeeds(with results: ExploreFeedsDTO, webPage: String) {
+        let exploreFeedsVC = moduleFactory.makeExploreFeedsModule(with: results, for: webPage)
+
+        let navigationVC = UINavigationController(rootViewController: exploreFeedsVC)
+        navigationVC.modalPresentationStyle = .fullScreen
+
+        navigationController?.present(navigationVC, animated: true)
+    }
 }

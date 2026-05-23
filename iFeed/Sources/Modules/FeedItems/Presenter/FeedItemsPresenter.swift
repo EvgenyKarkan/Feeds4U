@@ -92,7 +92,7 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
                 }
                 wireframe.prewarmSafari(for: items)
 
-            case .failure(let error):
+            case .failure:
                 self.view?.updateOnDidFailParsingFeed()
             }
         }

@@ -275,7 +275,7 @@ private extension FeedsViewController {
     }
 
     @objc func searchButtonItemDidPress() {
-        presenter?.onViewDidPressSearch()
+        presenter?.onViewNeedsToShowSearchInput()
     }
 
     func addTrashButton(_ add: Bool) {
