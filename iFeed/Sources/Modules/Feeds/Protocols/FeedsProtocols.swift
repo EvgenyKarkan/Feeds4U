@@ -117,8 +117,12 @@ protocol FeedsDependencies {
 }
 
 /// Wireframe -> AppCoordinator
+@MainActor
 protocol FeedsCoordinatingDelegate: AnyObject {
     func onNeedToShowFeedDetails(for feed: Feed)
     func onNeedToShowSearchResults(with items: [FeedItem], matching query: String)
     func onNeedToShowExploreFeeds(with results: ExploreFeedsDTO, webPage: String)
+    func onNeedToStartFeedExploration(for webPage: String,
+                                      onChallengePresented: @escaping () -> Void,
+                                      onResult: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void)
 }

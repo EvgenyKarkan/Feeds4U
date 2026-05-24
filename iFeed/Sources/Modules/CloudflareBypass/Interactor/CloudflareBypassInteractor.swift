@@ -1,35 +1,29 @@
 //
-//  CloudflareBypass.swift
+//  CloudflareBypassInteractor.swift
 //  iFeed
 //
-//  Created by Evgeny Karkan on 20.05.2026.
+//  Created by Evgeny Karkan on 24.05.2026.
 //  Copyright © 2026 Evgeny Karkan. All rights reserved.
 //
 
-import UIKit
 import WebKit
 
 @MainActor
-final class CloudflareBypass: NSObject {
+final class CloudflareBypassInteractor: NSObject {
 
     // MARK: - Properties
-
     private var webView: WKWebView?
     private var completion: ((Result<ExploreFeedsDTO, any Error>) -> Void)?
-    private var onChallengePresented: (() -> Void)?
-    private weak var presentingViewController: UIViewController?
-    private var webPage = ""
-    private var challengeNavController: UINavigationController?
+    private var onChallengeDetected: ((WKWebView) -> Void)?
+}
 
-    // MARK: - API
+// MARK: - CloudflareBypassInteractorProtocol
+extension CloudflareBypassInteractor: CloudflareBypassInteractorProtocol {
 
-    func searchFeeds(for webPage: String,
-                     from viewController: UIViewController,
-                     onChallengePresented: (() -> Void)? = nil,
-                     completion: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void) {
-        self.webPage = webPage
-        self.presentingViewController = viewController
-        self.onChallengePresented = onChallengePresented
+    func startFeedSearch(for webPage: String,
+                         onChallengeDetected: @escaping (WKWebView) -> Void,
+                         completion: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void) {
+        self.onChallengeDetected = onChallengeDetected
         self.completion = completion
 
         let config = WKWebViewConfiguration()
@@ -50,11 +44,14 @@ final class CloudflareBypass: NSObject {
         request.cachePolicy = .reloadIgnoringLocalCacheData
         webView.load(request)
     }
+
+    func cancelSearch() {
+        finishWith(.failure(ExploreFeedsError.cloudflareBlocked))
+    }
 }
 
 // MARK: - WKNavigationDelegate
-
-extension CloudflareBypass: WKNavigationDelegate {
+extension CloudflareBypassInteractor: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         extractHTMLAndProcess()
@@ -70,8 +67,7 @@ extension CloudflareBypass: WKNavigationDelegate {
 }
 
 // MARK: - Private
-
-private extension CloudflareBypass {
+private extension CloudflareBypassInteractor {
 
     func extractHTMLAndProcess() {
         webView?.evaluateJavaScript("document.documentElement.outerHTML") { [weak self] result, _ in
@@ -81,11 +77,16 @@ private extension CloudflareBypass {
             }
 
             if html.isCloudflareChallengePage {
-                self.showChallenge()
+                if let webView = self.webView {
+                    self.onChallengeDetected?(webView)
+                    self.onChallengeDetected = nil
+                } else {
+                    self.finishWith(.failure(ExploreFeedsError.cloudflareBlocked))
+                }
                 return
             }
 
-            webView?.alpha = 0
+            self.webView?.alpha = 0
             self.parseJSONFromWebView()
         }
     }
@@ -107,58 +108,12 @@ private extension CloudflareBypass {
         }
     }
 
-    func showChallenge() {
-        guard let webView, let presenter = presentingViewController else {
-            finishWith(.failure(ExploreFeedsError.cloudflareBlocked))
-            return
-        }
-
-        let challengeVC = UIViewController()
-        challengeVC.view.backgroundColor = .systemBackground
-        challengeVC.navigationItem.title = "Verify you are human"
-        challengeVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(challengeCancelled)
-        )
-
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        challengeVC.view.addSubview(webView)
-
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: challengeVC.view.safeAreaLayoutGuide.topAnchor),
-            webView.leadingAnchor.constraint(equalTo: challengeVC.view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: challengeVC.view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: challengeVC.view.bottomAnchor)
-        ])
-
-        let nav = UINavigationController(rootViewController: challengeVC)
-        nav.modalPresentationStyle = .fullScreen
-        challengeNavController = nav
-
-        onChallengePresented?()
-        onChallengePresented = nil
-        presenter.present(nav, animated: true)
-    }
-
-    @objc func challengeCancelled() {
-        finishWith(.failure(ExploreFeedsError.cloudflareBlocked))
-    }
-
     func finishWith(_ result: Result<ExploreFeedsDTO, any Error>) {
         guard let callback = completion else { return }
         completion = nil
-
-        if let nav = challengeNavController {
-            challengeNavController = nil
-            nav.dismiss(animated: true) { [weak self] in
-                self?.cleanup()
-                callback(result)
-            }
-        } else {
-            cleanup()
-            callback(result)
-        }
+        onChallengeDetected = nil
+        cleanup()
+        callback(result)
     }
 
     func cleanup() {

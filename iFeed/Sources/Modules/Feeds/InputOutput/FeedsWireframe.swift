@@ -13,7 +13,6 @@ final class FeedsWireframe {
     // MARK: - Properties
     weak var viewController: FeedsViewController?
     weak var delegate: (any FeedsCoordinatingDelegate)?
-    private var activeFeedExplorer: CloudflareBypass?
 }
 
 // MARK: - FeedsWireframeProtocol
@@ -30,20 +29,11 @@ extension FeedsWireframe: FeedsWireframeProtocol {
     func presentFeedExplorer(for webPage: String,
                              onChallengePresented: @escaping () -> Void,
                              onResult: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void) {
-        guard let viewController else {
-            return
-        }
-
-        // TODO: - build a module and show via Coordinator
-        let bypass = CloudflareBypass()
-        activeFeedExplorer = bypass
-
-        bypass.searchFeeds(for: webPage,
-                           from: viewController,
-                           onChallengePresented: onChallengePresented) { [weak self] result in
-            self?.activeFeedExplorer = nil
-            onResult(result)
-        }
+        delegate?.onNeedToStartFeedExploration(
+            for: webPage,
+            onChallengePresented: onChallengePresented,
+            onResult: onResult
+        )
     }
 
     func presentDiscoveredFeeds(_ results: ExploreFeedsDTO,

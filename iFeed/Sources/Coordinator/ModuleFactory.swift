@@ -14,6 +14,11 @@ protocol ModuleFactoryProtocol {
     func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController
     func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController
     func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController
+
+    @MainActor
+    func makeCloudflareBypassModule(for webPage: String,
+                                    presentingController: UIViewController,
+                                    moduleOutput: any CloudflareBypassModuleOutput) -> any CloudflareBypassModuleInput
 }
 
 final class ModuleFactory {
@@ -43,5 +48,14 @@ extension ModuleFactory: ModuleFactoryProtocol {
 
     func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController {
         return ExploreFeedsBuilder.viewController(with: results, webPage: webPage, container: container)
+    }
+
+    @MainActor
+    func makeCloudflareBypassModule(for webPage: String,
+                                    presentingController: UIViewController,
+                                    moduleOutput: any CloudflareBypassModuleOutput) -> any CloudflareBypassModuleInput {
+        return CloudflareBypassBuilder.module(for: webPage,
+                                              presentingController: presentingController,
+                                              moduleOutput: moduleOutput)
     }
 }

@@ -23,6 +23,9 @@ final class Coordinator {
     // MARK: - Properties
     private let moduleFactory: any ModuleFactoryProtocol
     private(set) weak var navigationController: UINavigationController?
+    private var activeCloudflareBypass: (any CloudflareBypassModuleInput)?
+    private var feedExplorationChallengeCallback: (() -> Void)?
+    private var feedExplorationResultCallback: ((Result<ExploreFeedsDTO, any Error>) -> Void)?
 
     // MARK: - Init
     init(container: any DIContainerProtocol, controller: UINavigationController?) {
@@ -61,5 +64,37 @@ extension Coordinator: AppCoordinating {
         navigationVC.modalPresentationStyle = .fullScreen
 
         navigationController?.present(navigationVC, animated: true)
+    }
+
+    func onNeedToStartFeedExploration(for webPage: String,
+                                      onChallengePresented: @escaping () -> Void,
+                                      onResult: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void) {
+        guard let navigationController else { return }
+
+        feedExplorationChallengeCallback = onChallengePresented
+        feedExplorationResultCallback = onResult
+
+        let module = moduleFactory.makeCloudflareBypassModule(
+            for: webPage,
+            presentingController: navigationController,
+            moduleOutput: self
+        )
+        activeCloudflareBypass = module
+        module.startSearch()
+    }
+}
+
+// MARK: - CloudflareBypassModuleOutput
+extension Coordinator: CloudflareBypassModuleOutput {
+
+    func cloudflareBypassDidPresentChallenge() {
+        feedExplorationChallengeCallback?()
+        feedExplorationChallengeCallback = nil
+    }
+
+    func cloudflareBypassDidFinish(with result: Result<ExploreFeedsDTO, any Error>) {
+        activeCloudflareBypass = nil
+        feedExplorationResultCallback?(result)
+        feedExplorationResultCallback = nil
     }
 }

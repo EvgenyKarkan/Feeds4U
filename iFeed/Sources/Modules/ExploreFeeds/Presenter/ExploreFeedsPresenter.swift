@@ -25,7 +25,7 @@ final class ExploreFeedsPresenter {
 }
 
 // MARK: - ExploreFeedsViewDelegate
-extension ExploreFeedsPresenter: @MainActor ExploreFeedsViewDelegate {
+extension ExploreFeedsPresenter: ExploreFeedsViewDelegate {
 
     func onViewDidLoad() {
         let state = ExploreFeedsViewState(
@@ -36,7 +36,6 @@ extension ExploreFeedsPresenter: @MainActor ExploreFeedsViewDelegate {
         view?.updateOnDidLoad(with: state)
     }
 
-    @MainActor
     func onViewNeedsToAddFeed(from url: String) {
         guard !interactor.checkIfFeedIsAlreadySaved(with: url) else {
             view?.showFeedIsAlreadySavedError()
@@ -46,26 +45,24 @@ extension ExploreFeedsPresenter: @MainActor ExploreFeedsViewDelegate {
         view?.showActivityIndicator()
 
         interactor.startParsingFeed(url) { [weak self] result in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else {
-                    return
-                }
-                self.view?.hideActivityIndicator()
+            guard let self else {
+                return
+            }
+            self.view?.hideActivityIndicator()
 
-                switch result {
-                case .success:
-                    try? self.interactor.saveContext()
+            switch result {
+            case .success:
+                try? self.interactor.saveContext()
 
-                    let state = ExploreFeedsViewState(
-                        webPageTitle: self.interactor.getWebPageTitle(),
-                        exploreResults: self.interactor.getResultsWithSavedStatus()
-                    )
+                let state = ExploreFeedsViewState(
+                    webPageTitle: self.interactor.getWebPageTitle(),
+                    exploreResults: self.interactor.getResultsWithSavedStatus()
+                )
 
-                    self.view?.update(with: state)
+                self.view?.update(with: state)
 
-                case .failure:
-                    self.view?.showFeedParsingError()
-                }
+            case .failure:
+                self.view?.showFeedParsingError()
             }
         }
     }
