@@ -54,6 +54,8 @@
 		08B4E1A92FC27B6D00A86EE9 /* CloudflareBypassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4E1A82FC27B6D00A86EE9 /* CloudflareBypassViewController.swift */; };
 		08B4E1AB2FC27B7800A86EE9 /* CloudflareBypassWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4E1AA2FC27B7800A86EE9 /* CloudflareBypassWireframe.swift */; };
 		08B4E1AD2FC27B7900A86EE9 /* CloudflareBypassBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4E1AC2FC27B7900A86EE9 /* CloudflareBypassBuilder.swift */; };
+		08B4E1AF2FC3BA4900A86EE9 /* FeedFolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4E1AE2FC3BA4900A86EE9 /* FeedFolderManager.swift */; };
+		08B4E1B12FC3BA6A00A86EE9 /* FeedFolderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B4E1B02FC3BA6A00A86EE9 /* FeedFolderHeaderView.swift */; };
 		08B561DB2FB7DF3400B6063E /* FeedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B561D62FB7DF3400B6063E /* FeedItemsViewController.swift */; };
 		08B561DC2FB7DF3400B6063E /* FeedItemsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B561CD2FB7DF3400B6063E /* FeedItemsWireframe.swift */; };
 		08B561DD2FB7DF3400B6063E /* FeedItemsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B561D42FB7DF3400B6063E /* FeedItemsProtocols.swift */; };
@@ -146,6 +148,8 @@
 		08B4E1A82FC27B6D00A86EE9 /* CloudflareBypassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudflareBypassViewController.swift; sourceTree = "<group>"; };
 		08B4E1AA2FC27B7800A86EE9 /* CloudflareBypassWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudflareBypassWireframe.swift; sourceTree = "<group>"; };
 		08B4E1AC2FC27B7900A86EE9 /* CloudflareBypassBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudflareBypassBuilder.swift; sourceTree = "<group>"; };
+		08B4E1AE2FC3BA4900A86EE9 /* FeedFolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderManager.swift; sourceTree = "<group>"; };
+		08B4E1B02FC3BA6A00A86EE9 /* FeedFolderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderHeaderView.swift; sourceTree = "<group>"; };
 		08B561CC2FB7DF3400B6063E /* FeedItemsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsBuilder.swift; sourceTree = "<group>"; };
 		08B561CD2FB7DF3400B6063E /* FeedItemsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsWireframe.swift; sourceTree = "<group>"; };
 		08B561CF2FB7DF3400B6063E /* FeedItemsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsInteractor.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2304C92954ABC900B1F930 /* Feed.swift */,
+				08B4E1AE2FC3BA4900A86EE9 /* FeedFolderManager.swift */,
 				080CFB252FA2BA8A0054B292 /* FeedsInteractor.swift */,
 			);
 			path = Interactor;
@@ -241,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2304FB2954ABDB00B1F930 /* FeedsView.swift */,
+				08B4E1B02FC3BA6A00A86EE9 /* FeedFolderHeaderView.swift */,
 				2E2304F92954ABDB00B1F930 /* FeedsTableProvider.swift */,
 				080CFB2C2FA2BA8A0054B292 /* FeedsViewController.swift */,
 			);
@@ -838,6 +844,7 @@
 				08B00C0B2FB3ADE0007BD039 /* ExploreFeedsElement.swift in Sources */,
 				08B00C0C2FB3ADE0007BD039 /* ExploreFeedsService.swift in Sources */,
 				088B31632FAFC08800F783B5 /* ModuleFactory.swift in Sources */,
+				08B4E1B12FC3BA6A00A86EE9 /* FeedFolderHeaderView.swift in Sources */,
 				088B315C2FAF880900F783B5 /* SharedInstancesContainer.swift in Sources */,
 				2E2304D72954ABC900B1F930 /* Feed.swift in Sources */,
 				2E2305032954ABDB00B1F930 /* FeedItemsView.swift in Sources */,
@@ -850,6 +857,7 @@
 				08B00C052FB3AB66007BD039 /* ExploreFeedsResultCell.swift in Sources */,
 				08B00C062FB3AB66007BD039 /* ExploreFeedsResult.swift in Sources */,
 				088B315E2FAF8FA500F783B5 /* DIContainer.swift in Sources */,
+				08B4E1AF2FC3BA4900A86EE9 /* FeedFolderManager.swift in Sources */,
 				2E2305072954ABDB00B1F930 /* FeedsTableProvider.swift in Sources */,
 				08B4E1A52FC27B5D00A86EE9 /* CloudflareBypassInteractor.swift in Sources */,
 				2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */,

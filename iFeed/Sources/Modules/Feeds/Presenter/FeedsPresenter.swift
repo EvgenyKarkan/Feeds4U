@@ -15,6 +15,8 @@ final class FeedsPresenter {
     private let interactor: any FeedsInteractorProtocol
     private weak var view: (any FeedsViewProtocol)?
 
+    private var currentSections: [FeedsSection] = []
+
     // MARK: - Init
     init(interactor: any FeedsInteractorProtocol,
          wireframe: any FeedsWireframeProtocol,
@@ -29,18 +31,12 @@ final class FeedsPresenter {
 extension FeedsPresenter: @MainActor FeedsViewDelegate {
 
     func onViewDidLoad() {
-        let allFeeds = interactor.getAllFeeds()
-        let counts = interactor.unreadCountsByFeed()
-        let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
-
+        let viewState = buildViewState()
         view?.updateOnDidLoad(with: viewState)
     }
 
     func onViewWillAppear() {
-        let allFeeds = interactor.getAllFeeds()
-        let counts = interactor.unreadCountsByFeed()
-        let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
-
+        let viewState = buildViewState()
         view?.updateOnWillAppear(with: viewState)
     }
 
@@ -64,10 +60,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                 }
                 try? self.interactor.saveContext()
 
-                let allFeeds = self.interactor.getAllFeeds()
-                let counts = self.interactor.unreadCountsByFeed()
-                let viewState = FeedsViewState(feeds: allFeeds, unreadCounts: counts)
-
+                let viewState = self.buildViewState()
                 self.view?.updateOnDidEndParsingFeed(with: viewState)
 
             case .failure:
@@ -160,13 +153,21 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
     }
 
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
-        return interactor.feedForIndexPath(indexPath)
+        guard indexPath.section < currentSections.count else {
+            return nil
+        }
+        let section = currentSections[indexPath.section]
+
+        guard indexPath.row < section.feeds.count else {
+            return nil
+        }
+
+        return section.feeds[indexPath.row]
     }
 
     @MainActor
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath) {
-        guard indexPath.row < getAllFeeds().count,
-              let feed = feedForIndexPath(indexPath),
+        guard let feed = feedForIndexPath(indexPath),
               feed.feedItems.count > .zero else {
             return
         }
@@ -174,12 +175,88 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
     }
 
     func onViewNeedsToDeleteFeedAtIndexPath(_ indexPath: IndexPath) {
-        guard indexPath.row < getAllFeeds().count,
-            let feed: Feed = feedForIndexPath(indexPath) else {
+        guard let feed = feedForIndexPath(indexPath) else {
             return
         }
+
+        let oldSectionCount = currentSections.count
         interactor.deleteFeed(feed)
 
-        view?.updateViewAfterFeedDeletionAtIndexPath(indexPath, feeds: getAllFeeds())
+        let viewState = buildViewState()
+        let removedSection = viewState.sections.count < oldSectionCount ? indexPath.section : nil
+
+        view?.animateFeedDeletion(at: indexPath, removeSectionAt: removedSection, with: viewState)
+    }
+
+    // MARK: - Folder operations
+    func onViewNeedsToCreateFolder(name: String, feedURLs: [String]) {
+        interactor.createFolder(name: name, feedURLs: feedURLs)
+
+        let viewState = buildViewState()
+        view?.reloadFeedsList(with: viewState)
+    }
+
+    func onViewNeedsToMoveFeedToFolder(feedURL: String, folderId: UUID) {
+        interactor.addFeedToFolder(url: feedURL, folderId: folderId)
+
+        let viewState = buildViewState()
+        view?.reloadFeedsList(with: viewState)
+    }
+
+    func onViewNeedsToRemoveFeedFromFolder(feedURL: String) {
+        interactor.removeFeedFromFolder(url: feedURL)
+
+        let viewState = buildViewState()
+        view?.reloadFeedsList(with: viewState)
+    }
+
+    func onViewNeedsToToggleFolder(id: UUID) {
+        guard let sectionIndex = currentSections.firstIndex(where: { $0.folder?.id == id }) else {
+            interactor.toggleFolderExpanded(id: id)
+            let viewState = buildViewState()
+            view?.reloadFeedsList(with: viewState)
+            return
+        }
+
+        let section = currentSections[sectionIndex]
+        let oldRowCount = section.folder?.isExpanded == true ? section.feeds.count : 0
+
+        interactor.toggleFolderExpanded(id: id)
+
+        let viewState = buildViewState()
+        view?.animateFolderToggle(at: sectionIndex, oldRowCount: oldRowCount, with: viewState)
+    }
+}
+
+// MARK: - Private
+private extension FeedsPresenter {
+
+    func buildViewState() -> FeedsViewState {
+        let allFeeds = interactor.getAllFeeds()
+        let counts = interactor.unreadCountsByFeed()
+
+        let existingURLs = Set(allFeeds.map(\.rssURL))
+        interactor.cleanupFolders(existingFeedURLs: existingURLs)
+
+        let folders = interactor.getAllFolders()
+        let folderedURLs = Set(folders.flatMap(\.feedURLs))
+
+        var sections: [FeedsSection] = []
+
+        for folder in folders {
+            let folderFeeds = folder.feedURLs.compactMap { url in
+                allFeeds.first { $0.rssURL == url }
+            }
+            sections.append(FeedsSection(folder: folder, feeds: folderFeeds))
+        }
+
+        let ungroupedFeeds = allFeeds.filter { !folderedURLs.contains($0.rssURL) }
+        if !ungroupedFeeds.isEmpty || folders.isEmpty {
+            sections.append(FeedsSection(folder: nil, feeds: ungroupedFeeds))
+        }
+
+        currentSections = sections
+
+        return FeedsViewState(sections: sections, unreadCounts: counts)
     }
 }

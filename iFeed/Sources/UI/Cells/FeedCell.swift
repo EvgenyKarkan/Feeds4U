@@ -49,6 +49,20 @@ final class FeedCell: UITableViewCell, Reusable {
         }
     }
 
+    private lazy var leadingInset: (constraint: NSLayoutConstraint, base: CGFloat)? = {
+        guard let match = contentView.constraints.first(where: { $0.identifier == "leadingInset" }) else {
+            return nil
+        }
+        return (match, match.constant)
+    }()
+
+    var isNested: Bool = false {
+        didSet {
+            guard let inset = leadingInset else { return }
+            inset.constraint.constant = isNested ? inset.base * 1.5 : inset.base
+        }
+    }
+
     var wasReadCell: Bool = false {
         didSet {
             dotView.isHidden = wasReadCell
@@ -82,6 +96,7 @@ final class FeedCell: UITableViewCell, Reusable {
         countLabel.isHidden = true
         dotView.isHidden = true
 
+        isNested = false
         wasReadCell = false
     }
 

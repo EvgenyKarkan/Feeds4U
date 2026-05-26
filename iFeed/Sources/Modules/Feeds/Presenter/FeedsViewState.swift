@@ -9,14 +9,25 @@
 import Foundation
 import CoreData
 
+// MARK: - FeedsSection
+struct FeedsSection {
+    let folder: FeedFolder?
+    let feeds: [Feed]
+}
+
+// MARK: - FeedsViewState
 struct FeedsViewState {
     // MARK: - Properties
-    let feeds: [Feed]
+    let sections: [FeedsSection]
     let unreadCounts: [NSManagedObjectID: Int]
 
+    var allFeeds: [Feed] {
+        sections.flatMap(\.feeds)
+    }
+
     // MARK: - Init
-    init(feeds: [Feed] = [], unreadCounts: [NSManagedObjectID: Int] = [:]) {
-        self.feeds = feeds
+    init(sections: [FeedsSection] = [], unreadCounts: [NSManagedObjectID: Int] = [:]) {
+        self.sections = sections
         self.unreadCounts = unreadCounts
     }
 }

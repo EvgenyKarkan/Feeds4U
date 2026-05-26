@@ -75,10 +75,28 @@ final class FeedsViewController: BaseListViewController {
     // MARK: - Life cycle
     override func loadView() {
         tableViewProvider = FeedsTableProvider(delegate: self)
+        tableViewProvider?.folderToggleHandler = { [weak self] folderId in
+            self?.presenter?.onViewNeedsToToggleFolder(id: folderId)
+        }
 
         feedListView = FeedsView(frame: UIScreen.main.bounds)
-        feedListView?.tableView.delegate = tableViewProvider
-        feedListView?.tableView.dataSource = tableViewProvider
+
+        guard let tableView = feedListView?.tableView else {
+            view = feedListView
+            return
+        }
+
+        tableView.delegate = tableViewProvider
+        tableView.dataSource = tableViewProvider
+
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
+
+        tableView.register(
+            FeedFolderHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: FeedFolderHeaderView.reuseId
+        )
 
         view = feedListView
     }
@@ -109,7 +127,7 @@ final class FeedsViewController: BaseListViewController {
 extension FeedsViewController: FeedsViewProtocol {
 
     func updateOnDidLoad(with viewState: FeedsViewState) {
-        let allFeeds = viewState.feeds
+        let allFeeds = viewState.allFeeds
         var rightItems: [UIBarButtonItem]
 
         if !allFeeds.isEmpty {
@@ -124,7 +142,7 @@ extension FeedsViewController: FeedsViewProtocol {
     }
 
     func updateOnWillAppear(with viewState: FeedsViewState) {
-        tableViewProvider?.dataSource = viewState.feeds
+        tableViewProvider?.sections = viewState.sections
         tableViewProvider?.unreadCounts = viewState.unreadCounts
         feedListView?.reloadTableView()
     }
@@ -208,7 +226,7 @@ extension FeedsViewController: FeedsViewProtocol {
     }
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState) {
-        tableViewProvider?.dataSource = viewState.feeds
+        tableViewProvider?.sections = viewState.sections
         tableViewProvider?.unreadCounts = viewState.unreadCounts
         feedListView?.reloadTableView()
 
@@ -223,23 +241,70 @@ extension FeedsViewController: FeedsViewProtocol {
         }
     }
 
-    func updateViewAfterFeedDeletionAtIndexPath(_ indexPath: IndexPath, feeds: [Feed]) {
-        tableViewProvider?.dataSource = feeds
+    func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState) {
+        guard let tableView = feedListView?.tableView else {
+            tableViewProvider?.sections = viewState.sections
+            tableViewProvider?.unreadCounts = viewState.unreadCounts
+            feedListView?.reloadTableView()
+            updateNavigationButtons(for: viewState)
+            return
+        }
 
-        feedListView?.tableView.beginUpdates()
-        feedListView?.tableView.deleteRows(at: [indexPath], with: .fade)
-        feedListView?.tableView.endUpdates()
+        tableView.performBatchUpdates {
+            self.tableViewProvider?.sections = viewState.sections
+            self.tableViewProvider?.unreadCounts = viewState.unreadCounts
 
-        /// Hide `trash` & `search` if no data source
-        if tableViewProvider?.dataSource.isEmpty == true {
-            DispatchQueue.main.async(execute: { [weak self] in
-                self?.addTrashButton(false)
+            if let sectionIndex {
+                tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
 
-                self?.feedListView?.tableView.setEditing(false, animated: false)
-                self?.feedListView?.tableView.alpha = .zero
+        updateNavigationButtons(for: viewState)
+    }
 
-                self?.navigationItem.rightBarButtonItems?.removeLast()
-            })
+    func reloadFeedsList(with viewState: FeedsViewState) {
+        tableViewProvider?.sections = viewState.sections
+        tableViewProvider?.unreadCounts = viewState.unreadCounts
+        feedListView?.reloadTableView()
+
+        updateNavigationButtons(for: viewState)
+    }
+
+    func animateFolderToggle(at sectionIndex: Int, oldRowCount: Int, with viewState: FeedsViewState) {
+        guard let tableView = feedListView?.tableView,
+              sectionIndex < viewState.sections.count else {
+            tableViewProvider?.sections = viewState.sections
+            tableViewProvider?.unreadCounts = viewState.unreadCounts
+            feedListView?.reloadTableView()
+            return
+        }
+
+        let section = viewState.sections[sectionIndex]
+        let isExpanded = section.folder?.isExpanded ?? true
+        let newRowCount = isExpanded ? section.feeds.count : 0
+
+        tableView.performBatchUpdates {
+            self.tableViewProvider?.sections = viewState.sections
+            self.tableViewProvider?.unreadCounts = viewState.unreadCounts
+
+            if oldRowCount > 0 {
+                let paths = (0..<oldRowCount).map { IndexPath(row: $0, section: sectionIndex) }
+                tableView.deleteRows(at: paths, with: .fade)
+            }
+            if newRowCount > 0 {
+                let paths = (0..<newRowCount).map { IndexPath(row: $0, section: sectionIndex) }
+                tableView.insertRows(at: paths, with: .fade)
+            }
+        }
+
+        if let header = tableView.headerView(forSection: sectionIndex) as? FeedFolderHeaderView {
+            header.configure(
+                name: section.folder?.name ?? "",
+                feedCount: section.feeds.count,
+                isExpanded: isExpanded
+            )
         }
     }
 }
@@ -254,13 +319,91 @@ extension FeedsViewController: TableProviderDelegate {
     func tableProvider(_ provider: BaseTableProvider, didDeleteRowAt indexPath: IndexPath) {
         presenter?.onViewNeedsToDeleteFeedAtIndexPath(indexPath)
     }
+}
 
-    private var allFeeds: [Feed] {
-        return presenter?.getAllFeeds() ?? []
+// MARK: - UITableViewDragDelegate
+extension FeedsViewController: UITableViewDragDelegate {
+
+    func tableView(_ tableView: UITableView,
+                   itemsForBeginning session: any UIDragSession,
+                   at indexPath: IndexPath) -> [UIDragItem] {
+        guard let feed = tableViewProvider?.feed(at: indexPath) else {
+            return []
+        }
+
+        let itemProvider = NSItemProvider(object: feed.rssURL as NSString)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = feed.rssURL
+
+        return [dragItem]
+    }
+}
+
+// MARK: - UITableViewDropDelegate
+extension FeedsViewController: UITableViewDropDelegate {
+
+    func tableView(_ tableView: UITableView,
+                   canHandle session: any UIDropSession) -> Bool {
+        return session.localDragSession != nil
     }
 
-    private func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
-        return presenter?.feedForIndexPath(indexPath)
+    func tableView(_ tableView: UITableView,
+                   dropSessionDidUpdate session: any UIDropSession,
+                   withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        guard session.localDragSession != nil,
+              let sections = tableViewProvider?.sections else {
+            return UITableViewDropProposal(operation: .cancel)
+        }
+
+        guard let dest = destinationIndexPath, dest.section < sections.count else {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+
+        let destSection = sections[dest.section]
+
+        if destSection.folder == nil && dest.row < destSection.feeds.count {
+            return UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
+        }
+
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
+    func tableView(_ tableView: UITableView,
+                   performDropWith coordinator: any UITableViewDropCoordinator) {
+        guard let dragItem = coordinator.items.first?.dragItem,
+              let sourceURL = dragItem.localObject as? String,
+              let sections = tableViewProvider?.sections else {
+            return
+        }
+
+        let sourceFolder = sections.first { section in
+            section.folder != nil && section.feeds.contains { $0.rssURL == sourceURL }
+        }?.folder
+
+        let dest = coordinator.destinationIndexPath
+
+        guard let dest, dest.section < sections.count else {
+            presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
+            return
+        }
+
+        let destSection = sections[dest.section]
+
+        if let destFolder = destSection.folder {
+            if destFolder.id == sourceFolder?.id {
+                presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
+            } else {
+                presenter?.onViewNeedsToMoveFeedToFolder(feedURL: sourceURL, folderId: destFolder.id)
+            }
+        } else if dest.row < destSection.feeds.count {
+            let targetFeed = destSection.feeds[dest.row]
+            guard targetFeed.rssURL != sourceURL else {
+                return
+            }
+            showCreateFolderAlert(feedURLs: [sourceURL, targetFeed.rssURL])
+        } else {
+            presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
+        }
     }
 }
 
@@ -281,5 +424,69 @@ private extension FeedsViewController {
     func addTrashButton(_ add: Bool) {
         let items: [UIBarButtonItem]? = add ? [trashButtonItem] : nil
         navigationItem.setLeftBarButtonItems(items, animated: true)
+    }
+
+    func updateNavigationButtons(for viewState: FeedsViewState) {
+        let allFeeds = viewState.allFeeds
+
+        if allFeeds.isEmpty {
+            DispatchQueue.main.async { [weak self] in
+                self?.addTrashButton(false)
+                self?.feedListView?.tableView.setEditing(false, animated: false)
+                self?.feedListView?.tableView.alpha = .zero
+                self?.navigationItem.rightBarButtonItems = [self?.addButtonItem].compactMap { $0 }
+            }
+        } else {
+            if navigationItem.leftBarButtonItems == nil {
+                addTrashButton(true)
+            }
+            feedListView?.tableView.alpha = 1
+            if navigationItem.rightBarButtonItems?.count == 1 {
+                navigationItem.rightBarButtonItems?.append(searchButtonItem)
+            }
+        }
+    }
+
+    func showCreateFolderAlert(feedURLs: [String]) {
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.Folder.createTitle),
+            message: String.localized(key: LocalizableKeys.Folder.createMessage),
+            preferredStyle: .alert
+        )
+
+        let cancelAction = UIAlertAction(
+            title: String.localized(key: LocalizableKeys.cancel),
+            style: .cancel
+        )
+        alert.addAction(cancelAction)
+
+        let createAction = UIAlertAction(
+            title: String.localized(key: LocalizableKeys.Folder.create),
+            style: .default
+        ) { [weak self, weak alert] _ in
+            guard let name = alert?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !name.isEmpty else {
+                return
+            }
+            self?.presenter?.onViewNeedsToCreateFolder(name: name, feedURLs: feedURLs)
+        }
+        createAction.isEnabled = false
+        alert.addAction(createAction)
+
+        alert.addTextField { textField in
+            textField.placeholder = String.localized(key: LocalizableKeys.Folder.namePlaceholder)
+            textField.autocapitalizationType = .words
+
+            NotificationCenter.default.addObserver(
+                forName: UITextField.textDidChangeNotification,
+                object: textField,
+                queue: .main
+            ) { _ in
+                let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                createAction.isEnabled = !text.isEmpty
+            }
+        }
+
+        present(alert, animated: true)
     }
 }

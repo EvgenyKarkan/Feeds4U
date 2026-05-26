@@ -67,6 +67,15 @@ protocol FeedsInteractorProtocol {
     func saveContext() throws
 
     func deleteFeed(_ feed: Feed)
+
+    // folder operations
+    func getAllFolders() -> [FeedFolder]
+    @discardableResult
+    func createFolder(name: String, feedURLs: [String]) -> FeedFolder
+    func addFeedToFolder(url: String, folderId: UUID)
+    func removeFeedFromFolder(url: String)
+    func toggleFolderExpanded(id: UUID)
+    func cleanupFolders(existingFeedURLs: Set<String>)
 }
 
 /// Presenter ---> View
@@ -87,7 +96,10 @@ protocol FeedsViewProtocol: AnyObject {
     func showFeedParsingError()
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState)
-    func updateViewAfterFeedDeletionAtIndexPath(_ indexPath: IndexPath, feeds: [Feed])
+    func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState)
+
+    func reloadFeedsList(with viewState: FeedsViewState)
+    func animateFolderToggle(at sectionIndex: Int, oldRowCount: Int, with viewState: FeedsViewState)
 }
 
 /// View ---> Presenter
@@ -106,6 +118,12 @@ protocol FeedsViewDelegate: AnyObject {
 
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath)
     func onViewNeedsToDeleteFeedAtIndexPath(_ indexPath: IndexPath)
+
+    // folder operations
+    func onViewNeedsToCreateFolder(name: String, feedURLs: [String])
+    func onViewNeedsToMoveFeedToFolder(feedURL: String, folderId: UUID)
+    func onViewNeedsToRemoveFeedFromFolder(feedURL: String)
+    func onViewNeedsToToggleFolder(id: UUID)
 }
 
 /// Defines Feeds module dependencies

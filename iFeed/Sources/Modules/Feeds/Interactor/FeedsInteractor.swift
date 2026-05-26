@@ -15,6 +15,7 @@ final class FeedsInteractor {
     private let storage: any StorageProtocol
     private var localSearchService: any Searchable
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
+    private let folderManager: FeedFolderManager
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
 
@@ -22,11 +23,13 @@ final class FeedsInteractor {
     init(parser: any ParserProtocol,
          storage: any StorageProtocol,
          localSearchService: any Searchable,
-         exploreFeedsService: any ExploreFeedsServiceProtocol) {
+         exploreFeedsService: any ExploreFeedsServiceProtocol,
+         folderManager: FeedFolderManager = FeedFolderManager()) {
         self.parser = parser
         self.storage = storage
         self.localSearchService = localSearchService
         self.exploreFeedsService = exploreFeedsService
+        self.folderManager = folderManager
     }
 }
 
@@ -84,8 +87,35 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     func deleteFeed(_ feed: Feed) {
+        folderManager.removeFeed(url: feed.rssURL)
         storage.delete(feed)
         try? saveContext()
+    }
+
+    // MARK: - Folder operations
+    func getAllFolders() -> [FeedFolder] {
+        return folderManager.loadFolders()
+    }
+
+    @discardableResult
+    func createFolder(name: String, feedURLs: [String]) -> FeedFolder {
+        return folderManager.createFolder(name: name, feedURLs: feedURLs)
+    }
+
+    func addFeedToFolder(url: String, folderId: UUID) {
+        folderManager.addFeed(url: url, toFolderWithId: folderId)
+    }
+
+    func removeFeedFromFolder(url: String) {
+        folderManager.removeFeed(url: url)
+    }
+
+    func toggleFolderExpanded(id: UUID) {
+        folderManager.toggleExpanded(folderId: id)
+    }
+
+    func cleanupFolders(existingFeedURLs: Set<String>) {
+        folderManager.cleanupDeletedFeeds(existingURLs: existingFeedURLs)
     }
 }
 

@@ -37,6 +37,13 @@ enum LocalizableKeys {
         static let service = "error.service"
         static let unreadableFeed = "error.unreadableFeed"
     }
+
+    enum Folder {
+        static let createTitle = "Create Folder"
+        static let createMessage = "Enter a name for the new folder"
+        static let namePlaceholder = "Folder name"
+        static let create = "Create"
+    }
 }
 
 extension String {

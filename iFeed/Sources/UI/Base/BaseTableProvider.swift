@@ -25,7 +25,11 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
         self.delegate = delegate
     }
 
-    // MARK: - UITableViewDelegate & UITableViewDatasource API    
+    // MARK: - UITableViewDelegate & UITableViewDatasource API
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -36,6 +40,26 @@ class BaseTableProvider: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         fatalError("Subclasses must override cellForRowAt")
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .zero
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return .zero
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .zero
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return .zero
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

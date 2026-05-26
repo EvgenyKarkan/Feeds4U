@@ -70,7 +70,7 @@
                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="IuH-Aj-r4I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" identifier="a" id="9VT-2l-9m7"/>
-                    <constraint firstItem="IuH-Aj-r4I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" identifier="b" id="Pme-u4-A1M"/>
+                    <constraint firstItem="IuH-Aj-r4I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" identifier="leadingInset" id="Pme-u4-A1M"/>
                     <constraint firstAttribute="trailing" secondItem="IuH-Aj-r4I" secondAttribute="trailing" constant="16" identifier="b" id="fYX-Lq-Oza"/>
                     <constraint firstAttribute="bottom" secondItem="IuH-Aj-r4I" secondAttribute="bottom" constant="16" identifier="d" id="gaf-d9-2j2"/>
                 </constraints>
