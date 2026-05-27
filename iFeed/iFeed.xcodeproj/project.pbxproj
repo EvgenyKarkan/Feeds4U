@@ -64,6 +64,8 @@
 		08B561E02FB7DF3400B6063E /* FeedItemsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B561D12FB7DF3400B6063E /* FeedItemsPresenter.swift */; };
 		08B561E12FB7DF3400B6063E /* FeedItemsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B561CC2FB7DF3400B6063E /* FeedItemsBuilder.swift */; };
 		08B594212FA026E300B8569E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B594202FA026E300B8569E /* CoreDataManager.swift */; };
+		08BB894F2FC66DE0006C0A39 /* ArticleReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB894E2FC66DE0006C0A39 /* ArticleReaderViewController.swift */; };
+		08BBD2252FC7B0830019FF59 /* ReaderHTMLTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BBD2242FC7B0830019FF59 /* ReaderHTMLTemplate.swift */; };
 		08BCAB462BB76C9200F06D8D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C36F52BB22B9200337EB4 /* Settings.bundle */; };
 		08DC3B5E2FA2F34500E8771F /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DC3B5D2FA2F34500E8771F /* UIView+Ext.swift */; };
 		08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 08E20D612F90483500059CED /* OHHTTPStubs */; };
@@ -158,6 +160,8 @@
 		08B561D42FB7DF3400B6063E /* FeedItemsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsProtocols.swift; sourceTree = "<group>"; };
 		08B561D62FB7DF3400B6063E /* FeedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsViewController.swift; sourceTree = "<group>"; };
 		08B594202FA026E300B8569E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		08BB894E2FC66DE0006C0A39 /* ArticleReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleReaderViewController.swift; sourceTree = "<group>"; };
+		08BBD2242FC7B0830019FF59 /* ReaderHTMLTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderHTMLTemplate.swift; sourceTree = "<group>"; };
 		08DC3B5D2FA2F34500E8771F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		08E20D562F90478C00059CED /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E2304B92954ABBA00B1F930 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 				2E2304F42954ABDB00B1F930 /* FeedItemsView.swift */,
 				2E2304F62954ABDB00B1F930 /* FeedItemsTableProvider.swift */,
 				08B561D62FB7DF3400B6063E /* FeedItemsViewController.swift */,
+				08BB894E2FC66DE0006C0A39 /* ArticleReaderViewController.swift */,
+				08BBD2242FC7B0830019FF59 /* ReaderHTMLTemplate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -829,6 +835,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08BB894F2FC66DE0006C0A39 /* ArticleReaderViewController.swift in Sources */,
 				2E38DDB929E2375F00839B66 /* UIViewController+Ext.swift in Sources */,
 				2E2304DF2954ABC900B1F930 /* BaseTableProvider.swift in Sources */,
 				08AAA5882BEAC92A002AB2A3 /* BaseListViewController.swift in Sources */,
@@ -858,6 +865,7 @@
 				08B00C062FB3AB66007BD039 /* ExploreFeedsResult.swift in Sources */,
 				088B315E2FAF8FA500F783B5 /* DIContainer.swift in Sources */,
 				08B4E1AF2FC3BA4900A86EE9 /* FeedFolderManager.swift in Sources */,
+				08BBD2252FC7B0830019FF59 /* ReaderHTMLTemplate.swift in Sources */,
 				2E2305072954ABDB00B1F930 /* FeedsTableProvider.swift in Sources */,
 				08B4E1A52FC27B5D00A86EE9 /* CloudflareBypassInteractor.swift in Sources */,
 				2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */,

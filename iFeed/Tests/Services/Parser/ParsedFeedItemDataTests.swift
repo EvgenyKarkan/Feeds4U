@@ -32,6 +32,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "RSS Item One")
         #expect(data.link == "https://example.com/rss/one")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == "<p>RSS body</p>")
     }
 
     @Test("Normalize RSS feed item with missing title")
@@ -46,6 +47,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "N/A")
         #expect(data.link == "https://example.com/rss/two")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == nil)
     }
 
     @Test("Return nil for RSS feed item without link")
@@ -74,6 +76,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "Atom Entry One")
         #expect(data.link == "https://example.com/atom/one")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == "<p>Atom body</p>")
     }
 
     @Test("Normalize Atom feed entry with missing title")
@@ -88,6 +91,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "N/A")
         #expect(data.link == "https://example.com/atom/two")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == nil)
     }
 
     @Test("Return nil for Atom feed entry without link")
@@ -116,6 +120,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "JSON Item One")
         #expect(data.link == "https://example.com/json/one")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == "<p>JSON body</p>")
     }
 
     @Test("Normalize JSON Feed item with missing title")
@@ -130,6 +135,7 @@ struct ParsedFeedItemDataTests {
         #expect(data.title == "N/A")
         #expect(data.link == "https://example.com/json/two")
         #expect(data.publishDate == Self.expectedDate)
+        #expect(data.htmlContent == nil)
     }
 
     @Test("Return nil for JSON Feed item without URL")
@@ -208,7 +214,7 @@ private extension ParsedFeedItemDataTests {
 
     static let rssFeedXML = """
     <?xml version="1.0" encoding="UTF-8"?>
-    <rss version="2.0">
+    <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
         <channel>
             <title>RSS Feed Title</title>
             <description>RSS Feed Description</description>
@@ -216,6 +222,7 @@ private extension ParsedFeedItemDataTests {
                 <title>RSS Item One</title>
                 <link>https://example.com/rss/one</link>
                 <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+                <content:encoded>&lt;p&gt;RSS body&lt;/p&gt;</content:encoded>
             </item>
             <item>
                 <link>https://example.com/rss/two</link>
@@ -236,6 +243,7 @@ private extension ParsedFeedItemDataTests {
         <entry>
             <title>Atom Entry One</title>
             <link href="https://example.com/atom/one" />
+            <content type="html">&lt;p&gt;Atom body&lt;/p&gt;</content>
             <published>2024-01-01T00:00:00Z</published>
         </entry>
         <entry>
@@ -258,7 +266,8 @@ private extension ParsedFeedItemDataTests {
                 "id": "one",
                 "title": "JSON Item One",
                 "url": "https://example.com/json/one",
-                "date_published": "2024-01-01T00:00:00Z"
+                "date_published": "2024-01-01T00:00:00Z",
+                "content_html": "<p>JSON body</p>"
             },
             {
                 "id": "two",

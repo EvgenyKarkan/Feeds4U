@@ -103,6 +103,7 @@ private extension Parser {
 
             feedItem.title = itemData.title
             feedItem.link = itemData.link
+            feedItem.htmlContent = itemData.htmlContent
             feedItem.publishDate = itemData.publishDate
             feedItem.feed = feed
         }

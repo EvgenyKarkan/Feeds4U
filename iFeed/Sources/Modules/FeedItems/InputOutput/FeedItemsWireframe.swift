@@ -95,4 +95,13 @@ extension FeedItemsWireframe: FeedItemsWireframeProtocol {
 
         controller.present(safariVC, animated: true)
     }
+
+    func pushArticleReader(title: String, htmlContent: String, articleURL: URL?) {
+        let readerVC = ArticleReaderViewController(
+            title: title,
+            htmlContent: htmlContent,
+            articleURL: articleURL
+        )
+        viewController?.navigationController?.pushViewController(readerVC, animated: true)
+    }
 }

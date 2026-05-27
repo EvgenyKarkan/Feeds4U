@@ -127,7 +127,6 @@ https://rss.com/blog/popular-rss-feeds/
 
 
 6. Folders 
-    - Chevrons not match on expand (gets smaller)
     - Folder title color and font
     - chevron on right
 
@@ -140,3 +139,5 @@ https://rss.com/blog/popular-rss-feeds/
     - Recent Searches
     - Show enter search righ away, on pressed search do filling matching engine (spinner) and then search 
     - Cache matching engine per session ?
+
+8. Prewarm in Safari only those items that have no long HTNL

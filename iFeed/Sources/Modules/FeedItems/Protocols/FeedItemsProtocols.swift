@@ -14,6 +14,7 @@ protocol FeedItemsWireframeProtocol: AnyObject {
     func prewarmSafari(for feedItems: [FeedItem])
     func invalidateSafariPrewarm()
     func presentSafari(for url: URL, zoomingFrom cell: UITableViewCell)
+    func pushArticleReader(title: String, htmlContent: String, articleURL: URL?)
 }
 
 /// Presenter ---> Interactor

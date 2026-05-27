@@ -62,13 +62,15 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
         }
 
         let item = items[indexPath.row]
-
-        guard let url = URL(string: item.link) else {
-            return
-        }
+        let url = URL(string: item.link)
 
         interactor.markItemAsReadIfNeeded(item: item)
-        wireframe.presentSafari(for: url, zoomingFrom: cell)
+
+        if let htmlContent = item.htmlContent, htmlContent.count >= 300 {
+            wireframe.pushArticleReader(title: item.title, htmlContent: htmlContent, articleURL: url)
+        } else if let url {
+            wireframe.presentSafari(for: url, zoomingFrom: cell)
+        }
     }
 
     func onViewDidPullToRefresh() {

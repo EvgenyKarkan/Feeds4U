@@ -7,6 +7,7 @@
         <relationship name="feedItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeedItem" inverseName="feed" inverseEntity="FeedItem"/>
     </entity>
     <entity name="FeedItem" representedClassName="FeedItem" syncable="YES">
+        <attribute name="htmlContent" optional="YES" attributeType="String"/>
         <attribute name="link" optional="YES" attributeType="String"/>
         <attribute name="publishDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>

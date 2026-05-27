@@ -24,6 +24,9 @@ struct ParsedFeedItemData: Sendable {
 
     /// The item's publication date, or the creation date when the source omits one.
     let publishDate: Date
+
+    /// HTML body of the article, if provided by the feed.
+    let htmlContent: String?
 }
 
 // MARK: - Inits
@@ -43,7 +46,8 @@ extension ParsedFeedItemData {
         self.init(
             title: rssFeedItem.title ?? "N/A",
             link: link,
-            publishDate: rssFeedItem.pubDate ?? Date()
+            publishDate: rssFeedItem.pubDate ?? Date(),
+            htmlContent: rssFeedItem.content?.contentEncoded
         )
     }
 
@@ -61,7 +65,8 @@ extension ParsedFeedItemData {
         self.init(
             title: atomFeedItem.title ?? "N/A",
             link: link,
-            publishDate: atomFeedItem.published ?? Date()
+            publishDate: atomFeedItem.published ?? Date(),
+            htmlContent: atomFeedItem.content?.value
         )
     }
 
@@ -79,7 +84,8 @@ extension ParsedFeedItemData {
         self.init(
             title: jsonFeedItem.title ?? "N/A",
             link: link,
-            publishDate: jsonFeedItem.datePublished ?? Date()
+            publishDate: jsonFeedItem.datePublished ?? Date(),
+            htmlContent: jsonFeedItem.contentHtml
         )
     }
 }
