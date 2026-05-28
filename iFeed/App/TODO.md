@@ -130,14 +130,4 @@ https://rss.com/blog/popular-rss-feeds/
     - Folder title color and font
     - chevron on right
 
-    - table view has top content offset - as if its a hidden section
-    
-    - if row inside a section - add left padding for labels
-
-
-7. Search UX OPtimization
-    - Recent Searches
-    - Show enter search righ away, on pressed search do filling matching engine (spinner) and then search 
-    - Cache matching engine per session ?
-
-8. Prewarm in Safari only those items that have no long HTNL
+7. Prewarm in Safari only those items that have no long HTNL

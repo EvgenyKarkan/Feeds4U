@@ -57,6 +57,11 @@ protocol FeedsInteractorProtocol {
     // local search
     func performSearch(by searchTerm: String, completion: @escaping ([FeedItem]?) -> Void)
 
+    // recent searches
+    func recentSearches() -> [String]
+    func saveRecentSearch(_ query: String)
+    func clearRecentSearches()
+
     // explore if a web site has RSS feeds
     func exploreFeeds(on webSite: String, completion: @escaping ExploreFeedsServiceResultCompletion)
 
@@ -87,6 +92,7 @@ protocol FeedsViewProtocol: AnyObject {
     func hideActivityIndicator(_ completion: (() -> Void)?)
 
     func showEnterSearch()
+    func configureSearchButtonMenu(_ searches: [String])
     func showNoSearchResultsAlert()
 
     func disableTableViewEditingStateIfNeeded()
@@ -112,6 +118,7 @@ protocol FeedsViewDelegate: AnyObject {
 
     func onViewNeedsToShowSearchInput()
     func onViewNeedsToSearchFeeds(by searchTerm: String)
+    func onViewNeedsToClearRecentSearches()
 
     func getAllFeeds() -> [Feed]
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed?

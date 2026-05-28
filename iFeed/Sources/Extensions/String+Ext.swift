@@ -25,6 +25,9 @@ enum LocalizableKeys {
         static let search = "search"
         static let description = "search.description"
         static let placeholder = "search.placeholder"
+        static let newSearch = "New search"
+        static let recentSearches = "Recent searches"
+        static let clearRecent = "Clear recent searches"
     }
 
     enum Errors {

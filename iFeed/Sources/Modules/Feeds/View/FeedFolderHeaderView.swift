@@ -23,18 +23,20 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = .preferredFont(forTextStyle: .caption2)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 

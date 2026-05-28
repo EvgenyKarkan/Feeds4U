@@ -19,6 +19,9 @@ final class FeedsInteractor {
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
 
+    private static let recentSearchesKey = "com.ifeed.recentSearches"
+    private static let maxRecentSearches = 10
+
     // MARK: - Init
     init(parser: any ParserProtocol,
          storage: any StorageProtocol,
@@ -67,6 +70,25 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     func performSearch(by searchTerm: String,
                        completion: @escaping ([FeedItem]?) -> Void) {
         localSearchService.search(for: searchTerm, resultsFound: completion)
+    }
+
+    // MARK: - Recent searches
+    func recentSearches() -> [String] {
+        return UserDefaults.standard.stringArray(forKey: Self.recentSearchesKey) ?? []
+    }
+
+    func saveRecentSearch(_ query: String) {
+        var searches = recentSearches()
+        searches.removeAll { $0 == query }
+        searches.append(query)
+        if searches.count > Self.maxRecentSearches {
+            searches.removeFirst()
+        }
+        UserDefaults.standard.set(searches, forKey: Self.recentSearchesKey)
+    }
+
+    func clearRecentSearches() {
+        UserDefaults.standard.removeObject(forKey: Self.recentSearchesKey)
     }
 
     func exploreFeeds(on webSite: String,

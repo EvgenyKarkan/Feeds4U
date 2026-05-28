@@ -38,6 +38,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
     func onViewWillAppear() {
         let viewState = buildViewState()
         view?.updateOnWillAppear(with: viewState)
+        refreshSearchButtonMenu()
     }
 
     func onViewNeedsToAddFeed(from url: String) {
@@ -120,10 +121,18 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         view?.showEnterSearch()
     }
 
+    func onViewNeedsToClearRecentSearches() {
+        interactor.clearRecentSearches()
+        refreshSearchButtonMenu()
+    }
+
     // local search
     func onViewNeedsToSearchFeeds(by searchTerm: String) {
         view?.disableTableViewEditingStateIfNeeded()
         view?.showActivityIndicator()
+
+        interactor.saveRecentSearch(searchTerm)
+        refreshSearchButtonMenu()
 
         interactor.fillSearchMatchingEngine { [weak self] in
             nonisolated(unsafe) let presenter = self
@@ -226,6 +235,11 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
 
 // MARK: - Private
 private extension FeedsPresenter {
+
+    func refreshSearchButtonMenu() {
+        let recent = interactor.recentSearches()
+        view?.configureSearchButtonMenu(recent.reversed())
+    }
 
     func buildViewState() -> FeedsViewState {
         let allFeeds = interactor.getAllFeeds()

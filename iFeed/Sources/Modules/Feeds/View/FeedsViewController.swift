@@ -74,12 +74,20 @@ final class FeedsViewController: BaseListViewController {
         )
     }()
 
+    private var searchButton: UIButton?
+
     private lazy var searchButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action: #selector(searchButtonItemDidPress)
-        )
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.addTarget(self, action: #selector(searchButtonItemDidPress), for: .touchUpInside)
+        searchButton = button
+        return UIBarButtonItem(customView: button)
+    }()
+
+    private lazy var fixedSpace: UIBarButtonItem = {
+        let space = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        space.width = 16
+        return space
     }()
 
     // MARK: - Life cycle
@@ -148,7 +156,7 @@ extension FeedsViewController: FeedsViewProtocol {
 
         if !allFeeds.isEmpty {
             addTrashButton(true)
-            rightItems = [addButtonItem, searchButtonItem]
+            rightItems = [addButtonItem, fixedSpace, searchButtonItem]
         } else {
             feedListView?.tableView.alpha = .zero
             rightItems = [addButtonItem]
@@ -169,6 +177,48 @@ extension FeedsViewController: FeedsViewProtocol {
 
     func hideActivityIndicator(_ completion: (() -> Void)?) {
         hideSpinner(completion)
+    }
+
+    func configureSearchButtonMenu(_ searches: [String]) {
+        guard let button = searchButton else { return }
+
+        if searches.isEmpty {
+            button.menu = nil
+            button.showsMenuAsPrimaryAction = false
+            return
+        }
+
+        let recentActions = searches.map { query in
+            UIAction(
+                title: query,
+                image: UIImage(systemName: "clock.arrow.circlepath")
+            ) { [weak self] _ in
+                self?.presenter?.onViewNeedsToSearchFeeds(by: query)
+            }
+        }
+
+        let recentMenu = UIMenu(title: "", options: .displayInline, children: recentActions)
+
+        let newSearchAction = UIAction(
+            title: String.localized(key: LocalizableKeys.Search.newSearch),
+            image: UIImage(systemName: "magnifyingglass")
+        ) { [weak self] _ in
+            self?.showEnterSearch()
+        }
+
+        let clearAction = UIAction(
+            title: String.localized(key: LocalizableKeys.Search.clearRecent),
+            image: UIImage(systemName: "trash"),
+            attributes: .destructive
+        ) { [weak self] _ in
+            self?.presenter?.onViewNeedsToClearRecentSearches()
+        }
+
+        button.menu = UIMenu(
+            title: String.localized(key: LocalizableKeys.Search.recentSearches),
+            children: [recentMenu, newSearchAction, clearAction]
+        )
+        button.showsMenuAsPrimaryAction = true
     }
 
     func showEnterSearch() {
@@ -253,7 +303,7 @@ extension FeedsViewController: FeedsViewProtocol {
         }
 
         if navigationItem.rightBarButtonItems?.count == 1 {
-            navigationItem.rightBarButtonItems?.append(searchButtonItem)
+            navigationItem.rightBarButtonItems?.append(contentsOf: [fixedSpace, searchButtonItem])
         }
     }
 
@@ -495,7 +545,7 @@ private extension FeedsViewController {
             }
             feedListView?.tableView.alpha = 1
             if navigationItem.rightBarButtonItems?.count == 1 {
-                navigationItem.rightBarButtonItems?.append(searchButtonItem)
+                navigationItem.rightBarButtonItems?.append(contentsOf: [fixedSpace, searchButtonItem])
             }
         }
     }
