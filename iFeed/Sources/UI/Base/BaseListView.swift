@@ -20,6 +20,8 @@ class BaseListView: UIView {
         // Performance optimizations
         table.estimatedRowHeight = 44
         table.rowHeight = UITableView.automaticDimension
+        table.sectionHeaderTopPadding = .zero
+        table.separatorStyle = .none
 
         // Register cell once during initialization
         let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)

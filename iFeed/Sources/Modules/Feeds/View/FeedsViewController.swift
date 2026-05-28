@@ -8,6 +8,16 @@
 
 import UIKit
 
+/// Main screen of the app — displays the user's RSS feed subscriptions organized in sections.
+/// Feeds can be ungrouped (top-level) or grouped into folders. Supports:
+/// - Adding feeds by URL or exploring/searching for feeds
+/// - Swipe-to-delete individual feeds
+/// - Drag-and-drop to organize feeds into folders or ungroup them
+/// - Collapsible folder sections via `FeedFolderHeaderView`
+/// - Local search across all feed items
+///
+/// Follows VIPER: all user actions are forwarded to `presenter`, UI updates arrive
+/// through `FeedsViewProtocol`, and table data is managed by `FeedsTableProvider`.
 final class FeedsViewController: BaseListViewController {
     // MARK: - Properties
     var presenter: (any FeedsViewDelegate)?
@@ -73,6 +83,10 @@ final class FeedsViewController: BaseListViewController {
     }()
 
     // MARK: - Life cycle
+
+    /// Sets up the table view with its data source, delegate, drag-and-drop support,
+    /// and folder header registration. Uses `FeedsTableProvider` as an external
+    /// delegate/dataSource to keep this VC focused on lifecycle and VIPER wiring.
     override func loadView() {
         tableViewProvider = FeedsTableProvider(delegate: self)
         tableViewProvider?.folderToggleHandler = { [weak self] folderId in
@@ -124,6 +138,8 @@ final class FeedsViewController: BaseListViewController {
 }
 
 // MARK: - FeedsViewProtocol
+/// Presenter-driven UI updates. Each method receives a `FeedsViewState` snapshot
+/// and applies it to the table provider, then refreshes the table view and navigation buttons.
 extension FeedsViewController: FeedsViewProtocol {
 
     func updateOnDidLoad(with viewState: FeedsViewState) {
@@ -241,6 +257,8 @@ extension FeedsViewController: FeedsViewProtocol {
         }
     }
 
+    /// Animates row/section removal. If the deleted feed was the last one in a folder,
+    /// `sectionIndex` is non-nil and the entire folder section is removed.
     func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState) {
         guard let tableView = feedListView?.tableView else {
             tableViewProvider?.sections = viewState.sections
@@ -272,6 +290,9 @@ extension FeedsViewController: FeedsViewProtocol {
         updateNavigationButtons(for: viewState)
     }
 
+    /// Animates expanding/collapsing a folder section. Deletes `oldRowCount` rows first,
+    /// then inserts the new row count — this two-step approach handles both expand and collapse
+    /// within a single `performBatchUpdates` call. Also refreshes the header's chevron state.
     func animateFolderToggle(at sectionIndex: Int, oldRowCount: Int, with viewState: FeedsViewState) {
         guard let tableView = feedListView?.tableView,
               sectionIndex < viewState.sections.count else {
@@ -322,6 +343,10 @@ extension FeedsViewController: TableProviderDelegate {
 }
 
 // MARK: - UITableViewDragDelegate
+/// Enables dragging individual feed rows to reorganize them into folders.
+/// Each dragged item carries the feed's `rssURL` as its identifier, stored both
+/// in the `NSItemProvider` (for the system drag API) and in `localObject` (for
+/// fast, type-safe access in the drop delegate without async loading).
 extension FeedsViewController: UITableViewDragDelegate {
 
     func tableView(_ tableView: UITableView,
@@ -340,13 +365,33 @@ extension FeedsViewController: UITableViewDragDelegate {
 }
 
 // MARK: - UITableViewDropDelegate
+/// Handles three drop scenarios for feed organization:
+///
+/// 1. **Drop onto a folder section** → moves the feed into that folder.
+///    If the feed is already in that folder, it is removed from the folder instead
+///    (effectively "ungroups" it back to the top-level list).
+///
+/// 2. **Drop onto an ungrouped feed row** → prompts the user to create a new folder
+///    containing both the dragged feed and the target feed.
+///
+/// 3. **Drop outside any valid section / onto empty space** → removes the feed from
+///    its current folder (moves it back to top-level).
+///
+/// Only local drags are accepted (`canHandle` rejects external drops).
+/// `dropSessionDidUpdate` provides visual feedback: `.insertIntoDestinationIndexPath`
+/// when hovering over an ungrouped feed (folder creation), `.insertAtDestinationIndexPath`
+/// otherwise (reorder / move into folder).
 extension FeedsViewController: UITableViewDropDelegate {
 
+    /// Rejects drops from other apps — only in-app feed reordering is supported.
     func tableView(_ tableView: UITableView,
                    canHandle session: any UIDropSession) -> Bool {
         return session.localDragSession != nil
     }
 
+    /// Provides real-time visual drop feedback as the user drags over the table.
+    /// - Hovering over an ungrouped feed row shows "insert into" highlight (merge into new folder).
+    /// - Hovering over a folder section or empty area shows "insert at" indicator (move between rows).
     func tableView(_ tableView: UITableView,
                    dropSessionDidUpdate session: any UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -368,6 +413,9 @@ extension FeedsViewController: UITableViewDropDelegate {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 
+    /// Executes the drop by determining the relationship between source and destination:
+    /// - Finds which folder (if any) the dragged feed currently belongs to.
+    /// - Routes to one of three presenter actions: move to folder, remove from folder, or create new folder.
     func tableView(_ tableView: UITableView,
                    performDropWith coordinator: any UITableViewDropCoordinator) {
         guard let dragItem = coordinator.items.first?.dragItem,
@@ -382,6 +430,7 @@ extension FeedsViewController: UITableViewDropDelegate {
 
         let dest = coordinator.destinationIndexPath
 
+        /// No valid destination — remove from folder (move to top-level)
         guard let dest, dest.section < sections.count else {
             presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
             return
@@ -390,18 +439,22 @@ extension FeedsViewController: UITableViewDropDelegate {
         let destSection = sections[dest.section]
 
         if let destFolder = destSection.folder {
+            /// Dropped onto the same folder it's already in — treat as "ungroup"
             if destFolder.id == sourceFolder?.id {
                 presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
             } else {
+                /// Dropped onto a different folder — move feed into it
                 presenter?.onViewNeedsToMoveFeedToFolder(feedURL: sourceURL, folderId: destFolder.id)
             }
         } else if dest.row < destSection.feeds.count {
+            /// Dropped onto an ungrouped feed — prompt to create a new folder with both feeds
             let targetFeed = destSection.feeds[dest.row]
             guard targetFeed.rssURL != sourceURL else {
                 return
             }
             showCreateFolderAlert(feedURLs: [sourceURL, targetFeed.rssURL])
         } else {
+            /// Dropped past the last row in an ungrouped section — remove from folder
             presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
         }
     }

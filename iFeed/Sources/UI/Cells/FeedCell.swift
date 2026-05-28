@@ -69,6 +69,13 @@ final class FeedCell: UITableViewCell, Reusable {
         }
     }
 
+    private let bottomSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .separator
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     // MARK: - Base override
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,6 +83,15 @@ final class FeedCell: UITableViewCell, Reusable {
         dotView.layer.cornerRadius = dotView.bounds.midY
         dotView.layer.cornerCurve = .continuous
         dotView.layer.masksToBounds = true
+
+        let pixelHeight = 1.0 / UIScreen.main.scale
+        contentView.addSubview(bottomSeparator)
+        NSLayoutConstraint.activate([
+            bottomSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            bottomSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomSeparator.heightAnchor.constraint(equalToConstant: pixelHeight)
+        ])
 
         resetContent()
     }

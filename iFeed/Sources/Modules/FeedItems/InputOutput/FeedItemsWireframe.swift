@@ -97,7 +97,7 @@ extension FeedItemsWireframe: FeedItemsWireframeProtocol {
     }
 
     func pushArticleReader(title: String, htmlContent: String, articleURL: URL?) {
-        let readerVC = ArticleReaderViewController(
+        let readerVC = ArticleReaderBuilder.viewController(
             title: title,
             htmlContent: htmlContent,
             articleURL: articleURL
