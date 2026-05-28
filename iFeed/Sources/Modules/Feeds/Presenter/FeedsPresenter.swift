@@ -117,33 +117,29 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
     }
 
     func onViewNeedsToShowSearchInput() {
-        view?.showActivityIndicator()
-
-        interactor.fillSearchMatchingEngine { [weak self] in
-            nonisolated(unsafe) let presenter = self
-
-            DispatchQueue.main.async {
-                presenter?.view?.hideActivityIndicator {
-                    presenter?.view?.showEnterSearch()
-                }
-            }
-        }
+        view?.showEnterSearch()
     }
 
     // local search
     func onViewNeedsToSearchFeeds(by searchTerm: String) {
         view?.disableTableViewEditingStateIfNeeded()
+        view?.showActivityIndicator()
 
-        interactor.performSearch(by: searchTerm) { [weak self] feedItems in
-            nonisolated(unsafe) let feedItems = feedItems
+        interactor.fillSearchMatchingEngine { [weak self] in
             nonisolated(unsafe) let presenter = self
 
-            DispatchQueue.main.async {
-                guard let results = feedItems, !results.isEmpty else {
-                    presenter?.view?.showNoSearchResultsAlert()
-                    return
+            presenter?.interactor.performSearch(by: searchTerm) { feedItems in
+                nonisolated(unsafe) let feedItems = feedItems
+
+                DispatchQueue.main.async {
+                    presenter?.view?.hideActivityIndicator {
+                        guard let results = feedItems, !results.isEmpty else {
+                            presenter?.view?.showNoSearchResultsAlert()
+                            return
+                        }
+                        presenter?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
+                    }
                 }
-                presenter?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
             }
         }
     }
