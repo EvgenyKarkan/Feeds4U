@@ -1,8 +1,8 @@
 Feeds4U
 ===========
 
-Your personal RSS reader for iPhone and iPad. 
-Subscribe to your favorite websites, blogs, and news sources — all in one place. 
+Your personal RSS reader for iPhone and iPad.    
+Subscribe to your favorite websites, blogs, and news sources — all in one place.    
 Supports **RSS**, **Atom**, and **JSON Feed** formats.
 
 ## Features
@@ -13,7 +13,7 @@ Supports **RSS**, **Atom**, and **JSON Feed** formats.
 - Unread badges and visual indicators help you see what's new at a glance
 
 ### Read Comfortably
-- Built-in article reader with clean typography optimized for readability
+- Built-in offline article reader with clean typography optimized for readability
 - Light and dark reading modes that follow your system appearance
 - Open any article in Safari when you need the full website experience
 
