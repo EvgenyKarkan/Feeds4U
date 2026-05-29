@@ -15,7 +15,7 @@ final class FeedsInteractor {
     private let storage: any StorageProtocol
     private var localSearchService: any Searchable
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
-    private let folderManager: FeedFolderManager
+    private let folderManager: any FeedFolderManaging
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
 
@@ -27,7 +27,7 @@ final class FeedsInteractor {
          storage: any StorageProtocol,
          localSearchService: any Searchable,
          exploreFeedsService: any ExploreFeedsServiceProtocol,
-         folderManager: FeedFolderManager = FeedFolderManager()) {
+         folderManager: any FeedFolderManaging) {
         self.parser = parser
         self.storage = storage
         self.localSearchService = localSearchService

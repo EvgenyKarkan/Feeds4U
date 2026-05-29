@@ -9,7 +9,6 @@
 import Foundation
 
 struct FeedFolder: Codable, Equatable {
-
     // MARK: - Properties
     let id: UUID
     var name: String
@@ -17,13 +16,22 @@ struct FeedFolder: Codable, Equatable {
     var isExpanded: Bool
 
     // MARK: - Init
-    // TODO: - enhance testability
-    init(name: String, feedURLs: [String]) {
-        self.id = UUID()
+    init(id: UUID = UUID(), name: String, feedURLs: [String]) {
+        self.id = id
         self.name = name
         self.feedURLs = feedURLs
         self.isExpanded = true
     }
+}
+
+protocol FeedFolderManaging {
+    func loadFolders() -> [FeedFolder]
+    @discardableResult
+    func createFolder(name: String, feedURLs: [String]) -> FeedFolder
+    func addFeed(url: String, toFolderWithId folderId: UUID)
+    func removeFeed(url: String)
+    func toggleExpanded(folderId: UUID)
+    func cleanupDeletedFeeds(existingURLs: Set<String>)
 }
 
 /// Manages feed folder persistence via UserDefaults.
@@ -41,7 +49,10 @@ final class FeedFolderManager {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
+}
 
+// MARK: - FeedFolderManaging
+extension FeedFolderManager: FeedFolderManaging {
     // MARK: - Read
 
     /// Returns all persisted folders, or an empty array if none exist.

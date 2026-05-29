@@ -26,6 +26,7 @@
 		089C36F72BB23E6E00337EB4 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */; };
 		08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */; };
+		08AB10A32FCA5C3700E190D1 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = 08AB10A22FCA5C3700E190D1 /* Mockable */; };
 		08AF0D672FB92200000521AF /* REVISION.md in Resources */ = {isa = PBXBuildFile; fileRef = 08AF0D662FB92200000521AF /* REVISION.md */; };
 		08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */; };
 		08B00C042FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */; };
@@ -206,6 +207,7 @@
 			files = (
 				08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */,
 				08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */,
+				08AB10A32FCA5C3700E190D1 /* Mockable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +371,21 @@
 				08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		08AB10A42FCA5F1600E190D1 /* Feeds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Feeds;
+			sourceTree = "<group>";
+		};
+		08AB10A52FCA5F1600E190D1 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				08AB10A42FCA5F1600E190D1 /* Feeds */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		08AF0D682FB933B9000521AF /* CoreData */ = {
@@ -652,6 +669,7 @@
 		08E20D6B2F90573400059CED /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				08AB10A52FCA5F1600E190D1 /* Modules */,
 				08A9780B2FBA4D620004E40D /* DIContainer */,
 				08B083142FB2A60C007C63DD /* Services */,
 			);
@@ -744,6 +762,7 @@
 			packageProductDependencies = (
 				08E20D612F90483500059CED /* OHHTTPStubs */,
 				08E20D632F90483500059CED /* OHHTTPStubsSwift */,
+				08AB10A22FCA5C3700E190D1 /* Mockable */,
 			);
 			productName = iFeedTests;
 			productReference = 08E20D562F90478C00059CED /* iFeedTests.xctest */;
@@ -825,6 +844,7 @@
 				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 				08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */,
+				08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -1491,6 +1511,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kolos65/Mockable.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.2;
+			};
+		};
 		08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -1522,6 +1550,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */;
 			productName = SimpleSimilarity;
+		};
+		08AB10A22FCA5C3700E190D1 /* Mockable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */;
+			productName = Mockable;
 		};
 		08E20D612F90483500059CED /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;

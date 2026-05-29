@@ -19,7 +19,8 @@ enum FeedsBuilder {
             parser: container.parser(),
             storage: container.storage(),
             localSearchService: container.localSearch(),
-            exploreFeedsService: container.exploreService()
+            exploreFeedsService: container.exploreService(),
+            folderManager: container.foldersManager()
         )
 
         /// Wireframe

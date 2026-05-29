@@ -50,4 +50,10 @@ extension DIContainer: DIContainerProtocol {
             return CoreDataManager()
         }
     }
+
+    func foldersManager() -> any FeedFolderManaging {
+        return shared {
+            return FeedFolderManager()
+        }
+    }
 }
