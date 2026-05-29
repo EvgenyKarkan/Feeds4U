@@ -560,13 +560,16 @@ private extension FeedsViewController {
         let cancelAction = UIAlertAction(
             title: String.localized(key: LocalizableKeys.cancel),
             style: .cancel
-        )
+        ) { [weak self] _ in
+            self?.nextAction = nil
+        }
         alert.addAction(cancelAction)
 
         let createAction = UIAlertAction(
             title: String.localized(key: LocalizableKeys.Folder.create),
             style: .default
         ) { [weak self, weak alert] _ in
+            self?.nextAction = nil
             guard let name = alert?.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                   !name.isEmpty else {
                 return
@@ -574,20 +577,17 @@ private extension FeedsViewController {
             self?.presenter?.onViewNeedsToCreateFolder(name: name, feedURLs: feedURLs)
         }
         createAction.isEnabled = false
+        nextAction = createAction
         alert.addAction(createAction)
 
-        alert.addTextField { textField in
+        alert.addTextField { [weak self] textField in
             textField.placeholder = String.localized(key: LocalizableKeys.Folder.namePlaceholder)
             textField.autocapitalizationType = .words
-
-            NotificationCenter.default.addObserver(
-                forName: UITextField.textDidChangeNotification,
-                object: textField,
-                queue: .main
-            ) { _ in
-                let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                createAction.isEnabled = !text.isEmpty
-            }
+            textField.addTarget(
+                self,
+                action: #selector(self?.textFieldDidChangeForSearchInput(_:)),
+                for: .editingChanged
+            )
         }
 
         present(alert, animated: true)

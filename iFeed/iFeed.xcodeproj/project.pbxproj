@@ -662,6 +662,7 @@
 			isa = PBXGroup;
 			children = (
 				2E8B7B1D29C6979C00FB91C8 /* TODO.md */,
+				08AF0D662FB92200000521AF /* REVISION.md */,
 				2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */,
 				08B00C112FB3BB88007BD039 /* SceneDelegate.swift */,
 				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
@@ -711,7 +712,6 @@
 				08742A5B2F9840C600F7AF93 /* Sources */,
 				08E20D6B2F90573400059CED /* Tests */,
 				DE763D151B7E841300C8B54A /* Products */,
-				08AF0D662FB92200000521AF /* REVISION.md */,
 			);
 			sourceTree = "<group>";
 		};

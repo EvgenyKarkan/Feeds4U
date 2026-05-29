@@ -84,8 +84,8 @@ extension ArticleReaderViewController: ArticleReaderViewProtocol {
         }
 
         let theme = isDarkMode ? "dark" : "light"
-        let js = "document.documentElement.setAttribute('data-theme', '\(theme)');"
-        webView.evaluateJavaScript(js)
+        let script = "document.documentElement.setAttribute('data-theme', '\(theme)');"
+        webView.evaluateJavaScript(script)
 
         let iconName = isDarkMode ? "sun.max" : "moon"
         if let stack = navigationItem.rightBarButtonItem?.customView as? UIStackView,
