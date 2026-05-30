@@ -574,7 +574,7 @@ struct CoreDataManagerTests {
     @Test("saveContext with explicit background context")
     func saveContextExplicit() throws {
         // Given
-        let manager = try Self.makeTemporaryManager()
+        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When
@@ -722,7 +722,7 @@ struct CoreDataManagerTests {
     @Test("createFeed in explicit context inserts into that context")
     func createFeedExplicitContext() throws {
         // Given
-        let manager = try Self.makeTemporaryManager()
+        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When
@@ -739,7 +739,7 @@ struct CoreDataManagerTests {
     @Test("createFeedItem in explicit context inserts into that context")
     func createFeedItemExplicitContext() throws {
         // Given
-        let manager = try Self.makeTemporaryManager()
+        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When

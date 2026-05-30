@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 
+@MainActor
 final class FeedItemsWireframe {
     // MARK: - Properties
     weak var viewController: FeedItemsViewController?
@@ -17,7 +18,7 @@ final class FeedItemsWireframe {
 }
 
 // MARK: - FeedItemsWireframeProtocol
-extension FeedItemsWireframe: FeedItemsWireframeProtocol {
+extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
 
     /// Pre-warms Safari connections for up to 10 unique feed item URLs.
     ///
@@ -26,7 +27,7 @@ extension FeedItemsWireframe: FeedItemsWireframeProtocol {
     /// so the most relevant items are always covered.
     ///
     /// - Parameter items: Feed items whose URLs should be prewarmed.
-    func prewarmSafari(for feedItems: [FeedItem]) {
+    @MainActor func prewarmSafari(for feedItems: [FeedItem]) {
         // Step 1: Clean up any existing prewarming token
         // -----------------------------------------------
         // If we previously prewarmed connections, invalidate that token to free up system resources.

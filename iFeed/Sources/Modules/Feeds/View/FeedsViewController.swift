@@ -148,7 +148,7 @@ final class FeedsViewController: BaseListViewController {
 // MARK: - FeedsViewProtocol
 /// Presenter-driven UI updates. Each method receives a `FeedsViewState` snapshot
 /// and applies it to the table provider, then refreshes the table view and navigation buttons.
-extension FeedsViewController: FeedsViewProtocol {
+extension FeedsViewController: @MainActor FeedsViewProtocol {
 
     func updateOnDidLoad(with viewState: FeedsViewState) {
         let allFeeds = viewState.allFeeds
@@ -381,7 +381,7 @@ extension FeedsViewController: FeedsViewProtocol {
 }
 
 // MARK: - TableProviderDelegate
-extension FeedsViewController: TableProviderDelegate {
+extension FeedsViewController: @MainActor TableProviderDelegate {
 
     func tableProvider(_ provider: BaseTableProvider, didSelectRowAt indexPath: IndexPath) {
         presenter?.onViewDidSelectFeedAtIndexPath(indexPath)

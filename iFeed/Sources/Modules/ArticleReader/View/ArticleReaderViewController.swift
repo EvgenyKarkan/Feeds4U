@@ -55,7 +55,7 @@ final class ArticleReaderViewController: UIViewController {
 }
 
 // MARK: - ArticleReaderViewProtocol
-extension ArticleReaderViewController: ArticleReaderViewProtocol {
+extension ArticleReaderViewController: @MainActor ArticleReaderViewProtocol {
 
     func configureInitialState(with viewState: ArticleReaderViewState) {
         navigationItem.title = viewState.title

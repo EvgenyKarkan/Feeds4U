@@ -19,6 +19,7 @@ protocol Coordinating {
 /// Aggregates all module-level coordinating delegates that the app coordinator must handle.
 protocol AppCoordinating: FeedsCoordinatingDelegate {}
 
+@MainActor
 final class Coordinator {
     // MARK: - Properties
     private let moduleFactory: any ModuleFactoryProtocol

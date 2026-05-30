@@ -211,7 +211,7 @@ private extension ExploreFeedsResultsViewController {
 }
 
 // MARK: - ExploreFeedsViewProtocol
-extension ExploreFeedsResultsViewController: ExploreFeedsViewProtocol {
+extension ExploreFeedsResultsViewController: @MainActor ExploreFeedsViewProtocol {
 
     func updateOnDidLoad(with viewState: ExploreFeedsViewState) {
         navigationItem.title = viewState.webPageTitle

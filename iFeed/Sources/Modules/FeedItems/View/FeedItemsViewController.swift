@@ -51,7 +51,7 @@ final class FeedItemsViewController: BaseListViewController {
 }
 
 // MARK: - FeedItemsViewDelegate
-extension FeedItemsViewController: FeedItemsUIViewDelegate {
+extension FeedItemsViewController: @MainActor FeedItemsUIViewDelegate {
 
     func didPullToRefresh(_ sender: UIRefreshControl) {
         presenter?.onViewDidPullToRefresh()
@@ -59,7 +59,7 @@ extension FeedItemsViewController: FeedItemsUIViewDelegate {
 }
 
 // MARK: - TableProviderDelegate
-extension FeedItemsViewController: TableProviderDelegate {
+extension FeedItemsViewController: @MainActor TableProviderDelegate {
 
     func tableProvider(_ provider: BaseTableProvider, didSelectRowAt indexPath: IndexPath) {
         guard let cell = feedItemsView?.tableView.cellForRow(at: indexPath) else {
@@ -70,7 +70,7 @@ extension FeedItemsViewController: TableProviderDelegate {
 }
 
 // MARK: - FeedItemsViewProtocol
-extension FeedItemsViewController: FeedItemsViewProtocol {
+extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
 
     func updateOnDidLoad(with viewState: FeedItemsViewState) {
         // is it possible to make this method more elegant?

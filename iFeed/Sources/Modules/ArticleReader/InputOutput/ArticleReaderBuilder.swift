@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 enum ArticleReaderBuilder {
 
     static func viewController(title: String,

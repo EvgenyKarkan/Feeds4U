@@ -26,7 +26,9 @@ final class ExploreFeedsResultCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        resetUI()
+        MainActor.assumeIsolated {
+            resetUI()
+        }
     }
 
     // no prepareForReuse

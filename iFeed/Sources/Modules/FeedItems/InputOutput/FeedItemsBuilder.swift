@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 enum FeedItemsBuilder {
 
     static func viewController(feed: Feed, container: any FeedItemsDependencies) -> FeedItemsViewController {

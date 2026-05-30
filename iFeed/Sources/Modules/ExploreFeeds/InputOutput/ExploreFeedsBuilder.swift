@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 enum ExploreFeedsBuilder {
 
     static func viewController(with data: ExploreFeedsDTO,

@@ -117,7 +117,7 @@ final class CoreDataManager {
             setupPersistentContainer()
         } else {
             isStoreLoaded = true
-            configureContext(persistentContainer.viewContext)
+            Self.configureContext(persistentContainer.viewContext)
         }
     }
 
@@ -143,7 +143,7 @@ final class CoreDataManager {
             }
         }
 
-        configureContext(persistentContainer.viewContext)
+        Self.configureContext(persistentContainer.viewContext)
     }
 
     /// Applies the app's standard context settings:
@@ -152,10 +152,10 @@ final class CoreDataManager {
     /// - Uses object-trump merge policy so in-memory edits win over store values.
     /// - Deletes inaccessible faults instead of throwing, preventing crashes when
     ///   a referenced object has been deleted by another context.
-    private func configureContext(_ context: NSManagedObjectContext) {
+    private static func configureContext(_ context: NSManagedObjectContext) {
         context.undoManager = nil
         context.automaticallyMergesChangesFromParent = true
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         context.shouldDeleteInaccessibleFaults = true
     }
 
@@ -177,7 +177,7 @@ final class CoreDataManager {
     /// ``performBackgroundTask(_:)``.
     func newBackgroundContext() -> NSManagedObjectContext {
         let context = persistentContainer.newBackgroundContext()
-        configureContext(context)
+        Self.configureContext(context)
         return context
     }
 
@@ -185,9 +185,9 @@ final class CoreDataManager {
     ///
     /// The context is configured with the same merge policy and settings as
     /// the view context. Ideal for one-shot background writes.
-    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+    func performBackgroundTask(_ block: @escaping @Sendable (NSManagedObjectContext) -> Void) {
         persistentContainer.performBackgroundTask { context in
-            self.configureContext(context)
+            Self.configureContext(context)
             block(context)
         }
     }
@@ -222,18 +222,17 @@ final class CoreDataManager {
     ///
     /// Uses `context.perform` to ensure the save happens on the correct queue,
     /// then reports success or failure through `completion`.
-    func saveContextAsync(_ context: NSManagedObjectContext, completion: ((Result<Void, CoreDataError>) -> Void)? = nil) {
-        context.perform { [weak self] in
-            guard let self else {
-                completion?(.failure(.contextNotAvailable))
-                return
-            }
+    func saveContextAsync(_ context: NSManagedObjectContext, completion: (@Sendable (Result<Void, CoreDataError>) -> Void)? = nil) {
+        context.perform {
             do {
-                try self.saveContext(context)
+                guard context.hasChanges else {
+                    completion?(.success(()))
+                    return
+                }
+                try context.save()
                 completion?(.success(()))
-            } catch let error as CoreDataError {
-                completion?(.failure(error))
             } catch {
+                context.rollback()
                 completion?(.failure(.saveFailed(underlying: error)))
             }
         }

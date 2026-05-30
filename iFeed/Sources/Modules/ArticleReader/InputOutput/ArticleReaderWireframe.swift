@@ -15,9 +15,9 @@ final class ArticleReaderWireframe {
 }
 
 // MARK: - ArticleReaderWireframeProtocol
-extension ArticleReaderWireframe: ArticleReaderWireframeProtocol {
+extension ArticleReaderWireframe: @MainActor ArticleReaderWireframeProtocol {
 
-    func openInSafari(url: URL) {
+    @MainActor func openInSafari(url: URL) {
         UIApplication.shared.open(url)
     }
 }

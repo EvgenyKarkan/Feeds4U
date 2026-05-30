@@ -80,20 +80,22 @@ final class FeedCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        dotView.layer.cornerRadius = dotView.bounds.midY
-        dotView.layer.cornerCurve = .continuous
-        dotView.layer.masksToBounds = true
+        MainActor.assumeIsolated {
+            dotView.layer.cornerRadius = dotView.bounds.midY
+            dotView.layer.cornerCurve = .continuous
+            dotView.layer.masksToBounds = true
 
-        let pixelHeight = 1.0 / UIScreen.main.scale
-        contentView.addSubview(bottomSeparator)
-        NSLayoutConstraint.activate([
-            bottomSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            bottomSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomSeparator.heightAnchor.constraint(equalToConstant: pixelHeight)
-        ])
+            let pixelHeight = 1.0 / UIScreen.main.scale
+            contentView.addSubview(bottomSeparator)
+            NSLayoutConstraint.activate([
+                bottomSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                bottomSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                bottomSeparator.heightAnchor.constraint(equalToConstant: pixelHeight)
+            ])
 
-        resetContent()
+            resetContent()
+        }
     }
 
     override func prepareForReuse() {

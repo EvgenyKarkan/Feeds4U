@@ -32,20 +32,23 @@ final class ModuleFactory {
 }
 
 // MARK: - ModuleFactoryProtocol
-extension ModuleFactory: ModuleFactoryProtocol {
+extension ModuleFactory: @MainActor ModuleFactoryProtocol {
 
     func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController {
         return FeedsBuilder.viewController(container: container, delegate: delegate)
     }
 
+    @MainActor
     func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController {
         return FeedItemsBuilder.viewController(feed: feed, container: container)
     }
 
+    @MainActor
     func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController {
         return FeedItemsBuilder.searchResultsViewController(for: query, items: items, container: container)
     }
 
+    @MainActor
     func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController {
         return ExploreFeedsBuilder.viewController(with: results, webPage: webPage, container: container)
     }
