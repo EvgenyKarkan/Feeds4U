@@ -1,5 +1,5 @@
 {
-  "originHash" : "db4fb12ebd4e0e559543e05b3ea710cb9dceef60ba3fb1463ad0d7180df61b2f",
+  "originHash" : "1ea3884bf71ac4cd31fb4daadb27f66f6d8249b2253e35a203f88b280606b902",
   "pins" : [
     {
       "identity" : "feedkit",
@@ -29,15 +29,6 @@
       }
     },
     {
-      "identity" : "mockable",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Kolos65/Mockable.git",
-      "state" : {
-        "revision" : "bd20509c34ca3205003677747ad8dcb70d18b7ca",
-        "version" : "0.6.2"
-      }
-    },
-    {
       "identity" : "ohhttpstubs",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AliSoftware/OHHTTPStubs",
@@ -53,24 +44,6 @@
       "state" : {
         "revision" : "b622abfa872c7861e8ac95b436c67d8716349c0c",
         "version" : "1.0.1"
-      }
-    },
-    {
-      "identity" : "swift-syntax",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swiftlang/swift-syntax.git",
-      "state" : {
-        "revision" : "4799286537280063c85a32f09884cfbca301b1a1",
-        "version" : "602.0.0"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "dfd70507def84cb5fb821278448a262c6ff2bbad",
-        "version" : "1.9.0"
       }
     }
   ],

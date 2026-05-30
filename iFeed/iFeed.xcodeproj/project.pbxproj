@@ -26,7 +26,9 @@
 		089C36F72BB23E6E00337EB4 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */; };
 		08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */; };
-		08AB10A32FCA5C3700E190D1 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = 08AB10A22FCA5C3700E190D1 /* Mockable */; };
+		08AB10A72FCA5F6D00E190D1 /* FeedFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */; };
+		08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */; };
+		08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */; };
 		08AF0D672FB92200000521AF /* REVISION.md in Resources */ = {isa = PBXBuildFile; fileRef = 08AF0D662FB92200000521AF /* REVISION.md */; };
 		08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */; };
 		08B00C042FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */; };
@@ -129,6 +131,9 @@
 		089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInstancesContainerTests.swift; sourceTree = "<group>"; };
 		08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListViewController.swift; sourceTree = "<group>"; };
+		08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolder.swift; sourceTree = "<group>"; };
+		08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderManagerTests.swift; sourceTree = "<group>"; };
+		08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderTests.swift; sourceTree = "<group>"; };
 		08AF0D662FB92200000521AF /* REVISION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = REVISION.md; sourceTree = "<group>"; };
 		08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
 		08B00BFE2FB3AB66007BD039 /* ExploreFeedsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedsResult.swift; sourceTree = "<group>"; };
@@ -207,7 +212,6 @@
 			files = (
 				08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */,
 				08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */,
-				08AB10A32FCA5C3700E190D1 /* Mockable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2304C92954ABC900B1F930 /* Feed.swift */,
+				08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */,
 				08B4E1AE2FC3BA4900A86EE9 /* FeedFolderManager.swift */,
 				080CFB252FA2BA8A0054B292 /* FeedsInteractor.swift */,
 			);
@@ -376,6 +381,8 @@
 		08AB10A42FCA5F1600E190D1 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
+				08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */,
+				08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */,
 			);
 			path = Feeds;
 			sourceTree = "<group>";
@@ -762,7 +769,6 @@
 			packageProductDependencies = (
 				08E20D612F90483500059CED /* OHHTTPStubs */,
 				08E20D632F90483500059CED /* OHHTTPStubsSwift */,
-				08AB10A22FCA5C3700E190D1 /* Mockable */,
 			);
 			productName = iFeedTests;
 			productReference = 08E20D562F90478C00059CED /* iFeedTests.xctest */;
@@ -844,7 +850,6 @@
 				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 				08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */,
-				08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -911,6 +916,8 @@
 				08B083152FB2A60C007C63DD /* ParsedFeedItemDataTests.swift in Sources */,
 				08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */,
 				08B083162FB2A60C007C63DD /* ParsedFeedDataTests.swift in Sources */,
+				08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */,
+				08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */,
 				08B00C0F2FB3AE92007BD039 /* ExploreFeedsServiceTests.swift in Sources */,
 				08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */,
 				08B00C102FB3AE92007BD039 /* ExploreFeedsElementTests.swift in Sources */,
@@ -948,6 +955,7 @@
 				2E23050C2954ABDB00B1F930 /* BaseListView.swift in Sources */,
 				0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */,
 				2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */,
+				08AB10A72FCA5F6D00E190D1 /* FeedFolder.swift in Sources */,
 				08B4E1A72FC27B6C00A86EE9 /* CloudflareBypassPresenter.swift in Sources */,
 				08BBD2352FC7B53B0019FF59 /* ArticleReaderWireframe.swift in Sources */,
 				08B00C042FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift in Sources */,
@@ -1511,14 +1519,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kolos65/Mockable.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.2;
-			};
-		};
 		08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -1550,11 +1550,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */;
 			productName = SimpleSimilarity;
-		};
-		08AB10A22FCA5C3700E190D1 /* Mockable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 08AB10A12FCA5C3700E190D1 /* XCRemoteSwiftPackageReference "Mockable" */;
-			productName = Mockable;
 		};
 		08E20D612F90483500059CED /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;
