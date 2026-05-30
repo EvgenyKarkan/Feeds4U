@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import Mocking
 
+@Mocked(compilationCondition: .debug)
 protocol FeedFolderManaging {
     func loadFolders() -> [FeedFolder]
     @discardableResult
@@ -28,10 +30,12 @@ final class FeedFolderManager {
     // MARK: - Properties
     private static let storageKey = "feed_folders_v1"
     private let defaults: UserDefaults
+    private let encoder: JSONEncoder
 
     // MARK: - Init
-    init(defaults: UserDefaults = .standard) {
+    init(defaults: UserDefaults = .standard, encoder: JSONEncoder = JSONEncoder()) {
         self.defaults = defaults
+        self.encoder = encoder
     }
 }
 
@@ -144,7 +148,7 @@ private extension FeedFolderManager {
 
     /// Encodes the folder array to JSON and writes it to UserDefaults.
     func persist(_ folders: [FeedFolder]) {
-        guard let data = try? JSONEncoder().encode(folders) else {
+        guard let data = try? encoder.encode(folders) else {
             return
         }
         defaults.set(data, forKey: Self.storageKey)

@@ -12,6 +12,13 @@ import Testing
 
 private enum TestError: Error {
     case userDefaultsInitFailed
+    case encodingFailed
+}
+
+private final class FailingEncoder: JSONEncoder, @unchecked Sendable {
+    override func encode<T: Encodable>(_ value: T) throws -> Data {
+        throw TestError.encodingFailed
+    }
 }
 
 @Suite("FeedFolderManager Tests", .serialized)
@@ -293,5 +300,37 @@ struct FeedFolderManagerTests {
         // Then
         let folders = sut.loadFolders()
         #expect(folders.isEmpty)
+    }
+
+    // MARK: - loadFolders (decoding failure)
+
+    @Test("Load folders returns empty array when stored data is not valid JSON")
+    func testLoadFoldersReturnsEmptyForCorruptData() {
+        // Given
+        let corruptData = Data("not-valid-json".utf8)
+        defaults.set(corruptData, forKey: "feed_folders_v1")
+
+        // When
+        let folders = sut.loadFolders()
+
+        // Then
+        #expect(folders.isEmpty)
+    }
+
+    // MARK: - persist (encoding failure)
+
+    @Test("Create folder with failing encoder does not overwrite existing data")
+    func testPersistEncodingFailurePreservesExistingData() {
+        // Given
+        sut.createFolder(name: "Existing", feedURLs: ["https://a.com"])
+        let failingManager = FeedFolderManager(defaults: defaults, encoder: FailingEncoder())
+
+        // When
+        failingManager.createFolder(name: "New", feedURLs: ["https://b.com"])
+
+        // Then
+        let folders = sut.loadFolders()
+        #expect(folders.count == 1)
+        #expect(folders[0].name == "Existing")
     }
 }

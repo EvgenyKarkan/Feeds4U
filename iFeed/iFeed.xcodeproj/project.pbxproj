@@ -29,6 +29,9 @@
 		08AB10A72FCA5F6D00E190D1 /* FeedFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */; };
 		08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */; };
 		08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */; };
+		08AB10B42FCA6FCE00E190D1 /* Mocking in Frameworks */ = {isa = PBXBuildFile; productRef = 08AB10B32FCA6FCE00E190D1 /* Mocking */; };
+		08AB10B62FCA70D200E190D1 /* FeedsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10B52FCA70D200E190D1 /* FeedsInteractorTests.swift */; };
+		08AB10B82FCA716300E190D1 /* Mocking in Frameworks */ = {isa = PBXBuildFile; productRef = 08AB10B72FCA716300E190D1 /* Mocking */; };
 		08AF0D672FB92200000521AF /* REVISION.md in Resources */ = {isa = PBXBuildFile; fileRef = 08AF0D662FB92200000521AF /* REVISION.md */; };
 		08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */; };
 		08B00C042FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B00C012FB3AB66007BD039 /* ExploreFeedsResultsViewController.swift */; };
@@ -134,6 +137,7 @@
 		08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolder.swift; sourceTree = "<group>"; };
 		08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderManagerTests.swift; sourceTree = "<group>"; };
 		08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderTests.swift; sourceTree = "<group>"; };
+		08AB10B52FCA70D200E190D1 /* FeedsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsInteractorTests.swift; sourceTree = "<group>"; };
 		08AF0D662FB92200000521AF /* REVISION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = REVISION.md; sourceTree = "<group>"; };
 		08AF0D692FB933F3000521AF /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
 		08B00BFE2FB3AB66007BD039 /* ExploreFeedsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedsResult.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08AB10B82FCA716300E190D1 /* Mocking in Frameworks */,
 				08E20D622F90483500059CED /* OHHTTPStubs in Frameworks */,
 				08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */,
 			);
@@ -222,6 +227,7 @@
 				2EE34A842A92DC54009634FB /* KRProgressHUD in Frameworks */,
 				08742A582F981A8900F7AF93 /* SimpleSimilarity in Frameworks */,
 				2E2305152954EAA900B1F930 /* FeedKit in Frameworks */,
+				08AB10B42FCA6FCE00E190D1 /* Mocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +389,7 @@
 			children = (
 				08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */,
 				08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */,
+				08AB10B52FCA70D200E190D1 /* FeedsInteractorTests.swift */,
 			);
 			path = Feeds;
 			sourceTree = "<group>";
@@ -676,8 +683,8 @@
 		08E20D6B2F90573400059CED /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				08AB10A52FCA5F1600E190D1 /* Modules */,
 				08A9780B2FBA4D620004E40D /* DIContainer */,
+				08AB10A52FCA5F1600E190D1 /* Modules */,
 				08B083142FB2A60C007C63DD /* Services */,
 			);
 			path = Tests;
@@ -769,6 +776,7 @@
 			packageProductDependencies = (
 				08E20D612F90483500059CED /* OHHTTPStubs */,
 				08E20D632F90483500059CED /* OHHTTPStubsSwift */,
+				08AB10B72FCA716300E190D1 /* Mocking */,
 			);
 			productName = iFeedTests;
 			productReference = 08E20D562F90478C00059CED /* iFeedTests.xctest */;
@@ -792,6 +800,7 @@
 				2E2305142954EAA900B1F930 /* FeedKit */,
 				2EE34A832A92DC54009634FB /* KRProgressHUD */,
 				08742A572F981A8900F7AF93 /* SimpleSimilarity */,
+				08AB10B32FCA6FCE00E190D1 /* Mocking */,
 			);
 			productName = iFeed;
 			productReference = DE763D141B7E841300C8B54A /* iFeed.app */;
@@ -850,6 +859,7 @@
 				2EE34A822A92DC54009634FB /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 				08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
 				08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */,
+				08AB10B12FCA6EF700E190D1 /* XCRemoteSwiftPackageReference "swift-mocking" */,
 			);
 			productRefGroup = DE763D151B7E841300C8B54A /* Products */;
 			projectDirPath = "";
@@ -920,6 +930,7 @@
 				08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */,
 				08B00C0F2FB3AE92007BD039 /* ExploreFeedsServiceTests.swift in Sources */,
 				08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */,
+				08AB10B62FCA70D200E190D1 /* FeedsInteractorTests.swift in Sources */,
 				08B00C102FB3AE92007BD039 /* ExploreFeedsElementTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1191,7 +1202,7 @@
 				DEVELOPMENT_TEAM = 7VW32GE5L3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1205,7 +1216,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
-				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1389,10 +1400,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					__DEBUG__,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1407,12 +1415,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
-				OTHER_SWIFT_FLAGS = "-D __DEBUG__ -Xfrontend -warn-long-expression-type-checking=100";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = Feeds4U_DEV;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1441,7 +1450,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = __RELEASE__;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1455,7 +1464,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
-				OTHER_SWIFT_FLAGS = "-D __RELEASE__";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.EvgenyKarkan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1519,6 +1528,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		08AB10B12FCA6EF700E190D1 /* XCRemoteSwiftPackageReference "swift-mocking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fetch-rewards/swift-mocking.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
 		08E20D602F90483500059CED /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -1550,6 +1567,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08742A562F981A8900F7AF93 /* XCRemoteSwiftPackageReference "SimpleSimilarity" */;
 			productName = SimpleSimilarity;
+		};
+		08AB10B32FCA6FCE00E190D1 /* Mocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AB10B12FCA6EF700E190D1 /* XCRemoteSwiftPackageReference "swift-mocking" */;
+			productName = Mocking;
+		};
+		08AB10B72FCA716300E190D1 /* Mocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AB10B12FCA6EF700E190D1 /* XCRemoteSwiftPackageReference "swift-mocking" */;
+			productName = Mocking;
 		};
 		08E20D612F90483500059CED /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;

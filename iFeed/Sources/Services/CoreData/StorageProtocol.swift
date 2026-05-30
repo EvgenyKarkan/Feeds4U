@@ -9,29 +9,7 @@
 import Foundation
 import CoreData.NSManagedObject
 import CoreData.NSManagedObjectID
-
-/// Provides factory methods for app-owned Core Data entities.
-protocol EntityCreating {
-    /// Creates and inserts a new `Feed` managed object into the storage context.
-    ///
-    /// The returned object is unsaved until `saveChanges()` is called.
-    func makeFeed() -> Feed?
-
-    /// Creates and inserts a new `FeedItem` managed object into the storage context.
-    ///
-    /// The returned object is unsaved until `saveChanges()` is called.
-    func makeFeedItem() -> FeedItem?
-}
-
-/// Provides deletion support for managed objects owned by the storage context.
-protocol EntityDeleting {
-    /// Marks a managed object for deletion from the storage context.
-    ///
-    /// The deletion is not persisted until `saveChanges()` is called.
-    ///
-    /// - Parameter object: Managed object to delete.
-    func delete(_ object: NSManagedObject)
-}
+import Mocking
 
 /// Defines the app's storage facade for feeds and feed items.
 ///
@@ -39,7 +17,8 @@ protocol EntityDeleting {
 /// parsing, search, and feed presentation. Methods intentionally keep legacy
 /// error behavior: some fetches return empty collections or `nil` instead of
 /// throwing because existing callers treat storage failures as empty state.
-protocol StorageProtocol: EntityCreating, EntityDeleting {
+@Mocked(compilationCondition: .debug)
+protocol StorageProtocol {
     /// Loads every saved feed.
     ///
     /// - Returns: Saved feeds, or an empty array when storage cannot fetch them.
@@ -70,4 +49,21 @@ protocol StorageProtocol: EntityCreating, EntityDeleting {
 
     /// Returns all saved RSS URLs.
     func savedFeedURLs() -> Set<String>
+
+    /// Creates and inserts a new `Feed` managed object into the storage context.
+    ///
+    /// The returned object is unsaved until `saveChanges()` is called.
+    func makeFeed() -> Feed?
+
+    /// Creates and inserts a new `FeedItem` managed object into the storage context.
+    ///
+    /// The returned object is unsaved until `saveChanges()` is called.
+    func makeFeedItem() -> FeedItem?
+
+    /// Marks a managed object for deletion from the storage context.
+    ///
+    /// The deletion is not persisted until `saveChanges()` is called.
+    ///
+    /// - Parameter object: Managed object to delete.
+    func delete(_ object: NSManagedObject)
 }

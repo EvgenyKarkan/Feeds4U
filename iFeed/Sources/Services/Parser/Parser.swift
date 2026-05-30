@@ -9,6 +9,7 @@
 import FeedKit
 import Foundation
 import Dispatch
+import Mocking
 
 // MARK: - ParserDelegateProtocol
 protocol ParserDelegateProtocol: AnyObject {
@@ -23,6 +24,7 @@ extension ParserDelegateProtocol {
 }
 
 // MARK: - ParserProtocol
+@Mocked(compilationCondition: .debug)
 protocol ParserProtocol {
     func beginParsingURL(_ url: URL)
     func setDelegate(_ delegate: any ParserDelegateProtocol)
