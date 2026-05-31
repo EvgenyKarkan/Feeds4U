@@ -16,7 +16,8 @@ protocol ModuleFactoryProtocol {
     func makeFeedItemsModule(for feed: Feed,
                              delegate: any FeedItemsCoordinatingDelegate) -> UIViewController
     func makeFeedItemsModuleForSearchResults(with items: [FeedItem],
-                                             matching query: String) -> UIViewController
+                                             matching query: String,
+                                             delegate: any FeedItemsCoordinatingDelegate) -> UIViewController
     func makeExploreFeedsModule(with results: ExploreFeedsDTO,
                                 for webPage: String) -> UIViewController
     @MainActor
@@ -52,8 +53,9 @@ extension ModuleFactory: @MainActor ModuleFactoryProtocol {
     }
 
     @MainActor
-    func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController {
-        return FeedItemsBuilder.searchResultsViewController(for: query, items: items, container: container)
+    func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String,
+                                             delegate: any FeedItemsCoordinatingDelegate) -> UIViewController {
+        return FeedItemsBuilder.searchResultsViewController(for: query, items: items, container: container, delegate: delegate)
     }
 
     @MainActor

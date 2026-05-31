@@ -78,7 +78,7 @@ extension Coordinator: AppCoordinating {
         guard let navigationController else {
             return
         }
-        let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query)
+        let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query, delegate: self)
         navigationController.pushViewController(feedItemsVC, animated: true)
     }
 

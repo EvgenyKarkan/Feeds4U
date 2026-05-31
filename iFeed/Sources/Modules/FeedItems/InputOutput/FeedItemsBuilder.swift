@@ -44,7 +44,8 @@ enum FeedItemsBuilder {
 
     static func searchResultsViewController(for query: String,
                                             items: [FeedItem],
-                                            container: any FeedItemsDependencies) -> FeedItemsViewController {
+                                            container: any FeedItemsDependencies,
+                                            delegate: any FeedItemsCoordinatingDelegate) -> FeedItemsViewController {
         /// Interactor
         let interactor = FeedItemsInteractor(
             parser: container.parser(),
@@ -55,6 +56,7 @@ enum FeedItemsBuilder {
 
         /// Wireframe
         let wireframe = FeedItemsWireframe()
+        wireframe.delegate = delegate
 
         /// View
         let viewController = FeedItemsViewController()

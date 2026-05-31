@@ -118,7 +118,7 @@ extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
         feedItemsView?.endRefreshing()
         feedItemsView?.scrollToTop()
 
-        DispatchQueue.main.async { [weak self] in
+        Task { @MainActor [weak self] in
             self?.showInvalidFeedAlert()
         }
     }

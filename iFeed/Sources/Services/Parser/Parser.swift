@@ -67,7 +67,7 @@ extension Parser: ParserProtocol {
                 parsedResult = .failure(error.localizedDescription)
             }
 
-            DispatchQueue.main.async { [weak self] in
+            Task { @MainActor [weak self] in
                 switch parsedResult {
                 case .success(let feedData):
                     self?.finishParsing(feedData: feedData, url: url)

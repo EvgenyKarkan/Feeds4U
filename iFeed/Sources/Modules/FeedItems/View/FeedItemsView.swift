@@ -49,7 +49,7 @@ final class FeedItemsView: BaseListView {
     }
 
     func scrollToTop() {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.endRefreshing()
             self.tableView.setContentOffset(.zero, animated: true)
         }

@@ -537,7 +537,7 @@ private extension FeedsViewController {
         let allFeeds = viewState.allFeeds
 
         if allFeeds.isEmpty {
-            DispatchQueue.main.async { [weak self] in
+            Task { @MainActor [weak self] in
                 self?.addTrashButton(false)
                 self?.feedListView?.tableView.setEditing(false, animated: false)
                 self?.feedListView?.tableView.alpha = .zero

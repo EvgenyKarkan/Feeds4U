@@ -81,7 +81,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                 self?.view?.hideActivityIndicator(nil)
             },
             onResult: { [weak self] result in
-                DispatchQueue.main.async { [weak self] in
+                Task { @MainActor [weak self] in
                     self?.view?.hideActivityIndicator(nil)
 
                     switch result {
@@ -140,7 +140,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
             presenter?.interactor.performSearch(by: searchTerm) { feedItems in
                 nonisolated(unsafe) let feedItems = feedItems
 
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     presenter?.view?.hideActivityIndicator {
                         guard let results = feedItems, !results.isEmpty else {
                             presenter?.view?.showNoSearchResultsAlert()
