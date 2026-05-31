@@ -10,7 +10,6 @@ import WebKit
 
 @MainActor
 final class CloudflareBypassInteractor: NSObject {
-
     // MARK: - Properties
     private var webView: WKWebView?
     private var completion: ((Result<ExploreFeedsDTO, any Error>) -> Void)?

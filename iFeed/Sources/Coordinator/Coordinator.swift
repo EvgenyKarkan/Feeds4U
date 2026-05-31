@@ -17,7 +17,7 @@ protocol Coordinating {
 }
 
 /// Aggregates all module-level coordinating delegates that the app coordinator must handle.
-protocol AppCoordinating: FeedsCoordinatingDelegate {}
+protocol AppCoordinating: FeedsCoordinatingDelegate, FeedItemsCoordinatingDelegate {}
 
 @MainActor
 final class Coordinator {
@@ -49,28 +49,39 @@ extension Coordinator: Coordinating {
 extension Coordinator: AppCoordinating {
 
     func onNeedToShowFeedDetails(for feed: Feed) {
+        guard let navigationController else {
+            return
+        }
         let feedItemsVC = moduleFactory.makeFeedItemsModule(for: feed, delegate: self)
-        navigationController?.pushViewController(feedItemsVC, animated: true)
+        navigationController.pushViewController(feedItemsVC, animated: true)
     }
 
     func onNeedToShowSearchResults(with items: [FeedItem], matching query: String) {
+        guard let navigationController else {
+            return
+        }
         let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query)
-        navigationController?.pushViewController(feedItemsVC, animated: true)
+        navigationController.pushViewController(feedItemsVC, animated: true)
     }
 
     func onNeedToShowExploreFeeds(with results: ExploreFeedsDTO, webPage: String) {
+        guard let navigationController else {
+            return
+        }
         let exploreFeedsVC = moduleFactory.makeExploreFeedsModule(with: results, for: webPage)
 
         let navigationVC = UINavigationController(rootViewController: exploreFeedsVC)
         navigationVC.modalPresentationStyle = .fullScreen
 
-        navigationController?.present(navigationVC, animated: true)
+        navigationController.present(navigationVC, animated: true)
     }
 
     func onNeedToStartFeedExploration(for webPage: String,
                                       onChallengePresented: @escaping () -> Void,
                                       onResult: @escaping (Result<ExploreFeedsDTO, any Error>) -> Void) {
-        guard let navigationController else { return }
+        guard let navigationController else {
+            return
+        }
 
         feedExplorationChallengeCallback = onChallengePresented
         feedExplorationResultCallback = onResult
@@ -82,6 +93,18 @@ extension Coordinator: AppCoordinating {
         )
         activeCloudflareBypass = module
         module.startSearch()
+    }
+
+    func onNeedToShowArticleReader(for title: String, htmlContent: String, articleURL: URL?) {
+        guard let navigationController else {
+            return
+        }
+        let articleReaderVC = moduleFactory.makeArticleReaderModule(
+            for: title,
+            htmlContent: htmlContent,
+            articleURL: articleURL
+        )
+        navigationController.pushViewController(articleReaderVC, animated: true)
     }
 }
 

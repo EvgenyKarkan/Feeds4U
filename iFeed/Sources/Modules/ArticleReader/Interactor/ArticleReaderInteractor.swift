@@ -8,25 +8,31 @@
 
 import UIKit
 
+private enum Constants {
+    static let readerThemeKey = "ArticleReaderDarkMode"
+}
+
 final class ArticleReaderInteractor {
-
     // MARK: - Properties
-    let articleTitle: String
-    let htmlContent: String
-    let articleURL: URL?
-    var isDarkMode: Bool
+    let articleTitle: String // TODO: - encapsulate
+    let htmlContent: String // TODO: - encapsulate
+    let articleURL: URL? // TODO: - encapsulate
+    let keyedStorage: any KeyedStorageProtocol
 
-    private static let readerThemeKey = "ArticleReaderDarkMode"
+    var isDarkMode: Bool // TODO: - encapsulate
 
     // MARK: - Init
-    init(title: String, htmlContent: String, articleURL: URL?) {
+    init(title: String,
+         htmlContent: String,
+         articleURL: URL?,
+         keyedStorage: any KeyedStorageProtocol) {
         self.articleTitle = title
         self.htmlContent = htmlContent
         self.articleURL = articleURL
+        self.keyedStorage = keyedStorage
 
-        let defaults = UserDefaults.standard
-        if defaults.object(forKey: Self.readerThemeKey) != nil {
-            self.isDarkMode = defaults.bool(forKey: Self.readerThemeKey)
+        if keyedStorage.object(forKey: Constants.readerThemeKey) != nil {
+            self.isDarkMode = keyedStorage.bool(forKey: Constants.readerThemeKey)
         } else {
             self.isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
         }
@@ -37,6 +43,6 @@ final class ArticleReaderInteractor {
 extension ArticleReaderInteractor: ArticleReaderInteractorProtocol {
 
     func persistThemePreference() {
-        UserDefaults.standard.set(isDarkMode, forKey: Self.readerThemeKey)
+        keyedStorage.set(isDarkMode, forKey: Constants.readerThemeKey)
     }
 }

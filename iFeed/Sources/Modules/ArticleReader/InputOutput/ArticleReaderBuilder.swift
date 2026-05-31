@@ -13,12 +13,14 @@ enum ArticleReaderBuilder {
 
     static func viewController(title: String,
                                htmlContent: String,
-                               articleURL: URL?) -> ArticleReaderViewController {
+                               articleURL: URL?,
+                               container: any ArticleReaderDependencies) -> ArticleReaderViewController {
         /// Interactor
         let interactor = ArticleReaderInteractor(
             title: title,
             htmlContent: htmlContent,
-            articleURL: articleURL
+            articleURL: articleURL,
+            keyedStorage: container.keyedStorage()
         )
 
         /// Wireframe

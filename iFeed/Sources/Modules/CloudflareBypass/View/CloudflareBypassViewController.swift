@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 
 final class CloudflareBypassViewController: UIViewController {
-
     // MARK: - Properties
     weak var presenter: (any CloudflareBypassViewDelegate)?
 

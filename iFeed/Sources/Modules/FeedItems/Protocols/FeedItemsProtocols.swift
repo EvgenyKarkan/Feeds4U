@@ -48,3 +48,9 @@ protocol FeedItemsDependencies: AnyObject {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol
 }
+
+/// Wireframe -> AppCoordinator
+@MainActor
+protocol FeedItemsCoordinatingDelegate: AnyObject {
+    func onNeedToShowArticleReader(for title: String, htmlContent: String, articleURL: URL?)
+}

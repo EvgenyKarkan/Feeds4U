@@ -36,3 +36,8 @@ protocol ArticleReaderViewDelegate: AnyObject {
     func onOpenInSafariTapped()
     func onLinkActivated(url: URL)
 }
+
+/// Defines dependencies of current module
+protocol ArticleReaderDependencies: AnyObject {
+    func keyedStorage() -> any KeyedStorageProtocol
+}

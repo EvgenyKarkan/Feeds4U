@@ -25,6 +25,7 @@
 		088B31632FAFC08800F783B5 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088B31622FAFC08800F783B5 /* ModuleFactory.swift */; };
 		089C36F72BB23E6E00337EB4 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */; };
 		08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */; };
+		08AA08EC2FCBB906001270F1 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AA08EB2FCBB906001270F1 /* UserDefaults+Ext.swift */; };
 		08AAA5882BEAC92A002AB2A3 /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */; };
 		08AB10A72FCA5F6D00E190D1 /* FeedFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */; };
 		08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */; };
@@ -133,6 +134,7 @@
 		089C36F52BB22B9200337EB4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		089C36F62BB23E6E00337EB4 /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		08A9780A2FBA4D620004E40D /* SharedInstancesContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInstancesContainerTests.swift; sourceTree = "<group>"; };
+		08AA08EB2FCBB906001270F1 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		08AAA5872BEAC92A002AB2A3 /* BaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListViewController.swift; sourceTree = "<group>"; };
 		08AB10A62FCA5F6D00E190D1 /* FeedFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolder.swift; sourceTree = "<group>"; };
 		08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFolderManagerTests.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 		08E20D692F90569900059CED /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				08AA08EB2FCBB906001270F1 /* UserDefaults+Ext.swift */,
 				08DC3B5D2FA2F34500E8771F /* UIView+Ext.swift */,
 				0845E16D2BB4B86800BB318A /* String+Ext.swift */,
 				2E38DDB829E2375F00839B66 /* UIViewController+Ext.swift */,
@@ -1006,6 +1009,7 @@
 				08B561DF2FB7DF3400B6063E /* FeedItemsInteractor.swift in Sources */,
 				08B561E02FB7DF3400B6063E /* FeedItemsPresenter.swift in Sources */,
 				08B4E1A32FC27B3B00A86EE9 /* CloudflareBypassProtocols.swift in Sources */,
+				08AA08EC2FCBB906001270F1 /* UserDefaults+Ext.swift in Sources */,
 				08B561E12FB7DF3400B6063E /* FeedItemsBuilder.swift in Sources */,
 				08B083072FB29E5A007C63DD /* ParsedFeedData.swift in Sources */,
 				2E2305002954ABDB00B1F930 /* FeedCell.swift in Sources */,

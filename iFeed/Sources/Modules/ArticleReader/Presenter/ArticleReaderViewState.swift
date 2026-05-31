@@ -9,9 +9,19 @@
 import Foundation
 
 struct ArticleReaderViewState {
+    // MARK: - Properties
     let title: String
     let fullHTML: String
     let baseURL: URL?
     let isDarkMode: Bool
     let hasArticleURL: Bool
+
+    // MARK: - Init
+    init(title: String, fullHTML: String, baseURL: URL? = nil, isDarkMode: Bool, hasArticleURL: Bool) {
+        self.title = title
+        self.fullHTML = fullHTML
+        self.baseURL = baseURL
+        self.isDarkMode = isDarkMode
+        self.hasArticleURL = hasArticleURL
+    }
 }

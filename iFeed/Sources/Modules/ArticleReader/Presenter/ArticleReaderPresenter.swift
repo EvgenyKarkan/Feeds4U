@@ -9,7 +9,6 @@
 import Foundation
 
 final class ArticleReaderPresenter {
-
     // MARK: - Properties
     private let interactor: any ArticleReaderInteractorProtocol
     private let wireframe: any ArticleReaderWireframeProtocol

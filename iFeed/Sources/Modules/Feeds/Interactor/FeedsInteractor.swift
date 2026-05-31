@@ -73,7 +73,7 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     // MARK: - Recent searches
-    func recentSearches() -> [String] {
+    func recentSearches() -> [String] { // TODO: - Inject covered behind a protocol
         return UserDefaults.standard.stringArray(forKey: Self.recentSearchesKey) ?? []
     }
 

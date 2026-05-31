@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 
 final class ArticleReaderViewController: UIViewController {
-
     // MARK: - Properties
     var presenter: (any ArticleReaderViewDelegate)?
 
@@ -125,7 +124,7 @@ extension ArticleReaderViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+                 decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
         if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
             presenter?.onLinkActivated(url: url)
             decisionHandler(.cancel)

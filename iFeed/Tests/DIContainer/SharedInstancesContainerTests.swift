@@ -126,6 +126,31 @@ struct SharedInstancesContainerTests {
         #expect(container.sharedInstances["greeting"] as? String == "hi")
     }
 
+    // MARK: - Optional Type Coalescing (SR-8704)
+
+    @Test("shared calls factory and returns value when T is an optional type")
+    func sharedReturnsValueWhenTypeIsOptional() {
+        // Given
+        let container = SharedInstancesContainer()
+        var callCount = 0
+
+        // When — closure explicitly returns String? so T resolves to Optional<String>,
+        // exercising the ?? nil path on the first (uncached) lookup
+        let first: String? = container.shared(sharedIdentifier: "opt") { () -> String? in
+            callCount += 1
+            return "cached"
+        }
+        let second: String? = container.shared(sharedIdentifier: "opt") { () -> String? in
+            callCount += 1
+            return "should not be called"
+        }
+
+        // Then
+        #expect(first == "cached")
+        #expect(second == "cached")
+        #expect(callCount == 1)
+    }
+
     // MARK: - Thread Safety
 
     @Test("shared returns the same instance under concurrent access")

@@ -12,11 +12,12 @@ import Foundation
 
 /// Conforms to `FeedsDependencies`, `FeedItemsDependencies`, `ExploreFeedsDependencies`
 /// per the Interface Segregation Principle, Dependency Narrowing
-protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreFeedsDependencies {
+protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreFeedsDependencies, ArticleReaderDependencies {
     func parser() -> any ParserProtocol
     func localSearch() -> any Searchable
     func exploreService() -> any ExploreFeedsServiceProtocol
     func storage() -> any StorageProtocol
+    func keyedStorage() -> any KeyedStorageProtocol
 }
 
 // MARK: - DIContainer
@@ -54,6 +55,12 @@ extension DIContainer: DIContainerProtocol {
     func foldersManager() -> any FeedFolderManaging {
         return shared {
             return FeedFolderManager()
+        }
+    }
+
+    func keyedStorage() -> any KeyedStorageProtocol {
+        return shared {
+            return UserDefaults.standard
         }
     }
 }

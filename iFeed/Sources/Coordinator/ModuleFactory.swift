@@ -10,15 +10,23 @@ import Foundation
 import UIKit
 
 protocol ModuleFactoryProtocol {
-    @MainActor func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
-    func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController
-    func makeFeedItemsModuleForSearchResults(with items: [FeedItem], matching query: String) -> UIViewController
-    func makeExploreFeedsModule(with results: ExploreFeedsDTO, for webPage: String) -> UIViewController
+    @MainActor
+    func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
 
+    func makeFeedItemsModule(for feed: Feed,
+                             delegate: any FeedItemsCoordinatingDelegate) -> UIViewController
+    func makeFeedItemsModuleForSearchResults(with items: [FeedItem],
+                                             matching query: String) -> UIViewController
+    func makeExploreFeedsModule(with results: ExploreFeedsDTO,
+                                for webPage: String) -> UIViewController
     @MainActor
     func makeCloudflareBypassModule(for webPage: String,
                                     presentingController: UIViewController,
                                     moduleOutput: any CloudflareBypassModuleOutput) -> any CloudflareBypassModuleInput
+    @MainActor
+    func makeArticleReaderModule(for title: String,
+                                 htmlContent: String,
+                                 articleURL: URL?) -> UIViewController
 }
 
 final class ModuleFactory {
@@ -39,8 +47,8 @@ extension ModuleFactory: @MainActor ModuleFactoryProtocol {
     }
 
     @MainActor
-    func makeFeedItemsModule(for feed: Feed, delegate: any FeedsCoordinatingDelegate) -> UIViewController {
-        return FeedItemsBuilder.viewController(feed: feed, container: container)
+    func makeFeedItemsModule(for feed: Feed, delegate: any FeedItemsCoordinatingDelegate) -> UIViewController {
+        return FeedItemsBuilder.viewController(feed: feed, container: container, delegate: delegate)
     }
 
     @MainActor
@@ -57,8 +65,22 @@ extension ModuleFactory: @MainActor ModuleFactoryProtocol {
     func makeCloudflareBypassModule(for webPage: String,
                                     presentingController: UIViewController,
                                     moduleOutput: any CloudflareBypassModuleOutput) -> any CloudflareBypassModuleInput {
-        return CloudflareBypassBuilder.module(for: webPage,
-                                              presentingController: presentingController,
-                                              moduleOutput: moduleOutput)
+        return CloudflareBypassBuilder.module(
+            for: webPage,
+            presentingController: presentingController,
+            moduleOutput: moduleOutput
+        )
+    }
+
+    @MainActor
+    func makeArticleReaderModule(for title: String,
+                                 htmlContent: String,
+                                 articleURL: URL?) -> UIViewController {
+        return ArticleReaderBuilder.viewController(
+            title: title,
+            htmlContent: htmlContent,
+            articleURL: articleURL,
+            container: container
+        )
     }
 }

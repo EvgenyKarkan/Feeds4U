@@ -13,6 +13,7 @@ import SafariServices
 final class FeedItemsWireframe {
     // MARK: - Properties
     weak var viewController: FeedItemsViewController?
+    weak var delegate: (any FeedItemsCoordinatingDelegate)?
 
     private var prewarmingToken: SFSafariViewController.PrewarmingToken?
 }
@@ -98,11 +99,6 @@ extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
     }
 
     func pushArticleReader(title: String, htmlContent: String, articleURL: URL?) {
-        let readerVC = ArticleReaderBuilder.viewController(
-            title: title,
-            htmlContent: htmlContent,
-            articleURL: articleURL
-        )
-        viewController?.navigationController?.pushViewController(readerVC, animated: true)
+        delegate?.onNeedToShowArticleReader(for: title, htmlContent: htmlContent, articleURL: articleURL)
     }
 }

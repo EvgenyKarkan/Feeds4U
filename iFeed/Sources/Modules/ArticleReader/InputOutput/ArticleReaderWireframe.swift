@@ -9,7 +9,6 @@
 import UIKit
 
 final class ArticleReaderWireframe {
-
     // MARK: - Properties
     weak var viewController: ArticleReaderViewController?
 }
