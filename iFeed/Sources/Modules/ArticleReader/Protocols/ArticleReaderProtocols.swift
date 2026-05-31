@@ -7,22 +7,27 @@
 //
 
 import Foundation
+import Mocking
 
 /// Presenter ---> Wireframe
+@Mocked(compilationCondition: .debug)
 protocol ArticleReaderWireframeProtocol: AnyObject {
     func openInSafari(url: URL)
 }
 
 /// Presenter ---> Interactor
+@Mocked(compilationCondition: .debug)
 protocol ArticleReaderInteractorProtocol: AnyObject {
     var articleTitle: String { get }
     var htmlContent: String { get }
     var articleURL: URL? { get }
-    var isDarkMode: Bool { get set }
+    var isDarkMode: Bool { get }
+    func toggleDarkMode()
     func persistThemePreference()
 }
 
 /// Presenter ---> View
+@Mocked(compilationCondition: .debug)
 protocol ArticleReaderViewProtocol: AnyObject {
     func configureInitialState(with viewState: ArticleReaderViewState)
     func applyThemeChange(isDarkMode: Bool)

@@ -13,7 +13,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     var window: UIWindow?
     private var navigationVC: UINavigationController?
-    private var appCoordinator: (any AppCoordinating)?
+    private var appCoordinator: (any Coordinating)?
 
     // MARK: - UIWindowSceneDelegate
     func scene(_ scene: UIScene,
@@ -77,46 +77,6 @@ private extension SceneDelegate {
     }
 
     func openURL(_ url: URL) {
-        guard let specifier = (url as NSURL).resourceSpecifier,
-              !specifier.isEmpty else {
-            return
-        }
-
-        navigationVC?.popToRootViewController(animated: false)
-
-        // TODO: - handle it by coordinator
-        if let feedListVC = navigationVC?.topViewController as? FeedsViewController {
-            feedListVC.showEnterFeedAlertView(specifier)
-        }
-    }
-
-    var isRunningUnitTests: Bool {
-        let processInfo = ProcessInfo.processInfo
-        let environment = processInfo.environment
-
-        // XCTest sets configuration and bundle environment values when it launches
-        // the app as a unit-test host.
-        if environment["XCTestConfigurationFilePath"] != nil ||
-            environment["XCTestBundlePath"] != nil ||
-            environment.keys.contains(where: { $0.hasPrefix("XCTest") }) {
-            return true
-        }
-
-        // Some Xcode/test runner versions pass the XCTest configuration through
-        // process arguments instead of, or in addition to, environment values.
-        let arguments = processInfo.arguments
-        if arguments.contains(where: { $0 == "-XCTestConfigurationFilePath" }) ||
-            arguments.contains(where: { $0.hasSuffix(".xctest") || $0.hasSuffix(".xctestconfiguration") }) {
-            return true
-        }
-
-        // When XCTest is already loaded, the test bundle or XCTestCase runtime
-        // type is visible even if launch metadata differs between runners.
-        if Bundle.allBundles.contains(where: { $0.bundlePath.hasSuffix(".xctest") }) ||
-            NSClassFromString("XCTest.XCTestCase") != nil {
-            return true
-        }
-
-        return false
+        appCoordinator?.handleDeepLink(url: url)
     }
 }

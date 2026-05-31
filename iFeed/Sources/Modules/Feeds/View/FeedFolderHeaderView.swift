@@ -15,6 +15,7 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
 
     private let chevronImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
         imageView.tintColor = .separator
         imageView.contentMode = .center
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,9 +64,9 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
         nameLabel.text = name.uppercased()
         countLabel.text = "\(feedCount)"
 
-        let imageName = isExpanded ? "chevron.down" : "chevron.right"
-        UIView.transition(with: chevronImageView, duration: 0.2, options: .transitionCrossDissolve) {
-            self.chevronImageView.image = UIImage(systemName: imageName)
+        let angle: CGFloat = isExpanded ? .pi / 2 : .zero
+        UIView.animate(withDuration: CATransaction.animationDuration()) {
+            self.chevronImageView.transform = CGAffineTransform(rotationAngle: angle)
         }
     }
 }

@@ -26,6 +26,12 @@ struct FeedsInteractorTests {
     private let sut: FeedsInteractor
     private let keyedStorage = KeyedStorageProtocolMock()
 
+    // Constants
+    private let testFeedURL = "https://example.com/feed"
+    private let testRSSURL = "https://example.com/rss"
+    private let testWebPageURL = "https://example.com"
+    private let recentSearchesKey = "com.ifeed.recentSearches"
+
     // MARK: - Init
 
     init() {
@@ -87,11 +93,12 @@ struct FeedsInteractorTests {
         storage._containsFeed.implementation = .returns(true)
 
         // When
-        let result = sut.checkIfFeedIsAlreadySaved(with: "https://example.com/feed")
+        let result = sut.checkIfFeedIsAlreadySaved(with: testFeedURL)
 
         // Then
         #expect(result == true)
         #expect(storage._containsFeed.callCount == 1)
+        #expect(storage._containsFeed.lastInvocation == testFeedURL)
     }
 
     @Test func checkIfFeedIsAlreadySaved_whenFeedDoesNotExist_returnsFalse() {
@@ -99,10 +106,11 @@ struct FeedsInteractorTests {
         storage._containsFeed.implementation = .returns(false)
 
         // When
-        let result = sut.checkIfFeedIsAlreadySaved(with: "https://example.com/feed")
+        let result = sut.checkIfFeedIsAlreadySaved(with: testFeedURL)
 
         // Then
         #expect(result == false)
+        #expect(storage._containsFeed.lastInvocation == testFeedURL)
     }
 
     // MARK: - startParsingFeed
@@ -127,7 +135,7 @@ struct FeedsInteractorTests {
 
     @Test func startParsingFeed_withValidURL_setsParserDelegateAndBeginsParsingURL() {
         // Given
-        let urlString = "https://example.com/feed"
+        let urlString = testFeedURL
 
         // When
         sut.startParsingFeed(urlString) { _ in }
@@ -135,6 +143,7 @@ struct FeedsInteractorTests {
         // Then
         #expect(parser._setDelegate.callCount == 1)
         #expect(parser._beginParsingURL.callCount == 1)
+        #expect(parser._beginParsingURL.lastInvocation == URL(string: urlString))
     }
 
     @Test func startParsingFeed_onParsingSuccess_callsCompletionWithFeed() {
@@ -142,7 +151,7 @@ struct FeedsInteractorTests {
         let feed = makeFeed()
         var receivedResult: Result<Feed, any Error>?
 
-        sut.startParsingFeed("https://example.com/feed") { result in
+        sut.startParsingFeed(testFeedURL) { result in
             receivedResult = result
         }
 
@@ -161,7 +170,7 @@ struct FeedsInteractorTests {
         // Given
         var receivedResult: Result<Feed, any Error>?
 
-        sut.startParsingFeed("https://example.com/feed") { result in
+        sut.startParsingFeed(testFeedURL) { result in
             receivedResult = result
         }
 
@@ -179,7 +188,7 @@ struct FeedsInteractorTests {
         // Given
         var callCount = 0
 
-        sut.startParsingFeed("https://example.com/feed") { _ in
+        sut.startParsingFeed(testFeedURL) { _ in
             callCount += 1
         }
 
@@ -227,16 +236,18 @@ struct FeedsInteractorTests {
         // Then
         #expect(receivedResults == nil)
         #expect(search._search.callCount == 1)
+        #expect(search._search.lastInvocation?.0 == "swift")
     }
 
     // MARK: - exploreFeeds
 
     @Test func exploreFeeds_delegatesToExploreService() {
         // When
-        sut.exploreFeeds(on: "https://example.com") { _ in }
+        sut.exploreFeeds(on: testWebPageURL) { _ in }
 
         // Then
         #expect(explore._searchFeedsOnWebPageCompletion.callCount == 1)
+        #expect(explore._searchFeedsOnWebPageCompletion.lastInvocation?.0 == testWebPageURL)
     }
 
     // MARK: - feedForIndexPath
@@ -252,6 +263,7 @@ struct FeedsInteractorTests {
         // Then
         #expect(feed == nil)
         #expect(storage._feed.callCount == 1)
+        #expect(storage._feed.lastInvocation == indexPath)
     }
 
     // MARK: - unreadCountsByFeed
@@ -282,14 +294,16 @@ struct FeedsInteractorTests {
 
     @Test func deleteFeed_removesFromFolderDeletesFromStorageAndSaves() {
         // Given
-        let feed = makeFeed(rssURL: "https://example.com/rss")
+        let feed = makeFeed(rssURL: testRSSURL)
 
         // When
         sut.deleteFeed(feed)
 
         // Then
         #expect(folders._removeFeed.callCount == 1)
+        #expect(folders._removeFeed.lastInvocation == testRSSURL)
         #expect(storage._delete.callCount == 1)
+        #expect(storage._delete.lastInvocation === feed)
         #expect(storage._saveChanges.callCount == 1)
     }
 
@@ -309,16 +323,18 @@ struct FeedsInteractorTests {
 
     @Test func createFolder_delegatesToFolderManager() {
         // Given
-        let folder = FeedFolder(name: "Tech", feedURLs: ["https://example.com/rss"])
+        let folder = FeedFolder(name: "Tech", feedURLs: [testRSSURL])
         folders._createFolder.implementation = .returns(folder)
 
         // When
-        let created = sut.createFolder(name: "Tech", feedURLs: ["https://example.com/rss"])
+        let created = sut.createFolder(name: "Tech", feedURLs: [testRSSURL])
 
         // Then
         #expect(created.name == "Tech")
-        #expect(created.feedURLs == ["https://example.com/rss"])
+        #expect(created.feedURLs == [testRSSURL])
         #expect(folders._createFolder.callCount == 1)
+        #expect(folders._createFolder.lastInvocation?.0 == "Tech")
+        #expect(folders._createFolder.lastInvocation?.1 == [testRSSURL])
     }
 
     @Test func addFeedToFolder_delegatesToFolderManager() {
@@ -326,18 +342,21 @@ struct FeedsInteractorTests {
         let folderId = UUID()
 
         // When
-        sut.addFeedToFolder(url: "https://example.com/rss", folderId: folderId)
+        sut.addFeedToFolder(url: testRSSURL, folderId: folderId)
 
         // Then
         #expect(folders._addFeed.callCount == 1)
+        #expect(folders._addFeed.lastInvocation?.0 == testRSSURL)
+        #expect(folders._addFeed.lastInvocation?.1 == folderId)
     }
 
     @Test func removeFeedFromFolder_delegatesToFolderManager() {
         // When
-        sut.removeFeedFromFolder(url: "https://example.com/rss")
+        sut.removeFeedFromFolder(url: testRSSURL)
 
         // Then
         #expect(folders._removeFeed.callCount == 1)
+        #expect(folders._removeFeed.lastInvocation == testRSSURL)
     }
 
     @Test func toggleFolderExpanded_delegatesToFolderManager() {
@@ -349,17 +368,19 @@ struct FeedsInteractorTests {
 
         // Then
         #expect(folders._toggleExpanded.callCount == 1)
+        #expect(folders._toggleExpanded.lastInvocation == folderId)
     }
 
     @Test func cleanupFolders_delegatesToFolderManager() {
         // Given
-        let urls: Set<String> = ["https://example.com/rss"]
+        let urls: Set<String> = [testRSSURL]
 
         // When
         sut.cleanupFolders(existingFeedURLs: urls)
 
         // Then
         #expect(folders._cleanupDeletedFeeds.callCount == 1)
+        #expect(folders._cleanupDeletedFeeds.lastInvocation == urls)
     }
 
     // MARK: - Recent searches
@@ -374,6 +395,7 @@ struct FeedsInteractorTests {
         // Then
         #expect(searches.isEmpty)
         #expect(keyedStorage._stringArray.callCount == 1)
+        #expect(keyedStorage._stringArray.lastInvocation == recentSearchesKey)
     }
 
     @Test func recentSearches_whenStorageReturnsValues_returnsThem() {
@@ -386,6 +408,7 @@ struct FeedsInteractorTests {
         // Then
         #expect(searches == ["swift", "kotlin"])
         #expect(keyedStorage._stringArray.callCount == 1)
+        #expect(keyedStorage._stringArray.lastInvocation == recentSearchesKey)
     }
 
     @Test func saveRecentSearch_addsSearchToList() {
@@ -398,6 +421,7 @@ struct FeedsInteractorTests {
         // Then
         let saved = keyedStorage._setAny.lastInvocation?.0 as? [String]
         #expect(saved == ["swift"])
+        #expect(keyedStorage._setAny.lastInvocation?.1 == recentSearchesKey)
         #expect(keyedStorage._stringArray.callCount == 1)
         #expect(keyedStorage._setAny.callCount == 1)
     }
@@ -435,6 +459,7 @@ struct FeedsInteractorTests {
 
         // Then
         #expect(keyedStorage._removeObject.callCount == 1)
+        #expect(keyedStorage._removeObject.lastInvocation == recentSearchesKey)
     }
 }
 

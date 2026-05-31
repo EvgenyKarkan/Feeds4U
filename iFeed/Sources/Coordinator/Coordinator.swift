@@ -14,6 +14,10 @@ import UIKit
 protocol Coordinating {
     /// Starts a flow and creates an initial screen of a flow.
     @MainActor func start()
+
+    /// Handles a deep-link by navigating to the root feeds screen
+    /// and presenting the "add feed" alert pre-filled with the URL's resource specifier.
+    @MainActor func handleDeepLink(url: URL)
 }
 
 /// Aggregates all module-level coordinating delegates that the app coordinator must handle.
@@ -42,6 +46,20 @@ extension Coordinator: Coordinating {
     @MainActor func start() {
         let feedsVC = moduleFactory.makeFeedsModule(delegate: self)
         navigationController?.viewControllers = [feedsVC]
+    }
+
+    @MainActor func handleDeepLink(url: URL) {
+        guard let specifier = (url as NSURL).resourceSpecifier,
+              !specifier.isEmpty else {
+            return
+        }
+
+        navigationController?.presentedViewController?.dismiss(animated: false)
+        navigationController?.popToRootViewController(animated: false)
+
+        if let feedsVC = navigationController?.topViewController as? FeedsViewController {
+            feedsVC.showEnterFeedAlertView(specifier)
+        }
     }
 }
 

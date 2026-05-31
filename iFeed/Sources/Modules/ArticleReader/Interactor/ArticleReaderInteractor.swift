@@ -14,12 +14,12 @@ private enum Constants {
 
 final class ArticleReaderInteractor {
     // MARK: - Properties
-    let articleTitle: String // TODO: - encapsulate
-    let htmlContent: String // TODO: - encapsulate
-    let articleURL: URL? // TODO: - encapsulate
+    let articleTitle: String
+    let htmlContent: String
+    let articleURL: URL?
     let keyedStorage: any KeyedStorageProtocol
 
-    var isDarkMode: Bool // TODO: - encapsulate
+    private(set) var isDarkMode: Bool
 
     // MARK: - Init
     init(title: String,
@@ -41,6 +41,10 @@ final class ArticleReaderInteractor {
 
 // MARK: - ArticleReaderInteractorProtocol
 extension ArticleReaderInteractor: ArticleReaderInteractorProtocol {
+
+    func toggleDarkMode() {
+        isDarkMode.toggle()
+    }
 
     func persistThemePreference() {
         keyedStorage.set(isDarkMode, forKey: Constants.readerThemeKey)

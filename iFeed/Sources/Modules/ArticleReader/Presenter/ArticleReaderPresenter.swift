@@ -49,7 +49,7 @@ extension ArticleReaderPresenter: ArticleReaderViewDelegate {
     }
 
     func onToggleThemeTapped() {
-        interactor.isDarkMode.toggle()
+        interactor.toggleDarkMode()
         interactor.persistThemePreference()
         view?.applyThemeChange(isDarkMode: interactor.isDarkMode)
     }

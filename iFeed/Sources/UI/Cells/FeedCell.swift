@@ -58,7 +58,9 @@ final class FeedCell: UITableViewCell, Reusable {
 
     var isNested: Bool = false {
         didSet {
-            guard let inset = leadingInset else { return }
+            guard let inset = leadingInset else {
+                return
+            }
             inset.constraint.constant = isNested ? inset.base * 1.5 : inset.base
         }
     }

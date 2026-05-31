@@ -69,16 +69,23 @@ final class FeedsTableProvider: BaseTableProvider {
     /// `isNested` indents feeds that belong to a folder for visual hierarchy.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId) as? FeedCell,
-              let feed = feed(at: indexPath) else {
+              indexPath.section < sections.count else {
             return UITableViewCell()
         }
 
+        let section = sections[indexPath.section]
+
+        guard indexPath.row < section.feeds.count else {
+            return UITableViewCell()
+        }
+
+        let feed = section.feeds[indexPath.row]
         let count = unreadCounts[feed.objectID] ?? .zero
 
         cell.titleText = feed.title
         cell.subTitleText = feed.summary
         cell.itemsCountText = count.description
-        cell.isNested = sections[indexPath.section].folder != nil // TODO: - get element safely
+        cell.isNested = section.folder != nil
 
         return cell
     }
