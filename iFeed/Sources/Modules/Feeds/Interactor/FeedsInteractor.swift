@@ -9,6 +9,11 @@
 import Foundation
 import CoreData.NSManagedObjectID
 
+private enum Constants {
+    static let recentSearchesKey = "com.ifeed.recentSearches"
+    static let maxRecentSearches = 10
+}
+
 final class FeedsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
@@ -16,23 +21,23 @@ final class FeedsInteractor {
     private var localSearchService: any Searchable
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
     private let folderManager: any FeedFolderManaging
+    private let keyedStorage: any KeyedStorageProtocol
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
-
-    private static let recentSearchesKey = "com.ifeed.recentSearches"
-    private static let maxRecentSearches = 10
 
     // MARK: - Init
     init(parser: any ParserProtocol,
          storage: any StorageProtocol,
          localSearchService: any Searchable,
          exploreFeedsService: any ExploreFeedsServiceProtocol,
-         folderManager: any FeedFolderManaging) {
+         folderManager: any FeedFolderManaging,
+         keyedStorage: any KeyedStorageProtocol) {
         self.parser = parser
         self.storage = storage
         self.localSearchService = localSearchService
         self.exploreFeedsService = exploreFeedsService
         self.folderManager = folderManager
+        self.keyedStorage = keyedStorage
     }
 }
 
@@ -73,22 +78,23 @@ extension FeedsInteractor: FeedsInteractorProtocol {
     }
 
     // MARK: - Recent searches
-    func recentSearches() -> [String] { // TODO: - Inject covered behind a protocol
-        return UserDefaults.standard.stringArray(forKey: Self.recentSearchesKey) ?? []
+    func recentSearches() -> [String] {
+        return keyedStorage.stringArray(forKey: Constants.recentSearchesKey) ?? []
     }
 
     func saveRecentSearch(_ query: String) {
         var searches = recentSearches()
         searches.removeAll { $0 == query }
         searches.append(query)
-        if searches.count > Self.maxRecentSearches {
+
+        if searches.count > Constants.maxRecentSearches {
             searches.removeFirst()
         }
-        UserDefaults.standard.set(searches, forKey: Self.recentSearchesKey)
+        keyedStorage.set(searches, forKey: Constants.recentSearchesKey)
     }
 
     func clearRecentSearches() {
-        UserDefaults.standard.removeObject(forKey: Self.recentSearchesKey)
+        keyedStorage.removeObject(forKey: Constants.recentSearchesKey)
     }
 
     func exploreFeeds(on webSite: String,

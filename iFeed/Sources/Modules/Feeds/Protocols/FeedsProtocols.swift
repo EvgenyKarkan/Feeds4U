@@ -140,6 +140,7 @@ protocol FeedsDependencies {
     func localSearch() -> any Searchable
     func exploreService() -> any ExploreFeedsServiceProtocol
     func foldersManager() -> any FeedFolderManaging
+    func keyedStorage() -> any KeyedStorageProtocol
 }
 
 /// Wireframe -> AppCoordinator

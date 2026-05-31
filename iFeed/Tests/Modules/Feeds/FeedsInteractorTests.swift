@@ -24,6 +24,7 @@ struct FeedsInteractorTests {
     private let folders = FeedFolderManagingMock()
     private let container: NSPersistentContainer
     private let sut: FeedsInteractor
+    private let keyedStorage = KeyedStorageProtocolMock()
 
     // MARK: - Init
 
@@ -35,7 +36,8 @@ struct FeedsInteractorTests {
             storage: storage,
             localSearchService: search,
             exploreFeedsService: explore,
-            folderManager: folders
+            folderManager: folders,
+            keyedStorage: keyedStorage
         )
     }
 
@@ -362,67 +364,94 @@ struct FeedsInteractorTests {
 
     // MARK: - Recent searches
 
-    @Test func recentSearches_whenEmpty_returnsEmptyArray() {
+    @Test func recentSearches_whenStorageReturnsNil_returnsEmptyArray() {
         // Given
-        sut.clearRecentSearches()
+        keyedStorage._stringArray.implementation = .returns(nil)
 
         // When
         let searches = sut.recentSearches()
 
         // Then
         #expect(searches.isEmpty)
+        #expect(keyedStorage._stringArray.callCount == 1)
+    }
+
+    @Test func recentSearches_whenStorageReturnsValues_returnsThem() {
+        // Given
+        keyedStorage._stringArray.implementation = .returns(["swift", "kotlin"])
+
+        // When
+        let searches = sut.recentSearches()
+
+        // Then
+        #expect(searches == ["swift", "kotlin"])
+        #expect(keyedStorage._stringArray.callCount == 1)
     }
 
     @Test func saveRecentSearch_addsSearchToList() {
         // Given
-        sut.clearRecentSearches()
+        keyedStorage._stringArray.implementation = .returns(nil)
 
         // When
         sut.saveRecentSearch("swift")
 
         // Then
-        #expect(sut.recentSearches() == ["swift"])
+        let saved = keyedStorage._setAny.lastInvocation?.0 as? [String]
+        #expect(saved == ["swift"])
+        #expect(keyedStorage._stringArray.callCount == 1)
+        #expect(keyedStorage._setAny.callCount == 1)
     }
 
     @Test func saveRecentSearch_deduplicatesAndMovesToEnd() {
         // Given
-        sut.clearRecentSearches()
-        sut.saveRecentSearch("swift")
-        sut.saveRecentSearch("kotlin")
+        keyedStorage._stringArray.implementation = .returns(["swift", "kotlin"])
 
         // When
         sut.saveRecentSearch("swift")
 
         // Then
-        #expect(sut.recentSearches() == ["kotlin", "swift"])
+        let saved = keyedStorage._setAny.lastInvocation?.0 as? [String]
+        #expect(saved == ["kotlin", "swift"])
     }
 
     @Test func saveRecentSearch_dropsOldestWhenExceedingMax() {
         // Given
-        sut.clearRecentSearches()
-        for index in 1...10 {
-            sut.saveRecentSearch("search\(index)")
-        }
+        let existing = (1...10).map { "search\($0)" }
+        keyedStorage._stringArray.implementation = .returns(existing)
 
         // When
         sut.saveRecentSearch("search11")
 
         // Then
-        let searches = sut.recentSearches()
-        #expect(searches.count == 10)
-        #expect(searches.first == "search2")
-        #expect(searches.last == "search11")
+        let saved = keyedStorage._setAny.lastInvocation?.0 as? [String]
+        #expect(saved?.count == 10)
+        #expect(saved?.first == "search2")
+        #expect(saved?.last == "search11")
     }
 
-    @Test func clearRecentSearches_removesAllSearches() {
-        // Given
-        sut.saveRecentSearch("swift")
-        sut.saveRecentSearch("kotlin")
-
+    @Test func clearRecentSearches_delegatesToKeyedStorage() {
         // When
         sut.clearRecentSearches()
 
         // Then
-        #expect(sut.recentSearches().isEmpty)
+        #expect(keyedStorage._removeObject.callCount == 1)
     }
+}
+
+// MARK: - KeyedStorageProtocolMock
+@MockedMembers
+final class KeyedStorageProtocolMock: KeyedStorageProtocol {
+    func object(forKey defaultName: String) -> Any?
+
+    @MockableMethod(mockMethodName: "setAny")
+    func set(_ value: Any?, forKey defaultName: String)
+
+    func bool(forKey defaultName: String) -> Bool
+
+    @MockableMethod(mockMethodName: "setBool")
+    func set(_ value: Bool, forKey defaultName: String)
+
+    func stringArray(forKey defaultName: String) -> [String]?
+
+    func removeObject(forKey defaultName: String)
 }

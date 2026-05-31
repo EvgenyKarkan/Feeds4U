@@ -20,7 +20,8 @@ enum FeedsBuilder {
             storage: container.storage(),
             localSearchService: container.localSearch(),
             exploreFeedsService: container.exploreService(),
-            folderManager: container.foldersManager()
+            folderManager: container.foldersManager(),
+            keyedStorage: container.keyedStorage()
         )
 
         /// Wireframe
