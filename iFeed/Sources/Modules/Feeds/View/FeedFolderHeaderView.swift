@@ -16,7 +16,7 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
     private let chevronImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = .separator
+        imageView.tintColor = .tertiaryLabel
         imageView.contentMode = .center
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

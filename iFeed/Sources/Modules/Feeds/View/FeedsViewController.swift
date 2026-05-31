@@ -169,6 +169,10 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         tableViewProvider?.sections = viewState.sections
         tableViewProvider?.unreadCounts = viewState.unreadCounts
         feedListView?.reloadTableView()
+
+        if !viewState.allFeeds.isEmpty {
+            feedListView?.tableView.alpha = 1
+        }
     }
 
     func showActivityIndicator() {
