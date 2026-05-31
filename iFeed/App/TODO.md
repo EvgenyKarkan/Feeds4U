@@ -69,11 +69,6 @@ https://rss.com/blog/popular-rss-feeds/
         fi
 
 
-2. ❌ Check caching, URLCache - investigate it.
-    - How to cache for SFSafariViewController, and load webpage if offline?
-    - Good read https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
-
-
 3. ✅ Licenses in Settings, package plus search API
 
     - https://gist.github.com/zetachang/4111314
@@ -88,16 +83,9 @@ https://rss.com/blog/popular-rss-feeds/
     ✅ https://github.com/DBeath/feedsearch/blob/master/LICENSE
     ✅ https://github.com/DBeath/feedsearch-crawler/blob/master/LICENSE
     
-    https://feedsearch.dev
-
-
-4. ❌ Localization 
-
-    - Localize Settings Bundle
-        - Acknowledgements
-        https://useyourloaf.com/blog/localizing-iphone-app-settings-strings/
-
-    - Localize Folders US
+    ✅ https://feedsearch.dev
+    
+    ❌ https://github.com/fetch-rewards/swift-mocking
 
 
 5. ❌ Automate with CI/CD
@@ -127,7 +115,7 @@ https://rss.com/blog/popular-rss-feeds/
 
 
 6. Folders 
-    - Folder title color and font
     - chevron on right
+    - test long folder name
 
-7. Prewarm in Safari only those items that have no long HTNL
+7. Prewarm in Safari only those items that have no long HTML

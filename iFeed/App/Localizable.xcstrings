@@ -1,3724 +1,3724 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "Clear recent searches": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مسح عمليات البحث الأخيرة"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ачысціць апошнія пошукі"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадаць"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "সাম্প্রতিক অনুসন্ধান মুছুন"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "যোগ করুন।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Letzte Suchen löschen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clear recent searches"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Borrar búsquedas recientes"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I-clear ang mga kamakailang paghahanap"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idagdag"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Effacer les recherches récentes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "हाल की खोजें साफ़ करें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जोड़ें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hapus pencarian terbaru"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancella ricerche recenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最近の検索を消去"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최근 검색 지우기"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਹਾਲ ਦੀਆਂ ਖੋਜਾਂ ਸਾਫ਼ ਕਰੋ"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wyczyść ostatnie wyszukiwania"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Limpar pesquisas recentes"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Limpar pesquisas recentes"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Очистить недавние поиски"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pastro kërkimet e fundit"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ล้างการค้นหาล่าสุด"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่ม"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son aramaları temizle"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekle"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Очистити нещодавні пошуки"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додати"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "清除最近搜索"
-          }
-        }
-      }
-    },
-    "Create": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إنشاء"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Стварыць"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "তৈরি করুন"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erstellen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crear"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gumawa"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Créer"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "बनाएँ"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buat"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crea"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "作成"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "만들기"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਬਣਾਓ"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utwórz"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Krijo"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สร้าง"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oluştur"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Створити"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "创建"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加"
           }
         }
       }
     },
-    "Create Folder": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إنشاء مجلد"
+    "addNewFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أضف تغذية جديدة للبدء"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Стварыць тэчку"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадайце новы фід, каб пачаць"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ফোল্ডার তৈরি করুন"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "শুরু করতে একটি নতুন ফিড যোগ করুন।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ordner erstellen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge einen neuen Feed hinzu, um zu beginnen."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create Folder"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new feed to get started"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crear carpeta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar un nuevo feed para comenzar"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gumawa ng folder"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magdagdag ng bagong feed para makapagsimula"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Créer un dossier"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez un nouveau flux pour commencer"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "फ़ोल्डर बनाएँ"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "शुरू करने के लिए एक नया फ़ीड जोड़ें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buat folder"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan umpan baru untuk memulai"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crea cartella"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi un nuovo feed per iniziare"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "フォルダを作成"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始するには、新しいフィードを追加してください"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "폴더 만들기"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작하려면 새 피드를 추가하세요"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਫੋਲਡਰ ਬਣਾਓ"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utwórz folder"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj nowy kanał, aby rozpocząć"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar pasta"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione um novo feed para começar"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar pasta"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed para começar"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать папку"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавьте новую ленту, чтобы начать"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Krijo dosje"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto një feed të ri për të filluar"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สร้างโฟลเดอร์"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่มฟีดใหม่เพื่อเริ่มต้น"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klasör oluştur"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başlamak için yeni bir besleme ekleyin"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Створити теку"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додайте нову стрічку, щоб розпочати"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "创建文件夹"
-          }
-        }
-      }
-    },
-    "Enter a name for the new folder": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أدخل اسمًا للمجلد الجديد"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увядзіце назву для новай тэчкі"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "নতুন ফোল্ডারের জন্য একটি নাম লিখুন"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gib einen Namen für den neuen Ordner ein"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter a name for the new folder"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ingresa un nombre para la nueva carpeta"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maglagay ng pangalan para sa bagong folder"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entrez un nom pour le nouveau dossier"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "नए फ़ोल्डर के लिए एक नाम दर्ज करें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masukkan nama untuk folder baru"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inserisci un nome per la nuova cartella"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "新しいフォルダの名前を入力してください"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "새 폴더의 이름을 입력하세요"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਨਵੇਂ ਫੋਲਡਰ ਲਈ ਨਾਮ ਦਰਜ ਕਰੋ"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wprowadź nazwę nowego folderu"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Digite um nome para a nova pasta"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduza um nome para a nova pasta"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите имя для новой папки"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Futni një emër për dosjen e re"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ป้อนชื่อสำหรับโฟลเดอร์ใหม่"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeni klasör için bir ad girin"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введіть назву для нової теки"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "输入新文件夹的名称"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加新源以开始"
           }
         }
       }
     },
-    "Folder name": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اسم المجلد"
+    "addNewFeed.lite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة تغذية جديدة"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Назва тэчкі"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дадаць новы фід"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ফোল্ডারের নাম"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি নতুন ফিড যোগ করুন।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ordnername"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Füge einen neuen Feed hinzu."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folder name"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new feed"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nombre de carpeta"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar un nuevo feed"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pangalan ng folder"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magdagdag ng bagong feed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nom du dossier"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un nouveau flux"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "फ़ोल्डर का नाम"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नया फ़ीड जोड़ें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nama folder"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambahkan umpan baru"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome cartella"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi un nuovo feed"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "フォルダ名"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフィードを追加"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "폴더 이름"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 피드 추가"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਫੋਲਡਰ ਦਾ ਨਾਮ"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nazwa folderu"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj nowy kanał"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome da pasta"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome da pasta"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar um novo feed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Имя папки"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить новую ленту"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Emri i dosjes"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shto një feed të ri"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ชื่อโฟลเดอร์"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่มฟีดใหม่"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klasör adı"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni bir besleme ekle"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Назва теки"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додайте нову стрічку"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "文件夹名称"
-          }
-        }
-      }
-    },
-    "New search": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بحث جديد"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новы пошук"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "নতুন অনুসন্ধান"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Suche"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New search"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nueva búsqueda"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bagong paghahanap"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nouvelle recherche"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "नई खोज"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pencarian baru"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nuova ricerca"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "新しい検索"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "새 검색"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਨਵੀਂ ਖੋਜ"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nowe wyszukiwanie"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nova pesquisa"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nova pesquisa"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новый поиск"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kërkim i ri"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ค้นหาใหม่"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeni arama"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новий пошук"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "新搜索"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加新源"
           }
         }
       }
     },
-    "Recent searches": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عمليات البحث الأخيرة"
+    "cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Апошнія пошукі"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адмяніць"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "সাম্প্রতিক অনুসন্ধান"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বাতিল করুন।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Letzte Suchen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recent searches"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Búsquedas recientes"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mga kamakailang paghahanap"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kanselahin"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recherches récentes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "हाल की खोजें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रद्द करें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pencarian terbaru"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batalkan"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ricerche recenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最近の検索"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "최근 검색"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਹਾਲ ਦੀਆਂ ਖੋਜਾਂ"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰੱਦ ਕਰੋ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ostatnie wyszukiwania"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pesquisas recentes"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pesquisas recentes"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Недавние поиски"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kërkimet e fundit"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anulo"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "การค้นหาล่าสุด"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยกเลิก"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Son aramalar"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нещодавні пошуки"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скасувати"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最近搜索"
-          }
-        }
-      }
-    },
-    "add": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إضافة"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дадаць"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "যোগ করুন।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hinzufügen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Agregar"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Idagdag"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajouter"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "जोड़ें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tambahkan"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aggiungi"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "追加"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "추가"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਸ਼ਾਮਲ ਕਰੋ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dodaj"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shto"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เพิ่ม"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ekle"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Додати"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "添加"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
     },
-    "addNewFeed": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أضف تغذية جديدة للبدء"
+    "Clear recent searches" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح عمليات البحث الأخيرة"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дадайце новы фід, каб пачаць"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ачысціць апошнія пошукі"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "শুরু করতে একটি নতুন ফিড যোগ করুন।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সাম্প্রতিক অনুসন্ধান মুছুন"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Füge einen neuen Feed hinzu, um zu beginnen."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte Suchen löschen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add a new feed to get started"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear recent searches"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Agregar un nuevo feed para comenzar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Borrar búsquedas recientes"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Magdagdag ng bagong feed para makapagsimula"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-clear ang mga kamakailang paghahanap"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajoutez un nouveau flux pour commencer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer les recherches récentes"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "शुरू करने के लिए एक नया फ़ीड जोड़ें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हाल की खोजें साफ़ करें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tambahkan umpan baru untuk memulai"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hapus pencarian terbaru"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aggiungi un nuovo feed per iniziare"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancella ricerche recenti"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "開始するには、新しいフィードを追加してください"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近の検索を消去"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "시작하려면 새 피드를 추가하세요"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최근 검색 지우기"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹਾਲ ਦੀਆਂ ਖੋਜਾਂ ਸਾਫ਼ ਕਰੋ"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dodaj nowy kanał, aby rozpocząć"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyczyść ostatnie wyszukiwania"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicione um novo feed para começar"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar pesquisas recentes"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar um novo feed para começar"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar pesquisas recentes"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавьте новую ленту, чтобы начать"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить недавние поиски"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shto një feed të ri për të filluar"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pastro kërkimet e fundit"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เพิ่มฟีดใหม่เพื่อเริ่มต้น"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ล้างการค้นหาล่าสุด"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Başlamak için yeni bir besleme ekleyin"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son aramaları temizle"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Додайте нову стрічку, щоб розпочати"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистити нещодавні пошуки"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "添加新源以开始"
-          }
-        }
-      }
-    },
-    "addNewFeed.lite": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إضافة تغذية جديدة"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дадаць новы фід"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "একটি নতুন ফিড যোগ করুন।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Füge einen neuen Feed hinzu."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add a new feed"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Agregar un nuevo feed"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Magdagdag ng bagong feed"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajouter un nouveau flux"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "नया फ़ीड जोड़ें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tambahkan umpan baru"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aggiungi un nuovo feed"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "新しいフィードを追加"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "새 피드 추가"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " ਇੱਕ ਨਵੀਂ ਫੀਡ ਸ਼ਾਮਲ ਕਰੋ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dodaj nowy kanał"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar um novo feed"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar um novo feed"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить новую ленту"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shto një feed të ri"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เพิ่มฟีดใหม่"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeni bir besleme ekle"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Додайте нову стрічку"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "添加新源"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除最近搜索"
           }
         }
       }
     },
-    "cancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إلغاء"
+    "confirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حسنًا"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Адмяніць"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "বাতিল করুন।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ঠিক আছে"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbrechen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancelar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kanselahin"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Annuler"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D'accord"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "रद्द करें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ठीक है"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Batalkan"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oke"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Annulla"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "キャンセル"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "취소"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਰੱਦ ਕਰੋ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਠੀਕ ਹੈ"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anuluj"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancelar"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancelar"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Понятно"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anulo"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ยกเลิก"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตกลง"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "İptal"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamam"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Скасувати"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добре"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "取消"
-          }
-        }
-      }
-    },
-    "confirmation": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حسنًا"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ঠিক আছে"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aceptar"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "D'accord"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ठीक है"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oke"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "확인"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਠੀਕ ਹੈ"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Понятно"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ตกลง"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tamam"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добре"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "确定"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定"
           }
         }
       }
     },
-    "enterNewFeed": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أدخل تغذية جديدة"
+    "Create" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увядзіце новы фід"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стварыць"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "একটি নতুন ফিড প্রবেশ করান।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "তৈরি করুন"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gib einen neuen Feed ein."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter a new feed"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ingresar un nuevo feed"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Magpasok ng bagong feed"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gumawa"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entrez un nouveau flux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "नया फ़ीड दर्ज करें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बनाएँ"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Masukkan umpan baru"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inserisci un nuovo feed"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "新しいフィードを入力してください"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "새 피드를 입력하세요"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "만들기"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਇੱਕ ਨਵੀਂ ਫੀਡ ਦਰਜ ਕਰੋ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਬਣਾਓ"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wprowadź nowy kanał"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Digite um novo feed"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduza um novo feed"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите новую ленту"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Futni një feed të ri"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krijo"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ป้อนฟีดใหม่"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้าง"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yeni bir besleme girin"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oluştur"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введіть нову стрічку"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "输入新源"
-          }
-        }
-      }
-    },
-    "error": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "خطأ"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Памылка"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ত্রুটি।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fehler"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Error"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Error"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Error"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erreur"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "त्रुटि"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kesalahan"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Errore"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "エラー"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "오류"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " ਗਲਤੀ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Błąd"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erro"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erro"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ошибка"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gabim"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ข้อผิดพลาด"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hata"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Помилка"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "错误"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建"
           }
         }
       }
     },
-    "error.dataDecoding": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حدث خطأ في فك تشفير البيانات"
+    "Create Folder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء مجلد"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Адбылася памылка дэкадавання дадзеных"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стварыць тэчку"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "একটি ডেটা ডিকোডিং ত্রুটি ঘটেছে।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফোল্ডার তৈরি করুন"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein Datenentschlüsselungsfehler ist aufgetreten."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordner erstellen"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A data decoding error has occurred"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Folder"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ha ocurrido un error al decodificar los datos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear carpeta"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nagkaroon ng error sa pag-decode ng data"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gumawa ng folder"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Une erreur de décodage des données s'est produite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un dossier"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "डेटा डिकोडिंग में त्रुटि आ गई है"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ोल्डर बनाएँ"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kesalahan dekoding data telah terjadi"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat folder"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si è verificato un errore di decodifica dei dati"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea cartella"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "データのデコード中にエラーが発生しました"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォルダを作成"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "데이터 디코딩 오류가 발생했습니다"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폴더 만들기"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਇੱਕ ਡਾਟਾ ਡਿਕੋਡਿੰਗ ਗਲਤੀ ਆਈ ਹੈ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫੋਲਡਰ ਬਣਾਓ"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wystąpił błąd dekodowania danych"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz folder"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocorreu um erro de decodificação de dados"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar pasta"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocorreu um erro de descodificação de dados"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar pasta"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Произошла ошибка декодирования данных"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать папку"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ka ndodhur një gabim gjatë deshifrimit të të dhënave"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krijo dosje"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เกิดข้อผิดพลาดในการถอดรหัสข้อมูล"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างโฟลเดอร์"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir veri çözme hatası oluştu"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klasör oluştur"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Виникла помилка декодування даних"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити теку"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "发生了数据解码错误"
-          }
-        }
-      }
-    },
-    "error.generic": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عفوًا..."
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ой..."
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ওহ..."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oh..."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops..."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ups..."
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Naku..."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oh..."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ओह..."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oh..."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops..."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "おっと…"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이런…"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਓਹ..."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ups..."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops..."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops..."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ой..."
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oops..."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "โอ๊ะ..."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hata..."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ой..."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "哎呀..."
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建文件夹"
           }
         }
       }
     },
-    "error.invalidURL": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "العنوان URL الذي أدخلته لا يبدو صحيحًا"
+    "Enter a name for the new folder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل اسمًا للمجلد الجديد"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Уведзены вамі URL не здаецца сапраўдным"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увядзіце назву для новай тэчкі"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "আপনি যে URL প্রবেশ করেছেন তা বৈধ বলে মনে হচ্ছে না।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "নতুন ফোল্ডারের জন্য একটি নাম লিখুন"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die eingegebene URL scheint ungültig zu sein."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib einen Namen für den neuen Ordner ein"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The URL you entered doesn't seem to be valid"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a name for the new folder"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La URL que ingresaste parece no ser válida"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresa un nombre para la nueva carpeta"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mukhang hindi wasto ang URL na iyong inilagay"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maglagay ng pangalan para sa bagong folder"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L'URL que vous avez saisie ne semble pas être valide"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez un nom pour le nouveau dossier"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "आपके द्वारा दर्ज URL मान्य नहीं लगता"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नए फ़ोल्डर के लिए एक नाम दर्ज करें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "URL yang Anda masukkan sepertinya tidak valid"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan nama untuk folder baru"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L'URL che hai inserito non sembra essere valido"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci un nome per la nuova cartella"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "入力されたURLは有効ではないようです"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフォルダの名前を入力してください"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "입력한 URL이 유효하지 않은 것 같습니다"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 폴더의 이름을 입력하세요"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਤੁਸੀਂ ਦਿੱਤਾ URL ਵੈਧ ਨਹੀਂ ਲੱਗਦਾ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਨਵੇਂ ਫੋਲਡਰ ਲਈ ਨਾਮ ਦਰਜ ਕਰੋ"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wprowadzony URL wydaje się być nieprawidłowy"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadź nazwę nowego folderu"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A URL que você inseriu não parece ser válida"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite um nome para a nova pasta"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O URL que introduziu parece não ser válido"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduza um nome para a nova pasta"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введенный вами URL, кажется, недействителен"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите имя для новой папки"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "URL-ja që keni futur nuk duket të jetë e vlefshme"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futni një emër për dosjen e re"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "URL ที่คุณป้อนไม่ถูกต้อง"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อนชื่อสำหรับโฟลเดอร์ใหม่"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Girdiğiniz URL geçerli görünmüyor"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni klasör için bir ad girin"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введений вами URL, схоже, що не є дійсним"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть назву для нової теки"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "您输入的 URL 似乎无效"
-          }
-        }
-      }
-    },
-    "error.noSearchResults": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد نتائج تطابق بحثك"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма вынікаў, якія адпавядаюць вашаму пошуку"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "আপনার অনুসন্ধানের সাথে মেলে এমন কোনো ফলাফল নেই।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es gibt keine Ergebnisse, die deiner Suche entsprechen."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "There aren't any results that match your search"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No hay resultados que coincidan con tu búsqueda"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Walang resulta na tumutugma sa iyong paghahanap"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il n'y a aucun résultat correspondant à votre recherche"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ऐसा कोई भी परिणाम नहीं है जो आपकी खोज से मेल खाता हो"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tidak ada hasil yang cocok dengan pencarian Anda"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non ci sono risultati che corrispondono alla tua ricerca"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "検索に一致する結果がありません"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "검색어와 일치하는 결과가 없습니다"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਤੁਹਾਡੇ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਣ ਵਾਲਾ ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਹੈ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brak wyników pasujących do twojego wyszukiwania"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não há resultados que correspondam à sua pesquisa"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não existem resultados que correspondam à sua pesquisa"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нет результатов, соответствующих вашему поиску"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nuk ka asnjë rezultat që përputhet me kërkimin tuaj"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ไม่มีผลลัพธ์ที่ตรงกับการค้นหาของคุณ"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aramanızla eşleşen sonuç bulunamadı"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Немає результатів, які відповідають вашому запиту"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "没有与您的搜索匹配的结果"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入新文件夹的名称"
           }
         }
       }
     },
-    "error.preExistedFeed": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
+    "enterNewFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل تغذية جديدة"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Здаецца, гэты фід ужо існуе. Увядзіце іншы, каб працягнуць."
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увядзіце новы фід"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "মনে হচ্ছে এই ফিডটি ইতিমধ্যেই বিদ্যমান। চালিয়ে যাওয়ার জন্য একটি ভিন্ন ফিড প্রবেশ করান।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি নতুন ফিড প্রবেশ করান।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es sieht so aus, als ob dieser Feed bereits existiert. Gib einen anderen ein, um fortzufahren."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib einen neuen Feed ein."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It looks like this feed already exists. Enter a different one to continue."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a new feed"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parece que este feed ya existe. Ingresa uno diferente para continuar."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingresar un nuevo feed"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mukhang mayroon nang feed na ito. Magpasok ng iba pa para magpatuloy."
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magpasok ng bagong feed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il semble que ce flux existe déjà. Entrez-en un autre pour continuer."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez un nouveau flux"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है। जारी रखने के लिए एक अलग दर्ज करें।"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नया फ़ीड दर्ज करें"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan umpan baru"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sembra che questo feed esista già. Inserisci uno diverso per continuare."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci un nuovo feed"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "このフィードはすでに存在するようです。続行するには別のものを入力してください。"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフィードを入力してください"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 피드는 이미 존재하는 것 같습니다. 계속하려면 다른 피드를 입력하세요."
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 피드를 입력하세요"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਲੱਗਦਾ ਹੈ ਕਿ ਇਹ ਫੀਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਇੱਕ ਹੋਰ ਫੀਡ ਦਰਜ ਕਰੋ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇੱਕ ਨਵੀਂ ਫੀਡ ਦਰਜ ਕਰੋ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wygląda na to, że ten kanał już istnieje. Wprowadź inny, aby kontynuować."
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadź nowy kanał"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parece que este feed já existe. Insira um diferente para continuar."
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite um novo feed"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parece que este feed já existe. Insira outro para continuar."
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduza um novo feed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Похоже, эта лента уже существует. Введите другую, чтобы продолжить."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите ленту"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Duket se ky feed ekziston tashmë. Futni një tjetër për të vazhduar."
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futni një feed të ri"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ดูเหมือนว่าฟีดนี้มีอยู่แล้ว โปรดป้อนฟีดอื่นเพื่อดำเนินการต่อ"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อนฟีดใหม่"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu besleme zaten mevcut gibi görünüyor. Devam etmek için farklı bir tane girin."
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni bir besleme girin"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Схоже, що ця стрічка вже існує. Введіть іншу, щоб продовжити."
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть стрічку"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "看起来这个源已经存在。输入另一个以继续。"
-          }
-        }
-      }
-    },
-    "error.service": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حدث خطأ %@ أثناء محاولة الوصول إلى الخدمة"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Падчас спроб доступу да службы адбылася памылка %@"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "সার্ভিসে প্রবেশ করার সময় %@ ত্রুটি ঘটেছে।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beim Versuch, auf den Dienst zuzugreifen, ist der Fehler %@ aufgetreten."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The %@ error has occurred while trying to access the service"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ha ocurrido un error %@ al intentar acceder al servicio"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ang %@ error ay naganap habang sinusubukang i-access ang serbisyo"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L'erreur %@ s'est produite lors de la tentative d'accès au service"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "सेवा तक पहुँचने के दौरान %@ त्रुटि आई है"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kesalahan %@ telah terjadi saat mencoba mengakses layanan"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si è verificato l'errore %@ mentre si tentava di accedere al servizio"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "サービスにアクセスしようとしたときに%@エラーが発生しました"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "서비스에 액세스하려는 동안 %@ 오류가 발생했습니다"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਜਦੋਂ ਸਰਵਿਸ 'ਤੇ ਪਹੁੰਚ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਸੀ ਤਾਂ %@ ਗਲਤੀ ਆਈ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wystąpił błąd %@ podczas próby uzyskania dostępu do usługi"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O erro %@ ocorreu ao tentar acessar o serviço"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocorreu o erro %@ ao tentar aceder ao serviço"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Произошла ошибка %@ при попытке доступа к сервису"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gabimi %@ ka ndodhur gjatë përpjekjes për të hyrë në shërbim"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เกิดข้อผิดพลาด %@ ขณะพยายามเข้าถึงบริการ"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hizmete erişmeye çalışırken %@ hatası oluştu"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Виникла помилка %@ під час спроби доступу до сервiса"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在尝试访问服务时发生了 %@ 错误"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入新源"
           }
         }
       }
     },
-    "error.unreadableFeed": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا يمكن قراءة هذا التغذية. حاول مرة أخرى في وقت لاحق أو تحقق من عنوان URL للتأكد من صحته."
+    "error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطأ"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Немагчыма прачытаць гэты фід. Паспрабуйце пазней або праверце URL, каб пераканацца, што ён сапраўдны."
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Памылка"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "এই ফিড পড়া সম্ভব নয়। পরে আবার চেষ্টা করুন বা URL চেক করুন এটি বৈধ কিনা নিশ্চিত করতে।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ত্রুটি।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es ist nicht möglich, diesen Feed zu lesen. Versuche es später erneut oder überprüfe die URL, um sicherzustellen, dass sie gültig ist."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It's not possible to read this feed. Try again later or check the URL to make sure it's valid."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No es posible leer este feed. Inténtalo de nuevo más tarde o verifica la URL para asegurarte de que sea válida."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hindi mabasa ang feed na ito. Subukang muli mamaya o i-check ang URL para matiyak na tama ito."
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il n'est pas possible de lire ce flux. Réessayez plus tard ou vérifiez l'URL pour vous assurer qu'elle est valide."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "इस फ़ीड को पढ़ना संभव नहीं है। बाद में पुन: प्रयास करें या URL की जांच करें ताकि यह सही हो।"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "त्रुटि"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tidak mungkin membaca umpan ini. Coba lagi nanti atau periksa URL untuk memastikan itu valid."
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non è possibile leggere questo feed. Riprova più tardi o controlla l'URL per assicurarti che sia valido."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Errore"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "このフィードを読み込むことができません。後でもう一度試すか、URLが有効であることを確認してください。"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이 피드를 읽을 수 없습니다. 나중에 다시 시도하거나 URL이 유효한지 확인하세요."
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오류"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਇਹ ਫੀਡ ਪੜ੍ਹਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ URL ਨੂੰ ਚੈਕ ਕਰੋ ਕਿ ਇਹ ਵੈਧ ਹੈ ਕਿ ਨਹੀਂ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " ਗਲਤੀ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nie można odczytać tego kanału. Spróbuj ponownie później lub sprawdź, czy URL jest poprawny."
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Błąd"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Невозможно прочитать эту ленту. Попробуйте снова позже или проверьте URL, чтобы убедиться, что он правильный."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nuk është e mundur të lexoni këtë feed. Provoni përsëri më vonë ose kontrolloni URL-në për t'u siguruar që është e vlefshme."
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gabim"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ไม่สามารถอ่านฟีดนี้ได้ โปรดลองใหม่อีกครั้งในภายหลังหรือตรวจสอบ URL เพื่อให้แน่ใจว่าถูกต้อง"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อผิดพลาด"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu beslemeyi okumak mümkün değil. Daha sonra tekrar deneyin veya URL'nin geçerli olduğundan emin olun."
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Неможливо прочитати цю стрічку. Спробуйте ще раз пізніше або перевірте URL, щоб переконатися, що він є правильним."
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Помилка"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "无法读取此源。请稍后重试或检查 URL 以确保其有效。"
-          }
-        }
-      }
-    },
-    "exploreFeed": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "استكشاف التغذيات"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прагляд фідаў"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ফিডগুলি অন্বেষণ করুন।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Feeds erkunden"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explore feeds"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorar feeds"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mag-explore ng mga feed"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorer les flux"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "फ़ीड्स का अन्वेषण करें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jelajahi umpan"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esplora feed"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "フィードを探索"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "피드 탐색"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਫੀਡਸ ਦੀ ਪੜਚੋਲ ਕਰੋ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Przeglądaj kanały"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorar feeds"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorar feeds"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Исследуйте ленты"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eksploro feed-et"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สำรวจฟีด"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beslemeleri keşfet"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Досліджуйте стрічки"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "探索源"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "错误"
           }
         }
       }
     },
-    "provideURL": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قدم عنوان URL لصفحة الويب للبحث عن تغذيتها"
+    "error.dataDecoding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حدث خطأ في فك تشفير البيانات"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увядзіце URL вэб-старонкі, каб знайсці яе фіды"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адбылася памылка дэкадавання дадзеных"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ফিডগুলি খুঁজে পেতে ওয়েবপেজের URL দিন।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি ডেটা ডিকোডিং ত্রুটি ঘটেছে।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gib eine Webseite-URL an, um nach ihren Feeds zu suchen."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Datenentschlüsselungsfehler ist aufgetreten."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Provide a webpage URL to search for its feeds"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A data decoding error has occurred"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proporciona una URL de página web para buscar sus feeds"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ha ocurrido un error al decodificar los datos"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Magbigay ng URL ng webpage para hanapin ang mga feed nito"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagkaroon ng error sa pag-decode ng data"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fournissez une URL de page Web pour rechercher ses flux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une erreur de décodage des données s'est produite"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "उसके फ़ीड्स के लिए एक वेबपेज URL प्रदान करें"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "डेटा डिकोडिंग में त्रुटि आ गई है"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Berikan URL halaman web untuk mencari umpannya"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan dekoding data telah terjadi"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fornisci un URL di una pagina web per cercare i suoi feed"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si è verificato un errore di decodifica dei dati"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "フィードを検索するには、ウェブページのURLを入力してください"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データのデコード中にエラーが発生しました"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "피드를 검색하려면 웹페이지 URL을 입력하세요"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "데이터 디코딩 오류가 발생했습니다"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਇਸਦੀ ਫੀਡ ਲੱਭਣ ਲਈ ਇੱਕ ਵੈਬਪੇਜ URL ਦਿਓ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇੱਕ ਡਾਟਾ ਡਿਕੋਡਿੰਗ ਗਲਤੀ ਆਈ ਹੈ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Podaj URL strony internetowej, aby wyszukać jej kanały"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wystąpił błąd dekodowania danych"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forneça uma URL da página da web para pesquisar seus feeds"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro de decodificação de dados"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forneça um URL de página web para pesquisar os seus feeds"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro de descodificação de dados"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Укажите URL веб-страницы для поиска ее лент"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Произошла ошибка декодирования данных"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jepni një URL të një faqeje në internet për të kërkuar feed-et e saj"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ka ndodhur një gabim gjatë deshifrimit të të dhënave"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ป้อน URL ของหน้าเว็บเพื่อค้นหาฟีดของหน้า"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกิดข้อผิดพลาดในการถอดรหัสข้อมูล"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beslemelerini aramak için bir web sayfası URL'si girin"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir veri çözme hatası oluştu"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Надайте URL веб-сторінки для пошуку її стрічок"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Виникла помилка декодування даних"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "提供网页 URL 以搜索其源"
-          }
-        }
-      }
-    },
-    "search": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بحث"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пошук"
-          }
-        },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "অনুসন্ধান করুন।"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suche"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buscar"
-          }
-        },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maghanap"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chercher"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "खोजें"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cari"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cerca"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "検索"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "검색"
-          }
-        },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਖੋਜ ਕਰੋ।"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Szukaj"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pesquisar"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pesquisar"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поиск"
-          }
-        },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kërko"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ค้นหา"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ara"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пошук"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "搜索"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发生了数据解码错误"
           }
         }
       }
     },
-    "search.description": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "يعمل البحث بشكل أفضل عند إدخال أكثر من كلمة واحدة."
+    "error.generic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عفوًا..."
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пошук працуе лепш, калі вы ўводзіце больш за адно слова."
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ой..."
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "একাধিক শব্দ প্রবেশ করালে অনুসন্ধান সেরা কাজ করে।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ওহ..."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Suche funktioniert am besten, wenn du mehr als ein Wort eingibst."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oh..."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search works best when you enter more than one word."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La búsqueda funciona mejor cuando ingresas más de una palabra."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ups..."
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mas maganda ang resulta ng paghahanap kapag naglagay ka ng higit sa isang salita."
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naku..."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La recherche fonctionne mieux lorsque vous saisissez plus d'un mot."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oh..."
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "जब आप एक से अधिक शब्द दर्ज करते हैं तो खोज सबसे अच्छी तरह से काम करती है।"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ओह..."
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pencarian berfungsi lebih baik saat Anda memasukkan lebih dari satu kata."
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oh..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La ricerca funziona meglio se inserisci più di una parola."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "検索は、複数の単語を入力することで最適に機能します。"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おっと…"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "두 개 이상의 단어를 입력하면 검색이 더 잘 작동합니다."
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이런…"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਖੋਜ ਸਭ ਤੋਂ ਵਧੀਆ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰਦੀ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਇੱਕ ਤੋਂ ਵੱਧ ਸ਼ਬਦ ਦਰਜ ਕਰਦੇ ਹੋ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਓਹ..."
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wyszukiwanie działa najlepiej, gdy wpiszesz więcej niż jedno słowo."
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ups..."
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A pesquisa funciona melhor quando você insere mais de uma palavra."
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A pesquisa funciona melhor quando insere mais do que uma palavra."
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поиск работает лучше, когда вы вводите более одного слова."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ой..."
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kërkimi funksionon më mirë kur futni më shumë se një fjalë."
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops..."
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "การค้นหาจะทำงานได้ดีที่สุดเมื่อคุณป้อนมากกว่าหนึ่งคำ"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โอ๊ะ..."
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arama, birden fazla kelime girdiğinizde en iyi şekilde çalışır."
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata..."
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пошук працює краще, коли ви вводите більше одного слова."
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ой..."
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "输入多个词时，搜索效果最佳。"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "哎呀..."
           }
         }
       }
     },
-    "search.placeholder": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قطط لطيفة"
+    "error.invalidURL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "العنوان URL الذي أدخلته لا يبدو صحيحًا"
           }
         },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мілыя кацяняты"
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведзены вамі URL не здаецца сапраўдным"
           }
         },
-        "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "মিষ্টি বিড়ালছানা।"
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আপনি যে URL প্রবেশ করেছেন তা বৈধ বলে মনে হচ্ছে না।"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Niedliche Kätzchen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die eingegebene URL scheint ungültig zu sein."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cute kittens"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The URL you entered doesn't seem to be valid"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lindos gatitos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La URL que ingresaste parece no ser válida"
           }
         },
-        "fil": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mga cute na kuting"
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mukhang hindi wasto ang URL na iyong inilagay"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mignons chatons"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'URL que vous avez saisie ne semble pas être valide"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "प्यारे बिल्लियाँ"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आपके द्वारा दर्ज URL मान्य नहीं लगता"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anak kucing lucu"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL yang Anda masukkan sepertinya tidak valid"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gattini carini"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'URL che hai inserito non sembra essere valido"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "かわいい子猫"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "入力されたURLは有効ではないようです"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "귀여운 고양이들"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "입력한 URL이 유효하지 않은 것 같습니다"
           }
         },
-        "pa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ਸੁਹਣੇ ਬਿੱਲੀਆਂ ਦੇ ਬੱਚੇ।"
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਤੁਸੀਂ ਦਿੱਤਾ URL ਵੈਧ ਨਹੀਂ ਲੱਗਦਾ।"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Słodkie kotki"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wprowadzony URL wydaje się być nieprawidłowy"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gatinhos fofos"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A URL que você inseriu não parece ser válida"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gatinhos fofos"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O URL que introduziu parece não ser válido"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Милые котята"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введенный вами URL, кажется, недействителен"
           }
         },
-        "sq": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mace të lezetshme"
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL-ja që keni futur nuk duket të jetë e vlefshme"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ลูกแมวน่ารัก"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL ที่คุณป้อนไม่ถูกต้อง"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sevimli kedicikler"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Girdiğiniz URL geçerli görünmüyor"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Милі кошенята"
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введений вами URL, схоже, що не є дійсним"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "可爱的小猫"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您输入的 URL 似乎无效"
+          }
+        }
+      }
+    },
+    "error.noSearchResults" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد نتائج تطابق بحثك"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Няма вынікаў, якія адпавядаюць вашаму пошуку"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আপনার অনুসন্ধানের সাথে মেলে এমন কোনো ফলাফল নেই।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es gibt keine Ergebnisse, die deiner Suche entsprechen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There aren't any results that match your search"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay resultados que coincidan con tu búsqueda"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walang resulta na tumutugma sa iyong paghahanap"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n'y a aucun résultat correspondant à votre recherche"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऐसा कोई भी परिणाम नहीं है जो आपकी खोज से मेल खाता हो"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada hasil yang cocok dengan pencarian Anda"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non ci sono risultati che corrispondono alla tua ricerca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索に一致する結果がありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색어와 일치하는 결과가 없습니다"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਤੁਹਾਡੇ ਖੋਜ ਨਾਲ ਮੇਲ ਖਾਣ ਵਾਲਾ ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak wyników pasujących do twojego wyszukiwania"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há resultados que correspondam à sua pesquisa"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não existem resultados que correspondam à sua pesquisa"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет результатов, соответствующих вашему поиску"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk ka asnjë rezultat që përputhet me kërkimin tuaj"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีผลลัพธ์ที่ตรงกับการค้นหาของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aramanızla eşleşen sonuç bulunamadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немає результатів, які відповідають вашому запиту"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有与您的搜索匹配的结果"
+          }
+        }
+      }
+    },
+    "error.preExistedFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يبدو أن هذه التغذية موجودة بالفعل. أدخل واحدة مختلفة للمتابعة."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Здаецца, гэты фід ужо існуе. Увядзіце іншы, каб працягнуць."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মনে হচ্ছে এই ফিডটি ইতিমধ্যেই বিদ্যমান। চালিয়ে যাওয়ার জন্য একটি ভিন্ন ফিড প্রবেশ করান।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es sieht so aus, als ob dieser Feed bereits existiert. Gib einen anderen ein, um fortzufahren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like this feed already exists. Enter a different one to continue."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que este feed ya existe. Ingresa uno diferente para continuar."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mukhang mayroon nang feed na ito. Magpasok ng iba pa para magpatuloy."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il semble que ce flux existe déjà. Entrez-en un autre pour continuer."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऐसा लगता है कि यह फ़ीड पहले से मौजूद है। जारी रखने के लिए एक अलग दर्ज करें।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sepertinya umpan ini sudah ada. Masukkan yang berbeda untuk melanjutkan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sembra che questo feed esista già. Inserisci uno diverso per continuare."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このフィードはすでに存在するようです。続行するには別のものを入力してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 피드는 이미 존재하는 것 같습니다. 계속하려면 다른 피드를 입력하세요."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਲੱਗਦਾ ਹੈ ਕਿ ਇਹ ਫੀਡ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਇੱਕ ਹੋਰ ਫੀਡ ਦਰਜ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wygląda na to, że ten kanał już istnieje. Wprowadź inny, aby kontynuować."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que este feed já existe. Insira um diferente para continuar."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que este feed já existe. Insira outro para continuar."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Похоже, эта лента уже существует. Введите другую, чтобы продолжить."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duket se ky feed ekziston tashmë. Futni një tjetër për të vazhduar."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูเหมือนว่าฟีดนี้มีอยู่แล้ว โปรดป้อนฟีดอื่นเพื่อดำเนินการต่อ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu besleme zaten mevcut gibi görünüyor. Devam etmek için farklı bir tane girin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Схоже, що ця стрічка вже існує. Введіть іншу, щоб продовжити."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "看起来这个源已经存在。输入另一个以继续。"
+          }
+        }
+      }
+    },
+    "error.service" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حدث خطأ %@ أثناء محاولة الوصول إلى الخدمة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падчас спроб доступу да службы адбылася памылка %@"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সার্ভিসে প্রবেশ করার সময় %@ ত্রুটি ঘটেছে।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Versuch, auf den Dienst zuzugreifen, ist der Fehler %@ aufgetreten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The %@ error has occurred while trying to access the service"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ha ocurrido un error %@ al intentar acceder al servicio"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ang %@ error ay naganap habang sinusubukang i-access ang serbisyo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'erreur %@ s'est produite lors de la tentative d'accès au service"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सेवा तक पहुँचने के दौरान %@ त्रुटि आई है"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kesalahan %@ telah terjadi saat mencoba mengakses layanan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si è verificato l'errore %@ mentre si tentava di accedere al servizio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サービスにアクセスしようとしたときに%@エラーが発生しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서비스에 액세스하려는 동안 %@ 오류가 발생했습니다"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਜਦੋਂ ਸਰਵਿਸ 'ਤੇ ਪਹੁੰਚ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਸੀ ਤਾਂ %@ ਗਲਤੀ ਆਈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wystąpił błąd %@ podczas próby uzyskania dostępu do usługi"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O erro %@ ocorreu ao tentar acessar o serviço"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu o erro %@ ao tentar aceder ao serviço"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Произошла ошибка %@ при попытке доступа к сервису"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gabimi %@ ka ndodhur gjatë përpjekjes për të hyrë në shërbim"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกิดข้อผิดพลาด %@ ขณะพยายามเข้าถึงบริการ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hizmete erişmeye çalışırken %@ hatası oluştu"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Виникла помилка %@ під час спроби доступу до сервiса"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在尝试访问服务时发生了 %@ 错误"
+          }
+        }
+      }
+    },
+    "error.unreadableFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يمكن قراءة هذا التغذية. حاول مرة أخرى في وقت لاحق أو تحقق من عنوان URL للتأكد من صحته."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немагчыма прачытаць гэты фід. Паспрабуйце пазней або праверце URL, каб пераканацца, што ён сапраўдны."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এই ফিড পড়া সম্ভব নয়। পরে আবার চেষ্টা করুন বা URL চেক করুন এটি বৈধ কিনা নিশ্চিত করতে।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es ist nicht möglich, diesen Feed zu lesen. Versuche es später erneut oder überprüfe die URL, um sicherzustellen, dass sie gültig ist."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's not possible to read this feed. Try again later or check the URL to make sure it's valid."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No es posible leer este feed. Inténtalo de nuevo más tarde o verifica la URL para asegurarte de que sea válida."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hindi mabasa ang feed na ito. Subukang muli mamaya o i-check ang URL para matiyak na tama ito."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n'est pas possible de lire ce flux. Réessayez plus tard ou vérifiez l'URL pour vous assurer qu'elle est valide."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इस फ़ीड को पढ़ना संभव नहीं है। बाद में पुन: प्रयास करें या URL की जांच करें ताकि यह सही हो।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak mungkin membaca umpan ini. Coba lagi nanti atau periksa URL untuk memastikan itu valid."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è possibile leggere questo feed. Riprova più tardi o controlla l'URL per assicurarti che sia valido."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このフィードを読み込むことができません。後でもう一度試すか、URLが有効であることを確認してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 피드를 읽을 수 없습니다. 나중에 다시 시도하거나 URL이 유효한지 확인하세요."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਹ ਫੀਡ ਪੜ੍ਹਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ। ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ URL ਨੂੰ ਚੈਕ ਕਰੋ ਕਿ ਇਹ ਵੈਧ ਹੈ ਕਿ ਨਹੀਂ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie można odczytać tego kanału. Spróbuj ponownie później lub sprawdź, czy URL jest poprawny."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível ler este feed. Tente novamente mais tarde ou verifique a URL para garantir que seja válida."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Невозможно прочитать эту ленту. Попробуйте снова позже или проверьте URL, чтобы убедиться, что он правильный."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk është e mundur të lexoni këtë feed. Provoni përsëri më vonë ose kontrolloni URL-në për t'u siguruar që është e vlefshme."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถอ่านฟีดนี้ได้ โปรดลองใหม่อีกครั้งในภายหลังหรือตรวจสอบ URL เพื่อให้แน่ใจว่าถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu beslemeyi okumak mümkün değil. Daha sonra tekrar deneyin veya URL'nin geçerli olduğundan emin olun."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неможливо прочитати цю стрічку. Спробуйте ще раз пізніше або перевірте URL, щоб переконатися, що він є правильним."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法读取此源。请稍后重试或检查 URL 以确保其有效。"
+          }
+        }
+      }
+    },
+    "exploreFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استكشاف التغذيات"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прагляд фідаў"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফিডগুলি অন্বেষণ করুন।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeds erkunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore feeds"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar feeds"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mag-explore ng mga feed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorer les flux"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ीड्स का अन्वेषण करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jelajahi umpan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esplora feed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィードを探索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "피드 탐색"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫੀਡਸ ਦੀ ਪੜਚੋਲ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przeglądaj kanały"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar feeds"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar feeds"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Найти ленты"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eksploro feed-et"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สำรวจฟีด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beslemeleri keşfet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Знайти стрічки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "探索源"
+          }
+        }
+      }
+    },
+    "Folder name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسم المجلد"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назва тэчкі"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফোল্ডারের নাম"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordnername"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folder name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de carpeta"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pangalan ng folder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom du dossier"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ोल्डर का नाम"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nama folder"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome cartella"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォルダ名"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폴더 이름"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਫੋਲਡਰ ਦਾ ਨਾਮ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa folderu"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome da pasta"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome da pasta"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имя папки"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emri i dosjes"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ชื่อโฟลเดอร์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klasör adı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назва теки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件夹名称"
+          }
+        }
+      }
+    },
+    "New search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحث جديد"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новы пошук"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "নতুন অনুসন্ধান"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Suche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New search"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva búsqueda"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bagong paghahanap"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle recherche"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नई खोज"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencarian baru"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuova ricerca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しい検索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "새 검색"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਨਵੀਂ ਖੋਜ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nowe wyszukiwanie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova pesquisa"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova pesquisa"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый поиск"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkim i ri"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค้นหาใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni arama"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новий пошук"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新搜索"
+          }
+        }
+      }
+    },
+    "provideURL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قدم عنوان URL لصفحة الويب للبحث عن تغذيتها"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увядзіце URL вэб-старонкі, каб знайсці яе фіды"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ফিডগুলি খুঁজে পেতে ওয়েবপেজের URL দিন।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib eine Webseite-URL an, um nach ihren Feeds zu suchen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provide a webpage URL to search for its feeds"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proporciona una URL de página web para buscar sus feeds"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magbigay ng URL ng webpage para hanapin ang mga feed nito"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fournissez une URL de page Web pour rechercher ses flux"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "उसके फ़ीड्स के लिए एक वेबपेज URL प्रदान करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berikan URL halaman web untuk mencari umpannya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fornisci un URL di una pagina web per cercare i suoi feed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィードを検索するには、ウェブページのURLを入力してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "피드를 검색하려면 웹페이지 URL을 입력하세요"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਸਦੀ ਫੀਡ ਲੱਭਣ ਲਈ ਇੱਕ ਵੈਬਪੇਜ URL ਦਿਓ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podaj URL strony internetowej, aby wyszukać jej kanały"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forneça uma URL da página da web para pesquisar seus feeds"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forneça um URL de página web para pesquisar os seus feeds"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Укажите URL веб-страницы для поиска ее лент"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jepni një URL të një faqeje në internet për të kërkuar feed-et e saj"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อน URL ของหน้าเว็บเพื่อค้นหาฟีดของหน้า"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beslemelerini aramak için bir web sayfası URL'si girin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Надайте URL веб-сторінки для пошуку її стрічок"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提供网页 URL 以搜索其源"
+          }
+        }
+      }
+    },
+    "Recent searches" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عمليات البحث الأخيرة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Апошнія пошукі"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সাম্প্রতিক অনুসন্ধান"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte Suchen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent searches"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Búsquedas recientes"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga kamakailang paghahanap"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recherches récentes"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हाल की खोजें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencarian terbaru"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricerche recenti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近の検索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최근 검색"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਹਾਲ ਦੀਆਂ ਖੋਜਾਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnie wyszukiwania"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisas recentes"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisas recentes"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Недавние поиски"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkimet e fundit"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การค้นหาล่าสุด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son aramalar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нещодавні пошуки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近搜索"
+          }
+        }
+      }
+    },
+    "search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحث"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "অনুসন্ধান করুন।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maghanap"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chercher"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "खोजें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cari"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਖੋਜ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szukaj"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pesquisar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërko"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค้นหา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ara"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "搜索"
+          }
+        }
+      }
+    },
+    "search.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يعمل البحث بشكل أفضل عند إدخال أكثر من كلمة واحدة."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук працуе лепш, калі вы ўводзіце больш за адно слова."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একাধিক শব্দ প্রবেশ করালে অনুসন্ধান সেরা কাজ করে।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Suche funktioniert am besten, wenn du mehr als ein Wort eingibst."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search works best when you enter more than one word."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La búsqueda funciona mejor cuando ingresas más de una palabra."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mas maganda ang resulta ng paghahanap kapag naglagay ka ng higit sa isang salita."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La recherche fonctionne mieux lorsque vous saisissez plus d'un mot."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जब आप एक से अधिक शब्द दर्ज करते हैं तो खोज सबसे अच्छी तरह से काम करती है।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencarian berfungsi lebih baik saat Anda memasukkan lebih dari satu kata."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La ricerca funziona meglio se inserisci più di una parola."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索は、複数の単語を入力することで最適に機能します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "두 개 이상의 단어를 입력하면 검색이 더 잘 작동합니다."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਖੋਜ ਸਭ ਤੋਂ ਵਧੀਆ ਤਰ੍ਹਾਂ ਕੰਮ ਕਰਦੀ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਇੱਕ ਤੋਂ ਵੱਧ ਸ਼ਬਦ ਦਰਜ ਕਰਦੇ ਹੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyszukiwanie działa najlepiej, gdy wpiszesz więcej niż jedno słowo."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pesquisa funciona melhor quando você insere mais de uma palavra."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pesquisa funciona melhor quando insere mais do que uma palavra."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск работает лучше, когда вы вводите более одного слова."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkimi funksionon më mirë kur futni më shumë se një fjalë."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การค้นหาจะทำงานได้ดีที่สุดเมื่อคุณป้อนมากกว่าหนึ่งคำ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arama, birden fazla kelime girdiğinizde en iyi şekilde çalışır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук працює краще, коли ви вводите більше одного слова."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入多个词时，搜索效果最佳。"
+          }
+        }
+      }
+    },
+    "search.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قطط لطيفة"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мілыя кацяняты"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মিষ্টি বিড়ালছানা।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niedliche Kätzchen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cute kittens"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lindos gatitos"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mga cute na kuting"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mignons chatons"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्यारे बिल्लियाँ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anak kucing lucu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gattini carini"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "かわいい子猫"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "귀여운 고양이들"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸੁਹਣੇ ਬਿੱਲੀਆਂ ਦੇ ਬੱਚੇ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Słodkie kotki"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gatinhos fofos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gatinhos fofos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Милые котята"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mace të lezetshme"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลูกแมวน่ารัก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sevimli kedicikler"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Милі кошенята"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可爱的小猫"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
