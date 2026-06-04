@@ -40,7 +40,7 @@ enum ExploreFeedsError: LocalizedError {
         case .dataDecoding:
             return String.localized(key: LocalizableKeys.Errors.dataDecoding)
         case .cloudflareBlocked:
-            return "Request blocked by Cloudflare protection" // TODO: - localize it
+            return String.localized(key: LocalizableKeys.Errors.cloudflareBlocked)
         }
     }
 }

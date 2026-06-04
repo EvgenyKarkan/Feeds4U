@@ -32,6 +32,7 @@ enum LocalizableKeys {
 
     enum Errors {
         static let error = "error"
+        static let cloudflareBlocked = "error.cloudflareBlocked"
         static let dataDecoding = "error.dataDecoding"
         static let generic = "error.generic"
         static let invalidURL = "error.invalidURL"

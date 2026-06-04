@@ -60,6 +60,38 @@
 			<key>Title</key>
 			<string>OHHTTPStubs</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>swift-mocking</string>
+			<key>Title</key>
+			<string>swift-mocking</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>swift-locking</string>
+			<key>Title</key>
+			<string>swift-locking</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>swift-syntax</string>
+			<key>Title</key>
+			<string>swift-syntax</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>SwiftSyntaxSugar</string>
+			<key>Title</key>
+			<string>SwiftSyntaxSugar</string>
+		</dict>
 	</array>
 </dict>
 </plist>

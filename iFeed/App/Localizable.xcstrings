@@ -3718,6 +3718,149 @@
           }
         }
       }
+    },
+    "error.cloudflareBlocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم حظر الطلب بواسطة حماية Cloudflare"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запыт заблакаваны абаронай Cloudflare"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ক্লাউডফ্লেয়ার সুরক্ষা দ্বারা অনুরোধ ব্লক করা হয়েছে"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anfrage durch Cloudflare-Schutz blockiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Request blocked by Cloudflare protection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solicitud bloqueada por la protección de Cloudflare"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na-block ang request ng proteksyon ng Cloudflare"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requête bloquée par la protection Cloudflare"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "क्लाउडफ्लेयर सुरक्षा द्वारा अनुरोध अवरुद्ध"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permintaan diblokir oleh perlindungan Cloudflare"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Richiesta bloccata dalla protezione Cloudflare"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflareの保護によりリクエストがブロックされました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare 보호에 의해 요청이 차단됨"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕਲਾਉਡਫਲੇਅਰ ਸੁਰੱਖਿਆ ਦੁਆਰਾ ਬੇਨਤੀ ਨੂੰ ਰੋਕ ਦਿੱਤਾ ਗਿਆ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Żądanie zablokowane przez ochronę Cloudflare"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solicitação bloqueada pela proteção do Cloudflare"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pedido bloqueado pela proteção do Cloudflare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запрос заблокирован защитой Cloudflare"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkesa u bllokua nga mbrojtja e Cloudflare"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คำขอถูกบล็อกโดยการป้องกันของ Cloudflare"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İstek Cloudflare koruması tarafından engellendi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запит заблоковано захистом Cloudflare"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请求被 Cloudflare 保护拦截"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -85,7 +85,7 @@ https://rss.com/blog/popular-rss-feeds/
 
     ✅ https://feedsearch.dev
 
-    ❌ https://github.com/fetch-rewards/swift-mocking
+    ✅ https://github.com/fetch-rewards/swift-mocking
 
 
 5. ❌ Automate with CI/CD
