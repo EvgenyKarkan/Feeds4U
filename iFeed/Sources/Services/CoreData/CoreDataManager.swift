@@ -501,6 +501,33 @@ extension CoreDataManager: StorageProtocol {
         return try? fetchFeedItems()
     }
 
+    func loadFeedItems(withIDs objectIDs: [NSManagedObjectID]) -> [FeedItem] {
+        return objectIDs.compactMap { try? viewContext.existingObject(with: $0) as? FeedItem }
+    }
+
+    func loadFeedItemIndex() -> [(title: String, objectID: NSManagedObjectID)]? {
+        let request = NSFetchRequest<NSDictionary>(entityName: EntityNames.feedItem.rawValue)
+        request.resultType = .dictionaryResultType
+
+        let idExpression = NSExpressionDescription()
+        idExpression.name = "objectID"
+        idExpression.expression = NSExpression(format: "self")
+        idExpression.expressionResultType = .objectIDAttributeType
+
+        request.propertiesToFetch = ["title", idExpression]
+        request.includesSubentities = false
+
+        guard let results = try? viewContext.fetch(request) else { return nil }
+
+        return results.compactMap { dict in
+            guard let title = dict["title"] as? String,
+                  let objectID = dict["objectID"] as? NSManagedObjectID else {
+                return nil
+            }
+            return (title, objectID)
+        }
+    }
+
     func saveChanges() {
         try? saveViewContext()
     }

@@ -135,8 +135,23 @@ extension Coordinator: CloudflareBypassModuleOutput {
     }
 
     func cloudflareBypassDidFinish(with result: Result<ExploreFeedsDTO, any Error>) {
+        finishCloudflareBypass(with: result)
+    }
+
+    func cloudflareBypassDidCancel() {
+        finishCloudflareBypass(with: .failure(ExploreFeedsError.cloudflareBlocked))
+    }
+}
+
+// MARK: - CloudflareBypass Cleanup
+private extension Coordinator {
+
+    func finishCloudflareBypass(with result: Result<ExploreFeedsDTO, any Error>) {
         activeCloudflareBypass = nil
-        feedExplorationResultCallback?(result)
+        feedExplorationChallengeCallback = nil
+
+        let resultCallback = feedExplorationResultCallback
         feedExplorationResultCallback = nil
+        resultCallback?(result)
     }
 }

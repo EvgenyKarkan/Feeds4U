@@ -45,15 +45,15 @@ The project underwent a significant architectural overhaul. Here is what was add
 
 #### ✅ 1.1 Clean VIPER Implementation (Strength)
 
-Both Feeds and FeedItems modules follow VIPER with well-defined protocol boundaries. 
-The Builder pattern cleanly assembles modules, the Coordinator owns navigation, and the ModuleFactory abstracts module creation. 
+Both Feeds and FeedItems modules follow VIPER with well-defined protocol boundaries.
+The Builder pattern cleanly assembles modules, the Coordinator owns navigation, and the ModuleFactory abstracts module creation.
 This is a major improvement.
 
 #### ✅ 1.2 Brain Singleton is Dead Code
 
-`Brain.swift` still exists and creates a `Parser` and `NewCoreDataManager.shared`, but nothing in the VIPER modules references it. 
-The only live code path goes through `DIContainer`. 
-Brain should be deleted to avoid confusion. 
+`Brain.swift` still exists and creates a `Parser` and `NewCoreDataManager.shared`, but nothing in the VIPER modules references it.
+The only live code path goes through `DIContainer`.
+Brain should be deleted to avoid confusion.
 If it is referenced from legacy code paths (e.g., `BaseListViewController.startParsingURL` at line 46 which uses `Brain.brain.parser`), those paths should be audited.
 
 **File:** `Sources/Services/Brain.swift`
@@ -61,8 +61,8 @@ If it is referenced from legacy code paths (e.g., `BaseListViewController.startP
 
 #### ✅ 1.3 BaseListViewController Still Has Legacy Parsing
 
-`BaseListViewController.swift:40-48` contains `startParsingURL` which uses `Brain.brain.parser` directly, bypassing the DI system. 
-It also conforms to `ParserDelegateProtocol` with `hideSpinner()` and `showInvalidFeedAlert()`. 
+`BaseListViewController.swift:40-48` contains `startParsingURL` which uses `Brain.brain.parser` directly, bypassing the DI system.
+It also conforms to `ParserDelegateProtocol` with `hideSpinner()` and `showInvalidFeedAlert()`.
 Since the VIPER modules handle parsing through their interactors, this base class parsing logic is now dead code that could confuse future readers.
 
 **File:** `Sources/UI/Base/BaseListViewController.swift:40-48`
@@ -70,8 +70,8 @@ Since the VIPER modules handle parsing through their interactors, this base clas
 
 #### ✅ 1.4 CoreDataManager (Legacy) is Still in the Project
 
-`CoreDataManager.swift` (242 lines) is the old Core Data stack. 
-The app uses `NewCoreDataManager.shared` everywhere via DI. 
+`CoreDataManager.swift` (242 lines) is the old Core Data stack.
+The app uses `NewCoreDataManager.shared` everywhere via DI.
 The old manager has known issues:
 - `#if __DEBUG__` (wrong flag, never triggers)
 - `abort()` calls
@@ -85,8 +85,8 @@ The old manager has known issues:
 
 #### 1.5 FeedsViewDelegate Protocol is Too Fat
 
-`FeedsViewDelegate` (the View -> Presenter protocol) contains `getAllFeeds()` and `feedForIndexPath()` which are synchronous data-fetch methods. 
-This means the View pulls data from the Presenter on demand (via `FeedsViewController:260-266`), breaking the unidirectional data flow that VIPER is designed for. 
+`FeedsViewDelegate` (the View -> Presenter protocol) contains `getAllFeeds()` and `feedForIndexPath()` which are synchronous data-fetch methods.
+This means the View pulls data from the Presenter on demand (via `FeedsViewController:260-266`), breaking the unidirectional data flow that VIPER is designed for.
 The Presenter should push data to the View through ViewState, not expose getters.
 
 **File:** `Sources/Modules/Feeds/Protocols/FeedsProtocols.swift:96-97`
@@ -97,8 +97,8 @@ The Presenter should push data to the View through ViewState, not expose getters
 
 #### 2.1 nonisolated(unsafe) Usage
 
-`FeedsPresenter.swift` uses `nonisolated(unsafe)` in three places (lines 80, 123, 138-139) to capture `self` or values across `DispatchQueue.main.async` boundaries. 
-This silences the Swift 6 concurrency checker but does not actually make the code safe. 
+`FeedsPresenter.swift` uses `nonisolated(unsafe)` in three places (lines 80, 123, 138-139) to capture `self` or values across `DispatchQueue.main.async` boundaries.
+This silences the Swift 6 concurrency checker but does not actually make the code safe.
 The pattern is:
 
 ```swift
@@ -115,8 +115,8 @@ The real fix is to either mark the presenter as `@MainActor` (since all its outp
 
 #### 2.2 Parser Creates Core Data Objects on Main Thread
 
-`Parser.swift:68` dispatches to `DispatchQueue.main.async` after parsing, then calls `finishParsing` which creates Core Data entities (Feed, FeedItem) via `storage.makeFeed()` / `storage.makeFeedItem()`. 
-Since `NewCoreDataManager` uses `viewContext` for entity creation, this is technically correct (main thread + main queue context). 
+`Parser.swift:68` dispatches to `DispatchQueue.main.async` after parsing, then calls `finishParsing` which creates Core Data entities (Feed, FeedItem) via `storage.makeFeed()` / `storage.makeFeedItem()`.
+Since `NewCoreDataManager` uses `viewContext` for entity creation, this is technically correct (main thread + main queue context).
 However, creating potentially hundreds of FeedItem objects on the main thread blocks the UI.
 
 **File:** `Sources/Services/Parser/Parser.swift:68-78, 89-111`
@@ -124,10 +124,10 @@ However, creating potentially hundreds of FeedItem objects on the main thread bl
 
 #### ⚠️ 2.3 Search Engine Fills on Arbitrary Queue
 
-`Search.fillMatchingEngine` loads all feed items from Core Data (`storage.loadFeedItems()`) and then indexes them. 
-The `MatchingEngine.fillMatchingEngine` callback fires on an arbitrary queue. 
-The caller (`FeedsPresenter.onViewDidPressSearch`) dispatches back to main. 
-The Core Data fetch itself happens on whatever thread calls `fillMatchingEngine`, which is the main thread (called from presenter). 
+`Search.fillMatchingEngine` loads all feed items from Core Data (`storage.loadFeedItems()`) and then indexes them.
+The `MatchingEngine.fillMatchingEngine` callback fires on an arbitrary queue.
+The caller (`FeedsPresenter.onViewDidPressSearch`) dispatches back to main.
+The Core Data fetch itself happens on whatever thread calls `fillMatchingEngine`, which is the main thread (called from presenter).
 This is safe but could be slow with many items.
 
 **File:** `Sources/Services/Search/Search.swift:68-93`
@@ -144,9 +144,9 @@ This is safe but could be slow with many items.
 
 #### ✅ 3.1 ParsingCompletion Retained Across Calls
 
-Both `FeedsInteractor.parsingCompletion` and `FeedItemsInteractor.parsingCompletion` store a closure that captures `[weak self]` from the presenter. 
-These are never explicitly niled out after being called. 
-If parsing completes and the closure fires, it executes but the reference persists until the next parse or until the interactor is deallocated. 
+Both `FeedsInteractor.parsingCompletion` and `FeedItemsInteractor.parsingCompletion` store a closure that captures `[weak self]` from the presenter.
+These are never explicitly niled out after being called.
+If parsing completes and the closure fires, it executes but the reference persists until the next parse or until the interactor is deallocated.
 This means the closure (and anything it captures) stays in memory longer than necessary.
 
 **File:** `Sources/Modules/Feeds/Interactor/FeedsInteractor.swift:19`
@@ -163,16 +163,16 @@ safariVC.preferredTransition = .zoom(options: zoomOptions) { _ in
 }
 ```
 
-This closure is retained by the SFSafariViewController for the lifetime of its presentation. 
-The cell is a UITableViewCell which holds a reference to its parent table view. If the user stays on the Safari screen for a long time, the cell cannot be recycled. 
+This closure is retained by the SFSafariViewController for the lifetime of its presentation.
+The cell is a UITableViewCell which holds a reference to its parent table view. If the user stays on the Safari screen for a long time, the cell cannot be recycled.
 This is generally fine for a single cell but worth noting.
 
 **File:** `Sources/Modules/FeedItems/InputOutput/FeedItemsWireframe.swift:91-93`
 
 #### 3.3 ExploreFeedsService Session Lifecycle
 
-`ExploreFeedsService` creates a lazy `URLSession` and invalidates it in `deinit`. 
-Since the service is created through `DIContainer.shared`, it lives for the container's lifetime (effectively the app lifetime). 
+`ExploreFeedsService` creates a lazy `URLSession` and invalidates it in `deinit`.
+Since the service is created through `DIContainer.shared`, it lives for the container's lifetime (effectively the app lifetime).
 This is fine, but if the container is ever recreated (e.g., in tests), the session invalidation in deinit correctly cleans up.
 
 ---
@@ -181,24 +181,24 @@ This is fine, but if the container is ever recreated (e.g., in tests), the sessi
 
 #### 4.1 loadFeeds() Called Multiple Times Per View Cycle
 
-`FeedsPresenter.onViewWillAppear` calls `interactor.getAllFeeds()` and `interactor.unreadCountsByFeed()` on every `viewWillAppear`. 
-Each of these hits Core Data (fetch + group-by aggregate query). 
-For the Feeds screen that appears frequently during navigation, this means two Core Data fetches per appearance. 
+`FeedsPresenter.onViewWillAppear` calls `interactor.getAllFeeds()` and `interactor.unreadCountsByFeed()` on every `viewWillAppear`.
+Each of these hits Core Data (fetch + group-by aggregate query).
+For the Feeds screen that appears frequently during navigation, this means two Core Data fetches per appearance.
 Consider caching the result in the ViewState and only refreshing when data changes.
 
 **File:** `Sources/Modules/Feeds/Presenter/FeedsPresenter.swift:41-47`
 
 #### 4.2 FeedItemsView.hideRefreshControl() Uses removeFromSuperview
 
-The current code at line 48 still uses `refreshControl.removeFromSuperview()`. 
+The current code at line 48 still uses `refreshControl.removeFromSuperview()`.
 As discussed earlier, this should be `tableView.refreshControl = nil` to avoid corrupting the refresh control's state.
 
 **File:** `Sources/Modules/FeedItems/View/FeedItemsView.swift:47-49`
 
 #### ✅ 4.3 NSDataDetector Created Per Validation Call
 
-`String.isValidURL` creates a new `NSDataDetector` on every call. `NSDataDetector` compilation is expensive. 
-If URL validation is called frequently (e.g., during text field editing), this could cause micro-stutters. 
+`String.isValidURL` creates a new `NSDataDetector` on every call. `NSDataDetector` compilation is expensive.
+If URL validation is called frequently (e.g., during text field editing), this could cause micro-stutters.
 Consider caching the detector as a static property.
 
 **File:** `Sources/Extensions/String+Ext.swift:60-76`
@@ -213,7 +213,7 @@ Consider caching the detector as a static property.
 - Line 17: `#warning("ADD ERROR ARGUMENT HERE")` in `ParserDelegateProtocol`
 - Line 73: `#warning("HANDLE ERROR ON UI")`
 
-These generate compiler warnings on every build. 
+These generate compiler warnings on every build.
 Either address the underlying issue or remove the directives with a TODO comment.
 
 **File:** `Sources/Services/Parser/Parser.swift:17, 73`
@@ -230,8 +230,8 @@ Debug print statements remain in:
 
 #### 5.3 NSError with #function/#line as Domain/Code
 
-Both interactors create errors as `NSError(domain: #function, code: #line)`. 
-This produces meaningless error information at runtime (the function name as a domain, the source line as a code). 
+Both interactors create errors as `NSError(domain: #function, code: #line)`.
+This produces meaningless error information at runtime (the function name as a domain, the source line as a code).
 These should be proper typed errors.
 
 **File:** `Sources/Modules/Feeds/Interactor/FeedsInteractor.swift:100`
@@ -248,7 +248,7 @@ These should be proper typed errors.
 
 #### ✅ 5.5 Typo: "searhTitle"
 
-`FeedItemsViewState.swift:18` has property `searhTitle` (missing 'c'). 
+`FeedItemsViewState.swift:18` has property `searhTitle` (missing 'c').
 This propagates to `FeedItemsViewController.swift:80` and `FeedItemsPresenter.swift:37`.
 
 **File:** `Sources/Modules/FeedItems/Presenter/FeedItemsViewState.swift:18`
@@ -259,9 +259,9 @@ This propagates to `FeedItemsViewController.swift:80` and `FeedItemsPresenter.sw
 
 #### 6.1 Pasteboard Auto-Fill and Clear
 
-`BaseListViewController+Alert.swift:160-167` reads `UIPasteboard.general.url` and auto-fills it into the feed URL text field, then clears the pasteboard. 
-This is user-friendly but means the app reads and deletes clipboard content without explicit user consent. 
-On iOS 16+ the system shows a paste permission prompt, which is fine. 
+`BaseListViewController+Alert.swift:160-167` reads `UIPasteboard.general.url` and auto-fills it into the feed URL text field, then clears the pasteboard.
+This is user-friendly but means the app reads and deletes clipboard content without explicit user consent.
+On iOS 16+ the system shows a paste permission prompt, which is fine.
 The clearing behavior is aggressive -- it deletes both `.url` and `.string` from the pasteboard even if the user had other content there.
 
 **File:** `Sources/UI/Base/BaseListViewController+Alert.swift:160-167`
@@ -269,14 +269,14 @@ The clearing behavior is aggressive -- it deletes both `.url` and `.string` from
 
 #### 6.2 No HTTPS Enforcement for Feed URLs
 
-Users can enter any URL including `http://` feeds. 
-The app does not enforce HTTPS. While ATS (App Transport Security) provides some protection, RSS feeds often use HTTP and ATS exceptions may be configured. 
+Users can enter any URL including `http://` feeds.
+The app does not enforce HTTPS. While ATS (App Transport Security) provides some protection, RSS feeds often use HTTP and ATS exceptions may be configured.
 Feed content is displayed as text in cells (not in web views), so XSS risk is minimal.
 
 #### 6.3 Deep Link URL Handling
 
-`SceneDelegate.openURL` extracts the resource specifier from the URL and passes it to `showEnterFeedAlertView`. 
-There is no validation of the URL scheme or sanitization of the specifier before it is displayed in the alert text field and potentially parsed as a feed URL. 
+`SceneDelegate.openURL` extracts the resource specifier from the URL and passes it to `showEnterFeedAlertView`.
+There is no validation of the URL scheme or sanitization of the specifier before it is displayed in the alert text field and potentially parsed as a feed URL.
 A malicious deep link could pre-fill an arbitrary string.
 
 **File:** `App/SceneDelegate.swift:79-91`
@@ -304,9 +304,9 @@ Missing test coverage for:
 
 #### 7.2 Testability of Current Architecture
 
-The VIPER architecture with protocol-based DI makes the codebase highly testable. 
-Every interactor, presenter, and wireframe can be tested with mock protocol conformances. 
-This is a significant improvement over the previous MVC architecture. 
+The VIPER architecture with protocol-based DI makes the codebase highly testable.
+Every interactor, presenter, and wireframe can be tested with mock protocol conformances.
+This is a significant improvement over the previous MVC architecture.
 The infrastructure is there -- the tests just need to be written.
 
 ---
@@ -315,15 +315,15 @@ The infrastructure is there -- the tests just need to be written.
 
 #### ✅ 8.1 Dual Core Data Manager Confusion
 
-Having both `CoreDataManager.swift` and `NewCoreDataManager.swift` in the project creates confusion about which one is active. 
-The DIContainer wires `NewCoreDataManager.shared`, but `Brain.swift` also creates one. 
+Having both `CoreDataManager.swift` and `NewCoreDataManager.swift` in the project creates confusion about which one is active.
+The DIContainer wires `NewCoreDataManager.shared`, but `Brain.swift` also creates one.
 Remove the legacy manager to eliminate ambiguity.
 
 #### ✅ 8.2 StorageProtocol Returns Optionals and NSManagedObject
 
-`StorageProtocol.makeFeed()` returns `NSManagedObject?`, requiring callers to cast to `Feed`. 
-The modern `NewCoreDataManager.createFeed()` returns `Feed` directly and throws on failure. 
-The protocol forces the weaker API surface. 
+`StorageProtocol.makeFeed()` returns `NSManagedObject?`, requiring callers to cast to `Feed`.
+The modern `NewCoreDataManager.createFeed()` returns `Feed` directly and throws on failure.
+The protocol forces the weaker API surface.
 Consider updating the protocol to use generics or concrete types.
 
 **File:** `Sources/Services/CoreData/StorageProtocol.swift:18-23`
@@ -334,8 +334,8 @@ Consider updating the protocol to use generics or concrete types.
 
 #### 9.1 No async/await in VIPER Modules
 
-All interactor methods use completion handlers. 
-The `ExploreFeedsService` already has an `async` variant but it is not used. 
+All interactor methods use completion handlers.
+The `ExploreFeedsService` already has an `async` variant but it is not used.
 Migrating interactor protocols to `async throws` would simplify the presenters significantly and eliminate the `nonisolated(unsafe)` workarounds.
 
 #### 9.2 Parser async/await Migration
@@ -409,7 +409,7 @@ Benefits:
 
 #### 9.3 @MainActor Not Used
 
-None of the view controllers or presenters are annotated with `@MainActor`. 
+None of the view controllers or presenters are annotated with `@MainActor`.
 Since all UI updates must happen on the main thread, marking the View protocol and Presenter as `@MainActor` would let the compiler enforce thread safety rather than relying on `DispatchQueue.main.async` calls.
 
 ---
@@ -454,8 +454,8 @@ Benefits:
 
 #### 11.1 Unified FeedError Enum (Previously Suggested)
 
-The previous review recommended a unified error type. 
-Currently errors are scattered: `NSError(domain: #function, code: #line)` in interactors, `ExploreFeedsError` in the explore service, and raw `Error` from FeedKit. 
+The previous review recommended a unified error type.
+Currently errors are scattered: `NSError(domain: #function, code: #line)` in interactors, `ExploreFeedsError` in the explore service, and raw `Error` from FeedKit.
 A single `FeedError` enum would unify error handling across the app:
 
 ```swift
@@ -488,22 +488,22 @@ This replaces the `NSError` anti-pattern (5.3) and gives the presenter meaningfu
 
 #### ✅ 12.1 Hardcoded Strings (Previously Suggested)
 
-`BaseListViewController.swift:20` hardcodes `"Feeds4U"` as the navigation title. 
+`BaseListViewController.swift:20` hardcodes `"Feeds4U"` as the navigation title.
 All user-facing strings should be centralized -- either in a constants enum or in a Localizable strings file for future localization support.
 
 **File:** `Sources/UI/Base/BaseListViewController.swift:20`
 
 #### 12.2 Empty State Views (Previously Suggested)
 
-`BaseListView` has a basic `emptyLabel` but no proper empty state design. 
-The previous review recommended rich empty states with icons and call-to-action buttons (e.g., "No feeds yet -- tap + to add your first feed"). 
+`BaseListView` has a basic `emptyLabel` but no proper empty state design.
+The previous review recommended rich empty states with icons and call-to-action buttons (e.g., "No feeds yet -- tap + to add your first feed").
 This improves first-launch experience significantly.
 
 **File:** `Sources/UI/Base/BaseListView.swift`
 
 #### 12.3 Haptic Feedback on Pull-to-Refresh (Previously Suggested)
 
-The previous review recommended adding `UIImpactFeedbackGenerator` when pull-to-refresh triggers. 
+The previous review recommended adding `UIImpactFeedbackGenerator` when pull-to-refresh triggers.
 A light impact at the start of refresh provides tactile confirmation:
 
 ```swift
@@ -525,8 +525,8 @@ The previous review's roadmap included an accessibility pass (Phase 5). Current 
 
 #### 13.1 NSFetchedResultsController for Reactive Feed List (Previously Suggested)
 
-`FeedsPresenter.onViewWillAppear` manually fetches all feeds on every appearance. 
-The previous review recommended `NSFetchedResultsController` to observe Core Data changes and update the table view reactively. 
+`FeedsPresenter.onViewWillAppear` manually fetches all feeds on every appearance.
+The previous review recommended `NSFetchedResultsController` to observe Core Data changes and update the table view reactively.
 This eliminates redundant fetches (see 4.1) and provides automatic animations for insertions/deletions:
 
 ```swift

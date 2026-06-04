@@ -45,7 +45,7 @@ https://rss.com/blog/popular-rss-feeds/
             run_swiftlint() {
                 local fullFileName="${1}"             # /.../.../SomeClass.swift
                 local fileName="${fullFileName##*/}"  # SomeClass.swift
-                
+
                 if [[ "${fileName##*.}" == "swift" ]]; then
                     echo "✅ Linting ${fileName}"
                     ${SWIFT_LINT} lint "${fullFileName}"
@@ -59,7 +59,7 @@ https://rss.com/blog/popular-rss-feeds/
                 # Run for both staged and unstaged files
                 git diff --name-only | while read -r fileName; do run_swiftlint "${fileName}"; done
                 git diff --cached --name-only | while read -r fileName; do run_swiftlint "${fileName}"; done
-                
+
             else
                 echo "❌ ${SWIFT_LINT} is not installed."
                 exit 0
@@ -76,22 +76,22 @@ https://rss.com/blog/popular-rss-feeds/
     ✅ Settings Bundle
     ✅ https://github.com/nmdias/FeedKit/blob/master/LICENSE
     ✅ https://github.com/JuliusBahr/SimpleSimilarity/blob/master/LICENSE
-    
+
     ✅ https://github.com/krimpedance/KRProgressHUD/blob/master/LICENSE
     ✅ https://github.com/krimpedance/KRActivityIndicatorView/blob/master/LICENSE
-    
+
     ✅ https://github.com/DBeath/feedsearch/blob/master/LICENSE
     ✅ https://github.com/DBeath/feedsearch-crawler/blob/master/LICENSE
-    
+
     ✅ https://feedsearch.dev
-    
+
     ❌ https://github.com/fetch-rewards/swift-mocking
 
 
 5. ❌ Automate with CI/CD
 
     BITRISE
-    - https://devcenter.bitrise.io/en/getting-started.html 
+    - https://devcenter.bitrise.io/en/getting-started.html
     - https://medium.com/@ajayrbhanushali/bitrise-ci-cd-for-ios-apps-8b2c44c4a555
     - https://www.runway.team/blog/how-to-set-up-a-ci-cd-pipeline-ios-app-using-bitrise
     - https://codewithchris.com/bitrise-ios/
@@ -114,7 +114,7 @@ https://rss.com/blog/popular-rss-feeds/
     /// https://gitdiagram.com
 
 
-6. Folders 
+6. Folders
     - chevron on right
     - test long folder name
 

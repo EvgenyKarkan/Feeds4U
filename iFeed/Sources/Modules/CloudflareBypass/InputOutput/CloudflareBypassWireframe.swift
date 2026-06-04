@@ -14,6 +14,7 @@ final class CloudflareBypassWireframe {
     weak var presentingController: UIViewController?
     weak var presenter: (any CloudflareBypassViewDelegate)?
     private var challengeNavController: UINavigationController?
+    private weak var challengeViewController: CloudflareBypassViewController?
 }
 
 // MARK: - CloudflareBypassWireframeProtocol
@@ -28,6 +29,7 @@ extension CloudflareBypassWireframe: CloudflareBypassWireframeProtocol {
         challengeVC.presenter = presenter
         challengeVC.loadViewIfNeeded()
         challengeVC.configureWithWebView(webView)
+        challengeViewController = challengeVC
 
         let nav = UINavigationController(rootViewController: challengeVC)
         nav.modalPresentationStyle = .fullScreen
@@ -38,11 +40,14 @@ extension CloudflareBypassWireframe: CloudflareBypassWireframeProtocol {
 
     func dismissChallenge(completion: (() -> Void)?) {
         if let nav = challengeNavController {
+            challengeViewController?.markDismissalAsHandled()
+            challengeViewController = nil
             challengeNavController = nil
             nav.dismiss(animated: true) {
                 completion?()
             }
         } else {
+            challengeViewController = nil
             completion?()
         }
     }

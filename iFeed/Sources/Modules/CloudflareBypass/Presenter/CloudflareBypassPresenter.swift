@@ -50,6 +50,7 @@ extension CloudflareBypassPresenter: CloudflareBypassViewDelegate {
 
     func onViewDidPressDone() {
         interactor.cancelSearch()
+        moduleOutput?.cloudflareBypassDidCancel()
     }
 }
 

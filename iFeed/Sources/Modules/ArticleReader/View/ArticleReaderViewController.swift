@@ -50,6 +50,12 @@ final class ArticleReaderViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if isMovingFromParent || isBeingDismissed {
+            webView.stopLoading()
+            webView.navigationDelegate = nil
+            webView.scrollView.delegate = nil
+        }
     }
 }
 

@@ -305,6 +305,45 @@ struct CoreDataManagerTests {
         #expect(items?.count == 2)
     }
 
+    @Test("loadFeedItems(withIDs:) returns specific items")
+    func loadFeedItemsByID() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        let item1 = try Self.populateFeedItem(in: manager, feed: feed, title: "Target 1")
+        let item2 = try Self.populateFeedItem(in: manager, feed: feed, title: "Target 2", link: "https://example.com/2")
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Ignore", link: "https://example.com/3")
+
+        let targetIDs = [item1.objectID, item2.objectID]
+
+        // When
+        let items = manager.loadFeedItems(withIDs: targetIDs)
+
+        // Then
+        #expect(items.count == 2)
+        #expect(items.contains { $0.title == "Target 1" })
+        #expect(items.contains { $0.title == "Target 2" })
+    }
+
+    @Test("loadFeedItemIndex returns titles and object IDs")
+    func loadFeedItemIndex() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        let item1 = try Self.populateFeedItem(in: manager, feed: feed, title: "Item A")
+        let item2 = try Self.populateFeedItem(in: manager, feed: feed, title: "Item B", link: "https://example.com/2")
+
+        // When
+        let index = manager.loadFeedItemIndex()
+
+        // Then
+        #expect(index?.count == 2)
+        #expect(index?.contains { $0.title == "Item A" && $0.objectID == item1.objectID } == true)
+        #expect(index?.contains { $0.title == "Item B" && $0.objectID == item2.objectID } == true)
+    }
+
     @Test("containsFeed detects existing feed by RSS URL")
     func containsFeed() throws {
         // Given

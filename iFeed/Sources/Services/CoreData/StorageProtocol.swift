@@ -29,6 +29,9 @@ protocol StorageProtocol {
     /// - Returns: Saved feed items, or `nil` when storage cannot fetch them.
     func loadFeedItems() -> [FeedItem]?
 
+    /// Loads specific feed items by their object IDs.
+    func loadFeedItems(withIDs objectIDs: [NSManagedObjectID]) -> [FeedItem]
+
     /// Returns the feed displayed at a table index path.
     ///
     /// - Parameter indexPath: Index path from a feed list table view.
@@ -46,6 +49,10 @@ protocol StorageProtocol {
 
     /// Returns unread item counts grouped by feed object ID.
     func unreadCountsByFeed() -> [NSManagedObjectID: Int]
+
+    /// Loads only titles and object IDs for all feed items.
+    /// Used for memory-efficient search indexing.
+    func loadFeedItemIndex() -> [(title: String, objectID: NSManagedObjectID)]?
 
     /// Returns all saved RSS URLs.
     func savedFeedURLs() -> Set<String>

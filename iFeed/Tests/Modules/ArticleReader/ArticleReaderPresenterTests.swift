@@ -62,7 +62,7 @@ struct ArticleReaderPresenterTests {
 
         // Then
         let viewState = view._configureInitialState.lastInvocation
-        let expectedHTML = ReaderHTMLTemplate.wrapInReaderTemplate(testHTML, isDarkMode: false)
+        let expectedHTML = ReaderHTMLTemplate.wrapInReaderTemplate(testHTML, title: testTitle, isDarkMode: false)
         #expect(viewState?.fullHTML == expectedHTML)
     }
 

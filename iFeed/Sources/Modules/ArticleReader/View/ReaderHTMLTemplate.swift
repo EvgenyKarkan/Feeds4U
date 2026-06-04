@@ -61,6 +61,8 @@ enum ReaderHTMLTemplate {
         line-height: 1.75;
         margin: 0 0 1.1em;
         letter-spacing: -0.003em;
+        hyphens: auto;
+        -webkit-hyphens: auto;
     }
     a {
         color: var(--accent);
@@ -88,6 +90,14 @@ enum ReaderHTMLTemplate {
         border-radius: 12px;
         margin: 16px 0;
         display: block;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: opacity 0.3s ease, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    html[data-theme="dark"] img {
+        opacity: 0.85;
+    }
+    html[data-theme="dark"] img:active {
+        opacity: 1.0;
     }
     iframe {
         max-width: 100%;
@@ -127,10 +137,12 @@ enum ReaderHTMLTemplate {
     }
     pre code { padding: 0; background: none; border-radius: 0; font-size: 1em; }
     blockquote {
-        border-left: 3px solid var(--accent);
-        margin: 1.2em 0;
-        padding: 0 0 0 16px;
-        color: var(--secondary-label);
+        border-left: 4px solid var(--accent);
+        background-color: var(--secondary-bg);
+        margin: 1.5em 0;
+        padding: 16px 20px;
+        border-radius: 0 12px 12px 0;
+        color: var(--label);
         font-style: italic;
     }
     blockquote p:last-child { margin-bottom: 0; }
@@ -149,6 +161,9 @@ enum ReaderHTMLTemplate {
         margin: 16px 0;
         border-radius: 10px;
     }
+    tr:nth-child(even) {
+        background-color: var(--secondary-fill);
+    }
     td, th {
         border: 0.5px solid var(--opaque-separator);
         padding: 10px 12px;
@@ -156,8 +171,8 @@ enum ReaderHTMLTemplate {
         line-height: 1.5;
     }
     th { font-weight: 600; background: var(--grouped-bg); }
-    ul, ol { padding-left: 1.5em; margin: 0 0 1em; }
-    li { margin-bottom: 0.35em; line-height: 1.65; }
+    ul, ol { padding-left: 1.2em; margin: 0 0 1.2em; }
+    li { margin-bottom: 0.5em; padding-left: 4px; line-height: 1.65; }
     li > ul, li > ol { margin-top: 0.35em; margin-bottom: 0; }
     ::selection { background: rgba(0, 122, 255, 0.2); }
     ::-webkit-scrollbar { display: none; }
@@ -192,18 +207,64 @@ enum ReaderHTMLTemplate {
     """
     // swiftlint:enable line_length
 
-    static func wrapInReaderTemplate(_ body: String, isDarkMode: Bool) -> String {
+    static let syntaxHighlightingCSS = """
+    /* Syntax Highlighting */
+    pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 0;
+        background: transparent;
+    }
+
+    /* Light Mode Palette */
+    .hljs-keyword, .hljs-selector-tag, .hljs-type { color: #AD3DA4; }
+    .hljs-string, .hljs-title, .hljs-section, .hljs-attribute { color: #D12F1B; }
+    .hljs-comment, .hljs-quote { color: #707F8C; font-style: italic; }
+    .hljs-number, .hljs-literal, .hljs-variable, .hljs-template-variable, .hljs-tag .hljs-attr { color: #272AD8; }
+    .hljs-subst { color: var(--label); }
+
+    /* Dark Mode Palette - Integrated with custom toggle */
+    html[data-theme="dark"] .hljs-keyword,
+    html[data-theme="dark"] .hljs-selector-tag,
+    html[data-theme="dark"] .hljs-type { color: #FC5FA3; }
+
+    html[data-theme="dark"] .hljs-string,
+    html[data-theme="dark"] .hljs-title,
+    html[data-theme="dark"] .hljs-section,
+    html[data-theme="dark"] .hljs-attribute { color: #FF8170; }
+
+    html[data-theme="dark"] .hljs-comment,
+    html[data-theme="dark"] .hljs-quote { color: #7F8C98; }
+
+    html[data-theme="dark"] .hljs-number,
+    html[data-theme="dark"] .hljs-literal,
+    html[data-theme="dark"] .hljs-variable,
+    html[data-theme="dark"] .hljs-template-variable,
+    html[data-theme="dark"] .hljs-tag .hljs-attr { color: #D9C97C; }
+    """
+
+    static func wrapInReaderTemplate(_ body: String, title: String, isDarkMode: Bool) -> String {
         """
         <!DOCTYPE html>
         <html lang="en" data-theme="\(isDarkMode ? "dark" : "light")">
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/swift.min.js"></script>
             <style>
               \(readerCSS)
+              \(syntaxHighlightingCSS)
             </style>
+            <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    hljs.configure({ languages: ['swift', 'kotlin', 'objectivec', 'json'] });
+                    hljs.highlightAll();
+                });
+            </script>
           </head>
           <body>
+            <h1>\(title)</h1>
             \(body)
           </body>
         </html>

@@ -9,6 +9,7 @@
 import UIKit
 import Dispatch
 
+@MainActor
 final class FeedsPresenter {
     // MARK: - Properties
     private let wireframe: any FeedsWireframeProtocol
@@ -135,18 +136,14 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         refreshSearchButtonMenu()
 
         interactor.fillSearchMatchingEngine { [weak self] in
-            nonisolated(unsafe) let presenter = self
-
-            presenter?.interactor.performSearch(by: searchTerm) { feedItems in
-                nonisolated(unsafe) let feedItems = feedItems
-
-                Task { @MainActor in
-                    presenter?.view?.hideActivityIndicator {
+            self?.interactor.performSearch(by: searchTerm) { [weak self] feedItems in
+                Task { @MainActor [weak self] in
+                    self?.view?.hideActivityIndicator { [weak self] in
                         guard let results = feedItems, !results.isEmpty else {
-                            presenter?.view?.showNoSearchResultsAlert()
+                            self?.view?.showNoSearchResultsAlert()
                             return
                         }
-                        presenter?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
+                        self?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
                     }
                 }
             }

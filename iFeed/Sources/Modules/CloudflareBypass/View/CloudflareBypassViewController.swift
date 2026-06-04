@@ -12,6 +12,7 @@ import WebKit
 final class CloudflareBypassViewController: UIViewController {
     // MARK: - Properties
     weak var presenter: (any CloudflareBypassViewDelegate)?
+    private var didRequestCancel = false
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -26,9 +27,28 @@ final class CloudflareBypassViewController: UIViewController {
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        // If the challenge screen is dismissed outside the Done button path,
+        // cancel the active bypass flow so its retained WKWebView is released.
+        let wasDismissed = isBeingDismissed || navigationController?.isBeingDismissed == true
+        guard wasDismissed, !didRequestCancel else {
+            return
+        }
+
+        didRequestCancel = true
+        presenter?.onViewDidPressDone()
+    }
+
     // MARK: - Action
     @objc private func donePressed() {
+        didRequestCancel = true
         presenter?.onViewDidPressDone()
+    }
+
+    func markDismissalAsHandled() {
+        didRequestCancel = true
     }
 }
 

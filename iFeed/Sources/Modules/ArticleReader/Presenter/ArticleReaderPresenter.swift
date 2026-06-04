@@ -30,6 +30,7 @@ extension ArticleReaderPresenter: ArticleReaderViewDelegate {
     func onViewDidLoad() {
         let fullHTML = ReaderHTMLTemplate.wrapInReaderTemplate(
             interactor.htmlContent,
+            title: interactor.articleTitle,
             isDarkMode: interactor.isDarkMode
         )
 

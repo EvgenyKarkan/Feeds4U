@@ -31,11 +31,15 @@ final class FeedFolderManager {
     private static let storageKey = "feed_folders_v1"
     private let defaults: UserDefaults
     private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
 
     // MARK: - Init
-    init(defaults: UserDefaults = .standard, encoder: JSONEncoder = JSONEncoder()) {
+    init(defaults: UserDefaults = .standard,
+         encoder: JSONEncoder = JSONEncoder(),
+         decoder: JSONDecoder = JSONDecoder()) {
         self.defaults = defaults
         self.encoder = encoder
+        self.decoder = decoder
     }
 }
 
@@ -48,7 +52,7 @@ extension FeedFolderManager: FeedFolderManaging {
         guard let data = defaults.data(forKey: Self.storageKey) else {
             return []
         }
-        return (try? JSONDecoder().decode([FeedFolder].self, from: data)) ?? []
+        return (try? decoder.decode([FeedFolder].self, from: data)) ?? []
     }
 
     // MARK: - Write

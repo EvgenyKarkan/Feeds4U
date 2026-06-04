@@ -47,4 +47,5 @@ protocol CloudflareBypassModuleInput: AnyObject {
 protocol CloudflareBypassModuleOutput: AnyObject {
     func cloudflareBypassDidPresentChallenge()
     func cloudflareBypassDidFinish(with result: Result<ExploreFeedsDTO, any Error>)
+    func cloudflareBypassDidCancel()
 }

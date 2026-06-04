@@ -51,9 +51,14 @@ extension Search: Searchable {
     /// This method fetches all feed items from Core Data and indexes their titles
     /// in the matching engine for subsequent search operations.
     ///
+    /// **Memory Efficiency Strategy:**
+    /// Instead of fetching and materializing thousands of `FeedItem` managed objects,
+    /// we use `loadFeedItemIndex()` to fetch only the `title` and `objectID` for each item.
+    /// This significantly reduces memory pressure during the indexing phase.
+    ///
     /// **Process:**
-    /// 1. Fetches all feed items from Core Data
-    /// 2. Converts feed items to `TextualData` objects
+    /// 1. Fetches only titles and objectIDs for all feed items from Core Data
+    /// 2. Converts index data to lightweight `TextualData` objects pointing to `NSManagedObjectID`
     /// 3. Indexes the data in the matching engine
     /// 4. Calls completion when indexing is complete
     ///
@@ -66,20 +71,19 @@ extension Search: Searchable {
     /// - Important: This method must complete successfully before calling `search(for:resultsFound:)`.
     ///              If no feed items exist, completion is called immediately.
     mutating func fillMatchingEngine(completion: @escaping () -> Void) {
-        // Fetch all feed items from Core Data
-        guard let allFeedItems = storage.loadFeedItems(), !allFeedItems.isEmpty else {
+        // Fetch only titles and objectIDs for memory-efficient indexing
+        guard let itemIndex = storage.loadFeedItemIndex(), !itemIndex.isEmpty else {
             completion()
             return
         }
 
-        // Convert feed items to TextualData objects for indexing
-        // Using compactMap with explicit type would be more robust, but map is fine here
-        // since we're creating TextualData for every item
-        let textualData = allFeedItems.map { feedItem -> TextualData in
+        // Convert index data to TextualData objects for indexing
+        // We use originObject to store the NSManagedObjectID for later materialization
+        let textualData = itemIndex.map { entry -> TextualData in
             TextualData(
-                inputString: feedItem.title,
+                inputString: entry.title,
                 origin: nil,
-                originObject: feedItem
+                originObject: entry.objectID
             )
         }
 
@@ -96,6 +100,11 @@ extension Search: Searchable {
     ///
     /// Performs fuzzy text matching against indexed feed item titles and returns
     /// matching items sorted by publish date (newest first).
+    ///
+    /// **Memory Optimization:**
+    /// Only the feed items that actually match the search query are materialized
+    /// into full `FeedItem` objects using their `NSManagedObjectID`. This deferred
+    /// materialization ensures we never keep more objects in memory than necessary.
     ///
     /// **Matching Behavior:**
     /// - Uses fuzzy matching with a threshold of 0.005 (adjustable)
@@ -117,7 +126,7 @@ extension Search: Searchable {
     ///
     /// **Example:**
     /// ```swift
-    /// var search = Search()
+    /// var search = Search(storage: storage)
     /// search.fillMatchingEngine {
     ///     search.search(for: "Swift") { results in
     ///         if let items = results {
@@ -148,16 +157,25 @@ extension Search: Searchable {
                 return
             }
 
-            // Convert textual results back to FeedItem objects
-            // Use flatMap to flatten nested arrays and compactMap to filter out non-FeedItem objects
-            let feedItems: [FeedItem] = results.flatMap { result in
+            // Convert textual results back to objectIDs
+            // Use flatMap to flatten nested arrays and compactMap to filter out non-ObjectID objects
+            let objectIDs: [NSManagedObjectID] = results.flatMap { result in
                 result.textualResults.compactMap { textualData in
-                    textualData.originObject as? FeedItem
+                    textualData.originObject as? NSManagedObjectID
                 }
             }
 
             // Guard against empty results after conversion
-            guard !feedItems.isEmpty else {
+            guard !objectIDs.isEmpty else {
+                resultsFound(nil)
+                return
+            }
+
+            // Materialize only matched FeedItem objects from objectIDs
+            // This is the key optimization: we only fetch what we need
+            let matchedItems = storage.loadFeedItems(withIDs: objectIDs)
+
+            guard !matchedItems.isEmpty else {
                 resultsFound(nil)
                 return
             }
@@ -168,7 +186,7 @@ extension Search: Searchable {
             var uniqueFeedItems: [FeedItem] = []
             var seenObjectIDs = Set<NSManagedObjectID>()
 
-            for item in feedItems {
+            for item in matchedItems {
                 // insert(_:) returns (inserted: Bool, memberAfterInsert: Element)
                 // We only append if this objectID hasn't been seen before
                 if seenObjectIDs.insert(item.objectID).inserted {

@@ -116,7 +116,9 @@ private extension CloudflareBypassInteractor {
     }
 
     func cleanup() {
+        webView?.stopLoading()
         webView?.navigationDelegate = nil
+        webView?.removeFromSuperview()
         webView = nil
     }
 }
