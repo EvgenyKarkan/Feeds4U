@@ -114,12 +114,12 @@ extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
         feedItemsView?.reloadTableView()
     }
 
-    func updateOnDidFailParsingFeed() {
+    func updateOnDidFailParsingFeed(_ message: String) {
         feedItemsView?.endRefreshing()
         feedItemsView?.scrollToTop()
 
         Task { @MainActor [weak self] in
-            self?.showInvalidFeedAlert()
+            self?.showErrorAlert(message)
         }
     }
 }

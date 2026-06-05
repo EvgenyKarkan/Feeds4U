@@ -65,8 +65,8 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                 let viewState = self.buildViewState()
                 self.view?.updateOnDidEndParsingFeed(with: viewState)
 
-            case .failure:
-                self?.view?.showFeedParsingError()
+            case .failure(let error):
+                self?.view?.showFeedParsingError(error.localizedDescription)
             }
         }
     }

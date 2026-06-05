@@ -49,9 +49,9 @@ final class FeedItemsView: BaseListView {
     }
 
     func scrollToTop() {
-        Task { @MainActor in
-            self.endRefreshing()
-            self.tableView.setContentOffset(.zero, animated: true)
+        Task { @MainActor [weak self] in
+            self?.endRefreshing()
+            self?.tableView.setContentOffset(.zero, animated: true)
         }
     }
 }

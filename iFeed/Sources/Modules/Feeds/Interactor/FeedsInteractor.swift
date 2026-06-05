@@ -24,6 +24,7 @@ final class FeedsInteractor {
     private let keyedStorage: any KeyedStorageProtocol
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
+    private var parsingURL: String?
 
     // MARK: - Init
     init(parser: any ParserProtocol,
@@ -63,6 +64,7 @@ extension FeedsInteractor: FeedsInteractorProtocol {
         }
 
         parsingCompletion = completion
+        parsingURL = url
 
         parser.setDelegate(self)
         parser.beginParsingURL(feedURL)
@@ -150,14 +152,37 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 // MARK: - ParserDelegateProtocol
 extension FeedsInteractor: ParserDelegateProtocol {
 
-    func didEndParsingFeed(_ feed: Feed) {
+    func didEndParsingFeed(with data: ParsedFeedData) {
+        guard let feed = storage.makeFeed() else {
+            didFailParsingFeed(with: StorageError.feedCreationFailed)
+            return
+        }
+
+        feed.title = data.title
+        feed.rssURL = parsingURL ?? ""
+        feed.summary = data.summary
+
+        for itemData in data.items {
+            guard let feedItem = storage.makeFeedItem() else {
+                continue
+            }
+            feedItem.title = itemData.title
+            feedItem.link = itemData.link
+            feedItem.htmlContent = itemData.htmlContent
+            feedItem.publishDate = itemData.publishDate
+
+            /// Create a relationship
+            feedItem.feed = feed
+        }
+
         parsingCompletion?(.success(feed))
         parsingCompletion = nil
+        parsingURL = nil
     }
 
-    func didFailParsingFeed() {
-        let error = NSError(domain: #function, code: #line)
+    func didFailParsingFeed(with error: any Error) {
         parsingCompletion?(.failure(error))
         parsingCompletion = nil
+        parsingURL = nil
     }
 }

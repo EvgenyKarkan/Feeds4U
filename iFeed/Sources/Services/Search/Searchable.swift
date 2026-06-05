@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if DEBUG
 import Mocking
+#endif
 
 /// Protocol for search implementations that can index and search feed items
 ///
@@ -30,7 +32,9 @@ import Mocking
 ///     }
 /// }
 /// ```
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol Searchable {
 
     /// Fills the search index with all available feed items

@@ -99,7 +99,7 @@ protocol FeedsViewProtocol: AnyObject {
 
     func showError(_ error: any Error)
     func showFeedIsAlreadySavedError()
-    func showFeedParsingError()
+    func showFeedParsingError(_ message: String)
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState)
     func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState)

@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if DEBUG
 import Mocking
+#endif
 
 // MARK: - Type definitions
 
@@ -48,7 +50,9 @@ enum ExploreFeedsError: LocalizedError {
 // MARK: - ExploreFeedsServiceProtocol
 
 /// Abstracts feed search functionality for dependency injection and testing.
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol ExploreFeedsServiceProtocol {
 
     /// Searches for RSS/Atom feeds on a given webpage (completion-based wrapper around the async variant).

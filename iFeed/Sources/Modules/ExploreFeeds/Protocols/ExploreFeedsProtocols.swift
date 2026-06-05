@@ -31,7 +31,7 @@ protocol ExploreFeedsViewProtocol: AnyObject {
     func update(with viewState: ExploreFeedsViewState)
 
     func showFeedIsAlreadySavedError()
-    func showFeedParsingError()
+    func showFeedParsingError(_ message: String)
 
     func showActivityIndicator()
     func hideActivityIndicator()

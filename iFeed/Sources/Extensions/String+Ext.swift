@@ -30,10 +30,15 @@ enum LocalizableKeys {
         static let clearRecent = "Clear recent searches"
     }
 
+    enum Cloudflare {
+        static let verifyHuman = "cloudflare.verifyHuman"
+    }
+
     enum Errors {
         static let error = "error"
         static let cloudflareBlocked = "error.cloudflareBlocked"
         static let dataDecoding = "error.dataDecoding"
+        static let feedCreationFailed = "error.feedCreationFailed"
         static let generic = "error.generic"
         static let invalidURL = "error.invalidURL"
         static let noSearchResults = "error.noSearchResults"

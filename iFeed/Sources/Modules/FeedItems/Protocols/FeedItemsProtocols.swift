@@ -31,7 +31,7 @@ protocol FeedItemsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: FeedItemsViewState)
     func updateOnWillAppear()
     func updateOnDidEndParsingFeed(viewState: FeedItemsViewState)
-    func updateOnDidFailParsingFeed()
+    func updateOnDidFailParsingFeed(_ message: String)
 }
 
 /// View ---> Presenter

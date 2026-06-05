@@ -7,16 +7,22 @@
 //
 
 import Foundation
+#if DEBUG
 import Mocking
+#endif
 
 /// Presenter ---> Wireframe
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol ArticleReaderWireframeProtocol: AnyObject {
     func openInSafari(url: URL)
 }
 
 /// Presenter ---> Interactor
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol ArticleReaderInteractorProtocol: AnyObject {
     var articleTitle: String { get }
     var htmlContent: String { get }
@@ -27,7 +33,9 @@ protocol ArticleReaderInteractorProtocol: AnyObject {
 }
 
 /// Presenter ---> View
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol ArticleReaderViewProtocol: AnyObject {
     func configureInitialState(with viewState: ArticleReaderViewState)
     func applyThemeChange(isDarkMode: Bool)

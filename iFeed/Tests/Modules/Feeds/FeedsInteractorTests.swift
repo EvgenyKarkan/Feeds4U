@@ -72,6 +72,16 @@ struct FeedsInteractorTests {
         return feed
     }
 
+    private func makeParsedFeedData(title: String = "Test Feed") -> ParsedFeedData {
+        return ParsedFeedData(title: title, summary: nil, items: [])
+    }
+
+    private func stubStorageMakeFeed() {
+        storage._makeFeed.implementation = .uncheckedInvokes { [container] in
+            return Feed(context: container.viewContext)
+        }
+    }
+
     // MARK: - getAllFeeds
 
     @Test func getAllFeeds_delegatesToStorage() {
@@ -148,7 +158,8 @@ struct FeedsInteractorTests {
 
     @Test func startParsingFeed_onParsingSuccess_callsCompletionWithFeed() {
         // Given
-        let feed = makeFeed()
+        stubStorageMakeFeed()
+        let parsedData = makeParsedFeedData(title: "Parsed Feed")
         var receivedResult: Result<Feed, any Error>?
 
         sut.startParsingFeed(testFeedURL) { result in
@@ -156,18 +167,20 @@ struct FeedsInteractorTests {
         }
 
         // When
-        sut.didEndParsingFeed(feed)
+        sut.didEndParsingFeed(with: parsedData)
 
         // Then
         guard case .success(let receivedFeed) = receivedResult else {
             Issue.record("Expected success result")
             return
         }
-        #expect(receivedFeed.rssURL == feed.rssURL)
+        #expect(receivedFeed.rssURL == testFeedURL)
+        #expect(receivedFeed.title == "Parsed Feed")
     }
 
     @Test func startParsingFeed_onParsingFailure_callsCompletionWithError() {
         // Given
+        let testError = NSError(domain: "TestDomain", code: 42)
         var receivedResult: Result<Feed, any Error>?
 
         sut.startParsingFeed(testFeedURL) { result in
@@ -175,17 +188,20 @@ struct FeedsInteractorTests {
         }
 
         // When
-        sut.didFailParsingFeed()
+        sut.didFailParsingFeed(with: testError)
 
         // Then
-        guard case .failure = receivedResult else {
+        guard case .failure(let error) = receivedResult else {
             Issue.record("Expected failure result")
             return
         }
+        #expect((error as NSError).domain == "TestDomain")
+        #expect((error as NSError).code == 42)
     }
 
     @Test func startParsingFeed_afterCompletion_nilsOutCompletion() {
         // Given
+        stubStorageMakeFeed()
         var callCount = 0
 
         sut.startParsingFeed(testFeedURL) { _ in
@@ -193,8 +209,8 @@ struct FeedsInteractorTests {
         }
 
         // When
-        sut.didEndParsingFeed(makeFeed())
-        sut.didEndParsingFeed(makeFeed())
+        sut.didEndParsingFeed(with: makeParsedFeedData())
+        sut.didEndParsingFeed(with: makeParsedFeedData())
 
         // Then
         #expect(callCount == 1)

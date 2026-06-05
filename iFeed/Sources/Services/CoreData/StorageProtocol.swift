@@ -9,7 +9,21 @@
 import Foundation
 import CoreData.NSManagedObject
 import CoreData.NSManagedObjectID
+#if DEBUG
 import Mocking
+#endif
+
+// MARK: - StorageError
+enum StorageError: LocalizedError {
+    case feedCreationFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .feedCreationFailed:
+            return String.localized(key: LocalizableKeys.Errors.feedCreationFailed)
+        }
+    }
+}
 
 /// Defines the app's storage facade for feeds and feed items.
 ///
@@ -17,7 +31,9 @@ import Mocking
 /// parsing, search, and feed presentation. Methods intentionally keep legacy
 /// error behavior: some fetches return empty collections or `nil` instead of
 /// throwing because existing callers treat storage failures as empty state.
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol StorageProtocol {
     /// Loads every saved feed.
     ///

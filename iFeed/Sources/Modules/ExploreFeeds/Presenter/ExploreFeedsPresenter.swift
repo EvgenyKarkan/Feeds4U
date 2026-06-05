@@ -61,8 +61,8 @@ extension ExploreFeedsPresenter: ExploreFeedsViewDelegate {
 
                 self.view?.update(with: state)
 
-            case .failure:
-                self.view?.showFeedParsingError()
+            case .failure(let error):
+                self.view?.showFeedParsingError(error.localizedDescription)
             }
         }
     }

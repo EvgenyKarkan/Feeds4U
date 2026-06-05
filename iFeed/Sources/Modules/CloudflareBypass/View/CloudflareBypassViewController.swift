@@ -19,7 +19,7 @@ final class CloudflareBypassViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
-        navigationItem.title = "Verify you are human"
+        navigationItem.title = String.localized(key: LocalizableKeys.Cloudflare.verifyHuman)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,

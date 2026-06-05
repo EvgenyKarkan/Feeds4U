@@ -291,8 +291,8 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         showAlreadySavedFeedAlert()
     }
 
-    func showFeedParsingError() {
-        showInvalidFeedAlert()
+    func showFeedParsingError(_ message: String) {
+        showErrorAlert(message)
     }
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState) {

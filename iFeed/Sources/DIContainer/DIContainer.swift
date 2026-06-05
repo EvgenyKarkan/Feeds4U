@@ -30,7 +30,7 @@ extension DIContainer: DIContainerProtocol {
 
     func parser() -> any ParserProtocol {
         return shared {
-            return Parser(storage: storage())
+            return Parser()
         }
     }
 

@@ -94,8 +94,8 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
                 }
                 wireframe.prewarmSafari(for: items)
 
-            case .failure:
-                self.view?.updateOnDidFailParsingFeed()
+            case .failure(let error):
+                self.view?.updateOnDidFailParsingFeed(error.localizedDescription)
             }
         }
     }

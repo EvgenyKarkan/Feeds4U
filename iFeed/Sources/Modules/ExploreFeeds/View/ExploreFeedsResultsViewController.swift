@@ -277,8 +277,8 @@ extension ExploreFeedsResultsViewController: @MainActor ExploreFeedsViewProtocol
         showAlreadySavedFeedAlert()
     }
 
-    func showFeedParsingError() {
-        showInvalidFeedAlert()
+    func showFeedParsingError(_ message: String) {
+        showErrorAlert(message)
     }
 
     func showActivityIndicator() {

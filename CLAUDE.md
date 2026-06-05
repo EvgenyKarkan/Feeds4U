@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Feeds4U (`iFeed`) is an iOS RSS/Atom/JSON Feed reader app built with UIKit and Core Data. The Xcode project is at `iFeed/iFeed.xcodeproj`.
+Feeds4U (`iFeed`) is an iOS RSS/Atom/JSON Feed reader app built with UIKit and Core Data. The project uses the **Swift 6 compiler** — all generated code must be free of Swift concurrency errors and warnings. The Xcode project is at `iFeed/iFeed.xcodeproj`.
 
-**External dependencies (SPM):** `FeedKit` (parsing), `SimpleSimilarity` (fuzzy search), `KRProgressHUD`, `KRActivityIndicatorView`. Pins are in `iFeed/iFeed.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved`.
+**External dependencies (SPM):** `FeedKit` (parsing), `SimpleSimilarity` (fuzzy search), `KRProgressHUD`, `KRActivityIndicatorView`, `swift-mocking` (test mocks). Pins are in `iFeed/iFeed.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved`.
 
 ## Build & Test Commands
 
@@ -51,6 +51,32 @@ Results flow back via closures/callbacks: Interactor → Presenter → `FeedsVie
 
 `CoreDataManager` implements `StorageProtocol`. Use background contexts for heavy operations; only use `viewContext` for UI reads. The data model is in `iFeed/App/`.
 
+## Testing & Mocks
+
+Use the `swift-mocking` library (`import Mocking`) for all test mocks — never hand-write mock classes. Protocols are annotated with `@Mocked(compilationCondition: .debug)` in source files (wrapped in `#if DEBUG`), which auto-generates `<ProtocolName>Mock` classes at compile time.
+
+**Adding a new mock:** annotate the protocol in its source file:
+```swift
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
+protocol MyProtocol { ... }
+```
+
+**Using mocks in tests:**
+```swift
+import Mocking
+
+let mock = MyProtocolMock()
+mock._methodName.implementation = .returns(value)       // stub return value
+mock._methodName.implementation = .invokes { args in }  // stub with closure
+mock._methodName.callCount                              // verify call count
+mock._methodName.lastInvocation                         // captured arguments
+mock._propertyName.getter.implementation = .returns(v)  // mock property getter
+```
+
+For protocols with overloaded methods, use `@MockedMembers` on a hand-written mock class with `@MockableMethod(mockMethodName:)` to disambiguate (see `KeyedStorageProtocolMock` in `FeedsInteractorTests.swift`).
+
 ## Conventions
 
 - All VIPER inter-layer communication goes through protocols defined in each module's `Protocols/` file.
@@ -58,4 +84,5 @@ Results flow back via closures/callbacks: Interactor → Presenter → `FeedsVie
 - Always use `[weak self]` in closures crossing VIPER layer boundaries.
 - Test files live in `iFeed/Tests/` mirroring the source layout, named `*Tests.swift`.
 - PRs target the `develop` branch. Use short imperative commit messages.
-- Never use force unwrap !
+- **STRICT: Never use force unwrap `!` anywhere** — not in source, not in tests. Use `guard let`, `if let`, nil-coalescing (`??`), or `try #require()` in tests. SwiftLint enforces `force_unwrapping`. No exceptions.
+- **Swift 6 concurrency:** All code must compile without concurrency warnings. Mark types `Sendable` (or `@unchecked Sendable` when needed), use `@MainActor` for UI-bound code, avoid mutable captures in `@Sendable` closures (use `nonisolated(unsafe)` or reference-type boxes when necessary), and use `@preconcurrency import` for third-party modules that lack `Sendable` conformances.

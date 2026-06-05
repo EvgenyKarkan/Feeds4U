@@ -7,9 +7,13 @@
 //
 
 import Foundation
+#if DEBUG
 import Mocking
+#endif
 
+#if DEBUG
 @Mocked(compilationCondition: .debug)
+#endif
 protocol FeedFolderManaging {
     func loadFolders() -> [FeedFolder]
     @discardableResult
