@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 final class FeedItemsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
@@ -146,6 +147,10 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
 
     func didFailParsingFeed(with error: any Error) {
         parsingCompletion?(.failure(error))
+        parsingCompletion = nil
+    }
+
+    func didCancelParsingFeed() {
         parsingCompletion = nil
     }
 }

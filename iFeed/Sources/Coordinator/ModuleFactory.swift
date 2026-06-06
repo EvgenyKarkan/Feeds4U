@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
+@MainActor
 protocol ModuleFactoryProtocol {
-    @MainActor
     func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController
 
     func makeFeedItemsModule(for feed: Feed,
@@ -20,11 +20,9 @@ protocol ModuleFactoryProtocol {
                                              delegate: any FeedItemsCoordinatingDelegate) -> UIViewController
     func makeExploreFeedsModule(with results: ExploreFeedsDTO,
                                 for webPage: String) -> UIViewController
-    @MainActor
     func makeCloudflareBypassModule(for webPage: String,
                                     presentingController: UIViewController,
                                     moduleOutput: any CloudflareBypassModuleOutput) -> any CloudflareBypassModuleInput
-    @MainActor
     func makeArticleReaderModule(for title: String,
                                  htmlContent: String,
                                  articleURL: URL?) -> UIViewController

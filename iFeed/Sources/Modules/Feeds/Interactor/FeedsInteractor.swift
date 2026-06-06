@@ -14,6 +14,7 @@ private enum Constants {
     static let maxRecentSearches = 10
 }
 
+@MainActor
 final class FeedsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
@@ -182,6 +183,11 @@ extension FeedsInteractor: ParserDelegateProtocol {
 
     func didFailParsingFeed(with error: any Error) {
         parsingCompletion?(.failure(error))
+        parsingCompletion = nil
+        parsingURL = nil
+    }
+
+    func didCancelParsingFeed() {
         parsingCompletion = nil
         parsingURL = nil
     }

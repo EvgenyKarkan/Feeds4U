@@ -12,6 +12,7 @@ import UIKit
 @testable import iFeed
 
 @Suite(.serialized)
+@MainActor
 struct ArticleReaderInteractorTests {
 
     // MARK: - Properties

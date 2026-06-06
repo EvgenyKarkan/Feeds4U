@@ -44,6 +44,7 @@ protocol FeedsWireframeProtocol {
 }
 
 /// Presenter ---> Interactor
+@MainActor
 protocol FeedsInteractorProtocol {
     // get fedds from local storage
     func getAllFeeds() -> [Feed]
@@ -84,6 +85,7 @@ protocol FeedsInteractorProtocol {
 }
 
 /// Presenter ---> View
+@MainActor
 protocol FeedsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: FeedsViewState)
     func updateOnWillAppear(with viewState: FeedsViewState)
@@ -109,6 +111,7 @@ protocol FeedsViewProtocol: AnyObject {
 }
 
 /// View ---> Presenter
+@MainActor
 protocol FeedsViewDelegate: AnyObject {
     func onViewDidLoad()
     func onViewWillAppear()
@@ -134,6 +137,7 @@ protocol FeedsViewDelegate: AnyObject {
 }
 
 /// Defines Feeds module dependencies
+@MainActor
 protocol FeedsDependencies {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol

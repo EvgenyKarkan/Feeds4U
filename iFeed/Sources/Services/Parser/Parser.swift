@@ -14,11 +14,11 @@ import Mocking
 #endif
 
 // MARK: - ParserDelegateProtocol
-
 /// Delegate notified of feed parsing lifecycle events on the main actor.
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
+@MainActor
 protocol ParserDelegateProtocol: AnyObject {
     /// Called synchronously before parsing begins.
     func didStartParsingFeed()
@@ -26,27 +26,31 @@ protocol ParserDelegateProtocol: AnyObject {
     func didEndParsingFeed(with data: ParsedFeedData)
     /// Called on the main actor when parsing fails.
     func didFailParsingFeed(with error: any Error)
+    /// Called on the main actor when parsing is cancelled.
+    func didCancelParsingFeed()
 }
 
 extension ParserDelegateProtocol {
     func didStartParsingFeed() {}
+    func didCancelParsingFeed() {}
 }
 
 // MARK: - ParserProtocol
-
 /// Public interface for triggering feed parsing and assigning a delegate.
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
+@MainActor
 protocol ParserProtocol {
     /// Starts asynchronous parsing of the feed at the given URL.
     func beginParsingURL(_ url: URL)
     /// Assigns the delegate that receives parsing callbacks.
     func setDelegate(_ delegate: any ParserDelegateProtocol)
+    /// Cancels any in-flight parsing operation.
+    func cancelParsing()
 }
 
 // MARK: - FeedParsing
-
 /// Abstraction over `FeedKit.FeedParser` to enable dependency injection and testing.
 #if DEBUG
 @Mocked(compilationCondition: .debug)
@@ -62,72 +66,125 @@ extension FeedParser: FeedParsing {}
 typealias FeedParserFactory = @Sendable (URL) -> any FeedParsing
 
 // MARK: - Parser class
-
-/// Thread-safe RSS/Atom/JSON feed parser that wraps `FeedKit` and delivers results via ``ParserDelegateProtocol``.
+/// RSS/Atom/JSON feed parser that wraps `FeedKit` and delivers results via ``ParserDelegateProtocol``.
 ///
 /// Parsing runs on a dedicated serial queue (`com.iFeed.parser`) and results are dispatched back to the main actor.
+/// This class is isolated to the `@MainActor` to ensure thread-safe delegate access and task management.
 /// A ``FeedParserFactory`` closure (injectable for testing) creates the underlying ``FeedParsing`` instance per URL.
-final class Parser: @unchecked Sendable {
+@MainActor
+final class Parser {
     // MARK: - Properties
-    private static let parsingQueue = DispatchQueue(label: "com.iFeed.parser", qos: .userInitiated)
+    /// Global concurrent queue for parsing.
+    /// Allows multiple feeds to parse in parallel,
+    /// leveraging modern multi-core performance while avoiding UI thread blocking.
+    private static let parsingQueue = DispatchQueue.global(qos: .userInitiated)
+
     private let parserFactory: FeedParserFactory
-    // weak: Parser does not own its delegate — prevents retain cycles with the owning Interactor.
-    weak var delegate: (any ParserDelegateProtocol)?
+
+    /// Versioning token for the active task.
+    /// Prevents a race condition where a cancelled task could accidentally nil out
+    /// a newly started task's reference, losing the ability to cancel the new one.
+    private var taskVersion: Int = 0
+    private var activeTask: Task<Void, Never>?
+
+    /// Parser does not own its delegate — prevents retain cycles with the owning Interactor.
+    private(set) weak var delegate: (any ParserDelegateProtocol)?
 
     // MARK: - Init
-
-    // `parserFactory` is a stored closure: (URL) -> FeedParsing.
-    // Each time `beginParsingURL(_:)` is called, this closure is invoked with the URL to produce a fresh parser.
-    //
-    // The `= { FeedParser(URL: $0) }` part is a default argument — if no closure is provided,
-    // Swift uses this one automatically. `$0` is shorthand for the closure's first parameter (the URL).
-    // So `Parser()` in production is equivalent to `Parser(parserFactory: { url in FeedParser(URL: url) })`.
-    //
-    // Tests pass their own closure — `Parser(parserFactory: { _ in mock })` — to return a mock instead.
-    init(parserFactory: @escaping FeedParserFactory = { FeedParser(URL: $0) }) {
+    /// `parserFactory` is a stored closure: (URL) -> FeedParsing.
+    /// Each time `beginParsingURL(_:)` is called, this closure is invoked with the URL to produce a fresh parser.
+    ///
+    /// The `= { FeedParser(URL: $0) }` part is a default argument — if no closure is provided,
+    /// Swift uses this one automatically. `$0` is shorthand for the closure's first parameter (the URL).
+    /// So `Parser()` in production is equivalent to `Parser(parserFactory: { url in FeedParser(URL: url) })`.
+    ///
+    /// Tests pass their own closure — `Parser(parserFactory: { _ in mock })` — to return a mock instead.
+    init(parserFactory: @escaping FeedParserFactory = { return FeedParser(URL: $0) }) {
         self.parserFactory = parserFactory
+    }
+
+    /// Automatic cleanup on deinit.
+    /// Ensures that if the `Parser` (and its owning Interactor/Module) is dismissed,
+    /// all background work and network requests are immediately stopped to save battery and CPU.
+    deinit {
+        let taskToCancel = activeTask
+        Task { @MainActor in
+            taskToCancel?.cancel()
+        }
     }
 }
 
-// MARK: - ParserProtocol, Public API
+// MARK: - Public API, ParserProtocol
 extension Parser: ParserProtocol {
 
-    /// Internal result type that bridges the non-`Sendable` `FeedKit.Feed` across isolation boundaries.
-    enum ParsedFeedResult: Sendable {
-        case success(ParsedFeedData)
-        case failure(any Error & Sendable)
-    }
-
     func beginParsingURL(_ url: URL) {
+        // 1. Cancel any previous request for this parser instance
+        cancelParsing()
+
+        // 2. Notify start on main actor
         delegate?.didStartParsingFeed()
 
-        let parser = parserFactory(url)
+        // 3. Increment version to uniquely identify this specific parse attempt
+        taskVersion += 1
+        let currentVersion = taskVersion
+        let factory = parserFactory
 
-        // `parser` is intentionally captured strongly — it must stay alive until parseAsync completes.
-        // No retain cycle: the closure is one-shot and released by FeedKit after firing.
-        parser.parseAsync(queue: Self.parsingQueue) { result in
-            let parsedResult: ParsedFeedResult
-
-            switch result {
-            case .success(let parsedFeed):
-                parsedResult = .success(ParsedFeedData(parsedFeed: parsedFeed))
-            case .failure(let error):
-                parsedResult = .failure(error)
-            }
-
-            // [weak self]: avoids retaining Parser beyond its natural lifetime while the Task awaits dispatch.
-            Task { @MainActor [weak self] in
-                switch parsedResult {
-                case .success(let feedData):
-                    self?.delegate?.didEndParsingFeed(with: feedData)
-                case .failure(let error):
-                    self?.delegate?.didFailParsingFeed(with: error)
+        // 4. Create a new managed task
+        activeTask = Task { [weak self] in
+            // Bridge FeedKit's closure-based API to a Sendable result.
+            // We run this bridge on the global concurrent queue.
+            let result: Result<ParsedFeedData, any Error> = await withCheckedContinuation { continuation in
+                let parser = factory(url)
+                parser.parseAsync(queue: Self.parsingQueue) { parserResult in
+                    switch parserResult {
+                    case .success(let feed):
+                        continuation.resume(returning: .success(ParsedFeedData(parsedFeed: feed)))
+                    case .failure(let error):
+                        continuation.resume(returning: .failure(error))
+                    }
                 }
             }
+
+            // 5. Check for cancellation before delivering results
+            guard !Task.isCancelled else {
+                self?.handleCompletion(version: currentVersion, wasCancelled: true)
+                return
+            }
+
+            // 6. Deliver results on MainActor
+            switch result {
+            case .success(let data):
+                self?.delegate?.didEndParsingFeed(with: data)
+            case .failure(let error):
+                self?.delegate?.didFailParsingFeed(with: error)
+            }
+
+            self?.handleCompletion(version: currentVersion, wasCancelled: false)
         }
     }
 
     func setDelegate(_ delegate: any ParserDelegateProtocol) {
         self.delegate = delegate
+    }
+
+    func cancelParsing() {
+        activeTask?.cancel()
+        activeTask = nil
+    }
+}
+
+// MARK: - Private
+private extension Parser {
+    /// Atomic completion handler.
+    /// Safely cleans up the `activeTask` reference only if it still belongs to this
+    /// specific parse version, ensuring we don't nil out a newer Task started in the meantime.
+    func handleCompletion(version: Int, wasCancelled: Bool) {
+        if wasCancelled {
+            delegate?.didCancelParsingFeed()
+        }
+
+        if taskVersion == version {
+            activeTask = nil
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 final class ExploreFeedsPresenter {
     // MARK: - Properties
     private let wireframe: any ExploreFeedsWireframeProtocol

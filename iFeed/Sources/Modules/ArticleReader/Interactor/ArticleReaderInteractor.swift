@@ -12,6 +12,7 @@ private enum Constants {
     static let readerThemeKey = "ArticleReaderDarkMode"
 }
 
+@MainActor
 final class ArticleReaderInteractor {
     // MARK: - Properties
     let articleTitle: String

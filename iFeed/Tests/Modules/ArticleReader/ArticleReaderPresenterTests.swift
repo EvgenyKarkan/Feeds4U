@@ -12,6 +12,7 @@ import Foundation
 @testable import iFeed
 
 @Suite(.serialized)
+@MainActor
 struct ArticleReaderPresenterTests {
 
     // MARK: - Properties

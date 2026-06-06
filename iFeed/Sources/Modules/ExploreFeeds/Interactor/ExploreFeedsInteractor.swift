@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 final class ExploreFeedsInteractor {
     // MARK: - Properties
     private let results: ExploreFeedsDTO
@@ -110,6 +111,11 @@ extension ExploreFeedsInteractor: ParserDelegateProtocol {
 
     func didFailParsingFeed(with error: any Error) {
         parsingCompletion?(.failure(error))
+        parsingCompletion = nil
+        parsingURL = nil
+    }
+
+    func didCancelParsingFeed() {
         parsingCompletion = nil
         parsingURL = nil
     }

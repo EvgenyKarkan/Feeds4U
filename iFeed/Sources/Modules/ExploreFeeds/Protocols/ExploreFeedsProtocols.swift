@@ -9,11 +9,13 @@
 import Foundation
 
 /// Presenter ---> Wireframe
+@MainActor
 protocol ExploreFeedsWireframeProtocol: AnyObject {
 
 }
 
 /// Presenter ---> Interactor
+@MainActor
 protocol ExploreFeedsInteractorProtocol: AnyObject {
     func getWebPageTitle() -> String
     /// Cross-references explore results with already saved feed URLs, returning display-ready models.
@@ -26,6 +28,7 @@ protocol ExploreFeedsInteractorProtocol: AnyObject {
 }
 
 /// Presenter ---> View
+@MainActor
 protocol ExploreFeedsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: ExploreFeedsViewState)
     func update(with viewState: ExploreFeedsViewState)
@@ -38,12 +41,14 @@ protocol ExploreFeedsViewProtocol: AnyObject {
 }
 
 /// View ---> Presenter
+@MainActor
 protocol ExploreFeedsViewDelegate: AnyObject {
     func onViewDidLoad()
     func onViewNeedsToAddFeed(from url: String)
 }
 
 /// Defines dependencies of current module
+@MainActor
 protocol ExploreFeedsDependencies: AnyObject {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol

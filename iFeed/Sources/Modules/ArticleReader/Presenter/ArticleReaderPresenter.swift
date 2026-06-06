@@ -8,6 +8,7 @@
 
 import Foundation
 
+@MainActor
 final class ArticleReaderPresenter {
     // MARK: - Properties
     private let interactor: any ArticleReaderInteractorProtocol

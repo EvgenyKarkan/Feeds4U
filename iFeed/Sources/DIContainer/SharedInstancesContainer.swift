@@ -9,16 +9,16 @@
 import Foundation
 
 /// Provides base functionality for storing shared instances in own scope.
-nonisolated open class SharedInstancesContainer: @unchecked Sendable {
+@MainActor
+open class SharedInstancesContainer {
     // MARK: - Properties
-    private let sharedInstanceLock = NSRecursiveLock()
     private(set) var sharedInstances: [String: Any] = [:]
 
     // MARK: - Init
     init() {}
 
     // MARK: - Deinit
-    nonisolated deinit {}
+    deinit {}
 
     // MARK: - Public APIs
 
@@ -41,11 +41,6 @@ nonisolated open class SharedInstancesContainer: @unchecked Sendable {
         // Use function name as the key, since this is unique per component
         // class. At the same time, this is also 150 times faster than
         // interpolating the type to convert to string, `"\(T.self)"`.
-        sharedInstanceLock.lock()
-
-        defer {
-            sharedInstanceLock.unlock()
-        }
 
         // Additional nil coalescing is needed to mitigate a Swift bug appearing
         // in Xcode 10. see https://bugs.swift.org/browse/SR-8704. Without this

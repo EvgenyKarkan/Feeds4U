@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 
 /// Presenter ---> Wireframe
+@MainActor
 protocol FeedItemsWireframeProtocol: AnyObject {
     func prewarmSafari(for feedItems: [FeedItem])
     func invalidateSafariPrewarm()
@@ -18,6 +19,7 @@ protocol FeedItemsWireframeProtocol: AnyObject {
 }
 
 /// Presenter ---> Interactor
+@MainActor
 protocol FeedItemsInteractorProtocol: AnyObject {
     func getFeed() -> Feed?
     func getFeedItems() -> [FeedItem]?
@@ -27,6 +29,7 @@ protocol FeedItemsInteractorProtocol: AnyObject {
 }
 
 /// Presenter ---> View
+@MainActor
 protocol FeedItemsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: FeedItemsViewState)
     func updateOnWillAppear()
@@ -35,6 +38,7 @@ protocol FeedItemsViewProtocol: AnyObject {
 }
 
 /// View ---> Presenter
+@MainActor
 protocol FeedItemsViewDelegate: AnyObject {
     func onViewDidLoad()
     func onViewWillAppear()
@@ -44,6 +48,7 @@ protocol FeedItemsViewDelegate: AnyObject {
 }
 
 /// Defines dependencies of current module
+@MainActor
 protocol FeedItemsDependencies: AnyObject {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol

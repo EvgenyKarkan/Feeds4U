@@ -11,6 +11,7 @@ import Testing
 @testable import iFeed
 
 @Suite("SharedInstancesContainer Tests")
+@MainActor
 struct SharedInstancesContainerTests {
 
     // MARK: - Factory Invocation
@@ -151,46 +152,24 @@ struct SharedInstancesContainerTests {
         #expect(callCount == 1)
     }
 
-    // MARK: - Thread Safety
+    // MARK: - Actor Isolation Safety
 
-    @Test("shared returns the same instance under concurrent access")
-    func threadSafety() async {
+    @Test("shared returns the same instance under sequential main-actor access")
+    func sequentialAccess() async {
         // Given
         let container = SharedInstancesContainer()
-        let iterationCount = 1000
+        let iterationCount = 100
 
-        // When — spawn 1000 concurrent tasks that all request the same shared key.
-        // Each task races to call `shared(sharedIdentifier: "concurrent")`.
-        // If the NSRecursiveLock inside `shared` works correctly, exactly one
-        // task will run the factory and the rest will get the cached instance.
-        let results = await withTaskGroup(of: ObjectIdentifier.self, returning: [ObjectIdentifier].self) { group in
-            for _ in 0..<iterationCount {
-                group.addTask {
-                    // Every task asks for the same key — only the first arrival
-                    // should execute the factory closure; the rest should hit
-                    // the cache and return the already-created object.
-                    let obj: NSObject = container.shared(sharedIdentifier: "concurrent") { NSObject() }
-                    // Convert the object reference to an ObjectIdentifier (a
-                    // hashable wrapper around the pointer) so we can compare
-                    // identity across tasks without sending NSObject itself.
-                    return ObjectIdentifier(obj)
-                }
-            }
+        var ids: [ObjectIdentifier] = []
 
-            // Collect all 1000 identifiers as tasks complete.
-            var ids: [ObjectIdentifier] = []
-            ids.reserveCapacity(iterationCount)
-            for await id in group {
-                ids.append(id)
-            }
-            return ids
+        // When
+        for _ in 0..<iterationCount {
+            let obj: NSObject = container.shared(sharedIdentifier: "seq") { NSObject() }
+            ids.append(ObjectIdentifier(obj))
         }
 
-        // Then — if the lock is working, every task got the exact same object,
-        // so collapsing to a Set should yield exactly one unique identifier.
-        // More than one means the factory ran multiple times concurrently —
-        // a data race.
-        let uniqueIDs = Set(results)
+        // Then
+        let uniqueIDs = Set(ids)
         #expect(uniqueIDs.count == 1)
     }
 }

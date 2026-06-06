@@ -53,7 +53,13 @@ xcodebuild test -project iFeed/iFeed.xcodeproj -scheme "iFeed - DEV" -destinatio
 - **Coordinator Pattern**: Navigation logic belongs in the `Coordinator`. Do not trigger segues or push view controllers directly from within ViewControllers or Presenters.
 - **Memory Management**: Always use `[weak self]` in closures to prevent retain cycles, especially in Interactor -> Presenter or Presenter -> View callbacks.
 - **Core Data**: Use `NewCoreDataManager` for persistence. Prefer background contexts for heavy operations and only use the `viewContext` for UI-related data.
-- **SwiftLint**: Adhere to the rules defined in `.swiftlint.yml`. SwiftLint runs as a build phase in the Xcode project.
+- **Types, warnings and linters**:
+    - NEVER use hacks like disabling or suppressing warnings.
+    - **Concurrency Safety**: Strictly ensure there are **NO concurrency-related compile errors or warnings** (Swift 6 language mode). Adhere to strict actor isolation, avoid unsafe sendable captures, and use proper synchronization patterns.
+    - Adhere to the rules defined in `.swiftlint.yml`. SwiftLint runs as a build phase in the Xcode project.
+- **Coding Style**:
+    - **Trailing Whitespace**: Strictly avoid trailing whitespaces in all files (`trailing_whitespace` violation).
+    - **Comment Preservation**: During refactoring or code modifications, ALWAYS preserve pre-existing, relevant comments. Do not delete architectural explanations or implementation notes unless they are explicitly superseded and incorrect.
 - **Error Handling**: Use the `FeedError` (or similar typed errors) instead of `NSError`.
 - **Logging**: Prefer `os.Logger` for structured logging over `print()`.
 

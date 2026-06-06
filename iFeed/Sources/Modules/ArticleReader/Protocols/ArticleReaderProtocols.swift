@@ -15,6 +15,7 @@ import Mocking
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
+@MainActor
 protocol ArticleReaderWireframeProtocol: AnyObject {
     func openInSafari(url: URL)
 }
@@ -23,6 +24,7 @@ protocol ArticleReaderWireframeProtocol: AnyObject {
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
+@MainActor
 protocol ArticleReaderInteractorProtocol: AnyObject {
     var articleTitle: String { get }
     var htmlContent: String { get }
@@ -36,12 +38,14 @@ protocol ArticleReaderInteractorProtocol: AnyObject {
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
+@MainActor
 protocol ArticleReaderViewProtocol: AnyObject {
     func configureInitialState(with viewState: ArticleReaderViewState)
     func applyThemeChange(isDarkMode: Bool)
 }
 
 /// View ---> Presenter
+@MainActor
 protocol ArticleReaderViewDelegate: AnyObject {
     func onViewDidLoad()
     func onViewWillAppear()
@@ -51,6 +55,7 @@ protocol ArticleReaderViewDelegate: AnyObject {
 }
 
 /// Defines dependencies of current module
+@MainActor
 protocol ArticleReaderDependencies: AnyObject {
     func keyedStorage() -> any KeyedStorageProtocol
 }

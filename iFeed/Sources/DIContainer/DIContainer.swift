@@ -12,6 +12,7 @@ import Foundation
 
 /// Conforms to `FeedsDependencies`, `FeedItemsDependencies`, `ExploreFeedsDependencies`
 /// per the Interface Segregation Principle, Dependency Narrowing
+@MainActor
 protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreFeedsDependencies, ArticleReaderDependencies {
     func parser() -> any ParserProtocol
     func localSearch() -> any Searchable
@@ -21,7 +22,8 @@ protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreF
 }
 
 // MARK: - DIContainer
-final class DIContainer: SharedInstancesContainer, @unchecked Sendable {
+@MainActor
+final class DIContainer: SharedInstancesContainer {
 
 }
 
