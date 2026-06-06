@@ -9,6 +9,45 @@
 import Foundation
 import CoreData
 import SimpleSimilarity
+#if DEBUG
+import Mocking
+#endif
+
+// MARK: - TextMatching
+/// Abstraction over `SimpleSimilarity.MatchingEngine` to enable dependency injection and testing.
+///
+/// Exposes only the surface area that ``Search`` relies on: checking whether the engine
+/// has been indexed, populating its corpus, and executing scored queries.
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
+protocol TextMatching {
+    /// Whether the engine has been filled with a text corpus and is ready for queries.
+    var isFilled: Bool { get }
+
+    /// Indexes the provided text corpus for subsequent searches.
+    ///
+    /// - Parameters:
+    ///   - corpus: The textual data entries to index.
+    ///   - onlyRemoveFrequentStopwords: When `true`, only high-frequency stop words are removed.
+    ///   - completion: Called when indexing completes (on an arbitrary queue).
+    func fillMatchingEngine(with corpus: [TextualData], onlyRemoveFrequentStopwords: Bool, completion: @escaping () -> Void)
+
+    /// Returns results scoring above a minimum threshold for the given query.
+    ///
+    /// - Parameters:
+    ///   - betterThan: Minimum quality threshold in the range `0.0 ... 1.0`.
+    ///   - query: The textual data representing the search term.
+    ///   - resultsFound: Closure receiving the ranked results, or `nil` when nothing matches.
+    /// - Throws: `MatchingEngineNotFilledError` if called before `fillMatchingEngine(with:…)`.
+    func results(betterThan: Float, for query: TextualData, resultsFound: @escaping ([Result]?) -> Void) throws
+}
+
+/// Retroactive conformance — `MatchingEngine` already satisfies every ``TextMatching`` requirement.
+extension MatchingEngine: TextMatching {}
+
+/// Factory closure that creates a fresh ``TextMatching`` instance.
+typealias MatchingEngineFactory = () -> any TextMatching
 
 /// Performs local search over feed items using a text matching engine
 ///
@@ -30,16 +69,27 @@ struct Search {
     ///
     /// This engine must be filled before searches can be performed.
     /// It indexes feed item titles for fast lookup.
-    private var matchingEngine: MatchingEngine?
+    private var matchingEngine: (any TextMatching)?
 
     /// Core Data manager for accessing feed items
     ///
     /// Reused instance to avoid creating multiple managers.
     private let storage: any StorageProtocol
 
+    /// Factory that creates the underlying text matching engine on demand.
+    private let matchingEngineFactory: MatchingEngineFactory
+
     // MARK: - Init
-    init(storage: any StorageProtocol) {
+
+    /// Creates a new search instance.
+    ///
+    /// - Parameters:
+    ///   - storage: The storage facade used to load feed item data.
+    ///   - matchingEngineFactory: Factory producing the ``TextMatching`` engine.
+    ///     Defaults to creating a real `MatchingEngine`; tests inject a mock.
+    init(storage: any StorageProtocol, matchingEngineFactory: @escaping MatchingEngineFactory = { MatchingEngine() }) {
         self.storage = storage
+        self.matchingEngineFactory = matchingEngineFactory
     }
 }
 
@@ -88,7 +138,7 @@ extension Search: Searchable {
         }
 
         // Initialize and fill the matching engine
-        matchingEngine = MatchingEngine()
+        matchingEngine = matchingEngineFactory()
         matchingEngine?.fillMatchingEngine(
             with: textualData,
             onlyRemoveFrequentStopwords: true,

@@ -53,9 +53,10 @@ struct FeedsInteractorTests {
     /// Creates an in-memory Core Data stack;
     /// the `name` only locates the `.xcdatamodeld` schema — no SQLite file is written to disk.
     private static func makeInMemoryContainer() -> NSPersistentContainer {
-        let container = NSPersistentContainer(name: "iFeed")
+        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: TestCoreDataModel.shared)
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
+        description.url = URL(fileURLWithPath: "/dev/null")
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { _, error in
             if let error {

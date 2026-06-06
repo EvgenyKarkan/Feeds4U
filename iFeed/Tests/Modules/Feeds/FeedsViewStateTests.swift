@@ -26,9 +26,10 @@ struct FeedsViewStateTests {
     // MARK: - Helpers
 
     private static func makeInMemoryContainer() -> NSPersistentContainer {
-        let container = NSPersistentContainer(name: "iFeed")
+        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: TestCoreDataModel.shared)
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
+        description.url = URL(fileURLWithPath: "/dev/null")
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { _, error in
             if let error {

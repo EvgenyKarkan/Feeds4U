@@ -1070,8 +1070,7 @@ private extension CoreDataManagerTests {
     static func makeTemporaryManager() throws -> CoreDataManager {
         _ = registerTemporaryStoreCleanup
 
-        let model = try #require(NSManagedObjectModel.mergedModel(from: [Bundle.main]))
-        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: model)
+        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: TestCoreDataModel.shared)
         let storeURL = temporaryStoreDirectory.appendingPathComponent("\(UUID().uuidString)-iFeed.sqlite")
 
         let description = NSPersistentStoreDescription(url: storeURL)
