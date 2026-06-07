@@ -8,8 +8,14 @@
 
 import UIKit
 import Foundation
+#if DEBUG
+import Mocking
+#endif
 
 /// Presenter ---> Wireframe
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedItemsWireframeProtocol: AnyObject {
     func prewarmSafari(for feedItems: [FeedItem])
@@ -19,16 +25,24 @@ protocol FeedItemsWireframeProtocol: AnyObject {
 }
 
 /// Presenter ---> Interactor
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedItemsInteractorProtocol: AnyObject {
     func getFeed() -> Feed?
     func getFeedItems() -> [FeedItem]?
     func getSearchTitle() -> String?
     func markItemAsReadIfNeeded(item: FeedItem)
+    func markAllItemsAsRead()
+    func hasUnreadItems() -> Bool
     func startParsingFeed(_ url: String, completion: @escaping (Result<Void, any Error>) -> Void)
 }
 
 /// Presenter ---> View
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedItemsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: FeedItemsViewState)
@@ -45,6 +59,7 @@ protocol FeedItemsViewDelegate: AnyObject {
     func onViewWillDisappear(isMovingFromParent: Bool, isBeingDismissed: Bool)
     func onViewDidSelectFeedItemAtIndexPath(_ indexPath: IndexPath, cell: UITableViewCell)
     func onViewDidPullToRefresh()
+    func onMarkAllAsReadTapped()
 }
 
 /// Defines dependencies of current module

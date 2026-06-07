@@ -8,7 +8,13 @@
 
 import Foundation
 import CoreData.NSManagedObjectID
+#if DEBUG
+import Mocking
+#endif
 
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedsWireframeProtocol {
     /// Pushes the screen that displays items belonging to the selected feed.
@@ -44,6 +50,9 @@ protocol FeedsWireframeProtocol {
 }
 
 /// Presenter ---> Interactor
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedsInteractorProtocol {
     // get fedds from local storage
@@ -85,6 +94,9 @@ protocol FeedsInteractorProtocol {
 }
 
 /// Presenter ---> View
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol FeedsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: FeedsViewState)
@@ -96,6 +108,7 @@ protocol FeedsViewProtocol: AnyObject {
     func showEnterSearch()
     func configureSearchButtonMenu(_ searches: [String])
     func showNoSearchResultsAlert()
+    func showNoFeedsDiscoveredAlert()
 
     func disableTableViewEditingStateIfNeeded()
 

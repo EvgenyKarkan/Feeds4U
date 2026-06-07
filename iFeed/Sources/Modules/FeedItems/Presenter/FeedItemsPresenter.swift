@@ -34,7 +34,8 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
         let viewState = FeedItemsViewState(
             feed: interactor.getFeed(),
             feedItems: feedItems,
-            searchTitle: interactor.getSearchTitle()
+            searchTitle: interactor.getSearchTitle(),
+            isMarkAllAsReadVisible: interactor.hasUnreadItems()
         )
 
         view?.updateOnDidLoad(with: viewState)
@@ -87,7 +88,10 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
             switch result {
             case .success:
                 let feedItems = self.interactor.getFeedItems()
-                let viewState = FeedItemsViewState(feedItems: feedItems)
+                let viewState = FeedItemsViewState(
+                    feedItems: feedItems,
+                    isMarkAllAsReadVisible: self.interactor.hasUnreadItems()
+                )
                 self.view?.updateOnDidEndParsingFeed(viewState: viewState)
 
                 guard let items = feedItems else {
@@ -99,5 +103,17 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
                 self.view?.updateOnDidFailParsingFeed(error.localizedDescription)
             }
         }
+    }
+
+    func onMarkAllAsReadTapped() {
+        interactor.markAllItemsAsRead()
+
+        let viewState = FeedItemsViewState(
+            feed: interactor.getFeed(),
+            feedItems: interactor.getFeedItems(),
+            searchTitle: interactor.getSearchTitle(),
+            isMarkAllAsReadVisible: false
+        )
+        view?.updateOnDidEndParsingFeed(viewState: viewState)
     }
 }

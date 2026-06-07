@@ -56,6 +56,7 @@ xcodebuild test -project iFeed/iFeed.xcodeproj -scheme "iFeed - DEV" -destinatio
 - **Types, warnings and linters**:
     - NEVER use hacks like disabling or suppressing warnings.
     - **Concurrency Safety**: Strictly ensure there are **NO concurrency-related compile errors or warnings** (Swift 6 language mode). Adhere to strict actor isolation, avoid unsafe sendable captures, and use proper synchronization patterns.
+    - **Safe Unwrapping**: Strictly avoid force unwrapping (`force_unwrapping` violation). Always use `if let`, `guard let`, or provide safe defaults to ensure app stability.
     - Adhere to the rules defined in `.swiftlint.yml`. SwiftLint runs as a build phase in the Xcode project.
 - **Coding Style**:
     - **Trailing Whitespace**: Strictly avoid trailing whitespaces in all files (`trailing_whitespace` violation).

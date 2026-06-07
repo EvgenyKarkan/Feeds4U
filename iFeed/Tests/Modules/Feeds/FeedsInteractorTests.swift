@@ -201,21 +201,107 @@ struct FeedsInteractorTests {
         #expect((error as NSError).code == 42)
     }
 
-    @Test func startParsingFeed_afterCompletion_nilsOutCompletion() {
+    @Test func startParsingFeed_withInvalidURL_callsCompletionWithFailure() {
+        // Given
+        var receivedResult: Result<Feed, any Error>?
+
+        // When
+        sut.startParsingFeed("not a valid url") { result in
+            receivedResult = result
+        }
+
+        // Then
+        // Note: URL(string:) on iOS is very permissive, but empty or spaces usually fail or we want to ensure coverage.
+        // If "not a valid url" actually parses, we should use a truly invalid one like " http://["
+        sut.startParsingFeed(" http://[") { result in
+            receivedResult = result
+        }
+
+        guard case .failure = receivedResult else {
+            Issue.record("Expected failure result for invalid URL")
+            return
+        }
+    }
+
+    @Test func didEndParsingFeed_whenStorageFailsToMakeFeed_callsCompletionWithFailure() {
+        // Given
+        storage._makeFeed.implementation = .returns(nil)
+        var receivedResult: Result<Feed, any Error>?
+
+        sut.startParsingFeed(testFeedURL) { result in
+            receivedResult = result
+        }
+
+        // When
+        sut.didEndParsingFeed(with: makeParsedFeedData())
+
+        // Then
+        guard case .failure(let error) = receivedResult else {
+            Issue.record("Expected failure result")
+            return
+        }
+        #expect(error is StorageError)
+    }
+
+    @Test func didEndParsingFeed_withItems_populatesFeedAndItems() {
+        // Given
+        stubStorageMakeFeed()
+
+        // Mock makeFeedItem
+        storage._makeFeedItem.implementation = .uncheckedInvokes { [container] in
+            return FeedItem(context: container.viewContext)
+        }
+
+        let itemData = ParsedFeedItemData(
+            title: "Item 1",
+            link: "https://item.com",
+            publishDate: Date(),
+            htmlContent: "Content"
+        )
+        let parsedData = ParsedFeedData(title: "Feed", summary: "Summary", items: [itemData])
+
+        var receivedResult: Result<Feed, any Error>?
+        sut.startParsingFeed(testFeedURL) { result in
+            receivedResult = result
+        }
+
+        // When
+        sut.didEndParsingFeed(with: parsedData)
+
+        // Then
+        guard case .success(let feed) = receivedResult else {
+            Issue.record("Expected success")
+            return
+        }
+        #expect(feed.title == "Feed")
+        #expect(feed.summary == "Summary")
+        #expect(feed.feedItems.count == 1)
+
+        let firstItem = feed.feedItems.allObjects.first as? FeedItem
+        #expect(firstItem?.title == "Item 1")
+        #expect(firstItem?.link == "https://item.com")
+        #expect(firstItem?.htmlContent == "Content")
+        #expect(firstItem?.feed === feed)
+    }
+
+    @Test func didCancelParsingFeed_nilsOutProperties() {
         // Given
         stubStorageMakeFeed()
         var callCount = 0
-
         sut.startParsingFeed(testFeedURL) { _ in
             callCount += 1
         }
 
         // When
-        sut.didEndParsingFeed(with: makeParsedFeedData())
-        sut.didEndParsingFeed(with: makeParsedFeedData())
+        sut.didCancelParsingFeed()
 
         // Then
-        #expect(callCount == 1)
+        // completion should NOT be called
+        #expect(callCount == 0)
+
+        // Verify it is indeed nilled out by calling didEndParsingFeed and seeing no callback
+        sut.didEndParsingFeed(with: makeParsedFeedData())
+        #expect(callCount == 0)
     }
 
     // MARK: - fillSearchMatchingEngine

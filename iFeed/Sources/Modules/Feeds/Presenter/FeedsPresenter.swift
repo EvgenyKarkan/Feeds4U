@@ -95,8 +95,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                             return nil
                         }
                         guard !filteredData.isEmpty else {
-                            // TODO: - Handle this case on UI
-                            self?.view?.showError(NSError(domain: #function, code: #line))
+                            self?.view?.showNoFeedsDiscoveredAlert()
                             return
                         }
 

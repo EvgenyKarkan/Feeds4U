@@ -75,7 +75,6 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
 private extension FeedFolderHeaderView {
 
     func setupUI() {
-
         let stack = UIStackView(arrangedSubviews: [nameLabel, countLabel, chevronImageView])
         stack.axis = .horizontal
         stack.spacing = 8

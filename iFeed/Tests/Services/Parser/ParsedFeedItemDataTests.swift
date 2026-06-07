@@ -149,6 +149,107 @@ struct ParsedFeedItemDataTests {
         // Then: The item should be skipped
         #expect(data == nil)
     }
+
+    // MARK: - Edge Cases & Concurrency
+
+    @Test("Fallback to 'now' when RSS publication date is missing")
+    func testRSSFeedItemMissingDateFallback() throws {
+        // Given: An RSS item with a link but no publication date
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+            <channel>
+                <item>
+                    <title>No Date</title>
+                    <link>https://example.com/no-date</link>
+                </item>
+            </channel>
+        </rss>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+        guard case .rss(let rssFeed) = feed, let item = rssFeed.items?.first else {
+            throw TestFixtureError.unexpectedFeedType
+        }
+
+        // When: Normalizing the RSS item
+        let now = Date()
+        let data = try #require(ParsedFeedItemData(rssFeedItem: item))
+
+        // Then: The publication date should be close to 'now'
+        #expect(abs(data.publishDate.timeIntervalSince(now)) < 1.0)
+    }
+
+    @Test("Fallback to 'now' when Atom publication date is missing")
+    func testAtomFeedEntryMissingDateFallback() throws {
+        // Given: An Atom entry with a link but no publication date
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <feed xmlns="http://www.w3.org/2005/Atom">
+            <entry>
+                <title>No Date</title>
+                <link href="https://example.com/no-date" />
+            </entry>
+        </feed>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+        guard case .atom(let atomFeed) = feed, let entry = atomFeed.entries?.first else {
+            throw TestFixtureError.unexpectedFeedType
+        }
+
+        // When: Normalizing the Atom entry
+        let now = Date()
+        let data = try #require(ParsedFeedItemData(atomFeedItem: entry))
+
+        // Then: The publication date should be close to 'now'
+        #expect(abs(data.publishDate.timeIntervalSince(now)) < 1.0)
+    }
+
+    @Test("Fallback to 'now' when JSON Feed publication date is missing")
+    func testJSONFeedItemMissingDateFallback() throws {
+        // Given: A JSON Feed item with a URL but no publication date
+        let fixture = """
+        {
+            "version": "https://jsonfeed.org/version/1.1",
+            "items": [
+                {
+                    "id": "no-date",
+                    "title": "No Date",
+                    "url": "https://example.com/no-date"
+                }
+            ]
+        }
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+        guard case .json(let jsonFeed) = feed, let item = jsonFeed.items?.first else {
+            throw TestFixtureError.unexpectedFeedType
+        }
+
+        // When: Normalizing the JSON Feed item
+        let now = Date()
+        let data = try #require(ParsedFeedItemData(jsonFeedItem: item))
+
+        // Then: The publication date should be close to 'now'
+        #expect(abs(data.publishDate.timeIntervalSince(now)) < 1.0)
+    }
+
+    @Test("ParsedFeedItemData is Sendable")
+    func testSendableConformance() async {
+        // Given: A normalized item data
+        let data = ParsedFeedItemData(
+            title: "Title",
+            link: "https://example.com",
+            publishDate: Date(),
+            htmlContent: "Content"
+        )
+
+        // Then: It can be passed into a Task (Sendable requirement)
+        let result = await Task {
+            let captured = data
+            return captured.title
+        }.value
+
+        #expect(result == "Title")
+    }
 }
 
 // MARK: - Helpers

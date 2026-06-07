@@ -62,6 +62,28 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
         }
     }
 
+    func markAllItemsAsRead() {
+        guard searchTerm == nil, let items = feed?.feedItems.allObjects as? [FeedItem] else {
+            return
+        }
+
+        let unreadItems = items.filter { !$0.wasRead.boolValue }
+        guard !unreadItems.isEmpty else { return }
+
+        for item in unreadItems {
+            item.wasRead = NSNumber(value: true)
+        }
+
+        storage.saveChanges()
+    }
+
+    func hasUnreadItems() -> Bool {
+        guard searchTerm == nil, let items = feed?.feedItems.allObjects as? [FeedItem] else {
+            return false
+        }
+        return items.contains { !$0.wasRead.boolValue }
+    }
+
     func startParsingFeed(_ url: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         enum ParsingError: Error {
             case invalidURL
@@ -104,7 +126,7 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
             return
         }
 
-        // TODO: - Detect if new feed_items appeared on the feed in comparision with exsisting ones
+        // Enhancement: - Detect if new feed_items appeared on the feed in comparision with exsisting ones
         // if appeared - indicate to the caller side so it can skip doing safari prewarming
 
         // Step 1: Snapshot the existing feed items into O(1)-lookup sets for deduplication.

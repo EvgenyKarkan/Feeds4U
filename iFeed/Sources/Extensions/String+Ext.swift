@@ -11,6 +11,7 @@ import Foundation
 enum LocalizableKeys {
     static let add = "add"
     static let cancel = "cancel"
+    static let markAllAsRead = "markAllAsRead"
     static let confirmation = "confirmation"
     static let provideURL = "provideURL"
 
@@ -41,6 +42,7 @@ enum LocalizableKeys {
         static let feedCreationFailed = "error.feedCreationFailed"
         static let generic = "error.generic"
         static let invalidURL = "error.invalidURL"
+        static let noFeedsDiscovered = "error.noFeedsDiscovered"
         static let noSearchResults = "error.noSearchResults"
         static let preExistedFeed = "error.preExistedFeed"
         static let service = "error.service"

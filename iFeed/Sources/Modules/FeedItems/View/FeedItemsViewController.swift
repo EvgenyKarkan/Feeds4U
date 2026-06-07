@@ -82,6 +82,8 @@ extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
             feedItemsView?.hideRefreshControl()
         }
 
+        setupRightBarButtonItem(isVisible: viewState.isMarkAllAsReadVisible)
+
         guard let feedItems = viewState.feedItems, !feedItems.isEmpty else {
             return
         }
@@ -110,6 +112,8 @@ extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
     func updateOnDidEndParsingFeed(viewState: FeedItemsViewState) {
         feedItemsView?.endRefreshing()
 
+        setupRightBarButtonItem(isVisible: viewState.isMarkAllAsReadVisible)
+
         provider?.dataSource = viewState.feedItems ?? []
         feedItemsView?.reloadTableView()
     }
@@ -121,5 +125,32 @@ extension FeedItemsViewController: @MainActor FeedItemsViewProtocol {
         Task { @MainActor [weak self] in
             self?.showErrorAlert(message)
         }
+    }
+}
+
+// MARK: - Private
+private extension FeedItemsViewController {
+
+    func setupRightBarButtonItem(isVisible: Bool) {
+        guard isVisible else {
+            navigationItem.setRightBarButton(nil, animated: true)
+            return
+        }
+
+        let markAllAction = UIAction(
+            title: String.localized(key: LocalizableKeys.markAllAsRead),
+            image: UIImage(systemName: "checkmark.circle")
+        ) { [weak self] _ in
+            self?.presenter?.onMarkAllAsReadTapped()
+        }
+
+        let menu = UIMenu(title: "", children: [markAllAction])
+
+        let barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark.rectangle.stack"),
+            menu: menu
+        )
+
+        navigationItem.setRightBarButton(barButtonItem, animated: true)
     }
 }

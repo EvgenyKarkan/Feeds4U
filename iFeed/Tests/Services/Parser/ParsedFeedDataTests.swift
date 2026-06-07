@@ -90,6 +90,144 @@ struct ParsedFeedDataTests {
         #expect(data.items[0].link == "https://example.com/json/one")
         #expect(data.items[0].publishDate == Self.jsonItemDate)
     }
+
+    // MARK: - Edge Cases & Concurrency
+
+    @Test("Normalize RSS feed with missing metadata")
+    func testRSSFeedMissingMetadata() throws {
+        // Given: An RSS feed with no channel title or description
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+            <channel>
+                <item>
+                    <link>https://example.com/item</link>
+                </item>
+            </channel>
+        </rss>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Title and summary should be nil
+        #expect(data.title == nil)
+        #expect(data.summary == nil)
+        #expect(data.items.count == 1)
+    }
+
+    @Test("Normalize Atom feed with no summary source")
+    func testAtomFeedNoSummarySource() throws {
+        // Given: An Atom feed with no subtitle and no rights
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <feed xmlns="http://www.w3.org/2005/Atom">
+            <title>Title</title>
+        </feed>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Summary should be an empty string (as per implementation)
+        #expect(data.summary == "")
+    }
+
+    @Test("Normalize JSON Feed with missing metadata")
+    func testJSONFeedMissingMetadata() throws {
+        // Given: A JSON Feed with no title or description
+        let fixture = """
+        {
+            "version": "https://jsonfeed.org/version/1.1",
+            "items": []
+        }
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Title and summary should be nil
+        #expect(data.title == nil)
+        #expect(data.summary == nil)
+        #expect(data.items.isEmpty)
+    }
+
+    @Test("ParsedFeedData is Sendable")
+    func testSendableConformance() async {
+        // Given: A normalized feed data
+        let data = ParsedFeedData(
+            title: "Title",
+            summary: "Summary",
+            items: []
+        )
+
+        // Then: It can be passed into a Task (Sendable requirement)
+        let result = await Task {
+            let captured = data
+            return captured.title
+        }.value
+
+        #expect(result == "Title")
+    }
+
+    @Test("Normalize RSS feed with nil items")
+    func testRSSFeedNilItems() throws {
+        // Given: An RSS feed XML without any items
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+            <channel>
+                <title>No Items</title>
+            </channel>
+        </rss>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Items should be empty array (covered by ?? [])
+        #expect(data.items.isEmpty)
+    }
+
+    @Test("Normalize Atom feed with nil entries")
+    func testAtomFeedNilEntries() throws {
+        // Given: An Atom feed XML without any entries
+        let fixture = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <feed xmlns="http://www.w3.org/2005/Atom">
+            <title>No Entries</title>
+        </feed>
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Items should be empty array (covered by ?? [])
+        #expect(data.items.isEmpty)
+    }
+
+    @Test("Normalize JSON Feed with nil items")
+    func testJSONFeedNilItems() throws {
+        // Given: A JSON Feed without items key
+        let fixture = """
+        {
+            "version": "https://jsonfeed.org/version/1.1",
+            "title": "No Items"
+        }
+        """
+        let feed = try Self.parsedFeed(from: fixture)
+
+        // When: Normalizing
+        let data = ParsedFeedData(parsedFeed: feed)
+
+        // Then: Items should be empty array (covered by ?? [])
+        #expect(data.items.isEmpty)
+    }
 }
 
 // MARK: - Helpers

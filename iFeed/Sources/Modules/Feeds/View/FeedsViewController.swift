@@ -276,6 +276,21 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         }
     }
 
+    func showNoFeedsDiscoveredAlert() {
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.Feed.explore),
+            message: String.localized(key: LocalizableKeys.Errors.noFeedsDiscovered),
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: String.localized(key: LocalizableKeys.confirmation),
+                                     style: .cancel)
+        alert.addAction(okAction)
+
+        if presentedViewController == nil {
+            present(alert, animated: true)
+        }
+    }
+
     func disableTableViewEditingStateIfNeeded() {
         guard let tableView = feedListView?.tableView, tableView.isEditing else {
             return

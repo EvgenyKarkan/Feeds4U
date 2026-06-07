@@ -19,6 +19,10 @@
 		0847EBB42FD38A6D00FCA66C /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBB32FD38A6D00FCA66C /* ParserTests.swift */; };
 		0847EBD92FD43FB100FCA66C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBD82FD43FB100FCA66C /* SearchTests.swift */; };
 		0847EBDC2FD4466200FCA66C /* TestCoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBDB2FD4466200FCA66C /* TestCoreDataModel.swift */; };
+		0847EBDE2FD4EE5D00FCA66C /* FeedsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBDD2FD4EE5D00FCA66C /* FeedsPresenterTests.swift */; };
+		0847EBE22FD4FCB800FCA66C /* FeedItemsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBE02FD4FCB800FCA66C /* FeedItemsPresenterTests.swift */; };
+		0847EBE32FD4FCB800FCA66C /* FeedItemsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBDF2FD4FCB800FCA66C /* FeedItemsInteractorTests.swift */; };
+		0847EBE52FD5904900FCA66C /* FeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBE42FD5904900FCA66C /* FeedTests.swift */; };
 		08742A582F981A8900F7AF93 /* SimpleSimilarity in Frameworks */ = {isa = PBXBuildFile; productRef = 08742A572F981A8900F7AF93 /* SimpleSimilarity */; };
 		08742A602F98411C00F7AF93 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08742A5E2F98411C00F7AF93 /* Searchable.swift */; };
 		08742A612F98411C00F7AF93 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08742A5D2F98411C00F7AF93 /* Search.swift */; };
@@ -136,6 +140,10 @@
 		0847EBB32FD38A6D00FCA66C /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		0847EBD82FD43FB100FCA66C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		0847EBDB2FD4466200FCA66C /* TestCoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataModel.swift; sourceTree = "<group>"; };
+		0847EBDD2FD4EE5D00FCA66C /* FeedsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsPresenterTests.swift; sourceTree = "<group>"; };
+		0847EBDF2FD4FCB800FCA66C /* FeedItemsInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsInteractorTests.swift; sourceTree = "<group>"; };
+		0847EBE02FD4FCB800FCA66C /* FeedItemsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsPresenterTests.swift; sourceTree = "<group>"; };
+		0847EBE42FD5904900FCA66C /* FeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTests.swift; sourceTree = "<group>"; };
 		08742A5D2F98411C00F7AF93 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		08742A5E2F98411C00F7AF93 /* Searchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchable.swift; sourceTree = "<group>"; };
 		088B315B2FAF880900F783B5 /* SharedInstancesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInstancesContainer.swift; sourceTree = "<group>"; };
@@ -328,6 +336,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		0847EBE12FD4FCB800FCA66C /* FeedItems */ = {
+			isa = PBXGroup;
+			children = (
+				0847EBDF2FD4FCB800FCA66C /* FeedItemsInteractorTests.swift */,
+				0847EBE02FD4FCB800FCA66C /* FeedItemsPresenterTests.swift */,
+			);
+			path = FeedItems;
+			sourceTree = "<group>";
+		};
 		08742A5B2F9840C600F7AF93 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,10 +438,12 @@
 		08AB10A42FCA5F1600E190D1 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
+				0847EBE42FD5904900FCA66C /* FeedTests.swift */,
 				08AB10AA2FCA623500E190D1 /* FeedFolderTests.swift */,
 				08AB10A82FCA607200E190D1 /* FeedFolderManagerTests.swift */,
 				08AB10B52FCA70D200E190D1 /* FeedsInteractorTests.swift */,
 				08BA949F2FCCA82D004F7FF6 /* FeedsViewStateTests.swift */,
+				0847EBDD2FD4EE5D00FCA66C /* FeedsPresenterTests.swift */,
 			);
 			path = Feeds;
 			sourceTree = "<group>";
@@ -433,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				08AB10A42FCA5F1600E190D1 /* Feeds */,
+				0847EBE12FD4FCB800FCA66C /* FeedItems */,
 				08BA94962FCC6F35004F7FF6 /* ArticleReader */,
 			);
 			path = Modules;
@@ -957,15 +977,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/iFeed/Sources",
 			);
 			name = "SwiftLint Check";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/swiftlint.done",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    # Apple Silicon support\n    if [[ \"$(uname -m)\" == arm64 ]]; then\n        export PATH=\"/opt/homebrew/bin:$PATH\"\n    fi\n\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\nelse\n    echo \"warning: SwiftLint is disabled for current ${CONFIGURATION} configuration\"\nfi\n";
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    # Apple Silicon support\n    if [[ \"$(uname -m)\" == arm64 ]]; then\n        export PATH=\"/opt/homebrew/bin:$PATH\"\n    fi\n\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\nelse\n    echo \"warning: SwiftLint is disabled for current ${CONFIGURATION} configuration\"\nfi\ntouch \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -975,6 +997,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08B083152FB2A60C007C63DD /* ParsedFeedItemDataTests.swift in Sources */,
+				0847EBE52FD5904900FCA66C /* FeedTests.swift in Sources */,
 				08A9780C2FBA4D620004E40D /* SharedInstancesContainerTests.swift in Sources */,
 				08B083162FB2A60C007C63DD /* ParsedFeedDataTests.swift in Sources */,
 				08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */,
@@ -982,6 +1005,9 @@
 				08BA94A02FCCA82D004F7FF6 /* FeedsViewStateTests.swift in Sources */,
 				0847EBDC2FD4466200FCA66C /* TestCoreDataModel.swift in Sources */,
 				08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */,
+				0847EBE22FD4FCB800FCA66C /* FeedItemsPresenterTests.swift in Sources */,
+				0847EBE32FD4FCB800FCA66C /* FeedItemsInteractorTests.swift in Sources */,
+				0847EBDE2FD4EE5D00FCA66C /* FeedsPresenterTests.swift in Sources */,
 				08B00C0F2FB3AE92007BD039 /* ExploreFeedsServiceTests.swift in Sources */,
 				08AF0D6A2FB933F3000521AF /* CoreDataManagerTests.swift in Sources */,
 				08AB10B62FCA70D200E190D1 /* FeedsInteractorTests.swift in Sources */,
@@ -1103,6 +1129,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evgenykarkan.iFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1129,6 +1156,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -1211,14 +1239,17 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
+				COMPILATION_CACHE_ENABLE_CACHING = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1227,6 +1258,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;
@@ -1328,8 +1360,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yevgeniy Karkan (3YZNAVUC8R)";
+				COMPILATION_CACHE_ENABLE_CACHING = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EAGER_LINKING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1405,14 +1439,17 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Yevgeniy Karkan (7VW32GE5L3)";
+				COMPILATION_CACHE_ENABLE_CACHING = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1421,6 +1458,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				PROVISIONING_PROFILE = "4e38995a-0ebf-4096-b8a1-fb3dcdaea6f8";
 				SDKROOT = iphoneos;

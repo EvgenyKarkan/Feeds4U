@@ -113,7 +113,7 @@ The real fix is to either mark the presenter as `@MainActor` (since all its outp
 **File:** `Sources/Modules/Feeds/Presenter/FeedsPresenter.swift:80, 123, 138-139`
 **Risk:** Medium. Currently works because the presenter is only accessed from the main thread in practice, but the annotation masks a real design issue.
 
-#### 2.2 Parser Creates Core Data Objects on Main Thread
+#### ✅ 2.2 Parser Creates Core Data Objects on Main Thread
 
 `Parser.swift:68` dispatches to `DispatchQueue.main.async` after parsing, then calls `finishParsing` which creates Core Data entities (Feed, FeedItem) via `storage.makeFeed()` / `storage.makeFeedItem()`.
 Since `NewCoreDataManager` uses `viewContext` for entity creation, this is technically correct (main thread + main queue context).
@@ -205,9 +205,9 @@ Consider caching the detector as a static property.
 
 ---
 
-### 5. CODE SMELLS
+### ✅ 5. CODE SMELLS
 
-#### 5.1 #warning Directives in Production Code
+#### ✅ 5.1 #warning Directives in Production Code
 
 `Parser.swift` has two `#warning` directives:
 - Line 17: `#warning("ADD ERROR ARGUMENT HERE")` in `ParserDelegateProtocol`
@@ -218,7 +218,7 @@ Either address the underlying issue or remove the directives with a TODO comment
 
 **File:** `Sources/Services/Parser/Parser.swift:17, 73`
 
-#### 5.2 print() Statements in Production Code
+#### ✅ 5.2 print() Statements in Production Code
 
 Debug print statements remain in:
 - `FeedItemsInteractor.swift:98, 103` -- "existFeedItems ----", "incomingItems ----"
@@ -228,7 +228,7 @@ Debug print statements remain in:
 
 **Action:** Replace with `os.Logger` or remove entirely.
 
-#### 5.3 NSError with #function/#line as Domain/Code
+#### ✅ 5.3 NSError with #function/#line as Domain/Code
 
 Both interactors create errors as `NSError(domain: #function, code: #line)`.
 This produces meaningless error information at runtime (the function name as a domain, the source line as a code).
@@ -237,7 +237,7 @@ These should be proper typed errors.
 **File:** `Sources/Modules/Feeds/Interactor/FeedsInteractor.swift:100`
 **File:** `Sources/Modules/FeedItems/Interactor/FeedItemsInteractor.swift:130`
 
-#### 5.4 TODO Comments Indicating Unfinished Work
+#### ✅ 5.4 TODO Comments Indicating Unfinished Work
 
 - `Parser.swift:39` -- "Remove storage from parser, let client create the data objects"
 - `FeedItemsInteractor.swift:89-90` -- "Detect if new feed_items appeared"
@@ -563,7 +563,7 @@ This pairs well with moving data ownership out of the View (see 1.5) -- the inte
 
 ### Do Now (low effort, high impact)
 1. ✅ Delete `Brain.swift` and `CoreDataManager.swift` (dead code cleanup)
-2. Remove `#warning` directives from `Parser.swift` -- either fix the API or use TODO
+2. ✅ Remove `#warning` directives from `Parser.swift` -- either fix the API or use TODO
 3. Replace `print()` statements with `os.Logger` categories (10.1)
 4. Fix `hideRefreshControl()` to use `tableView.refreshControl = nil`
 5. ✅ Nil out `parsingCompletion` after calling it in both interactors
@@ -583,8 +583,8 @@ This pairs well with moving data ownership out of the View (see 1.5) -- the inte
 15. Migrate interactor protocols to `async throws`
 16. Add `@MainActor` to presenter and view protocols
 17. Adopt `NSFetchedResultsController` for reactive feed list updates (13.1)
-18. Write unit tests for presenters and interactors (the architecture supports it now)
+18. ✅ Write unit tests for presenters and interactors (the architecture supports it now)
 19. ✅ Write Core Data tests using in-memory persistent store
 20. Write UI tests using XCUIAutomation framework
 21. Perform accessibility audit -- VoiceOver labels, Dynamic Type, accessibility traits (12.4)
-22. Move Core Data object creation out of Parser into the caller (as the existing TODO suggests)
+22. ✅ Move Core Data object creation out of Parser into the caller (as the existing TODO suggests)

@@ -17,10 +17,16 @@ struct FeedItemsViewState {
 
     let searchTitle: String?
 
+    let isMarkAllAsReadVisible: Bool
+
     // MARK: - Init
-    init(feed: Feed? = nil, feedItems: [FeedItem]? = nil, searchTitle: String? = nil) {
+    init(feed: Feed? = nil,
+         feedItems: [FeedItem]? = nil,
+         searchTitle: String? = nil,
+         isMarkAllAsReadVisible: Bool = false) {
         self.feed = feed
         self.feedItems = feedItems
         self.searchTitle = searchTitle
+        self.isMarkAllAsReadVisible = isMarkAllAsReadVisible
     }
 }
