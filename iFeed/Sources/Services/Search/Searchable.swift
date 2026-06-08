@@ -18,44 +18,27 @@ import Mocking
 /// while providing a consistent interface.
 ///
 /// **Usage Pattern:**
-/// 1. Call `fillMatchingEngine(completion:)` to index all feed items
-/// 2. Call `search(for:resultsFound:)` to perform searches
+/// 1. Call `fillMatchingEngine()` to index all feed items
+/// 2. Call `search(for:)` to perform searches
 ///
 /// **Example:**
 /// ```swift
-/// var search: Searchable = Search()
-/// search.fillMatchingEngine {
-///     search.search(for: "Swift") { results in
-///         if let items = results {
-///             print("Found \(items.count) items")
-///         }
-///     }
-/// }
+/// var search: Searchable = Search(storage: storage)
+/// await search.fillMatchingEngine()
+/// let results = await search.search(for: "Swift")
 /// ```
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
 protocol Searchable {
+    /// Fills the search index with all available feed items.
+    ///
+    /// Suspends until indexing completes. Call this before `search(for:)`.
+    @MainActor mutating func fillMatchingEngine() async
 
-    /// Fills the search index with all available feed items
+    /// Searches for feed items matching the given search term.
     ///
-    /// This method prepares the search backend by indexing all feed items.
-    /// The specific indexing mechanism depends on the conforming type.
-    ///
-    /// - Parameter completion: Called when indexing completes (on arbitrary queue)
-    ///
-    /// - Important: This method must complete successfully before calling `search(for:resultsFound:)`.
-    mutating func fillMatchingEngine(completion: @escaping () -> Void)
-
-    /// Searches for feed items matching the given search term
-    ///
-    /// Performs a search against the indexed feed items and returns matching results.
-    /// The specific search algorithm depends on the conforming type.
-    ///
-    /// - Parameters:
-    ///   - searchTerm: The text to search for in feed item titles
-    ///   - resultsFound: Closure called with matching feed items, or nil if no matches
-    ///
-    /// - Important: `fillMatchingEngine(completion:)` must be called first.
-    func search(for searchTerm: String, resultsFound: @escaping ([FeedItem]?) -> Void)
+    /// Returns matched items sorted newest-first, or `nil` when nothing matches or the
+    /// engine has not been filled yet.
+    @MainActor func search(for searchTerm: String) async -> [FeedItem]?
 }

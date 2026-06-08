@@ -107,10 +107,7 @@ final class Parser {
     /// Ensures that if the `Parser` (and its owning Interactor/Module) is dismissed,
     /// all background work and network requests are immediately stopped to save battery and CPU.
     deinit {
-        let taskToCancel = activeTask
-        Task { @MainActor in
-            taskToCancel?.cancel()
-        }
+        activeTask?.cancel()
     }
 }
 

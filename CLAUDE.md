@@ -84,5 +84,6 @@ For protocols with overloaded methods, use `@MockedMembers` on a hand-written mo
 - Always use `[weak self]` in closures crossing VIPER layer boundaries.
 - Test files live in `iFeed/Tests/` mirroring the source layout, named `*Tests.swift`.
 - PRs target the `develop` branch. Use short imperative commit messages.
+- **Preserve existing comments during refactors.** When changing a method's signature, behaviour, or implementation, update the doc comment to match — do not delete it. Only remove a comment if the code it describes no longer exists at all.
 - **STRICT: Never use force unwrap `!` anywhere** — not in source, not in tests. Use `guard let`, `if let`, nil-coalescing (`??`), or `try #require()` in tests. SwiftLint enforces `force_unwrapping`. No exceptions.
 - **Swift 6 concurrency:** All code must compile without concurrency warnings. Mark types `Sendable` (or `@unchecked Sendable` when needed), use `@MainActor` for UI-bound code, avoid mutable captures in `@Sendable` closures (use `nonisolated(unsafe)` or reference-type boxes when necessary), and use `@preconcurrency import` for third-party modules that lack `Sendable` conformances.

@@ -1,5 +1,7 @@
 {
   "enabledPlugins": {
-    "xcode-build-skills@xcode-build-skills": true
+    "xcode-build-skills@xcode-build-skills": true,
+    "swift-testing-expert@swift-testing-agent-skill": true,
+    "swift-concurrency@swift-concurrency-agent-skill": true
   }
 }

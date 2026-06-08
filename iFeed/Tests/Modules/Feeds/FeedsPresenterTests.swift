@@ -31,6 +31,7 @@ struct FeedsPresenterTests {
         interactor._unreadCountsByFeed.implementation = .returns([:])
         interactor._getAllFolders.implementation = .returns([])
         interactor._recentSearches.implementation = .returns([])
+        interactor._performSearch.implementation = .returns(nil)
 
         sut = FeedsPresenter(
             interactor: interactor,
@@ -426,9 +427,6 @@ struct FeedsPresenterTests {
     // MARK: - onViewNeedsToSearchFeeds
 
     @Test func onViewNeedsToSearchFeeds_disablesEditingAndShowsIndicator() {
-        // Given
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { _ in }
-
         // When
         sut.onViewNeedsToSearchFeeds(by: "swift")
 
@@ -438,9 +436,6 @@ struct FeedsPresenterTests {
     }
 
     @Test func onViewNeedsToSearchFeeds_savesRecentSearchAndRefreshesMenu() {
-        // Given
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { _ in }
-
         // When
         sut.onViewNeedsToSearchFeeds(by: "swift")
 
@@ -450,12 +445,10 @@ struct FeedsPresenterTests {
         #expect(view._configureSearchButtonMenu.callCount >= 1)
     }
 
-    @Test func onViewNeedsToSearchFeeds_callsFillSearchMatchingEngine() {
-        // Given
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { _ in }
-
+    @Test func onViewNeedsToSearchFeeds_callsFillSearchMatchingEngine() async throws {
         // When
         sut.onViewNeedsToSearchFeeds(by: "swift")
+        try await Task.sleep(for: .milliseconds(50))
 
         // Then
         #expect(interactor._fillSearchMatchingEngine.callCount == 1)
@@ -577,25 +570,25 @@ struct FeedsPresenterTests {
     }
 
     // MARK: - onViewNeedsToSearchFeeds (callback paths)
+    // Uses withCheckedContinuation instead of Task.sleep to avoid flaky failures under full-suite load.
 
     @Test func onViewNeedsToSearchFeeds_whenResultsFound_navigatesToSearchResults() async {
         // Given
         let feed = makeFeed(itemCount: 1)
         let items = feed.sortedItems()
 
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { completion in
-            completion()
-        }
-        interactor._performSearch.implementation = .uncheckedInvokes { [items] _, completion in
-            completion(items)
-        }
+        interactor._performSearch.implementation = .returns(items)
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }
 
         // When
-        sut.onViewNeedsToSearchFeeds(by: "swift")
-        await Task.yield()
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            wireframe._navigateToSearchResults.implementation = .uncheckedInvokes { _, _ in
+                continuation.resume()
+            }
+            sut.onViewNeedsToSearchFeeds(by: "swift")
+        }
 
         // Then
         #expect(wireframe._navigateToSearchResults.callCount == 1)
@@ -603,19 +596,18 @@ struct FeedsPresenterTests {
 
     @Test func onViewNeedsToSearchFeeds_whenNilResults_showsNoSearchResultsAlert() async {
         // Given
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { completion in
-            completion()
-        }
-        interactor._performSearch.implementation = .uncheckedInvokes { _, completion in
-            completion(nil)
-        }
+        interactor._performSearch.implementation = .returns(nil)
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }
 
         // When
-        sut.onViewNeedsToSearchFeeds(by: "swift")
-        await Task.yield()
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._showNoSearchResultsAlert.implementation = .uncheckedInvokes {
+                continuation.resume()
+            }
+            sut.onViewNeedsToSearchFeeds(by: "swift")
+        }
 
         // Then
         #expect(view._showNoSearchResultsAlert.callCount == 1)
@@ -623,19 +615,18 @@ struct FeedsPresenterTests {
 
     @Test func onViewNeedsToSearchFeeds_whenEmptyResults_showsNoSearchResultsAlert() async {
         // Given
-        interactor._fillSearchMatchingEngine.implementation = .uncheckedInvokes { completion in
-            completion()
-        }
-        interactor._performSearch.implementation = .uncheckedInvokes { _, completion in
-            completion([])
-        }
+        interactor._performSearch.implementation = .returns([])
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }
 
         // When
-        sut.onViewNeedsToSearchFeeds(by: "swift")
-        await Task.yield()
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._showNoSearchResultsAlert.implementation = .uncheckedInvokes {
+                continuation.resume()
+            }
+            sut.onViewNeedsToSearchFeeds(by: "swift")
+        }
 
         // Then
         #expect(view._showNoSearchResultsAlert.callCount == 1)

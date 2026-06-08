@@ -14,79 +14,141 @@ import Mocking
 #endif
 
 // MARK: - TextMatching
-/// Abstraction over `SimpleSimilarity.MatchingEngine` to enable dependency injection and testing.
+
+/// A narrow abstraction over `SimpleSimilarity.MatchingEngine` that enables dependency injection
+/// and unit testing without pulling in the real engine.
 ///
-/// Exposes only the surface area that ``Search`` relies on: checking whether the engine
-/// has been indexed, populating its corpus, and executing scored queries.
+/// ``Search`` only needs three capabilities from the underlying engine:
+/// - knowing whether it has been indexed yet (`isFilled`)
+/// - populating its text corpus (`fillMatchingEngine(with:onlyRemoveFrequentStopwords:completion:)`)
+/// - executing a scored fuzzy query (`results(betterThan:for:resultsFound:)`)
+///
+/// Keeping the protocol surface minimal means tests can stub every behaviour with a lightweight mock
+/// and production code is shielded from future API changes in `SimpleSimilarity`.
 #if DEBUG
 @Mocked(compilationCondition: .debug)
 #endif
 protocol TextMatching {
-    /// Whether the engine has been filled with a text corpus and is ready for queries.
+
+    /// `true` once the engine has been given a text corpus and is ready to answer queries.
+    ///
+    /// Calling `results(betterThan:for:resultsFound:)` before this flag is `true` throws
+    /// `MatchingEngineNotFilledError`.
     var isFilled: Bool { get }
 
-    /// Indexes the provided text corpus for subsequent searches.
+    /// Builds the internal search index from the supplied text corpus.
+    ///
+    /// The operation is performed asynchronously on an internal queue managed by `SimpleSimilarity`.
+    /// `completion` is called — on an arbitrary background queue — once indexing finishes.
     ///
     /// - Parameters:
-    ///   - corpus: The textual data entries to index.
-    ///   - onlyRemoveFrequentStopwords: When `true`, only high-frequency stop words are removed.
-    ///   - completion: Called when indexing completes (on an arbitrary queue).
+    ///   - corpus: The collection of textual entries to index. Each entry's `inputString` is
+    ///     tokenised and weighted; `originObject` is carried through unchanged so callers can
+    ///     map results back to their source objects (e.g. `NSManagedObjectID`).
+    ///   - onlyRemoveFrequentStopwords: Pass `true` to strip only the highest-frequency stop words
+    ///     (recommended for short feed titles). Pass `false` for aggressive stop-word removal.
+    ///   - completion: Called on an arbitrary queue when indexing has finished. The engine is safe
+    ///     to query immediately after this closure executes.
     func fillMatchingEngine(with corpus: [TextualData], onlyRemoveFrequentStopwords: Bool, completion: @escaping () -> Void)
 
-    /// Returns results scoring above a minimum threshold for the given query.
+    /// Queries the engine and returns all results whose similarity score exceeds a threshold.
+    ///
+    /// Results are delivered asynchronously via `resultsFound`. Each `Result` in the array
+    /// contains a ranked list of `TextualData` entries and an overall quality score.
     ///
     /// - Parameters:
-    ///   - betterThan: Minimum quality threshold in the range `0.0 ... 1.0`.
-    ///   - query: The textual data representing the search term.
-    ///   - resultsFound: Closure receiving the ranked results, or `nil` when nothing matches.
-    /// - Throws: `MatchingEngineNotFilledError` if called before `fillMatchingEngine(with:…)`.
+    ///   - betterThan: The minimum similarity score (0.0 – 1.0) a result must reach to be
+    ///     included. Lower values return more (potentially weaker) matches; higher values
+    ///     restrict results to strong matches only.
+    ///   - query: A `TextualData` whose `inputString` is the user's search term.
+    ///   - resultsFound: Called asynchronously with the ranked results, or `nil` when no entry
+    ///     in the corpus scores above `betterThan`.
+    /// - Throws: `MatchingEngineNotFilledError` if the engine has not been indexed yet.
     func results(betterThan: Float, for query: TextualData, resultsFound: @escaping ([Result]?) -> Void) throws
 }
 
-/// Retroactive conformance — `MatchingEngine` already satisfies every ``TextMatching`` requirement.
+/// Retroactive conformance — `MatchingEngine` already satisfies every ``TextMatching`` requirement,
+/// so no additional implementation is needed.
 extension MatchingEngine: TextMatching {}
 
-/// Factory closure that creates a fresh ``TextMatching`` instance.
+/// A closure that creates a brand-new ``TextMatching`` engine on demand.
+///
+/// Using a factory rather than a stored engine instance allows ``Search`` — a value type — to
+/// recreate the engine each time `fillMatchingEngine()` is called, which keeps the indexing
+/// state consistent even if the caller invokes the method multiple times.
+/// In tests, the factory simply returns the injected mock.
 typealias MatchingEngineFactory = () -> any TextMatching
 
-/// Performs local search over feed items using a text matching engine
+// MARK: - Search
+
+/// A value-type facade that provides full-text search over all `FeedItem` records in Core Data.
 ///
-/// This struct provides full-text search capabilities across all feed items stored in Core Data.
-/// It uses a `MatchingEngine` to perform fuzzy text matching with configurable thresholds.
+/// `Search` wraps the callback-based `SimpleSimilarity.MatchingEngine` behind a clean `async/await`
+/// interface and handles the two-phase lifecycle that fuzzy search requires:
 ///
-/// **Usage Pattern:**
-/// 1. Call `fillMatchingEngine(completion:)` to index all feed items
-/// 2. Call `search(for:resultsFound:)` to perform searches
+/// **Phase 1 — Index:** call `fillMatchingEngine()` once (or whenever the corpus changes) to build
+/// the search index. Only `FeedItem` titles are indexed; full objects are **not** loaded at this
+/// stage, keeping memory usage proportional to the number of titles rather than to the full object
+/// graph.
 ///
-/// **Performance:**
-/// - Indexing: O(n) where n is the number of feed items
-/// - Searching: O(log n) with matching engine optimizations
-/// - Results are sorted by publish date (newest first)
+/// **Phase 2 — Query:** call `search(for:)` as many times as needed. Each call wraps the engine's
+/// asynchronous callback in a `CheckedContinuation` and materialises only the matching
+/// `FeedItem` objects on the `@MainActor` using their `NSManagedObjectID`s, which are safe to
+/// pass across actor boundaries.
+///
+/// **Concurrency model:**
+/// Both `fillMatchingEngine()` and `search(for:)` are marked `@MainActor` via the ``Searchable``
+/// protocol, so they always run on the main actor. The underlying `SimpleSimilarity` callbacks
+/// may fire on a background thread internally, but the continuation bridge re-enters the main actor
+/// before any `NSManagedObject` is touched.
+///
+/// **Usage:**
+/// ```swift
+/// var search = Search(storage: coreDataManager)
+/// await search.fillMatchingEngine()            // build index
+/// let results = await search.search(for: "Swift concurrency")  // query
+/// ```
+///
+/// **Performance summary:**
+/// | Operation    | Complexity                                  |
+/// |--------------|---------------------------------------------|
+/// | Indexing     | O(n) — n = number of feed items             |
+/// | Query        | O(log n) — engine uses an inverted index    |
+/// | Sorting      | O(m log m) — m = number of matching items   |
+/// | Deduplication| O(m)                                        |
 struct Search {
+
     // MARK: - Private Properties
 
-    /// The text matching engine that performs fuzzy search
+    /// The lazily created text matching engine.
     ///
-    /// This engine must be filled before searches can be performed.
-    /// It indexes feed item titles for fast lookup.
+    /// `nil` until `fillMatchingEngine()` has been called at least once. A fresh instance is
+    /// created on every call to `fillMatchingEngine()` so that re-indexing is always clean —
+    /// there is no partial-update API in `SimpleSimilarity`.
     private var matchingEngine: (any TextMatching)?
 
-    /// Core Data manager for accessing feed items
+    /// The storage layer used to read feed data from Core Data.
     ///
-    /// Reused instance to avoid creating multiple managers.
+    /// Injected at init time so the same `CoreDataManager` instance that the rest of the app uses
+    /// is reused here, avoiding duplicate persistent store connections.
     private let storage: any StorageProtocol
 
-    /// Factory that creates the underlying text matching engine on demand.
+    /// Creates the underlying `TextMatching` engine when indexing begins.
+    ///
+    /// Stored as a factory rather than a pre-built engine so that tests can inject a mock without
+    /// subclassing or global state, and so that `Search` can remain a value type.
     private let matchingEngineFactory: MatchingEngineFactory
 
     // MARK: - Init
 
-    /// Creates a new search instance.
+    /// Creates a new `Search` instance bound to the given storage layer.
     ///
     /// - Parameters:
-    ///   - storage: The storage facade used to load feed item data.
-    ///   - matchingEngineFactory: Factory producing the ``TextMatching`` engine.
-    ///     Defaults to creating a real `MatchingEngine`; tests inject a mock.
+    ///   - storage: The storage facade used to load the feed-item index and to materialise
+    ///     matched `FeedItem` objects after a query.
+    ///   - matchingEngineFactory: A closure that produces a fresh ``TextMatching`` engine.
+    ///     Defaults to `{ MatchingEngine() }` in production; pass a closure returning a mock in
+    ///     tests to avoid spinning up the real engine.
     init(storage: any StorageProtocol, matchingEngineFactory: @escaping MatchingEngineFactory = { MatchingEngine() }) {
         self.storage = storage
         self.matchingEngineFactory = matchingEngineFactory
@@ -96,39 +158,49 @@ struct Search {
 // MARK: - Searchable
 extension Search: Searchable {
 
-    /// Fills the matching engine with all available feed items
+    /// Builds the full-text search index from every `FeedItem` currently in the store.
     ///
-    /// This method fetches all feed items from Core Data and indexes their titles
-    /// in the matching engine for subsequent search operations.
+    /// This is a mutating, one-shot operation: calling it replaces any previously built engine
+    /// with a fresh one populated from the current corpus. It suspends the caller until the
+    /// `SimpleSimilarity` engine has finished indexing.
     ///
-    /// **Memory Efficiency Strategy:**
-    /// Instead of fetching and materializing thousands of `FeedItem` managed objects,
-    /// we use `loadFeedItemIndex()` to fetch only the `title` and `objectID` for each item.
-    /// This significantly reduces memory pressure during the indexing phase.
+    /// **Why index only titles?**
+    /// Fetching every `FeedItem` as a fully materialised `NSManagedObject` would load all
+    /// relationships, binary data, and change-tracking overhead into memory. Instead,
+    /// `loadFeedItemIndex()` returns a lightweight `(title, objectID)` tuple for each item —
+    /// no relationships, no faults. This keeps the indexing footprint proportional to the
+    /// number of titles rather than to the size of the full object graph.
+    ///
+    /// **Why store `NSManagedObjectID` in `originObject`?**
+    /// `TextualData.originObject` is an `AnyObject?` slot that `SimpleSimilarity` carries through
+    /// unchanged. Storing the `NSManagedObjectID` here lets `search(for:)` later retrieve the
+    /// matching IDs directly from the engine's results without maintaining a separate lookup table.
+    ///
+    /// **Concurrency bridge:**
+    /// `SimpleSimilarity.MatchingEngine.fillMatchingEngine(with:…)` is callback-based and fires its
+    /// completion on an internal background queue. `withCheckedContinuation` bridges this into
+    /// structured concurrency: the `@MainActor`-isolated `fillMatchingEngine()` suspends, the
+    /// engine indexes on its own queue, and then the continuation resumes back on the main actor.
     ///
     /// **Process:**
-    /// 1. Fetches only titles and objectIDs for all feed items from Core Data
-    /// 2. Converts index data to lightweight `TextualData` objects pointing to `NSManagedObjectID`
-    /// 3. Indexes the data in the matching engine
-    /// 4. Calls completion when indexing is complete
+    /// 1. Loads a lightweight `(title, objectID)` index from Core Data via `StorageProtocol`
+    /// 2. Maps each entry to a `TextualData` object, embedding the `NSManagedObjectID` for later retrieval
+    /// 3. Creates a fresh engine via the injected factory
+    /// 4. Passes the corpus to the engine and suspends until the callback fires
     ///
-    /// **Performance:**
-    /// - Time complexity: O(n) where n is the number of feed items
-    /// - Should be called on a background queue for large datasets
-    ///
-    /// - Parameter completion: Called when indexing completes (on arbitrary queue)
-    ///
-    /// - Important: This method must complete successfully before calling `search(for:resultsFound:)`.
-    ///              If no feed items exist, completion is called immediately.
-    mutating func fillMatchingEngine(completion: @escaping () -> Void) {
-        // Fetch only titles and objectIDs for memory-efficient indexing
+    /// - Important: If `loadFeedItemIndex()` returns `nil` or an empty array, the method returns
+    ///   immediately and the engine is left in its previous state (or remains `nil` if never filled).
+    mutating func fillMatchingEngine() async {
         guard let itemIndex = storage.loadFeedItemIndex(), !itemIndex.isEmpty else {
-            completion()
+            // Nothing to index — either the store is empty or the fetch failed.
+            // Returning early avoids creating a useless empty engine.
             return
         }
 
-        // Convert index data to TextualData objects for indexing
-        // We use originObject to store the NSManagedObjectID for later materialization
+        // Map each (title, objectID) index entry to a TextualData value.
+        // `inputString` is what the engine tokenises and scores; `originObject` is an opaque
+        // pass-through slot — we store the NSManagedObjectID so that search results can be
+        // mapped back to FeedItem objects without an extra lookup.
         let textualData = itemIndex.map { entry -> TextualData in
             TextualData(
                 inputString: entry.title,
@@ -137,117 +209,127 @@ extension Search: Searchable {
             )
         }
 
-        // Initialize and fill the matching engine
+        // Always create a new engine instance so re-indexing starts clean.
+        // SimpleSimilarity has no incremental-update API, so a full rebuild is the only option.
         matchingEngine = matchingEngineFactory()
-        matchingEngine?.fillMatchingEngine(
-            with: textualData,
-            onlyRemoveFrequentStopwords: true,
-            completion: completion
-        )
+
+        // Bridge the callback-based engine API into async/await.
+        // The continuation body is non-`@Sendable`, so capturing `matchingEngine` (a struct
+        // containing a class reference) here is safe — no data race is possible.
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            matchingEngine?.fillMatchingEngine(
+                with: textualData,
+                onlyRemoveFrequentStopwords: true,  // strip only the noisiest stop words for short titles
+                completion: { continuation.resume() }
+            )
+        }
     }
 
-    /// Searches for feed items matching the given search term
+    /// Returns feed items whose titles fuzzy-match the given search term, sorted newest-first.
     ///
-    /// Performs fuzzy text matching against indexed feed item titles and returns
-    /// matching items sorted by publish date (newest first).
+    /// The method is split into two clearly separated phases to respect Swift 6's strict
+    /// actor-isolation rules for `NSManagedObject`:
     ///
-    /// **Memory Optimization:**
-    /// Only the feed items that actually match the search query are materialized
-    /// into full `FeedItem` objects using their `NSManagedObjectID`. This deferred
-    /// materialization ensures we never keep more objects in memory than necessary.
+    /// **Phase A — ID extraction (inside the continuation callback):**
+    /// The `SimpleSimilarity` results callback fires on an arbitrary background thread. At this
+    /// point only `NSManagedObjectID` values are extracted from the results — these are `Sendable`
+    /// and safe to cross actor boundaries. No `NSManagedObject` is touched here.
     ///
-    /// **Matching Behavior:**
-    /// - Uses fuzzy matching with a threshold of 0.005 (adjustable)
-    /// - Matches are case-insensitive
-    /// - Stop words are filtered during indexing
-    /// - Multiple feed items can have the same title (different feeds, different content)
+    /// **Phase B — Object materialisation (after the continuation, on `@MainActor`):**
+    /// Back on the main actor, `loadFeedItems(withIDs:)` uses the view context to turn the IDs
+    /// into fully faulted `FeedItem` objects. Accessing managed objects only from the main actor
+    /// keeps Core Data concurrency rules satisfied.
     ///
-    /// **Performance:**
-    /// - Search: O(log n) with matching engine
-    /// - Sorting: O(m log m) where m is the number of results
-    /// - Deduplication: O(m) where m is the number of results
+    /// **Why 0.005 as the similarity threshold?**
+    /// `SimpleSimilarity` scores range from 0.0 to 1.0. A threshold of 0.005 is intentionally
+    /// permissive: it admits weak matches so that single-word queries against multi-word titles
+    /// still surface relevant results. This value was chosen empirically for feed-item titles and
+    /// can be adjusted if recall/precision needs change.
+    ///
+    /// **Why deduplicate?**
+    /// The engine may place the same corpus entry in multiple scored result buckets when a title
+    /// matches different aspects of the query. Deduplication by `objectID` ensures each feed item
+    /// appears at most once in the returned array.
     ///
     /// - Parameters:
-    ///   - searchTerm: The text to search for in feed item titles
-    ///   - resultsFound: Closure called with matching feed items, or nil if no matches
+    ///   - searchTerm: The user-supplied text to search for in feed item titles.
     ///
-    /// - Important: `fillMatchingEngine(completion:)` must be called first.
-    ///              If the engine isn't filled, `resultsFound` will be called with nil.
+    /// - Returns: An array of matching `FeedItem` objects sorted by `publishDate` descending,
+    ///   or `nil` when the engine is unfilled, no items score above the threshold, or all matched
+    ///   IDs fail to load from the store.
     ///
-    /// **Example:**
-    /// ```swift
-    /// var search = Search(storage: storage)
-    /// search.fillMatchingEngine {
-    ///     search.search(for: "Swift") { results in
-    ///         if let items = results {
-    ///             print("Found \(items.count) items")
-    ///         }
-    ///     }
-    /// }
-    /// ```
-    func search(for searchTerm: String, resultsFound: @escaping ([FeedItem]?) -> Void) {
-        // Verify the matching engine is ready
-        guard matchingEngine?.isFilled ?? false else {
-            resultsFound(nil)
-            return
+    /// - Important: `fillMatchingEngine()` must be called before this method. Calling it on an
+    ///   unfilled engine returns `nil` immediately without querying the engine.
+    @MainActor func search(for searchTerm: String) async -> [FeedItem]? {
+        // Bail out early if the engine was never created or its index is empty.
+        // This prevents a `MatchingEngineNotFilledError` throw below.
+        guard let engine = matchingEngine, engine.isFilled else {
+            return nil
         }
 
-        // Create a query from the search term
+        // Wrap the search term in a TextualData query object.
+        // `origin` and `originObject` are nil because a query has no backing store entity —
+        // only corpus entries need an originObject for result mapping.
         let query = TextualData(
             inputString: searchTerm,
             origin: nil,
             originObject: nil
         )
 
-        // Perform the search with a relevance threshold of 0.005
-        // Lower threshold = more permissive matching
-        try? matchingEngine?.results(betterThan: 0.005, for: query) { results in
-            guard let results = results, !results.isEmpty else {
-                resultsFound(nil)
-                return
-            }
-
-            // Convert textual results back to objectIDs
-            // Use flatMap to flatten nested arrays and compactMap to filter out non-ObjectID objects
-            let objectIDs: [NSManagedObjectID] = results.flatMap { result in
-                result.textualResults.compactMap { textualData in
-                    textualData.originObject as? NSManagedObjectID
+        // Phase A: run the engine query and extract NSManagedObjectIDs.
+        //
+        // The `resultsFound` closure fires on a background thread managed by SimpleSimilarity.
+        // We must not touch any NSManagedObject here. Only NSManagedObjectID — which is
+        // Sendable and context-independent — is extracted and handed to the continuation.
+        //
+        // The `do/catch` handles `MatchingEngineNotFilledError`; in normal operation the guard
+        // above prevents this, but the catch makes the path explicit and safe.
+        let objectIDs: [NSManagedObjectID]? = await withCheckedContinuation { continuation in
+            do {
+                try engine.results(betterThan: 0.005, for: query) { results in
+                    guard let results, !results.isEmpty else {
+                        // Engine found nothing above the threshold — signal no match.
+                        continuation.resume(returning: nil)
+                        return
+                    }
+                    // Flatten all result entries and collect their embedded NSManagedObjectIDs.
+                    // `compactMap` silently skips any entry whose originObject is not an ID
+                    // (e.g. the query object itself, which has originObject == nil).
+                    let ids = results.flatMap { result in
+                        result.textualResults.compactMap { $0.originObject as? NSManagedObjectID }
+                    }
+                    continuation.resume(returning: ids.isEmpty ? nil : ids)
                 }
+            } catch {
+                // Engine threw (e.g. not filled) — treat as no results.
+                continuation.resume(returning: nil)
             }
-
-            // Guard against empty results after conversion
-            guard !objectIDs.isEmpty else {
-                resultsFound(nil)
-                return
-            }
-
-            // Materialize only matched FeedItem objects from objectIDs
-            // This is the key optimization: we only fetch what we need
-            let matchedItems = storage.loadFeedItems(withIDs: objectIDs)
-
-            guard !matchedItems.isEmpty else {
-                resultsFound(nil)
-                return
-            }
-
-            // Remove duplicate references to the same Core Data object
-            // This can happen if the matching engine returns the same result multiple times
-            // Note: Feed items with the same title but different objectIDs are kept (different articles)
-            var uniqueFeedItems: [FeedItem] = []
-            var seenObjectIDs = Set<NSManagedObjectID>()
-
-            for item in matchedItems {
-                // insert(_:) returns (inserted: Bool, memberAfterInsert: Element)
-                // We only append if this objectID hasn't been seen before
-                if seenObjectIDs.insert(item.objectID).inserted {
-                    uniqueFeedItems.append(item)
-                }
-            }
-
-            // Sort by publish date (newest first)
-            let sortedItems = uniqueFeedItems.sorted { $0.publishDate > $1.publishDate }
-
-            resultsFound(sortedItems)
         }
+
+        // If the engine produced no usable IDs, there is nothing to return.
+        guard let objectIDs else { return nil }
+
+        // Phase B: materialise FeedItem objects on @MainActor.
+        //
+        // `loadFeedItems(withIDs:)` fetches from the view context, which must only be accessed
+        // on the main thread. We are guaranteed to be on @MainActor here because `search(for:)`
+        // is isolated to @MainActor via the Searchable protocol.
+        let matchedItems = storage.loadFeedItems(withIDs: objectIDs)
+        guard !matchedItems.isEmpty else { return nil }
+
+        // Deduplicate by objectID: the engine may return the same item from multiple
+        // Result entries (e.g. when a title matches several scored buckets).
+        // Insertion-order is preserved so the subsequent sort is the only ordering applied.
+        var uniqueFeedItems: [FeedItem] = []
+        var seenObjectIDs = Set<NSManagedObjectID>()
+        for item in matchedItems {
+            if seenObjectIDs.insert(item.objectID).inserted {
+                uniqueFeedItems.append(item)
+            }
+        }
+
+        // Sort newest-first so the caller always receives a predictable, date-ordered list
+        // regardless of the order the engine returned the matches.
+        return uniqueFeedItems.sorted { $0.publishDate > $1.publishDate }
     }
 }

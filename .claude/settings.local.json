@@ -3,7 +3,8 @@
     "allow": [
       "Bash(xcrun simctl:*)",
       "Bash(python3:*)",
-      "Bash(xcodebuild build:*)"
+      "Bash(xcodebuild build:*)",
+      "Bash(xcodebuild test:*)"
     ]
   }
 }

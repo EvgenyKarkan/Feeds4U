@@ -8,6 +8,7 @@
 
 import CoreData
 import Foundation
+import Synchronization
 
 /// Typed errors surfaced by ``CoreDataManager`` operations.
 ///
@@ -87,12 +88,11 @@ final class CoreDataManager {
         return expr
     }()
 
-    /// Lock-guarded flag set once the persistent store finishes loading.
-    private let storeLock = NSLock()
-    private var _isStoreLoaded = false
+    /// Mutex-guarded flag set once the persistent store finishes loading.
+    private let storeLoaded = Mutex(false)
     private(set) var isStoreLoaded: Bool {
-        get { storeLock.lock(); defer { storeLock.unlock() }; return _isStoreLoaded }
-        set { storeLock.lock(); defer { storeLock.unlock() }; _isStoreLoaded = newValue }
+        get { storeLoaded.withLock { $0 } }
+        set { storeLoaded.withLock { $0 = newValue } }
     }
 
     // MARK: - Initialization
@@ -234,6 +234,25 @@ final class CoreDataManager {
             } catch {
                 context.rollback()
                 completion?(.failure(.saveFailed(underlying: error)))
+            }
+        }
+    }
+
+    /// Asynchronously saves `context` on its own queue using the native `async` overload.
+    ///
+    /// Prefer this overload when calling from an `async` context — it suspends the caller
+    /// rather than requiring a completion closure.
+    func saveContextAsync(_ context: NSManagedObjectContext) async throws {
+        try await context.perform {
+            guard context.hasChanges else {
+                return
+            }
+
+            do {
+                try context.save()
+            } catch {
+                context.rollback()
+                throw CoreDataError.saveFailed(underlying: error)
             }
         }
     }

@@ -62,10 +62,10 @@ protocol FeedsInteractorProtocol {
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void)
 
     // prepares semantic search engine
-    func fillSearchMatchingEngine(completion: @escaping () -> Void)
+    func fillSearchMatchingEngine() async
 
     // local search
-    func performSearch(by searchTerm: String, completion: @escaping ([FeedItem]?) -> Void)
+    func performSearch(by searchTerm: String) async -> [FeedItem]?
 
     // recent searches
     func recentSearches() -> [String]

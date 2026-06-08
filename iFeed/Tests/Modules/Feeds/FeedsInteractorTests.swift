@@ -306,41 +306,27 @@ struct FeedsInteractorTests {
 
     // MARK: - fillSearchMatchingEngine
 
-    @Test func fillSearchMatchingEngine_delegatesToSearchService() {
-        // Given
-        var completionCalled = false
-        search._fillMatchingEngine.implementation = .invokes { completion in
-            completion()
-        }
-
+    @Test func fillSearchMatchingEngine_delegatesToSearchService() async {
         // When
-        sut.fillSearchMatchingEngine {
-            completionCalled = true
-        }
+        await sut.fillSearchMatchingEngine()
 
         // Then
-        #expect(completionCalled)
         #expect(search._fillMatchingEngine.callCount == 1)
     }
 
     // MARK: - performSearch
 
-    @Test func performSearch_delegatesToSearchService() {
+    @Test func performSearch_delegatesToSearchService() async {
         // Given
-        var receivedResults: [FeedItem]?
-        search._search.implementation = .invokes { _, resultsFound in
-            resultsFound(nil)
-        }
+        search._search.implementation = .returns(nil)
 
         // When
-        sut.performSearch(by: "swift") { results in
-            receivedResults = results
-        }
+        let results = await sut.performSearch(by: "swift")
 
         // Then
-        #expect(receivedResults == nil)
+        #expect(results == nil)
         #expect(search._search.callCount == 1)
-        #expect(search._search.lastInvocation?.0 == "swift")
+        #expect(search._search.lastInvocation == "swift")
     }
 
     // MARK: - exploreFeeds

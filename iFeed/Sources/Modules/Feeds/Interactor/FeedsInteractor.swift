@@ -71,13 +71,12 @@ extension FeedsInteractor: FeedsInteractorProtocol {
         parser.beginParsingURL(feedURL)
     }
 
-    func fillSearchMatchingEngine(completion: @escaping () -> Void) {
-        localSearchService.fillMatchingEngine(completion: completion)
+    func fillSearchMatchingEngine() async {
+        await localSearchService.fillMatchingEngine()
     }
 
-    func performSearch(by searchTerm: String,
-                       completion: @escaping ([FeedItem]?) -> Void) {
-        localSearchService.search(for: searchTerm, resultsFound: completion)
+    func performSearch(by searchTerm: String) async -> [FeedItem]? {
+        return await localSearchService.search(for: searchTerm)
     }
 
     // MARK: - Recent searches

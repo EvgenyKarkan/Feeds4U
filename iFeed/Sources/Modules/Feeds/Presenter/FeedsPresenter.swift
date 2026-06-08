@@ -134,17 +134,21 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         interactor.saveRecentSearch(searchTerm)
         refreshSearchButtonMenu()
 
-        interactor.fillSearchMatchingEngine { [weak self] in
-            self?.interactor.performSearch(by: searchTerm) { [weak self] feedItems in
-                Task { @MainActor [weak self] in
-                    self?.view?.hideActivityIndicator { [weak self] in
-                        guard let results = feedItems, !results.isEmpty else {
-                            self?.view?.showNoSearchResultsAlert()
-                            return
-                        }
-                        self?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
-                    }
+        Task { [weak self] in
+            guard let self else {
+                return
+            }
+
+            await interactor.fillSearchMatchingEngine()
+
+            let feedItems = await interactor.performSearch(by: searchTerm)
+
+            view?.hideActivityIndicator { [weak self] in
+                guard let results = feedItems, !results.isEmpty else {
+                    self?.view?.showNoSearchResultsAlert()
+                    return
                 }
+                self?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
             }
         }
     }
