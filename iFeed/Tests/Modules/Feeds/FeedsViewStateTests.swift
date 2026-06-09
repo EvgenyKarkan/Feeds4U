@@ -10,7 +10,7 @@ import Testing
 import CoreData
 @testable import iFeed
 
-@Suite(.serialized)
+@Suite
 struct FeedsViewStateTests {
 
     // MARK: - Properties

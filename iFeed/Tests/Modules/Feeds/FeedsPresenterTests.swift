@@ -12,7 +12,7 @@ import CoreData
 import UIKit
 @testable import iFeed
 
-@Suite(.serialized)
+@Suite
 @MainActor
 struct FeedsPresenterTests {
 

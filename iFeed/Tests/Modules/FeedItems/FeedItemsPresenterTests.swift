@@ -11,7 +11,7 @@ import Mocking
 import UIKit
 @testable import iFeed
 
-@Suite(.serialized)
+@Suite
 @MainActor
 struct FeedItemsPresenterTests {
 

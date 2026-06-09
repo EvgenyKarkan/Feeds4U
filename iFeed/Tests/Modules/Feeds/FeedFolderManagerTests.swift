@@ -42,7 +42,7 @@ struct FeedFolderManagerTests {
     // MARK: - loadFolders
 
     @Test("Load folders returns empty array when nothing is persisted")
-    func testLoadFoldersReturnsEmptyByDefault() {
+    func loadFoldersReturnsEmptyByDefault() {
         // Given
         // When
         let folders = sut.loadFolders()
@@ -52,7 +52,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Load folders returns previously created folders")
-    func testLoadFoldersReturnsSavedFolders() {
+    func loadFoldersReturnsSavedFolders() {
         // Given
         sut.createFolder(name: "Tech", feedURLs: ["https://a.com/rss"])
         sut.createFolder(name: "News", feedURLs: ["https://b.com/rss"])
@@ -69,7 +69,7 @@ struct FeedFolderManagerTests {
     // MARK: - createFolder
 
     @Test("Create folder returns folder with correct properties")
-    func testCreateFolderProperties() {
+    func createFolderProperties() {
         // Given
         // When
         let folder = sut.createFolder(name: "Sports", feedURLs: ["https://espn.com/rss"])
@@ -81,7 +81,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Create folder persists immediately")
-    func testCreateFolderPersists() {
+    func createFolderPersists() {
         // Given
         sut.createFolder(name: "Saved", feedURLs: ["https://x.com/rss"])
 
@@ -95,7 +95,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Create folder assigns unique IDs")
-    func testCreateFolderUniqueIDs() {
+    func createFolderUniqueIDs() {
         // Given
         // When
         let folder1 = sut.createFolder(name: "A", feedURLs: ["https://a.com"])
@@ -108,7 +108,7 @@ struct FeedFolderManagerTests {
     // MARK: - addFeed
 
     @Test("Add feed to folder appends URL")
-    func testAddFeedAppendsURL() {
+    func addFeedAppendsURL() {
         // Given
         let folder = sut.createFolder(name: "Tech", feedURLs: ["https://a.com"])
 
@@ -121,7 +121,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Add feed removes it from previous folder")
-    func testAddFeedMovesFromOtherFolder() {
+    func addFeedMovesFromOtherFolder() {
         // Given
         let folder1 = sut.createFolder(name: "Old", feedURLs: ["https://a.com", "https://shared.com"])
         let folder2 = sut.createFolder(name: "New", feedURLs: ["https://b.com"])
@@ -138,7 +138,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Add feed deletes source folder when it becomes empty")
-    func testAddFeedDeletesEmptySourceFolder() {
+    func addFeedDeletesEmptySourceFolder() {
         // Given
         sut.createFolder(name: "Solo", feedURLs: ["https://only.com"])
         let folder2 = sut.createFolder(name: "Target", feedURLs: ["https://b.com"])
@@ -154,7 +154,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Add feed with nonexistent folder ID does not crash")
-    func testAddFeedToNonexistentFolder() {
+    func addFeedToNonexistentFolder() {
         // Given
         sut.createFolder(name: "Existing", feedURLs: ["https://a.com"])
 
@@ -169,7 +169,7 @@ struct FeedFolderManagerTests {
     // MARK: - removeFeed
 
     @Test("Remove feed strips URL from its folder")
-    func testRemoveFeedStripsURL() {
+    func removeFeedStripsURL() {
         // Given
         sut.createFolder(name: "Tech", feedURLs: ["https://a.com", "https://b.com"])
 
@@ -182,7 +182,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Remove feed deletes folder when it becomes empty")
-    func testRemoveFeedDeletesEmptyFolder() {
+    func removeFeedDeletesEmptyFolder() {
         // Given
         sut.createFolder(name: "Solo", feedURLs: ["https://only.com"])
 
@@ -195,7 +195,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Remove feed that does not exist in any folder is a no-op")
-    func testRemoveFeedNoOp() {
+    func removeFeedNoOp() {
         // Given
         sut.createFolder(name: "Tech", feedURLs: ["https://a.com"])
 
@@ -211,7 +211,7 @@ struct FeedFolderManagerTests {
     // MARK: - toggleExpanded
 
     @Test("Toggle expanded flips the flag")
-    func testToggleExpanded() {
+    func toggleExpanded() {
         // Given
         let folder = sut.createFolder(name: "Tech", feedURLs: ["https://a.com"])
         #expect(folder.isExpanded == true)
@@ -232,7 +232,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Toggle expanded with nonexistent ID does not crash")
-    func testToggleExpandedNonexistentID() {
+    func toggleExpandedNonexistentID() {
         // Given
         sut.createFolder(name: "Tech", feedURLs: ["https://a.com"])
 
@@ -248,7 +248,7 @@ struct FeedFolderManagerTests {
     // MARK: - cleanupDeletedFeeds
 
     @Test("Cleanup removes URLs not in the existing set")
-    func testCleanupRemovesDeletedURLs() {
+    func cleanupRemovesDeletedURLs() {
         // Given
         sut.createFolder(name: "Mixed", feedURLs: ["https://alive.com", "https://dead.com"])
 
@@ -261,7 +261,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Cleanup deletes folder when all its URLs are gone")
-    func testCleanupDeletesEmptyFolder() {
+    func cleanupDeletesEmptyFolder() {
         // Given
         sut.createFolder(name: "AllDead", feedURLs: ["https://dead1.com", "https://dead2.com"])
         sut.createFolder(name: "Alive", feedURLs: ["https://alive.com"])
@@ -276,7 +276,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Cleanup with all URLs existing is a no-op")
-    func testCleanupNoOp() {
+    func cleanupNoOp() {
         // Given
         sut.createFolder(name: "Tech", feedURLs: ["https://a.com", "https://b.com"])
 
@@ -289,7 +289,7 @@ struct FeedFolderManagerTests {
     }
 
     @Test("Cleanup with empty existing set removes all folders")
-    func testCleanupEmptySetRemovesAll() {
+    func cleanupEmptySetRemovesAll() {
         // Given
         sut.createFolder(name: "A", feedURLs: ["https://a.com"])
         sut.createFolder(name: "B", feedURLs: ["https://b.com"])
@@ -305,7 +305,7 @@ struct FeedFolderManagerTests {
     // MARK: - loadFolders (decoding failure)
 
     @Test("Load folders returns empty array when stored data is not valid JSON")
-    func testLoadFoldersReturnsEmptyForCorruptData() {
+    func loadFoldersReturnsEmptyForCorruptData() {
         // Given
         let corruptData = Data("not-valid-json".utf8)
         defaults.set(corruptData, forKey: "feed_folders_v1")
@@ -320,7 +320,7 @@ struct FeedFolderManagerTests {
     // MARK: - persist (encoding failure)
 
     @Test("Create folder with failing encoder does not overwrite existing data")
-    func testPersistEncodingFailurePreservesExistingData() {
+    func persistEncodingFailurePreservesExistingData() {
         // Given
         sut.createFolder(name: "Existing", feedURLs: ["https://a.com"])
         let failingManager = FeedFolderManager(defaults: defaults, encoder: FailingEncoder())

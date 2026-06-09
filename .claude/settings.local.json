@@ -4,7 +4,8 @@
       "Bash(xcrun simctl:*)",
       "Bash(python3:*)",
       "Bash(xcodebuild build:*)",
-      "Bash(xcodebuild test:*)"
+      "Bash(xcodebuild test:*)",
+      "Bash(xcodebuild build-for-testing:*)"
     ]
   }
 }

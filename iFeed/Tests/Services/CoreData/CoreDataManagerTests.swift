@@ -23,7 +23,7 @@ import Testing
 //    these configure the app's real store location and are bypassed by the test-
 //    only `init(container:)` initialiser.
 
-@Suite("CoreDataManager Tests", .serialized)
+@Suite("CoreDataManager Tests")
 @MainActor
 struct CoreDataManagerTests {
 

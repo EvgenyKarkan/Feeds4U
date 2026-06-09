@@ -11,7 +11,7 @@ import Mocking
 import Foundation
 @testable import iFeed
 
-@Suite(.serialized)
+@Suite
 @MainActor
 struct ArticleReaderPresenterTests {
 

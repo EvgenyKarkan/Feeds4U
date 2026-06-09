@@ -16,7 +16,7 @@ struct FeedFolderTests {
     // MARK: - Init
 
     @Test("Default init sets isExpanded to true")
-    func testDefaultInitIsExpanded() {
+    func defaultInitIsExpanded() {
         // Given
         // When
         let folder = FeedFolder(name: "Tech", feedURLs: ["https://a.com"])
@@ -26,7 +26,7 @@ struct FeedFolderTests {
     }
 
     @Test("Default init generates a UUID")
-    func testDefaultInitGeneratesID() {
+    func defaultInitGeneratesID() {
         // Given
         // When
         let folder = FeedFolder(name: "Tech", feedURLs: ["https://a.com"])
@@ -36,7 +36,7 @@ struct FeedFolderTests {
     }
 
     @Test("Init with explicit ID uses provided value")
-    func testInitWithExplicitID() {
+    func initWithExplicitID() {
         // Given
         let expectedID = UUID()
 
@@ -48,7 +48,7 @@ struct FeedFolderTests {
     }
 
     @Test("Init stores name correctly")
-    func testInitStoresName() {
+    func initStoresName() {
         // Given
         let expectedName = "Sports"
 
@@ -60,7 +60,7 @@ struct FeedFolderTests {
     }
 
     @Test("Init stores feedURLs correctly")
-    func testInitStoresFeedURLs() {
+    func initStoresFeedURLs() {
         // Given
         let urls = ["https://a.com/rss", "https://b.com/rss"]
 
@@ -72,7 +72,7 @@ struct FeedFolderTests {
     }
 
     @Test("Init with empty feedURLs")
-    func testInitWithEmptyFeedURLs() {
+    func initWithEmptyFeedURLs() {
         // Given
         // When
         let folder = FeedFolder(name: "Empty", feedURLs: [])
@@ -84,7 +84,7 @@ struct FeedFolderTests {
     // MARK: - Equatable
 
     @Test("Folders with same properties are equal")
-    func testEqualFolders() {
+    func equalFolders() {
         // Given
         let id = UUID()
         let folder1 = FeedFolder(id: id, name: "Tech", feedURLs: ["https://a.com"])
@@ -99,7 +99,7 @@ struct FeedFolderTests {
     }
 
     @Test("Folders with different IDs are not equal")
-    func testNotEqualDifferentIDs() {
+    func notEqualDifferentIDs() {
         // Given
         let folder1 = FeedFolder(name: "Tech", feedURLs: ["https://a.com"])
         let folder2 = FeedFolder(name: "Tech", feedURLs: ["https://a.com"])
@@ -112,7 +112,7 @@ struct FeedFolderTests {
     }
 
     @Test("Folders with different isExpanded are not equal")
-    func testNotEqualDifferentExpanded() {
+    func notEqualDifferentExpanded() {
         // Given
         let id = UUID()
         var folder1 = FeedFolder(id: id, name: "Tech", feedURLs: ["https://a.com"])
@@ -130,7 +130,7 @@ struct FeedFolderTests {
     // MARK: - Codable
 
     @Test("Encode and decode preserves all properties")
-    func testCodableRoundTrip() throws {
+    func codableRoundTrip() throws {
         // Given
         let original = FeedFolder(name: "Tech", feedURLs: ["https://a.com", "https://b.com"])
 
@@ -143,7 +143,7 @@ struct FeedFolderTests {
     }
 
     @Test("Encode and decode preserves isExpanded false")
-    func testCodablePreservesExpandedFalse() throws {
+    func codablePreservesExpandedFalse() throws {
         // Given
         var original = FeedFolder(name: "News", feedURLs: ["https://c.com"])
         original.isExpanded = false
@@ -160,7 +160,7 @@ struct FeedFolderTests {
     // MARK: - Mutability
 
     @Test("Name is mutable")
-    func testNameIsMutable() {
+    func nameMutable() {
         // Given
         var folder = FeedFolder(name: "Old", feedURLs: [])
 
@@ -172,7 +172,7 @@ struct FeedFolderTests {
     }
 
     @Test("feedURLs is mutable")
-    func testFeedURLsIsMutable() {
+    func feedURLsMutable() {
         // Given
         var folder = FeedFolder(name: "Tech", feedURLs: ["https://a.com"])
 
@@ -184,7 +184,7 @@ struct FeedFolderTests {
     }
 
     @Test("isExpanded is mutable")
-    func testIsExpandedIsMutable() {
+    func isExpandedMutable() {
         // Given
         var folder = FeedFolder(name: "Tech", feedURLs: [])
 
