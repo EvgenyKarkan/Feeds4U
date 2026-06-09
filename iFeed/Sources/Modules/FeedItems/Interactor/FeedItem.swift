@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(FeedItem)
-final class FeedItem: NSManagedObject, @unchecked Sendable {
+final class FeedItem: NSManagedObject {
 
     @NSManaged var title: String
     @NSManaged var link: String

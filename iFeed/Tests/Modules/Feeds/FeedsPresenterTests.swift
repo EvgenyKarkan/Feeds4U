@@ -27,11 +27,11 @@ struct FeedsPresenterTests {
     init() {
         container = Self.makeInMemoryContainer()
 
-        interactor._getAllFeeds.implementation = .returns([])
+        interactor._getAllFeeds.implementation = .uncheckedInvokes { [] }
         interactor._unreadCountsByFeed.implementation = .returns([:])
         interactor._getAllFolders.implementation = .returns([])
         interactor._recentSearches.implementation = .returns([])
-        interactor._performSearch.implementation = .returns(nil)
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in nil }
 
         sut = FeedsPresenter(
             interactor: interactor,
@@ -89,7 +89,7 @@ struct FeedsPresenterTests {
         folders: [FeedFolder] = [],
         unreadCounts: [NSManagedObjectID: Int] = [:]
     ) {
-        interactor._getAllFeeds.implementation = .returns(feeds)
+        interactor._getAllFeeds.implementation = .uncheckedInvokes { feeds }
         interactor._unreadCountsByFeed.implementation = .returns(unreadCounts)
         interactor._getAllFolders.implementation = .returns(folders)
     }
@@ -170,7 +170,7 @@ struct FeedsPresenterTests {
     @Test func getAllFeeds_delegatesToInteractor() {
         // Given
         let feed = makeFeed()
-        interactor._getAllFeeds.implementation = .returns([feed])
+        interactor._getAllFeeds.implementation = .uncheckedInvokes { return [feed] }
 
         // When
         let result = sut.getAllFeeds()
@@ -577,7 +577,7 @@ struct FeedsPresenterTests {
         let feed = makeFeed(itemCount: 1)
         let items = feed.sortedItems()
 
-        interactor._performSearch.implementation = .returns(items)
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in items }
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }
@@ -596,7 +596,7 @@ struct FeedsPresenterTests {
 
     @Test func onViewNeedsToSearchFeeds_whenNilResults_showsNoSearchResultsAlert() async {
         // Given
-        interactor._performSearch.implementation = .returns(nil)
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in nil }
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }
@@ -615,7 +615,7 @@ struct FeedsPresenterTests {
 
     @Test func onViewNeedsToSearchFeeds_whenEmptyResults_showsNoSearchResultsAlert() async {
         // Given
-        interactor._performSearch.implementation = .returns([])
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in [] }
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
             completion?()
         }

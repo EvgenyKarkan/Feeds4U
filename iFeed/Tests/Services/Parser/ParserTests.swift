@@ -12,7 +12,7 @@ import Mocking
 import Testing
 @testable import iFeed
 
-@Suite("Parser Tests")
+@Suite("Parser Tests", .serialized)
 @MainActor
 struct ParserTests {
 

@@ -225,7 +225,7 @@ struct FeedsInteractorTests {
 
     @Test func didEndParsingFeed_whenStorageFailsToMakeFeed_callsCompletionWithFailure() {
         // Given
-        storage._makeFeed.implementation = .returns(nil)
+        storage._makeFeed.implementation = .uncheckedInvokes { nil }
         var receivedResult: Result<Feed, any Error>?
 
         sut.startParsingFeed(testFeedURL) { result in
@@ -318,7 +318,7 @@ struct FeedsInteractorTests {
 
     @Test func performSearch_delegatesToSearchService() async {
         // Given
-        search._search.implementation = .returns(nil)
+        search._search.implementation = .uncheckedInvokes { _ in nil }
 
         // When
         let results = await sut.performSearch(by: "swift")

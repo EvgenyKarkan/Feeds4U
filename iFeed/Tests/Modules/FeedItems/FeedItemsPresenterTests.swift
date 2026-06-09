@@ -38,8 +38,8 @@ struct FeedItemsPresenterTests {
         // Given
         interactor._hasUnreadItems.implementation = .returns(true)
         let emptyItems: [FeedItem] = []
-        interactor._getFeedItems.implementation = .returns(emptyItems)
-        interactor._getFeed.implementation = .returns(nil)
+        interactor._getFeedItems.implementation = .uncheckedInvokes { emptyItems }
+        interactor._getFeed.implementation = .uncheckedInvokes { nil }
         interactor._getSearchTitle.implementation = .returns(nil)
 
         // When
@@ -56,8 +56,8 @@ struct FeedItemsPresenterTests {
         // Given
         interactor._markAllItemsAsRead.implementation = .uncheckedInvokes { }
         let emptyItems: [FeedItem] = []
-        interactor._getFeedItems.implementation = .returns(emptyItems)
-        interactor._getFeed.implementation = .returns(nil)
+        interactor._getFeedItems.implementation = .uncheckedInvokes { emptyItems }
+        interactor._getFeed.implementation = .uncheckedInvokes { nil }
         interactor._getSearchTitle.implementation = .returns(nil)
         interactor._hasUnreadItems.implementation = .returns(false)
 
