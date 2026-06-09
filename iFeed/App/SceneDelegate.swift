@@ -30,7 +30,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        setupAppearance()
         setupWindow(with: windowScene)
 
         /// Handle a URL that caused the app to cold-launch (e.g. "feed://..." or "Feeds4U://...").
@@ -52,17 +51,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // MARK: - Private
 private extension SceneDelegate {
 
-    func setupAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(resource: .tangerine)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
-
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = .systemBackground
-    }
-
     func setupWindow(with windowScene: UIWindowScene) {
         navigationVC = UINavigationController()
 
@@ -72,6 +60,7 @@ private extension SceneDelegate {
         appCoordinator = coordinator
 
         window = UIWindow(windowScene: windowScene)
+        window?.tintColor = .label
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }

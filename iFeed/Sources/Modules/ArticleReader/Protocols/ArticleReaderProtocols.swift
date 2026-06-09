@@ -31,7 +31,6 @@ protocol ArticleReaderInteractorProtocol: AnyObject {
     var articleURL: URL? { get }
     var isDarkMode: Bool { get }
     func toggleDarkMode()
-    func persistThemePreference()
 }
 
 /// Presenter ---> View
@@ -52,10 +51,4 @@ protocol ArticleReaderViewDelegate: AnyObject {
     func onToggleThemeTapped()
     func onOpenInSafariTapped()
     func onLinkActivated(url: URL)
-}
-
-/// Defines dependencies of current module
-@MainActor
-protocol ArticleReaderDependencies: AnyObject {
-    func keyedStorage() -> any KeyedStorageProtocol
 }

@@ -13,7 +13,7 @@ import Foundation
 /// Conforms to `FeedsDependencies`, `FeedItemsDependencies`, `ExploreFeedsDependencies`
 /// per the Interface Segregation Principle, Dependency Narrowing
 @MainActor
-protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreFeedsDependencies, ArticleReaderDependencies {
+protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreFeedsDependencies {
     func parser() -> any ParserProtocol
     func localSearch() -> any Searchable
     func exploreService() -> any ExploreFeedsServiceProtocol

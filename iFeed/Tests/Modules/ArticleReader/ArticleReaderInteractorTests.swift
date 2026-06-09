@@ -7,7 +7,6 @@
 //
 
 import Testing
-import Mocking
 import UIKit
 @testable import iFeed
 
@@ -15,15 +14,11 @@ import UIKit
 @MainActor
 struct ArticleReaderInteractorTests {
 
-    // MARK: - Properties
+    // MARK: - Constants
 
-    private let keyedStorage = KeyedStorageProtocolMock()
-
-    // Constants
     private let testTitle = "Test Article"
     private let testHTML = "<p>Hello</p>"
     private let testURL = URL(string: "https://example.com/article")
-    private let themeKey = "ArticleReaderDarkMode"
 
     // MARK: - Helpers
 
@@ -31,8 +26,7 @@ struct ArticleReaderInteractorTests {
         ArticleReaderInteractor(
             title: testTitle,
             htmlContent: testHTML,
-            articleURL: testURL,
-            keyedStorage: keyedStorage
+            articleURL: testURL
         )
     }
 
@@ -40,8 +34,6 @@ struct ArticleReaderInteractorTests {
 
     @Test func init_setsArticleTitle() {
         // Given
-        keyedStorage._object.implementation = .returns(nil)
-
         // When
         let sut = makeSUT()
 
@@ -51,8 +43,6 @@ struct ArticleReaderInteractorTests {
 
     @Test func init_setsHtmlContent() {
         // Given
-        keyedStorage._object.implementation = .returns(nil)
-
         // When
         let sut = makeSUT()
 
@@ -62,8 +52,6 @@ struct ArticleReaderInteractorTests {
 
     @Test func init_setsArticleURL() {
         // Given
-        keyedStorage._object.implementation = .returns(nil)
-
         // When
         let sut = makeSUT()
 
@@ -71,111 +59,41 @@ struct ArticleReaderInteractorTests {
         #expect(sut.articleURL == testURL)
     }
 
-    // MARK: - Init theme
-
-    @Test func init_whenSavedThemeIsDark_setsDarkMode() {
+    @Test func init_defaultsToSystemAppearance() {
         // Given
-        keyedStorage._object.implementation = .returns(true)
-        keyedStorage._bool.implementation = .returns(true)
+        let expectedDark = UITraitCollection.current.userInterfaceStyle == .dark
 
         // When
         let sut = makeSUT()
 
         // Then
-        #expect(sut.isDarkMode == true)
-        #expect(keyedStorage._object.callCount == 1)
-        #expect(keyedStorage._object.lastInvocation == themeKey)
-        #expect(keyedStorage._bool.callCount == 1)
-        #expect(keyedStorage._bool.lastInvocation == themeKey)
-    }
-
-    @Test func init_whenSavedThemeIsLight_setsLightMode() {
-        // Given
-        keyedStorage._object.implementation = .returns(false)
-        keyedStorage._bool.implementation = .returns(false)
-
-        // When
-        let sut = makeSUT()
-
-        // Then
-        #expect(sut.isDarkMode == false)
-        #expect(keyedStorage._object.callCount == 1)
-        #expect(keyedStorage._object.lastInvocation == themeKey)
-        #expect(keyedStorage._bool.callCount == 1)
-        #expect(keyedStorage._bool.lastInvocation == themeKey)
-    }
-
-    @Test func init_whenNoSavedTheme_doesNotQueryBool() {
-        // Given
-        keyedStorage._object.implementation = .returns(nil)
-
-        // When
-        _ = makeSUT()
-
-        // Then
-        #expect(keyedStorage._object.callCount == 1)
-        #expect(keyedStorage._object.lastInvocation == themeKey)
-        #expect(keyedStorage._bool.callCount == 0)
+        #expect(sut.isDarkMode == expectedDark)
     }
 
     // MARK: - toggleDarkMode
 
-    @Test func toggleDarkMode_fromLightToDark() {
+    @Test func toggleDarkMode_togglesValue() {
         // Given
-        keyedStorage._object.implementation = .returns(false)
-        keyedStorage._bool.implementation = .returns(false)
         let sut = makeSUT()
+        let initial = sut.isDarkMode
 
         // When
         sut.toggleDarkMode()
 
         // Then
-        #expect(sut.isDarkMode == true)
+        #expect(sut.isDarkMode == !initial)
     }
 
-    @Test func toggleDarkMode_fromDarkToLight() {
+    @Test func toggleDarkMode_twiceRestoresOriginal() {
         // Given
-        keyedStorage._object.implementation = .returns(true)
-        keyedStorage._bool.implementation = .returns(true)
         let sut = makeSUT()
+        let initial = sut.isDarkMode
 
         // When
         sut.toggleDarkMode()
-
-        // Then
-        #expect(sut.isDarkMode == false)
-    }
-
-    // MARK: - persistThemePreference
-
-    @Test func persistThemePreference_savesCurrentThemeToStorage() {
-        // Given
-        keyedStorage._object.implementation = .returns(true)
-        keyedStorage._bool.implementation = .returns(true)
-        let sut = makeSUT()
-
-        // When
-        sut.persistThemePreference()
-
-        // Then
-        #expect(keyedStorage._setBool.callCount == 1)
-        #expect(keyedStorage._setBool.lastInvocation?.0 == true)
-        #expect(keyedStorage._setBool.lastInvocation?.1 == themeKey)
-    }
-
-    @Test func persistThemePreference_afterToggle_savesUpdatedTheme() {
-        // Given
-        keyedStorage._object.implementation = .returns(true)
-        keyedStorage._bool.implementation = .returns(true)
-        let sut = makeSUT()
         sut.toggleDarkMode()
 
-        // When
-        sut.persistThemePreference()
-
         // Then
-        #expect(keyedStorage._setBool.callCount == 1)
-        #expect(keyedStorage._setBool.lastInvocation?.0 == false)
-        #expect(keyedStorage._setBool.lastInvocation?.1 == themeKey)
+        #expect(sut.isDarkMode == initial)
     }
 }

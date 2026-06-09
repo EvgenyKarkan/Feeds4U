@@ -70,17 +70,13 @@ extension UIViewController {
 // MARK: - Spinner helper
 extension UIViewController {
 
-    /// Shows the app-wide loading spinner using the app's branded progress HUD styling.
+    /// Shows the app-wide loading spinner using the `KRProgressHUD` with theme styling.
     ///
-    /// The spinner is displayed through `KRProgressHUD` with a tangerine background and white
-    /// activity indicator colors.
     func showSpinner() {
-        let color = UIColor(resource: .tangerine)
-
         KRProgressHUD
-           .set(style: .custom(background: color, text: .white, icon: nil))
-           .set(activityIndicatorViewColors: [.white, color])
-           .show()
+            .set(style: .custom(background: .label, text: .systemBackground, icon: nil))
+            .set(activityIndicatorViewColors: [.label, .systemBackground])
+            .show()
     }
 
     /// Hides the app-wide loading spinner.

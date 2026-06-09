@@ -73,7 +73,7 @@ private extension ExploreFeedsResultCell {
 
         isShowingAddedState = isAdded
         addImageView.image = isAdded ? Constants.addedImage : Constants.addImage
-        addImageView.tintColor = isAdded ? UIColor(resource: .tangerine) : .systemGray4
+        addImageView.tintColor = isAdded ? .label : .systemGray4
         addImageView.isHidden = false
     }
 }

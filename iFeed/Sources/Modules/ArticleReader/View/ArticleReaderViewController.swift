@@ -50,6 +50,8 @@ final class ArticleReaderViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationItem.standardAppearance = nil
+        navigationItem.scrollEdgeAppearance = nil
 
         if isMovingFromParent || isBeingDismissed {
             webView.stopLoading()
@@ -66,6 +68,14 @@ extension ArticleReaderViewController: @MainActor ArticleReaderViewProtocol {
         navigationItem.title = viewState.title
 
         let readerBackground: UIColor = viewState.isDarkMode ? .black : .white
+        let titleColor: UIColor = viewState.isDarkMode ? .white : .black
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+
         view.backgroundColor = readerBackground
 
         configureNavigationBarButtons(hasArticleURL: viewState.hasArticleURL)
@@ -80,6 +90,13 @@ extension ArticleReaderViewController: @MainActor ArticleReaderViewProtocol {
 
     func applyThemeChange(isDarkMode: Bool) {
         let readerBackground: UIColor = isDarkMode ? .black : .white
+        let titleColor: UIColor = isDarkMode ? .white : .black
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
 
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) {
             self.view.backgroundColor = readerBackground

@@ -127,14 +127,6 @@ struct ArticleReaderPresenterTests {
         #expect(interactor._toggleDarkMode.callCount == 1)
     }
 
-    @Test func onToggleThemeTapped_persistsThemePreference() {
-        // When
-        sut.onToggleThemeTapped()
-
-        // Then
-        #expect(interactor._persistThemePreference.callCount == 1)
-    }
-
     @Test func onToggleThemeTapped_appliesThemeChangeToView() {
         // When
         sut.onToggleThemeTapped()

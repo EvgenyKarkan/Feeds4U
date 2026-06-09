@@ -37,7 +37,7 @@ class BaseListView: UIView {
         lbl.textAlignment = .center
         lbl.numberOfLines = .zero
         lbl.text = String.localized(key: LocalizableKeys.Feed.addNew)
-        lbl.textColor = UIColor(resource: .tangerine)
+        lbl.textColor = .label
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
