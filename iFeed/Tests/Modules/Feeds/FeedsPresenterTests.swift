@@ -296,7 +296,7 @@ struct FeedsPresenterTests {
         #expect(interactor._startParsingFeed.callCount == 1)
     }
 
-    @Test func onViewNeedsToAddFeed_onParsingSuccess_savesContextAndUpdatesView() {
+    @Test func onViewNeedsToAddFeed_onParsingSuccess_updatesViewWithoutSavingAgain() {
         // Given
         let feed = makeFeed()
         interactor._checkIfFeedIsAlreadySaved.implementation = .returns(false)
@@ -309,7 +309,8 @@ struct FeedsPresenterTests {
 
         // Then
         #expect(view._hideActivityIndicator.callCount == 1)
-        #expect(interactor._saveContext.callCount == 1)
+        // The interactor saves inside didEndParsingFeed; the presenter must not save a second time.
+        #expect(interactor._saveContext.callCount == 0)
         #expect(view._updateOnDidEndParsingFeed.callCount == 1)
     }
 

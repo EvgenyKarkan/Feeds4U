@@ -173,3 +173,24 @@ struct SharedInstancesContainerTests {
         #expect(uniqueIDs.count == 1)
     }
 }
+
+@Suite("DIContainer Tests")
+@MainActor
+struct DIContainerTests {
+
+    @Test("parser returns a fresh instance per call")
+    func parserIsNotShared() {
+        // Given
+        let container = DIContainer()
+
+        // When
+        let first = container.parser()
+        let second = container.parser()
+
+        // Then
+        // Parser holds a single weak delegate and cancels the previous parse when a
+        // new one starts. Sharing one instance across modules would let one module
+        // hijack another's in-flight parse, so each call must produce a new parser.
+        #expect(first as AnyObject !== second as AnyObject)
+    }
+}

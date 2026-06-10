@@ -84,6 +84,16 @@ struct FeedItemsPresenterTests {
         interactor._hasUnreadItems.implementation = .returns(false)
     }
 
+    /// Drives `onViewDidLoad()` with the given items so the presenter caches them
+    /// as the displayed snapshot that row selection resolves against.
+    private func loadView(with items: [FeedItem]?) {
+        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        interactor._getFeed.implementation = .uncheckedInvokes { nil }
+        interactor._getSearchTitle.implementation = .returns(nil)
+        interactor._hasUnreadItems.implementation = .returns(false)
+        sut.onViewDidLoad()
+    }
+
     // MARK: - onViewDidLoad
 
     @Test func onViewDidLoad_setsCorrectViewState() {
@@ -191,8 +201,7 @@ struct FeedItemsPresenterTests {
 
     @Test func onViewDidSelectFeedItem_whenItemsNil_doesNothing() {
         // Given
-        let nilItems: [FeedItem]? = nil
-        interactor._getFeedItems.implementation = .uncheckedInvokes { nilItems }
+        loadView(with: nil)
         let cell = UITableViewCell()
 
         // When
@@ -206,8 +215,7 @@ struct FeedItemsPresenterTests {
 
     @Test func onViewDidSelectFeedItem_whenItemsEmpty_doesNothing() {
         // Given
-        let emptyItems: [FeedItem] = []
-        interactor._getFeedItems.implementation = .uncheckedInvokes { emptyItems }
+        loadView(with: [])
         let cell = UITableViewCell()
 
         // When
@@ -220,8 +228,7 @@ struct FeedItemsPresenterTests {
     @Test func onViewDidSelectFeedItem_whenIndexOutOfBounds_doesNothing() {
         // Given
         let item = makeFeedItem()
-        let items = [item]
-        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        loadView(with: [item])
         let cell = UITableViewCell()
 
         // When
@@ -234,8 +241,7 @@ struct FeedItemsPresenterTests {
     @Test func onViewDidSelectFeedItem_marksItemAsRead() {
         // Given
         let item = makeFeedItem(link: "https://example.com/article")
-        let items = [item]
-        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        loadView(with: [item])
         let cell = UITableViewCell()
 
         // When
@@ -243,6 +249,8 @@ struct FeedItemsPresenterTests {
 
         // Then
         #expect(interactor._markItemAsReadIfNeeded.callCount == 1)
+        // Selection resolves against the displayed snapshot — only onViewDidLoad fetched.
+        #expect(interactor._getFeedItems.callCount == 1)
     }
 
     @Test func onViewDidSelectFeedItem_whenLongHtmlContent_pushesArticleReader() {
@@ -253,8 +261,7 @@ struct FeedItemsPresenterTests {
             link: "https://example.com/article",
             htmlContent: longHTML
         )
-        let items = [item]
-        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        loadView(with: [item])
         let cell = UITableViewCell()
 
         // When
@@ -274,8 +281,7 @@ struct FeedItemsPresenterTests {
             link: "https://example.com/article",
             htmlContent: shortHTML
         )
-        let items = [item]
-        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        loadView(with: [item])
         let cell = UITableViewCell()
 
         // When
@@ -289,8 +295,7 @@ struct FeedItemsPresenterTests {
     @Test func onViewDidSelectFeedItem_whenNilHtmlContentAndValidURL_presentsSafari() {
         // Given
         let item = makeFeedItem(link: "https://example.com/article", htmlContent: nil)
-        let items = [item]
-        interactor._getFeedItems.implementation = .uncheckedInvokes { items }
+        loadView(with: [item])
         let cell = UITableViewCell()
 
         // When

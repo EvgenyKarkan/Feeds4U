@@ -53,8 +53,7 @@ extension ExploreFeedsPresenter: ExploreFeedsViewDelegate {
 
             switch result {
             case .success:
-                try? self.interactor.saveContext()
-
+                /// The interactor saves in `didEndParsingFeed` — saving here again is not needed.
                 let state = ExploreFeedsViewState(
                     webPageTitle: self.interactor.getWebPageTitle(),
                     exploreResults: self.interactor.getResultsWithSavedStatus()

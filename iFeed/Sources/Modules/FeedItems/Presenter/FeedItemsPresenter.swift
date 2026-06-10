@@ -15,6 +15,12 @@ final class FeedItemsPresenter {
     private let interactor: any FeedItemsInteractorProtocol
     private weak var view: (any FeedItemsViewProtocol)?
 
+    /// Snapshot of the items most recently handed to the view.
+    /// Row selection resolves against this snapshot so a tap always maps to the
+    /// row the table is displaying — re-fetching via `getFeedItems()` is not
+    /// guaranteed to return the same order for items with equal publish dates.
+    private var displayedItems: [FeedItem] = []
+
     // MARK: - Init
     init(interactor: any FeedItemsInteractorProtocol,
          wireframe: any FeedItemsWireframeProtocol,
@@ -30,6 +36,7 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
 
     func onViewDidLoad() {
         let feedItems = interactor.getFeedItems()
+        displayedItems = feedItems ?? []
 
         let viewState = FeedItemsViewState(
             feed: interactor.getFeed(),
@@ -59,11 +66,11 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
     }
 
     func onViewDidSelectFeedItemAtIndexPath(_ indexPath: IndexPath, cell: UITableViewCell) {
-        guard let items = interactor.getFeedItems(), !items.isEmpty, indexPath.row < items.count else {
+        guard !displayedItems.isEmpty, indexPath.row < displayedItems.count else {
             return
         }
 
-        let item = items[indexPath.row]
+        let item = displayedItems[indexPath.row]
         let url = URL(string: item.link)
 
         interactor.markItemAsReadIfNeeded(item: item)
@@ -88,6 +95,8 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
             switch result {
             case .success:
                 let feedItems = self.interactor.getFeedItems()
+                self.displayedItems = feedItems ?? []
+
                 let viewState = FeedItemsViewState(
                     feedItems: feedItems,
                     isMarkAllAsReadVisible: self.interactor.hasUnreadItems()
@@ -108,9 +117,12 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
     func onMarkAllAsReadTapped() {
         interactor.markAllItemsAsRead()
 
+        let feedItems = interactor.getFeedItems()
+        displayedItems = feedItems ?? []
+
         let viewState = FeedItemsViewState(
             feed: interactor.getFeed(),
-            feedItems: interactor.getFeedItems(),
+            feedItems: feedItems,
             searchTitle: interactor.getSearchTitle(),
             isMarkAllAsReadVisible: false
         )

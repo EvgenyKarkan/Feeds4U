@@ -178,6 +178,8 @@ struct FeedsInteractorTests {
         }
         #expect(receivedFeed.rssURL == testFeedURL)
         #expect(receivedFeed.title == "Parsed Feed")
+        // Creation and persistence are atomic: the interactor saves before completing.
+        #expect(storage._saveChanges.callCount == 1)
     }
 
     @Test func startParsingFeed_onParsingFailure_callsCompletionWithError() {
@@ -241,6 +243,8 @@ struct FeedsInteractorTests {
             return
         }
         #expect(error is StorageError)
+        // Nothing was created, so nothing must be saved.
+        #expect(storage._saveChanges.callCount == 0)
     }
 
     @Test func didEndParsingFeed_withItems_populatesFeedAndItems() {
@@ -282,6 +286,8 @@ struct FeedsInteractorTests {
         #expect(firstItem?.link == "https://item.com")
         #expect(firstItem?.htmlContent == "Content")
         #expect(firstItem?.feed === feed)
+        // Creation and persistence are atomic: the interactor saves before completing.
+        #expect(storage._saveChanges.callCount == 1)
     }
 
     @Test func didCancelParsingFeed_nilsOutProperties() {

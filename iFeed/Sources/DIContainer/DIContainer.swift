@@ -30,10 +30,12 @@ final class DIContainer: SharedInstancesContainer {
 // MARK: - DIContainerProtocol
 extension DIContainer: DIContainerProtocol {
 
+    /// Intentionally NOT shared: `Parser` holds a single weak delegate and cancels
+    /// any in-flight parse when a new one begins. A shared instance would let one
+    /// module hijack another module's active parse (and deliver its cancel callback
+    /// to the wrong delegate), e.g. adding a feed while a pull-to-refresh is running.
     func parser() -> any ParserProtocol {
-        return shared {
-            return Parser()
-        }
+        return Parser()
     }
 
     func localSearch() -> any Searchable {

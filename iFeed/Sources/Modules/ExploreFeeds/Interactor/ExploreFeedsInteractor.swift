@@ -104,6 +104,11 @@ extension ExploreFeedsInteractor: ParserDelegateProtocol {
             feedItem.feed = feed
         }
 
+        /// Persist together with creation so the new objects cannot linger
+        /// unsaved in the view context (and leak into an unrelated later save)
+        /// if the caller that received the completion is already gone.
+        storage.saveChanges()
+
         parsingCompletion?(.success(feed))
         parsingCompletion = nil
         parsingURL = nil

@@ -60,8 +60,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                 guard let self = self else {
                     return
                 }
-                try? self.interactor.saveContext()
-
+                /// The interactor saves in `didEndParsingFeed` — saving here again is not needed.
                 let viewState = self.buildViewState()
                 self.view?.updateOnDidEndParsingFeed(with: viewState)
 

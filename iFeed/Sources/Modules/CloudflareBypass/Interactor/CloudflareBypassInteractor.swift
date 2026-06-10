@@ -68,7 +68,34 @@ extension CloudflareBypassInteractor: WKNavigationDelegate {
 // MARK: - Private
 private extension CloudflareBypassInteractor {
 
+    /// Tries to decode the expected feed JSON first; only when the body is not
+    /// valid JSON does it fall back to Cloudflare challenge detection.
+    ///
+    /// Order matters: a legitimate feedsearch.dev response can contain
+    /// challenge-looking keywords (e.g. a site description mentioning
+    /// "Cloudflare" or a "Ray ID"), so running the keyword heuristics before
+    /// attempting to decode would produce false-positive challenge screens.
     func extractHTMLAndProcess() {
+        webView?.evaluateJavaScript("document.body.innerText") { [weak self] result, _ in
+            guard let self else {
+                return
+            }
+
+            if let text = result as? String,
+               let data = text.data(using: .utf8),
+               let dto = try? JSONDecoder().decode(ExploreFeedsDTO.self, from: data) {
+                self.webView?.alpha = 0
+                self.finishWith(.success(dto))
+                return
+            }
+
+            self.detectChallengePage()
+        }
+    }
+
+    /// Inspects the full document HTML for Cloudflare challenge markers.
+    /// Reached only after JSON decoding has failed in ``extractHTMLAndProcess()``.
+    func detectChallengePage() {
         webView?.evaluateJavaScript("document.documentElement.outerHTML") { [weak self] result, _ in
             guard let self, let html = result as? String else {
                 self?.finishWith(.failure(ExploreFeedsError.dataDecoding))
@@ -85,25 +112,7 @@ private extension CloudflareBypassInteractor {
                 return
             }
 
-            self.webView?.alpha = 0
-            self.parseJSONFromWebView()
-        }
-    }
-
-    func parseJSONFromWebView() {
-        webView?.evaluateJavaScript("document.body.innerText") { [weak self] result, _ in
-            guard let self, let text = result as? String,
-                  let data = text.data(using: .utf8) else {
-                self?.finishWith(.failure(ExploreFeedsError.dataDecoding))
-                return
-            }
-
-            do {
-                let dto = try JSONDecoder().decode(ExploreFeedsDTO.self, from: data)
-                self.finishWith(.success(dto))
-            } catch {
-                self.finishWith(.failure(ExploreFeedsError.dataDecoding))
-            }
+            self.finishWith(.failure(ExploreFeedsError.dataDecoding))
         }
     }
 
