@@ -21,13 +21,21 @@ final class FeedItemsWireframe {
 // MARK: - FeedItemsWireframeProtocol
 extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
 
-    /// Pre-warms Safari connections for up to 10 unique feed item URLs.
+    /// The maximum number of connections to prewarm.
+    ///
+    /// Safari's connection prewarming has practical system limits. Prewarming too many connections
+    /// can be wasteful and may not provide benefits beyond the first few items the user is likely
+    /// to tap. Limiting to 10 URLs balances performance with resource usage.
+    private static let maxPrewarmedConnections = 10
+
+    /// Pre-warms Safari connections for the first 10 unique feed item URLs.
     ///
     /// Called from `viewDidLoad` on initial load and from `didEndParsingFeed`
-    /// after a pull-to-refresh. Both call sites pass the full sorted item list
-    /// so the most relevant items are always covered.
+    /// after a pull-to-refresh. Both call sites pass the items in display order
+    /// (newest first), so the prewarmed connections are exactly the rows at the
+    /// top of the list — the ones the user is most likely to tap.
     ///
-    /// - Parameter items: Feed items whose URLs should be prewarmed.
+    /// - Parameter items: Feed items whose URLs should be prewarmed, in display order.
     @MainActor func prewarmSafari(for feedItems: [FeedItem]) {
         // Step 1: Clean up any existing prewarming token
         // -----------------------------------------------
@@ -35,37 +43,38 @@ extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
         // This prevents resource leaks when the method is called multiple times (e.g., during refresh).
         prewarmingToken?.invalidate()
 
-        // Step 2: Extract and deduplicate valid URLs from feed items
-        // -----------------------------------------------------------
+        // Step 2: Collect the first N unique valid URLs in display order
+        // ---------------------------------------------------------------
         // - Filter out items with empty link strings (prevents URL creation failures)
-        // - Convert link strings to URL objects (compactMap removes nil values from invalid URLs)
-        // - Use Set to automatically eliminate duplicate URLs, improving both:
-        //   * Performance: O(n) deduplication
-        //   * Resource efficiency: Don't prewarm the same URL multiple times
-        let uniqueURLs = Set(feedItems.compactMap { item -> URL? in
-            guard !item.link.isEmpty else {
-                return nil
+        // - Skip invalid URLs (URL(string:) returns nil)
+        // - The `seenURLs` set deduplicates in O(1) per item while the array
+        //   preserves display order — unlike a plain Set, whose unordered
+        //   prefix() would prewarm 10 arbitrary URLs instead of the newest ones.
+        var seenURLs = Set<URL>()
+        var urlsToPrewarm: [URL] = []
+
+        for item in feedItems {
+            guard !item.link.isEmpty,
+                  let url = URL(string: item.link),
+                  seenURLs.insert(url).inserted else {
+                continue
             }
-            return URL(string: item.link)
-        })
+
+            urlsToPrewarm.append(url)
+            if urlsToPrewarm.count == Self.maxPrewarmedConnections {
+                break
+            }
+        }
 
         // Step 3: Validate we have URLs to prewarm
         // -----------------------------------------
         // If no valid URLs were found, clear the token and exit early
-        guard !uniqueURLs.isEmpty else {
+        guard !urlsToPrewarm.isEmpty else {
             prewarmingToken = nil
             return
         }
 
-        // Step 4: Limit the number of connections to prewarm
-        // ---------------------------------------------------
-        // Safari's connection prewarming has practical system limits. Prewarming too many connections
-        // can be wasteful and may not provide benefits beyond the first few items the user is likely
-        // to tap. Limiting to 10 URLs balances performance with resource usage.
-        // Note: Set is unordered, so prefix() gives arbitrary 10 items, not necessarily the "first" ones
-        let urlsToPrewarm = Array(uniqueURLs.prefix(10))
-
-        // Step 5: Request Safari to prewarm connections
+        // Step 4: Request Safari to prewarm connections
         // ----------------------------------------------
         // Store the token so we can invalidate it later when:
         // - The view controller is dismissed/popped (in viewWillDisappear)

@@ -80,6 +80,7 @@ final class Parser {
     private static let parsingQueue = DispatchQueue.global(qos: .userInitiated)
 
     private let parserFactory: FeedParserFactory
+    private let continuationBoxFactory: ParseContinuationBoxFactory
 
     /// Versioning token for the active task.
     /// Prevents a race condition where a cancelled task could accidentally nil out
@@ -98,9 +99,15 @@ final class Parser {
     /// Swift uses this one automatically. `$0` is shorthand for the closure's first parameter (the URL).
     /// So `Parser()` in production is equivalent to `Parser(parserFactory: { url in FeedParser(URL: url) })`.
     ///
-    /// Tests pass their own closure — `Parser(parserFactory: { _ in mock })` — to return a mock instead.
-    init(parserFactory: @escaping FeedParserFactory = { return FeedParser(URL: $0) }) {
+    /// `continuationBoxFactory` follows the same pattern for the continuation box —
+    /// a fresh box per parse attempt, since a box is single-use (resume-once).
+    ///
+    /// Tests pass their own closures — `Parser(parserFactory: { _ in mock })` or
+    /// `Parser(continuationBoxFactory: { boxMock })` — to inject mocks instead.
+    init(parserFactory: @escaping FeedParserFactory = { return FeedParser(URL: $0) },
+         continuationBoxFactory: @escaping ParseContinuationBoxFactory = { return ParseContinuationBox() }) {
         self.parserFactory = parserFactory
+        self.continuationBoxFactory = continuationBoxFactory
     }
 
     /// Automatic cleanup on deinit.
@@ -126,24 +133,39 @@ extension Parser: ParserProtocol {
         let currentVersion = taskVersion
         let factory = parserFactory
 
-        // 4. Create a new managed task
+        // 4. Create a new managed task.
+        //
+        // The injected box owns the continuation so it is resumed exactly once —
+        // either by the parser callback or, when the task is cancelled while
+        // the callback never fires (hung request, inert parser), by the
+        // cancellation handler. This guarantees the continuation can never
+        // leak and a cancelled parse always unblocks immediately.
+        let box = continuationBoxFactory()
         activeTask = Task { [weak self] in
             // Bridge FeedKit's closure-based API to a Sendable result.
             // We run this bridge on the global concurrent queue.
-            let result: Result<ParsedFeedData, any Error> = await withCheckedContinuation { continuation in
-                let parser = factory(url)
-                parser.parseAsync(queue: Self.parsingQueue) { parserResult in
-                    switch parserResult {
-                    case .success(let feed):
-                        continuation.resume(returning: .success(ParsedFeedData(parsedFeed: feed)))
-                    case .failure(let error):
-                        continuation.resume(returning: .failure(error))
+            let result: Result<ParsedFeedData, any Error>? = await withTaskCancellationHandler {
+                await withCheckedContinuation { continuation in
+                    box.store(continuation)
+
+                    let parser = factory(url)
+                    parser.parseAsync(queue: Self.parsingQueue) { parserResult in
+                        switch parserResult {
+                        case .success(let feed):
+                            box.resume(returning: .success(ParsedFeedData(parsedFeed: feed)))
+                        case .failure(let error):
+                            box.resume(returning: .failure(error))
+                        }
                     }
                 }
+            } onCancel: {
+                /// A `nil` result marks cancellation — see step 5.
+                box.resume(returning: nil)
             }
 
-            // 5. Check for cancellation before delivering results
-            guard !Task.isCancelled else {
+            // 5. Check for cancellation before delivering results.
+            // `result == nil` means the cancellation handler resumed the bridge.
+            guard let result, !Task.isCancelled else {
                 self?.handleCompletion(version: currentVersion, wasCancelled: true)
                 return
             }

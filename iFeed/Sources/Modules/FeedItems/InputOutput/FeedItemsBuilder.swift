@@ -19,6 +19,7 @@ enum FeedItemsBuilder {
         let interactor = FeedItemsInteractor(
             parser: container.parser(),
             storage: container.storage(),
+            localSearchService: container.localSearch(),
             feed: feed
         )
 
@@ -50,6 +51,7 @@ enum FeedItemsBuilder {
         let interactor = FeedItemsInteractor(
             parser: container.parser(),
             storage: container.storage(),
+            localSearchService: container.localSearch(),
             feedItems: items,
             searchTerm: query
         )

@@ -17,6 +17,9 @@
 		0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */; };
 		0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E16D2BB4B86800BB318A /* String+Ext.swift */; };
 		0847EBB42FD38A6D00FCA66C /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBB32FD38A6D00FCA66C /* ParserTests.swift */; };
+		08AD11FE2FDB000000000002 /* ParseContinuationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000001 /* ParseContinuationBox.swift */; };
+		08AD11FE2FDB000000000004 /* FeedItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000003 /* FeedItemContent.swift */; };
+		08AD11FE2FDB000000000006 /* ParseContinuationBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000005 /* ParseContinuationBoxTests.swift */; };
 		0847EBD92FD43FB100FCA66C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBD82FD43FB100FCA66C /* SearchTests.swift */; };
 		0847EBDC2FD4466200FCA66C /* TestCoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBDB2FD4466200FCA66C /* TestCoreDataModel.swift */; };
 		0847EBDE2FD4EE5D00FCA66C /* FeedsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBDD2FD4EE5D00FCA66C /* FeedsPresenterTests.swift */; };
@@ -138,6 +141,9 @@
 		0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0845E16D2BB4B86800BB318A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		0847EBB32FD38A6D00FCA66C /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		08AD11FE2FDB000000000001 /* ParseContinuationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseContinuationBox.swift; sourceTree = "<group>"; };
+		08AD11FE2FDB000000000003 /* FeedItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemContent.swift; sourceTree = "<group>"; };
+		08AD11FE2FDB000000000005 /* ParseContinuationBoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseContinuationBoxTests.swift; sourceTree = "<group>"; };
 		0847EBD82FD43FB100FCA66C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		0847EBDB2FD4466200FCA66C /* TestCoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataModel.swift; sourceTree = "<group>"; };
 		0847EBDD2FD4EE5D00FCA66C /* FeedsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsPresenterTests.swift; sourceTree = "<group>"; };
@@ -382,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2304D32954ABC900B1F930 /* Parser.swift */,
+				08AD11FE2FDB000000000001 /* ParseContinuationBox.swift */,
 				08B083062FB29E5A007C63DD /* ParsedFeedData.swift */,
 				08B083082FB29EA5007C63DD /* ParsedFeedItemData.swift */,
 			);
@@ -479,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				0847EBB32FD38A6D00FCA66C /* ParserTests.swift */,
+				08AD11FE2FDB000000000005 /* ParseContinuationBoxTests.swift */,
 				08B0830E2FB2A60C007C63DD /* ParsedFeedDataTests.swift */,
 				08B0830F2FB2A60C007C63DD /* ParsedFeedItemDataTests.swift */,
 			);
@@ -629,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2304C82954ABC900B1F930 /* FeedItem.swift */,
+				08AD11FE2FDB000000000003 /* FeedItemContent.swift */,
 				08B561CF2FB7DF3400B6063E /* FeedItemsInteractor.swift */,
 			);
 			path = Interactor;
@@ -1002,6 +1011,7 @@
 				08B083162FB2A60C007C63DD /* ParsedFeedDataTests.swift in Sources */,
 				08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */,
 				0847EBB42FD38A6D00FCA66C /* ParserTests.swift in Sources */,
+				08AD11FE2FDB000000000006 /* ParseContinuationBoxTests.swift in Sources */,
 				08BA94A02FCCA82D004F7FF6 /* FeedsViewStateTests.swift in Sources */,
 				0847EBDC2FD4466200FCA66C /* TestCoreDataModel.swift in Sources */,
 				08AB10A92FCA607200E190D1 /* FeedFolderManagerTests.swift in Sources */,
@@ -1050,6 +1060,8 @@
 				2E23050C2954ABDB00B1F930 /* BaseListView.swift in Sources */,
 				0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */,
 				2E2304DE2954ABC900B1F930 /* Parser.swift in Sources */,
+				08AD11FE2FDB000000000002 /* ParseContinuationBox.swift in Sources */,
+				08AD11FE2FDB000000000004 /* FeedItemContent.swift in Sources */,
 				08AB10A72FCA5F6D00E190D1 /* FeedFolder.swift in Sources */,
 				08B4E1A72FC27B6C00A86EE9 /* CloudflareBypassPresenter.swift in Sources */,
 				08BBD2352FC7B53B0019FF59 /* ArticleReaderWireframe.swift in Sources */,

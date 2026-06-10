@@ -104,6 +104,21 @@ struct FeedsPresenterTests {
         #expect(view._updateOnDidLoad.callCount == 1)
     }
 
+    @Test func onViewDidLoad_whenStorageBecomesReady_reloadsFeedsList() {
+        // Given — the interactor reports storage readiness by invoking the callback,
+        // mimicking the asynchronous store load finishing after the first layout.
+        interactor._performWhenStorageReady.implementation = .uncheckedInvokes { callback in
+            callback()
+        }
+
+        // When
+        sut.onViewDidLoad()
+
+        // Then — the initially built (empty) list is rebuilt from the loaded store.
+        #expect(view._updateOnDidLoad.callCount == 1)
+        #expect(view._reloadFeedsList.callCount == 1)
+    }
+
     @Test func onViewDidLoad_buildsViewStateFromInteractor() {
         // Given
         let feed = makeFeed()
@@ -576,7 +591,7 @@ struct FeedsPresenterTests {
     @Test func onViewNeedsToSearchFeeds_whenResultsFound_navigatesToSearchResults() async {
         // Given
         let feed = makeFeed(itemCount: 1)
-        let items = feed.sortedItems()
+        let items = (feed.feedItems.allObjects as? [FeedItem]) ?? []
 
         interactor._performSearch.implementation = .uncheckedInvokes { _ in items }
         view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in

@@ -52,4 +52,5 @@ protocol ExploreFeedsViewDelegate: AnyObject {
 protocol ExploreFeedsDependencies: AnyObject {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol
+    func localSearch() -> any Searchable
 }

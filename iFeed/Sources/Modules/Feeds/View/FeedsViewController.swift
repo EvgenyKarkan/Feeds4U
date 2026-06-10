@@ -534,12 +534,13 @@ private extension FeedsViewController {
             // What: Reset UI for the empty state.
             // Why: Hides deletion and search controls when there is no content to act upon,
             // focusing the user's attention solely on the 'Add' action.
-            Task { @MainActor [weak self] in
-                self?.addTrashButton(false)
-                self?.feedListView?.tableView.setEditing(false, animated: false)
-                self?.feedListView?.tableView.alpha = .zero
-                self?.navigationItem.rightBarButtonItems = [self?.addButtonItem].compactMap { $0 }
-            }
+            // Applied synchronously — this method already runs on the main actor,
+            // and deferring through a Task would postpone the update by a runloop
+            // tick, briefly flashing the stale toolbar state.
+            addTrashButton(false)
+            feedListView?.tableView.setEditing(false, animated: false)
+            feedListView?.tableView.alpha = .zero
+            navigationItem.rightBarButtonItems = [addButtonItem]
         } else {
             // What: Restore UI for the populated state.
             // Why: Ensures search and deletion capabilities are available once feeds are present,

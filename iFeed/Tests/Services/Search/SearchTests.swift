@@ -71,7 +71,7 @@ struct SearchTests {
         return item
     }
 
-    private func fillSUT(_ sut: inout Search) async {
+    private func fillSUT(_ sut: Search) async {
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
@@ -84,7 +84,7 @@ struct SearchTests {
     @Test func fillMatchingEngine_whenStorageReturnsNil_returnsImmediately() async {
         // Given
         storageMock._loadFeedItemIndex.implementation = .returns(nil)
-        var sut = makeSUT()
+        let sut = makeSUT()
 
         // When
         await sut.fillMatchingEngine()
@@ -98,13 +98,55 @@ struct SearchTests {
     @Test func fillMatchingEngine_whenStorageReturnsEmpty_returnsImmediately() async {
         // Given
         storageMock._loadFeedItemIndex.implementation = .returns([])
-        var sut = makeSUT()
+        let sut = makeSUT()
 
         // When
         await sut.fillMatchingEngine()
 
         // Then
         #expect(textMatchingMock._fillMatchingEngine.callCount == 0)
+    }
+
+    // MARK: - fillMatchingEngine — dirty-flag lifecycle
+
+    @Test func fillMatchingEngine_whenIndexIsClean_skipsReindexing() async {
+        // Given
+        let item = makeFeedItem(title: "Test Article")
+        storageMock._loadFeedItemIndex.implementation = .returns([
+            (title: "Test Article", objectID: item.objectID)
+        ])
+        textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
+            completion()
+        }
+        let sut = makeSUT()
+
+        // When — second fill must be a no-op: the corpus has not been marked dirty.
+        await sut.fillMatchingEngine()
+        await sut.fillMatchingEngine()
+
+        // Then
+        #expect(textMatchingMock._fillMatchingEngine.callCount == 1)
+        #expect(storageMock._loadFeedItemIndex.callCount == 1)
+    }
+
+    @Test func markIndexDirty_forcesRebuildOnNextFill() async {
+        // Given
+        let item = makeFeedItem(title: "Test Article")
+        storageMock._loadFeedItemIndex.implementation = .returns([
+            (title: "Test Article", objectID: item.objectID)
+        ])
+        textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
+            completion()
+        }
+        let sut = makeSUT()
+        await sut.fillMatchingEngine()
+
+        // When
+        sut.markIndexDirty()
+        await sut.fillMatchingEngine()
+
+        // Then
+        #expect(textMatchingMock._fillMatchingEngine.callCount == 2)
     }
 
     // MARK: - fillMatchingEngine — with items
@@ -118,7 +160,7 @@ struct SearchTests {
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
-        var sut = makeSUT()
+        let sut = makeSUT()
 
         // When
         await sut.fillMatchingEngine()
@@ -143,7 +185,7 @@ struct SearchTests {
             capturedStopwordsFlag = stopwords
             completion()
         }
-        var sut = makeSUT()
+        let sut = makeSUT()
 
         // When
         await sut.fillMatchingEngine()
@@ -183,7 +225,7 @@ struct SearchTests {
         }
         textMatchingMock._isFilled.getter.implementation = .returns(false)
 
-        var sut = makeSUT()
+        let sut = makeSUT()
         await sut.fillMatchingEngine()
 
         // When
@@ -205,8 +247,8 @@ struct SearchTests {
             resultsFound(nil)
         }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "test")
@@ -227,8 +269,8 @@ struct SearchTests {
             resultsFound([])
         }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "test")
@@ -260,8 +302,8 @@ struct SearchTests {
         }
         storageMock._loadFeedItemsWithIDsObjectIDs.implementation = .uncheckedInvokes { _ in [feedItem] }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "Swift")
@@ -303,8 +345,8 @@ struct SearchTests {
             [older, newer, oldest].filter { objectIDs.contains($0.objectID) }
         }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "article")
@@ -337,8 +379,8 @@ struct SearchTests {
         }
         storageMock._loadFeedItemsWithIDsObjectIDs.implementation = .uncheckedInvokes { _ in [feedItem, feedItem] }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "Duplicate")
@@ -363,8 +405,8 @@ struct SearchTests {
             resultsFound([searchResult])
         }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "Test")
@@ -393,8 +435,8 @@ struct SearchTests {
         }
         storageMock._loadFeedItemsWithIDsObjectIDs.implementation = .uncheckedInvokes { _ in [] }
 
-        var sut = makeSUT()
-        await fillSUT(&sut)
+        let sut = makeSUT()
+        await fillSUT(sut)
 
         // When
         let result = await sut.search(for: "Test")

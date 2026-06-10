@@ -58,6 +58,11 @@ protocol FeedsInteractorProtocol {
     // get fedds from local storage
     func getAllFeeds() -> [Feed]
 
+    /// Runs `completion` once the persistent store is available (delivered on
+    /// the main queue) — lets the presenter rebuild the list that was shown
+    /// before the asynchronous store load finished at launch.
+    func performWhenStorageReady(_ completion: @escaping @Sendable () -> Void)
+
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void)
 

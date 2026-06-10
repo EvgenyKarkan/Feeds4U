@@ -20,6 +20,7 @@ struct FeedItemsInteractorTests {
 
     private let parser = ParserProtocolMock()
     private let storage = StorageProtocolMock()
+    private let search = SearchableMock()
     private let container: NSPersistentContainer
     private let testFeed: Feed
 
@@ -43,26 +44,25 @@ struct FeedItemsInteractorTests {
         #expect(sut.getFeed() === testFeed)
     }
 
-    @Test func getFeedItems_whenRegularFlow_returnsSortedItems() {
+    @Test func getFeedItems_whenRegularFlow_delegatesToStorage() {
         // Given
-        let item1 = FeedItem(context: container.viewContext)
-        item1.title = "A"
-        item1.publishDate = Date().addingTimeInterval(-100)
-        item1.feed = testFeed
+        let item = FeedItem(context: container.viewContext)
+        item.title = "B"
+        item.publishDate = Date()
+        item.feed = testFeed
 
-        let item2 = FeedItem(context: container.viewContext)
-        item2.title = "B"
-        item2.publishDate = Date()
-        item2.feed = testFeed
-
+        storage._feedItems.implementation = .uncheckedInvokes { [item] _ in [item] }
         let sut = makeSUT(feed: testFeed)
 
         // When
         let items = sut.getFeedItems()
 
         // Then
-        #expect(items?.count == 2)
-        #expect(items?.first?.title == "B") // Sorted newest first
+        // Sorting happens at the SQL level inside the storage fetch.
+        #expect(storage._feedItems.callCount == 1)
+        #expect(storage._feedItems.lastInvocation === testFeed)
+        #expect(items?.count == 1)
+        #expect(items?.first?.title == "B")
     }
 
     @Test func getFeedItems_whenSearchFlow_returnsDirectItems() {
@@ -130,73 +130,34 @@ struct FeedItemsInteractorTests {
         #expect(storage._saveChanges.callCount == 0)
     }
 
-    @Test func markAllItemsAsRead_whenRegularFlow_marksAllAndSaves() {
+    @Test func markAllItemsAsRead_whenRegularFlow_delegatesToStorageBatchUpdate() {
         // Given
-        let item1 = FeedItem(context: container.viewContext)
-        item1.wasRead = false
-        item1.feed = testFeed
-
-        let item2 = FeedItem(context: container.viewContext)
-        item2.wasRead = false
-        item2.feed = testFeed
-
         let sut = makeSUT(feed: testFeed)
 
         // When
         sut.markAllItemsAsRead()
 
         // Then
-        #expect(item1.wasRead.boolValue == true)
-        #expect(item2.wasRead.boolValue == true)
-        #expect(storage._saveChanges.callCount == 1)
-    }
-
-    @Test func markAllItemsAsRead_whenNoUnread_doesNotSave() {
-        // Given
-        let item = FeedItem(context: container.viewContext)
-        item.wasRead = true
-        item.feed = testFeed
-        let sut = makeSUT(feed: testFeed)
-
-        // When
-        sut.markAllItemsAsRead()
-
-        // Then
+        // The storage layer performs an SQL-level batch update; the interactor
+        // neither loads items nor saves the context itself.
+        #expect(storage._markAllAsRead.callCount == 1)
+        #expect(storage._markAllAsRead.lastInvocation === testFeed)
         #expect(storage._saveChanges.callCount == 0)
     }
 
-    @Test func markAllItemsAsRead_whenNoItems_doesNothing() {
+    @Test func hasUnreadItems_whenCountIsZero_returnsFalse() throws {
         // Given
-        let sut = makeSUT(feed: testFeed) // testFeed has 0 items
-
-        // When
-        sut.markAllItemsAsRead()
-
-        // Then
-        #expect(storage._saveChanges.callCount == 0)
-    }
-
-    @Test func hasUnreadItems_whenAllRead_returnsFalse() throws {
-        // Given
-        let item = FeedItem(context: container.viewContext)
-        item.wasRead = true
-        item.feed = testFeed
+        storage._unreadCount.implementation = .uncheckedInvokes { _ in 0 }
         let sut = makeSUT(feed: testFeed)
 
         // When / Then
         #expect(sut.hasUnreadItems() == false)
+        #expect(storage._unreadCount.lastInvocation === testFeed)
     }
 
-    @Test func hasUnreadItems_whenAtLeastOneUnread_returnsTrue() throws {
+    @Test func hasUnreadItems_whenCountIsPositive_returnsTrue() throws {
         // Given
-        let item1 = FeedItem(context: container.viewContext)
-        item1.wasRead = true
-        item1.feed = testFeed
-
-        let item2 = FeedItem(context: container.viewContext)
-        item2.wasRead = false
-        item2.feed = testFeed
-
+        storage._unreadCount.implementation = .uncheckedInvokes { _ in 2 }
         let sut = makeSUT(feed: testFeed)
 
         // When / Then
@@ -209,36 +170,49 @@ struct FeedItemsInteractorTests {
 
         let sutNilFeed = makeSUT(feed: nil)
         #expect(sutNilFeed.hasUnreadItems() == false)
+
+        // Neither guard-failing path may reach the storage layer.
+        #expect(storage._unreadCount.callCount == 0)
     }
 
     @Test func markAllItemsAsRead_whenFeedNil_doesNothing() throws {
         let sut = makeSUT(feed: nil)
         sut.markAllItemsAsRead()
-        #expect(storage._saveChanges.callCount == 0)
+        #expect(storage._markAllAsRead.callCount == 0)
     }
 
     @Test func markAllItemsAsRead_whenSearchTermActive_doesNothing() throws {
-        let item = FeedItem(context: container.viewContext)
-        item.wasRead = false
-        item.feed = testFeed
-
         let sut = makeSUT(feed: testFeed, searchTerm: "active")
         sut.markAllItemsAsRead()
 
-        #expect(item.wasRead.boolValue == false)
-        #expect(storage._saveChanges.callCount == 0)
+        #expect(storage._markAllAsRead.callCount == 0)
     }
 
-    @Test func didEndParsingFeed_withEmptyExistingItems() throws {
-        // Given: A feed with no existing items (to exercise ?? [] path)
-        let data = ParsedFeedData(title: "T", summary: "S", items: [])
+    @Test func didEndParsingFeed_delegatesMergeToStorageAndCompletes() throws {
+        // Given
+        storage._refreshFeedItems.implementation = .uncheckedInvokes { _, _, completion in
+            completion()
+        }
+        let itemData = ParsedFeedItemData(title: "U", link: "https://u.com", publishDate: Date(), htmlContent: nil)
+        let data = ParsedFeedData(title: "T", summary: "S", items: [itemData])
+
         let sut = makeSUT(feed: testFeed)
+        var completionCalled = false
+        sut.startParsingFeed(testRSSURL) { _ in completionCalled = true }
 
         // When
         sut.didEndParsingFeed(with: data)
 
         // Then
-        #expect(storage._saveChanges.callCount == 1)
+        // Deduplication itself lives in the storage layer (covered by
+        // CoreDataManagerTests); the interactor forwards the items and feed ID.
+        #expect(storage._refreshFeedItems.callCount == 1)
+        let invocation = storage._refreshFeedItems.lastInvocation
+        #expect(invocation?.0.count == 1)
+        #expect(invocation?.1 == testFeed.objectID)
+        // A refresh may add items — the search index must be invalidated.
+        #expect(search._markIndexDirty.callCount == 1)
+        #expect(completionCalled)
     }
 
     // MARK: - Feed Parsing Lifecycle
@@ -281,61 +255,20 @@ struct FeedItemsInteractorTests {
 
         sut.didEndParsingFeed(with: data)
 
-        #expect(storage._saveChanges.callCount == 0)
+        #expect(storage._refreshFeedItems.callCount == 0)
     }
 
-    @Test func didEndParsingFeed_deduplicationMatrix() throws {
-        // Given
-        let existingItem = FeedItem(context: container.viewContext)
-        existingItem.title = "Existing"
-        existingItem.link = "https://exist.com"
-        let fixedDate = Date(timeIntervalSince1970: 123456789)
-        existingItem.publishDate = fixedDate
-        existingItem.feed = testFeed
-
-        // 1. Fully Duplicate
-        let item1 = ParsedFeedItemData(title: "Existing", link: "https://exist.com", publishDate: fixedDate, htmlContent: nil)
-        // 2. Duplicate Title
-        let item2 = ParsedFeedItemData(title: "Existing", link: "https://new1.com", publishDate: Date(), htmlContent: nil)
-        // 3. Duplicate Link
-        let item3 = ParsedFeedItemData(title: "New1", link: "https://exist.com", publishDate: Date(), htmlContent: nil)
-        // 4. Duplicate Date
-        let item4 = ParsedFeedItemData(title: "New2", link: "https://new2.com", publishDate: fixedDate, htmlContent: nil)
-        // 5. Unique
-        let item5 = ParsedFeedItemData(title: "Unique", link: "https://unique.com", publishDate: Date(), htmlContent: nil)
-
-        let data = ParsedFeedData(title: "T", summary: "S", items: [item1, item2, item3, item4, item5])
-
-        storage._makeFeedItem.implementation = .uncheckedInvokes { [container] in
-            return FeedItem(context: container.viewContext)
-        }
-
+    @Test func didEndParsingFeed_withoutPendingCompletion_doesNotStartMerge() {
+        // Given — no startParsingFeed call, so nobody is waiting for a result.
         let sut = makeSUT(feed: testFeed)
-        var completionCalled = false
-        sut.startParsingFeed(testRSSURL) { _ in completionCalled = true }
+        let data = ParsedFeedData(title: "T", summary: "S", items: [])
 
         // When
         sut.didEndParsingFeed(with: data)
 
         // Then
-        #expect(testFeed.feedItems.count == 2) // existing + item5
-        #expect(completionCalled == true)
-        #expect(storage._saveChanges.callCount == 1)
-    }
-
-    @Test func didEndParsingFeed_whenMakeItemFails_skipsItem() {
-        // Given
-        storage._makeFeedItem.implementation = .uncheckedInvokes { nil }
-        let item = ParsedFeedItemData(title: "U", link: "https://u.com", publishDate: Date(), htmlContent: nil)
-        let data = ParsedFeedData(title: "T", summary: "S", items: [item])
-
-        let sut = makeSUT(feed: testFeed)
-
-        // When
-        sut.didEndParsingFeed(with: data)
-
-        // Then
-        #expect(testFeed.feedItems.count == 0) // nothing added
+        #expect(storage._refreshFeedItems.callCount == 0)
+        #expect(search._markIndexDirty.callCount == 0)
     }
 
     @Test func didFailParsingFeed_callsCompletionWithError() {
@@ -386,6 +319,7 @@ struct FeedItemsInteractorTests {
         FeedItemsInteractor(
             parser: parser,
             storage: storage,
+            localSearchService: search,
             feed: feed,
             feedItems: feedItems,
             searchTerm: searchTerm

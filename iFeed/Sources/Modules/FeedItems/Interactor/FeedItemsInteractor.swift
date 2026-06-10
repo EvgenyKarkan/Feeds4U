@@ -13,6 +13,7 @@ final class FeedItemsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
     private let storage: any StorageProtocol
+    private let localSearchService: any Searchable
     private let feed: Feed?
     private let feedItems: [FeedItem]?
     private let searchTerm: String?
@@ -22,11 +23,13 @@ final class FeedItemsInteractor {
     // MARK: - Init
     init(parser: any ParserProtocol,
          storage: any StorageProtocol,
+         localSearchService: any Searchable,
          feed: Feed? = nil,
          feedItems: [FeedItem]? = nil,
          searchTerm: String? = nil) {
         self.parser = parser
         self.storage = storage
+        self.localSearchService = localSearchService
         self.feed = feed
         self.feedItems = feedItems
         self.searchTerm = searchTerm
@@ -44,7 +47,11 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
         guard searchTerm == nil else {
             return feedItems
         }
-        return feed?.sortedItems()
+        guard let feed else {
+            return nil
+        }
+        /// SQL-level sort + batching — the feed's relationship is never fully materialised.
+        return storage.feedItems(for: feed)
     }
 
     func getSearchTitle() -> String? {
@@ -63,25 +70,19 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
     }
 
     func markAllItemsAsRead() {
-        guard searchTerm == nil, let items = feed?.feedItems.allObjects as? [FeedItem] else {
+        guard searchTerm == nil, let feed else {
             return
         }
-
-        let unreadItems = items.filter { !$0.wasRead.boolValue }
-        guard !unreadItems.isEmpty else { return }
-
-        for item in unreadItems {
-            item.wasRead = NSNumber(value: true)
-        }
-
-        storage.saveChanges()
+        /// Batch update at the SQL level — no items are loaded or saved on the main thread.
+        storage.markAllAsRead(in: feed)
     }
 
     func hasUnreadItems() -> Bool {
-        guard searchTerm == nil, let items = feed?.feedItems.allObjects as? [FeedItem] else {
+        guard searchTerm == nil, let feed else {
             return false
         }
-        return items.contains { !$0.wasRead.boolValue }
+        /// `COUNT(*)` query — no items are materialised just to check for unread ones.
+        return storage.unreadCount(for: feed) > 0
     }
 
     func startParsingFeed(_ url: String, completion: @escaping (Result<Void, any Error>) -> Void) {
@@ -106,65 +107,41 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
 
     /// Merges freshly parsed feed items into the existing feed, persisting only new (unique) entries.
     ///
-    /// Called by the parser on the main thread once remote feed data has been fetched and normalized.
-    /// The method performs a **three-field deduplication** — an incoming item is considered unique only
-    /// when its title, link, AND publish date are all absent from the current feed's items.
-    /// This strict check prevents both exact duplicates and partial matches (e.g. same link with an
-    /// updated title) from creating duplicate entries.
+    /// Called by the parser on the main actor once remote feed data has been fetched and normalized.
+    /// The deduplication and persistence themselves run inside the storage layer on a background
+    /// context (see `StorageProtocol.refreshFeedItems(with:forFeedWith:completion:)`), so large
+    /// refreshes never stall the main thread. Only the feed's (Sendable) object ID is handed across.
     ///
     /// **Flow:**
-    /// 1. Bail out early if the interactor has no feed reference (e.g. showing search results).
-    /// 2. Build O(1)-lookup sets of titles, links, and dates from the feed's existing items.
-    /// 3. Iterate over each parsed item; skip any that match on ANY of the three fields.
-    /// 4. For truly unique items, create a Core Data `FeedItem`, populate it from the parsed data,
-    ///    and assign it to the current feed (establishing the Core Data relationship).
-    /// 5. Persist all new items to disk and signal success to the caller.
+    /// 1. Bail out early if the interactor has no feed reference (e.g. showing search results)
+    ///    or the parse was cancelled and nobody is waiting for the result.
+    /// 2. Delegate the three-field dedup merge (title + link + publish date) to storage.
+    /// 3. On completion, invalidate the search index and signal success to the caller.
     ///
     /// - Parameter data: Normalized, `Sendable` representation of the remote feed content.
     func didEndParsingFeed(with data: ParsedFeedData) {
-        guard let currentFeed = self.feed else {
+        guard let currentFeed = self.feed, parsingCompletion != nil else {
             return
         }
 
         // Enhancement: - Detect if new feed_items appeared on the feed in comparision with exsisting ones
         // if appeared - indicate to the caller side so it can skip doing safari prewarming
 
-        // Step 1: Snapshot the existing feed items into O(1)-lookup sets for deduplication.
-        let existFeedItems: [FeedItem] = (currentFeed.feedItems.allObjects as? [FeedItem]) ?? []
-        let existedTitles: Set<String> = Set(existFeedItems.map(\.title))
-        let existedLinks: Set<String> = Set(existFeedItems.map(\.link))
-        let existedDates: Set<TimeInterval> = Set(existFeedItems.map(\.publishDate.timeIntervalSince1970))
-
-        // Step 2: Compare each incoming parsed item against the three dedup sets.
-        // An item must differ in ALL three fields to be considered unique.
-        for itemData in data.items {
-            let isUniqueTitle = !existedTitles.contains(itemData.title)
-            let isUniqueLink = !existedLinks.contains(itemData.link)
-            let isUniqueDate = !existedDates.contains(itemData.publishDate.timeIntervalSince1970)
-
-            let isUniqueItem = isUniqueTitle && isUniqueLink && isUniqueDate
-
-            // Step 3: Create a Core Data entity only for items not already in the feed.
-            if isUniqueItem {
-                guard let feedItem = storage.makeFeedItem() else {
-                    continue
+        storage.refreshFeedItems(with: data.items, forFeedWith: currentFeed.objectID) { [weak self] in
+            /// Storage contractually delivers this callback on the main actor
+            /// (see `StorageProtocol.refreshFeedItems`).
+            MainActor.assumeIsolated {
+                guard let self else {
+                    return
                 }
 
-                feedItem.title = itemData.title
-                feedItem.link = itemData.link
-                feedItem.htmlContent = itemData.htmlContent
-                feedItem.publishDate = itemData.publishDate
+                /// Items may have been added — the search index must be rebuilt before the next query.
+                self.localSearchService.markIndexDirty()
 
-                /// Create a relationship
-                feedItem.feed = currentFeed
+                self.parsingCompletion?(.success(()))
+                self.parsingCompletion = nil
             }
         }
-
-        // Step 4: Persist newly added items and notify the caller.
-        storage.saveChanges()
-
-        parsingCompletion?(.success(()))
-        parsingCompletion = nil
     }
 
     func didFailParsingFeed(with error: any Error) {

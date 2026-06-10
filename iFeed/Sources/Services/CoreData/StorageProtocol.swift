@@ -48,6 +48,25 @@ protocol StorageProtocol {
     /// Loads specific feed items by their object IDs.
     func loadFeedItems(withIDs objectIDs: [NSManagedObjectID]) -> [FeedItem]
 
+    /// Loads the items of a single feed, newest first.
+    ///
+    /// Sorting (publish date descending, link ascending as a deterministic
+    /// tie-break) happens at the SQL level and results are batched, so callers
+    /// never pay for materialising the whole relationship in memory.
+    ///
+    /// - Parameter feed: Feed whose items should be loaded.
+    /// - Returns: The feed's items, or an empty array when the fetch fails.
+    func feedItems(for feed: Feed) -> [FeedItem]
+
+    /// Returns the number of unread items in `feed` using `COUNT(*)` —
+    /// no managed objects are materialised.
+    func unreadCount(for feed: Feed) -> Int
+
+    /// Marks every unread item of `feed` as read using a batch update that
+    /// runs directly in the store; affected objects are merged back into the
+    /// context so in-memory state stays consistent.
+    func markAllAsRead(in feed: Feed)
+
     /// Returns the feed displayed at a table index path.
     ///
     /// - Parameter indexPath: Index path from a feed list table view.
@@ -89,4 +108,34 @@ protocol StorageProtocol {
     ///
     /// - Parameter object: Managed object to delete.
     func delete(_ object: NSManagedObject)
+
+    /// Returns the feed with the given object ID from the view context, or `nil`
+    /// when no such object exists. Must be called on the main queue.
+    func loadFeed(withID id: NSManagedObjectID) -> Feed?
+
+    /// Runs `callback` once the persistent store is available — synchronously
+    /// when it is already loaded, otherwise on the main queue right after the
+    /// asynchronous store load finishes. Use this to refresh UI that was built
+    /// before the store came online at launch.
+    func performWhenStoreReady(_ callback: @escaping @Sendable () -> Void)
+
+    /// Imports a parsed feed with all its items on a background context and saves.
+    ///
+    /// Heavy entity creation happens off the main thread. `completion` is always
+    /// invoked **on the main actor** with the saved feed's object ID, or `nil`
+    /// when the import failed. (The closure is typed `@Sendable` rather than
+    /// `@MainActor` because mock generation cannot carry the isolation attribute;
+    /// callers may rely on main-actor delivery via `MainActor.assumeIsolated`.)
+    func importFeed(_ data: ParsedFeedData,
+                    rssURL: String,
+                    completion: @escaping @Sendable (NSManagedObjectID?) -> Void)
+
+    /// Merges parsed items into an existing feed on a background context,
+    /// persisting only entries whose title, link, and publish date are all new.
+    ///
+    /// `completion` is always invoked **on the main actor** once the merge (and
+    /// save) finished — see `importFeed` for why the type is plain `@Sendable`.
+    func refreshFeedItems(with items: [ParsedFeedItemData],
+                          forFeedWith feedID: NSManagedObjectID,
+                          completion: @escaping @Sendable () -> Void)
 }

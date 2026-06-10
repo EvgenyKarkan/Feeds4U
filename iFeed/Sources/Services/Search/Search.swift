@@ -73,23 +73,24 @@ extension MatchingEngine: TextMatching {}
 
 /// A closure that creates a brand-new ``TextMatching`` engine on demand.
 ///
-/// Using a factory rather than a stored engine instance allows ``Search`` — a value type — to
-/// recreate the engine each time `fillMatchingEngine()` is called, which keeps the indexing
-/// state consistent even if the caller invokes the method multiple times.
+/// Using a factory rather than a stored engine instance allows ``Search`` to recreate the
+/// engine whenever a rebuild is required, which keeps the indexing state consistent even
+/// if the caller triggers re-indexing multiple times.
 /// In tests, the factory simply returns the injected mock.
 typealias MatchingEngineFactory = () -> any TextMatching
 
 // MARK: - Search
 
-/// A value-type facade that provides full-text search over all `FeedItem` records in Core Data.
+/// A facade that provides full-text search over all `FeedItem` records in Core Data.
 ///
 /// `Search` wraps the callback-based `SimpleSimilarity.MatchingEngine` behind a clean `async/await`
 /// interface and handles the two-phase lifecycle that fuzzy search requires:
 ///
-/// **Phase 1 — Index:** call `fillMatchingEngine()` once (or whenever the corpus changes) to build
-/// the search index. Only `FeedItem` titles are indexed; full objects are **not** loaded at this
-/// stage, keeping memory usage proportional to the number of titles rather than to the full object
-/// graph.
+/// **Phase 1 — Index:** call `fillMatchingEngine()` to build the search index. Only `FeedItem`
+/// titles are indexed; full objects are **not** loaded at this stage, keeping memory usage
+/// proportional to the number of titles rather than to the full object graph. The index is
+/// rebuilt lazily: once built, subsequent calls are no-ops until ``markIndexDirty()`` flags
+/// the corpus as changed, so searching repeatedly does not pay for re-indexing.
 ///
 /// **Phase 2 — Query:** call `search(for:)` as many times as needed. Each call wraps the engine's
 /// asynchronous callback in a `CheckedContinuation` and materialises only the matching
@@ -104,9 +105,10 @@ typealias MatchingEngineFactory = () -> any TextMatching
 ///
 /// **Usage:**
 /// ```swift
-/// var search = Search(storage: coreDataManager)
-/// await search.fillMatchingEngine()            // build index
+/// let search = Search(storage: coreDataManager)
+/// await search.fillMatchingEngine()            // build index (no-op when already clean)
 /// let results = await search.search(for: "Swift concurrency")  // query
+/// search.markIndexDirty()                      // after feeds/items change
 /// ```
 ///
 /// **Performance summary:**
@@ -116,16 +118,26 @@ typealias MatchingEngineFactory = () -> any TextMatching
 /// | Query        | O(log n) — engine uses an inverted index    |
 /// | Sorting      | O(m log m) — m = number of matching items   |
 /// | Deduplication| O(m)                                        |
-struct Search {
+///
+/// A `@MainActor` reference type shared through the DI container, so every module
+/// talks to the same index and a single dirty flag invalidates it for all of them.
+@MainActor
+final class Search {
 
     // MARK: - Private Properties
 
     /// The lazily created text matching engine.
     ///
     /// `nil` until `fillMatchingEngine()` has been called at least once. A fresh instance is
-    /// created on every call to `fillMatchingEngine()` so that re-indexing is always clean —
+    /// created on every rebuild so that re-indexing is always clean —
     /// there is no partial-update API in `SimpleSimilarity`.
     private var matchingEngine: (any TextMatching)?
+
+    /// `true` when the feed-item corpus has changed since the last successful indexing.
+    ///
+    /// Starts `true` so the first `fillMatchingEngine()` call always builds the index;
+    /// reset to `false` after a successful fill and flipped back by ``markIndexDirty()``.
+    private var needsReindex = true
 
     /// The storage layer used to read feed data from Core Data.
     ///
@@ -160,9 +172,10 @@ extension Search: Searchable {
 
     /// Builds the full-text search index from every `FeedItem` currently in the store.
     ///
-    /// This is a mutating, one-shot operation: calling it replaces any previously built engine
-    /// with a fresh one populated from the current corpus. It suspends the caller until the
-    /// `SimpleSimilarity` engine has finished indexing.
+    /// Calling it replaces any previously built engine with a fresh one populated from the
+    /// current corpus. It suspends the caller until the `SimpleSimilarity` engine has
+    /// finished indexing. When an index already exists and ``markIndexDirty()`` has not
+    /// been called since it was built, the method returns immediately without re-indexing.
     ///
     /// **Why index only titles?**
     /// Fetching every `FeedItem` as a fully materialised `NSManagedObject` would load all
@@ -190,7 +203,13 @@ extension Search: Searchable {
     ///
     /// - Important: If `loadFeedItemIndex()` returns `nil` or an empty array, the method returns
     ///   immediately and the engine is left in its previous state (or remains `nil` if never filled).
-    mutating func fillMatchingEngine() async {
+    func fillMatchingEngine() async {
+        // Skip the rebuild when the index is current — searching repeatedly must not
+        // re-fetch every title and re-index the whole corpus.
+        guard needsReindex || matchingEngine == nil else {
+            return
+        }
+
         guard let itemIndex = storage.loadFeedItemIndex(), !itemIndex.isEmpty else {
             // Nothing to index — either the store is empty or the fetch failed.
             // Returning early avoids creating a useless empty engine.
@@ -214,8 +233,8 @@ extension Search: Searchable {
         matchingEngine = matchingEngineFactory()
 
         // Bridge the callback-based engine API into async/await.
-        // The continuation body is non-`@Sendable`, so capturing `matchingEngine` (a struct
-        // containing a class reference) here is safe — no data race is possible.
+        // The continuation body is non-`@Sendable`, so capturing `matchingEngine`
+        // here is safe — no data race is possible.
         await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
             matchingEngine?.fillMatchingEngine(
                 with: textualData,
@@ -223,6 +242,16 @@ extension Search: Searchable {
                 completion: { continuation.resume() }
             )
         }
+
+        // Index is current again — subsequent fills are no-ops until the corpus changes.
+        needsReindex = false
+    }
+
+    /// Flags the index as stale after the feed-item corpus changed
+    /// (feed added, refreshed, or deleted). The next ``fillMatchingEngine()``
+    /// call performs a full rebuild.
+    func markIndexDirty() {
+        needsReindex = true
     }
 
     /// Returns feed items whose titles fuzzy-match the given search term, sorted newest-first.

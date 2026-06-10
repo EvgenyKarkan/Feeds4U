@@ -152,6 +152,99 @@ struct ParserTests {
         parser.beginParsingURL(testURL)
     }
 
+    // MARK: - injected continuation box
+
+    @Test func beginParsingURL_routesBridgeThroughInjectedBox() async throws {
+        // Given — a mocked box that mimics the real resume-once behaviour.
+        nonisolated(unsafe) var storedContinuation: ParseContinuation?
+        let box = ParseContinuationBoxingMock()
+        box._store.implementation = .uncheckedInvokes { continuation in
+            storedContinuation = continuation
+        }
+        box._resume.implementation = .uncheckedInvokes { result in
+            storedContinuation?.resume(returning: result)
+            storedContinuation = nil
+        }
+
+        let feedParsingMock = FeedParsingMock()
+        feedParsingMock._parseAsync.implementation = .invokes { queue, completion in
+            queue.async {
+                completion(.failure(.feedNotFound))
+            }
+        }
+
+        nonisolated(unsafe) let unsafeParserMock = feedParsingMock
+        nonisolated(unsafe) let unsafeBox = box
+        let parser = Parser(
+            parserFactory: { _ in unsafeParserMock },
+            continuationBoxFactory: { unsafeBox }
+        )
+        parser.setDelegate(delegate)
+
+        // When
+        parser.beginParsingURL(testURL)
+
+        // Then — the bridge stores its continuation in the injected box and the
+        // FeedKit callback is delivered through the box, not around it.
+        await fulfillment {
+            MainActor.assumeIsolated {
+                delegate._didFailParsingFeed.callCount == 1
+            }
+        }
+        #expect(box._store.callCount == 1)
+        #expect(box._resume.callCount == 1)
+    }
+
+    @Test func cancelParsing_resumesInjectedBoxWithCancellationMarker() async throws {
+        // Given — a hung parse: parseAsync never calls its completion.
+        nonisolated(unsafe) var storedContinuation: ParseContinuation?
+        nonisolated(unsafe) var resumedWithNil = false
+        let box = ParseContinuationBoxingMock()
+        box._store.implementation = .uncheckedInvokes { continuation in
+            storedContinuation = continuation
+        }
+        box._resume.implementation = .uncheckedInvokes { result in
+            if result == nil {
+                resumedWithNil = true
+            }
+            storedContinuation?.resume(returning: result)
+            storedContinuation = nil
+        }
+
+        let feedParsingMock = FeedParsingMock()
+        nonisolated(unsafe) var parseStarted = false
+        feedParsingMock._parseAsync.implementation = .invokes { _, _ in
+            parseStarted = true
+        }
+
+        nonisolated(unsafe) let unsafeParserMock = feedParsingMock
+        nonisolated(unsafe) let unsafeBox = box
+        let parser = Parser(
+            parserFactory: { _ in unsafeParserMock },
+            continuationBoxFactory: { unsafeBox }
+        )
+        parser.setDelegate(delegate)
+
+        parser.beginParsingURL(testURL)
+        await fulfillment {
+            parseStarted && storedContinuation != nil
+        }
+
+        // When
+        parser.cancelParsing()
+
+        // Then — the cancellation handler resumes the box with the nil marker,
+        // unblocking the hung parse and delivering the cancel callback.
+        await fulfillment {
+            MainActor.assumeIsolated {
+                delegate._didCancelParsingFeed.callCount == 1
+            }
+        }
+        #expect(resumedWithNil)
+        #expect(delegate._didEndParsingFeed.callCount == 0)
+        #expect(delegate._didFailParsingFeed.callCount == 0)
+    }
+
     // MARK: - cancellation
 
     // MARK: - refinements (versioning, deinit, parallelism)

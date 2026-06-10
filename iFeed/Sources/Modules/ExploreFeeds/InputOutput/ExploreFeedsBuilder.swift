@@ -20,7 +20,8 @@ enum ExploreFeedsBuilder {
             results: data,
             webPage: webPage,
             parser: container.parser(),
-            storage: container.storage()
+            storage: container.storage(),
+            localSearchService: container.localSearch()
         )
 
         /// Wireframe

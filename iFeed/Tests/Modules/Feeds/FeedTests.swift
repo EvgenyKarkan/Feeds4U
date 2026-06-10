@@ -13,53 +13,79 @@ import CoreData
 @Suite("Feed Entity Tests")
 struct FeedTests {
 
-    @Test("sortedItems handles empty items")
-    func sortedItems_empty() throws {
-        let container = try makeInMemoryContainer()
-        let feed = Feed(context: container.viewContext)
+    // MARK: - FeedItem.htmlContent ↔ FeedItemContent bridging
 
-        #expect(feed.sortedItems().isEmpty)
+    @Test("htmlContent is nil when no content child exists")
+    func htmlContent_whenNoChild_isNil() throws {
+        let container = try makeInMemoryContainer()
+        let item = FeedItem(context: container.viewContext)
+
+        #expect(item.htmlContent == nil)
+        #expect(item.content == nil)
     }
 
-    @Test("sortedItems sorts by date descending")
-    func sortedItems_sorting() throws {
+    @Test("setting htmlContent creates the content child")
+    func htmlContent_set_createsChild() throws {
         let container = try makeInMemoryContainer()
-        let feed = Feed(context: container.viewContext)
+        let item = FeedItem(context: container.viewContext)
 
-        let item1 = FeedItem(context: container.viewContext)
-        item1.publishDate = Date(timeIntervalSince1970: 1000)
-        item1.feed = feed
+        item.htmlContent = "<p>Hello</p>"
 
-        let item2 = FeedItem(context: container.viewContext)
-        item2.publishDate = Date(timeIntervalSince1970: 2000)
-        item2.feed = feed
-
-        let sorted = feed.sortedItems()
-        #expect(sorted.count == 2)
-        #expect(sorted[0].publishDate.timeIntervalSince1970 == 2000)
-        #expect(sorted[1].publishDate.timeIntervalSince1970 == 1000)
+        #expect(item.htmlContent == "<p>Hello</p>")
+        #expect(item.content?.htmlContent == "<p>Hello</p>")
+        #expect(item.content?.item === item)
     }
 
-    @Test("sortedItems orders equal publish dates deterministically by link")
-    func sortedItems_equalDates_deterministicOrder() throws {
+    @Test("overwriting htmlContent reuses the existing child")
+    func htmlContent_overwrite_reusesChild() throws {
         let container = try makeInMemoryContainer()
-        let feed = Feed(context: container.viewContext)
-        let sharedDate = Date(timeIntervalSince1970: 1000)
+        let item = FeedItem(context: container.viewContext)
 
-        // NSSet.allObjects enumerates in arbitrary order, so without the link
-        // tie-break two calls could return equal-date items in different orders.
-        for suffix in ["c", "a", "b"] {
-            let item = FeedItem(context: container.viewContext)
-            item.publishDate = sharedDate
-            item.link = "https://example.com/\(suffix)"
-            item.feed = feed
-        }
+        item.htmlContent = "<p>First</p>"
+        let firstChild = item.content
+        item.htmlContent = "<p>Second</p>"
 
-        let first = feed.sortedItems().map(\.link)
-        let second = feed.sortedItems().map(\.link)
+        #expect(item.content === firstChild)
+        #expect(item.htmlContent == "<p>Second</p>")
+    }
 
-        #expect(first == ["https://example.com/a", "https://example.com/b", "https://example.com/c"])
-        #expect(first == second)
+    @Test("setting htmlContent to nil deletes the content child")
+    func htmlContent_setNil_deletesChild() throws {
+        let container = try makeInMemoryContainer()
+        let item = FeedItem(context: container.viewContext)
+
+        item.htmlContent = "<p>Hello</p>"
+        let child = try #require(item.content)
+        item.htmlContent = nil
+
+        #expect(item.htmlContent == nil)
+        #expect(item.content == nil)
+        #expect(child.isDeleted)
+    }
+
+    @Test("deleting a feed cascades to items and their content")
+    func deletingFeed_cascadesToContent() throws {
+        let container = try makeInMemoryContainer()
+        let context = container.viewContext
+
+        let feed = Feed(context: context)
+        feed.rssURL = "https://example.com/feed"
+
+        let item = FeedItem(context: context)
+        item.title = "Item"
+        item.link = "https://example.com/item"
+        item.publishDate = Date()
+        item.feed = feed
+        item.htmlContent = "<p>Body</p>"
+        try context.save()
+
+        context.delete(feed)
+        try context.save()
+
+        let itemCount = try context.count(for: NSFetchRequest<FeedItem>(entityName: "FeedItem"))
+        let contentCount = try context.count(for: NSFetchRequest<FeedItemContent>(entityName: "FeedItemContent"))
+        #expect(itemCount == 0)
+        #expect(contentCount == 0)
     }
 
     private func makeInMemoryContainer() throws -> NSPersistentContainer {

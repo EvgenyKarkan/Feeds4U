@@ -80,6 +80,8 @@ For protocols with overloaded methods, use `@MockedMembers` on a hand-written mo
 ## Conventions
 
 - All VIPER inter-layer communication goes through protocols defined in each module's `Protocols/` file.
+- **Dependency injection only.** A unit (class/struct) must never create its dependencies internally — every dependency is injected through the initializer and hidden behind a protocol (see `StorageProtocol`, `ParserProtocol`, `Searchable`), so it can be mocked in tests. Wiring happens in `DIContainer`/builders.
+- **One new type — one new file.** When introducing a new class or struct, create a dedicated file named after the type instead of appending it to a pre-existing file, and register the file in `project.pbxproj`. Cover the new type with its own tests.
 - Navigation callbacks from wireframes to the Coordinator use `CoordinatingDelegate` protocols (e.g., `FeedsCoordinatingDelegate`).
 - Always use `[weak self]` in closures crossing VIPER layer boundaries.
 - Test files live in `iFeed/Tests/` mirroring the source layout, named `*Tests.swift`.

@@ -56,10 +56,15 @@ private enum EntityNames: String {
 /// background work should go through ``newBackgroundContext()`` or
 /// ``performBackgroundTask(_:)``.
 ///
-/// Thread-safety: ``isStoreLoaded`` is guarded by an `NSLock` so it can be
+/// Thread-safety: ``isStoreLoaded`` is guarded by a `Mutex` so it can be
 /// read from any thread. Everything else must be called from the context's
 /// owning queue (main queue for the view context).
-final class CoreDataManager {
+///
+/// `@unchecked Sendable`: the persistent container is thread-safe, the cached
+/// sort descriptors/predicates are immutable, and the only mutable stored
+/// property (`storeLoaded`) is `Mutex`-guarded — so the manager can be captured
+/// by the `@Sendable` background-task closures used for imports.
+final class CoreDataManager: @unchecked Sendable {
     // MARK: - Properties
 
     private let persistentContainer: NSPersistentContainer
@@ -72,12 +77,20 @@ final class CoreDataManager {
     // Cached sort descriptors — allocated once, reused by every fetch.
     nonisolated(unsafe) private static let feedSortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
     nonisolated(unsafe) private static let feedItemSortDescriptors = [NSSortDescriptor(key: "publishDate", ascending: false)]
+    /// Newest first; equal dates tie-break by `link` so the order is deterministic across fetches.
+    nonisolated(unsafe) private static let feedItemListSortDescriptors = [
+        NSSortDescriptor(key: "publishDate", ascending: false),
+        NSSortDescriptor(key: "link", ascending: true)
+    ]
 
     // Predicate templates — `withSubstitutionVariables` creates a bound copy
     // without re-parsing the format string on every call.
     nonisolated(unsafe) private static let rssURLPredicateTemplate = NSPredicate(format: "rssURL == $URL")
     nonisolated(unsafe) private static let titleSearchPredicateTemplate = NSPredicate(format: "title CONTAINS[cd] $SEARCH_TEXT")
     nonisolated(unsafe) private static let unreadPredicate = NSPredicate(format: "wasRead == NO OR wasRead == nil")
+    nonisolated(unsafe) private static let itemsOfFeedPredicateTemplate = NSPredicate(format: "feed == $FEED")
+    nonisolated(unsafe) private static let unreadItemsOfFeedPredicateTemplate =
+        NSPredicate(format: "feed == $FEED AND (wasRead == NO OR wasRead == nil)")
 
     /// Cached expression for ``unreadCountsByFeed()``'s grouped aggregate fetch.
     nonisolated(unsafe) private static let unreadCountExpression: NSExpressionDescription = {
@@ -94,6 +107,9 @@ final class CoreDataManager {
         get { storeLoaded.withLock { $0 } }
         set { storeLoaded.withLock { $0 = newValue } }
     }
+
+    /// Callbacks waiting for the asynchronous store load, drained on the main queue.
+    private let pendingStoreReadyCallbacks = Mutex<[@Sendable () -> Void]>([])
 
     // MARK: - Initialization
 
@@ -124,13 +140,16 @@ final class CoreDataManager {
     // MARK: - Setup
 
     /// Configures the persistent store description with lightweight-migration
-    /// options, loads the store synchronously, and configures the view context.
+    /// options, loads the store **asynchronously** (so a slow disk or migration
+    /// never blocks the launch path on the main thread), and configures the
+    /// view context. Callers waiting on the store use ``performWhenStoreReady(_:)``.
     private func setupPersistentContainer() {
         let storeURL = getLegacyStoreURL()
 
         let storeDescription = NSPersistentStoreDescription(url: storeURL)
         storeDescription.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
         storeDescription.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+        storeDescription.shouldAddStoreAsynchronously = true
 
         persistentContainer.persistentStoreDescriptions = [storeDescription]
 
@@ -141,6 +160,9 @@ final class CoreDataManager {
             } else {
                 self?.isStoreLoaded = true
             }
+            /// Drained in both branches so queued callers are never stranded;
+            /// on failure they simply observe an empty store.
+            self?.drainStoreReadyCallbacks()
         }
 
         Self.configureContext(persistentContainer.viewContext)
@@ -485,9 +507,49 @@ final class CoreDataManager {
     /// Returns `true` once the persistent store has finished loading.
     ///
     /// Callers can check this before issuing fetches to avoid operating on
-    /// an unloaded store. Thread-safe (backed by ``storeLock``).
+    /// an unloaded store. Thread-safe (backed by ``storeLoaded``).
     func isReady() -> Bool {
         return isStoreLoaded
+    }
+
+    /// Runs `callback` once the persistent store is available.
+    ///
+    /// Invoked synchronously on the caller's thread when the store is already
+    /// loaded; otherwise queued and delivered on the main queue right after the
+    /// asynchronous store load finishes (also on failure, so callers are never
+    /// stranded — they simply observe an empty store).
+    func performWhenStoreReady(_ callback: @escaping @Sendable () -> Void) {
+        guard !isStoreLoaded else {
+            callback()
+            return
+        }
+
+        pendingStoreReadyCallbacks.withLock { $0.append(callback) }
+
+        /// The store may have finished loading between the check above and the
+        /// append — drain again so the callback cannot be stranded.
+        if isStoreLoaded {
+            drainStoreReadyCallbacks()
+        }
+    }
+
+    /// Removes all queued store-ready callbacks and invokes them on the main queue.
+    private func drainStoreReadyCallbacks() {
+        let callbacks = pendingStoreReadyCallbacks.withLock { pending -> [@Sendable () -> Void] in
+            let drained = pending
+            pending = []
+            return drained
+        }
+
+        guard !callbacks.isEmpty else {
+            return
+        }
+
+        DispatchQueue.main.async {
+            for callback in callbacks {
+                callback()
+            }
+        }
     }
 }
 
@@ -597,6 +659,172 @@ extension CoreDataManager: StorageProtocol {
             }
         }
         return counts
+    }
+
+    /// Loads one feed's items sorted newest-first (link as tie-break) at the SQL
+    /// level, in batches of 20 — the relationship is never materialised in full.
+    func feedItems(for feed: Feed) -> [FeedItem] {
+        let predicate = Self.itemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
+        return (try? fetchFeedItems(sortedBy: Self.feedItemListSortDescriptors, filteredBy: predicate)) ?? []
+    }
+
+    /// Counts unread items of a single feed via `COUNT(*)` — no objects are materialised.
+    func unreadCount(for feed: Feed) -> Int {
+        let predicate = Self.unreadItemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
+        return (try? count(entityName: EntityNames.feedItem.rawValue, predicate: predicate)) ?? 0
+    }
+
+    /// Marks all unread items of a feed as read with an `NSBatchUpdateRequest`.
+    ///
+    /// Runs at the SQL level — no `FeedItem` objects are loaded or saved — and
+    /// ``batchUpdate(entityName:propertiesToUpdate:predicate:context:)`` merges
+    /// the updated object IDs back so any loaded items reflect the change.
+    func markAllAsRead(in feed: Feed) {
+        let predicate = Self.unreadItemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
+        try? batchUpdate(
+            entityName: EntityNames.feedItem.rawValue,
+            propertiesToUpdate: ["wasRead": true],
+            predicate: predicate
+        )
+    }
+
+    /// Returns the feed with the given object ID from the view context, or `nil`.
+    func loadFeed(withID id: NSManagedObjectID) -> Feed? {
+        return (try? viewContext.existingObject(with: id)) as? Feed
+    }
+
+    /// Imports a parsed feed with all its items on a background context.
+    ///
+    /// Entity creation and the save happen off the main thread — large feeds
+    /// (hundreds of items with article HTML) no longer stall the UI right as
+    /// the loading indicator dismisses. `completion` is delivered on the main
+    /// actor with the saved feed's (permanent, `Sendable`) object ID, or `nil`
+    /// when creation or the save fails; callers rematerialise the feed via
+    /// ``loadFeed(withID:)``.
+    func importFeed(_ data: ParsedFeedData,
+                    rssURL: String,
+                    completion: @escaping @Sendable (NSManagedObjectID?) -> Void) {
+        performBackgroundTask { [weak self] context in
+            guard let self,
+                  let feed = try? self.createFeed(in: context) else {
+                Task { @MainActor in completion(nil) }
+                return
+            }
+
+            feed.title = data.title
+            feed.rssURL = rssURL
+            feed.summary = data.summary
+
+            for itemData in data.items {
+                guard let feedItem = try? self.createFeedItem(in: context) else {
+                    continue
+                }
+                feedItem.title = itemData.title
+                feedItem.link = itemData.link
+                feedItem.htmlContent = itemData.htmlContent
+                feedItem.publishDate = itemData.publishDate
+
+                /// Create a relationship
+                feedItem.feed = feed
+            }
+
+            do {
+                try self.saveContext(context)
+            } catch {
+                Task { @MainActor in completion(nil) }
+                return
+            }
+
+            /// Only the (Sendable) object ID crosses the actor boundary.
+            let feedID = feed.objectID
+            Task { @MainActor in
+                completion(feedID)
+            }
+        }
+    }
+
+    /// Merges freshly parsed feed items into an existing feed on a background
+    /// context, persisting only new (unique) entries.
+    ///
+    /// Performs a **three-field deduplication** — an incoming item is considered
+    /// unique only when its title, link, AND publish date are all absent from the
+    /// feed's current items. This strict check prevents both exact duplicates and
+    /// partial matches (e.g. same link with an updated title) from creating
+    /// duplicate entries.
+    ///
+    /// The existing-item snapshot is a `dictionaryResultType` projection of just
+    /// the three dedup fields — no `FeedItem` objects (and no article HTML) are
+    /// materialised, and all work including the save happens off the main thread.
+    ///
+    /// - Parameters:
+    ///   - items: Normalized, `Sendable` representations of the remote items.
+    ///   - feedID: Object ID of the feed to merge into.
+    ///   - completion: Called on the main actor once the merge has finished
+    ///     (also when the feed no longer exists and nothing was merged).
+    func refreshFeedItems(with items: [ParsedFeedItemData],
+                          forFeedWith feedID: NSManagedObjectID,
+                          completion: @escaping @Sendable () -> Void) {
+        performBackgroundTask { [weak self] context in
+            /// The caller is always notified — even on the early-return paths.
+            defer {
+                Task { @MainActor in completion() }
+            }
+
+            guard let self,
+                  let feed = (try? context.existingObject(with: feedID)) as? Feed else {
+                return
+            }
+
+            // Step 1: Snapshot the existing items' dedup fields into O(1)-lookup sets.
+            let request = NSFetchRequest<NSDictionary>(entityName: EntityNames.feedItem.rawValue)
+            request.resultType = .dictionaryResultType
+            request.predicate = Self.itemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
+            request.propertiesToFetch = ["title", "link", "publishDate"]
+            let existing = (try? context.fetch(request)) ?? []
+
+            var existedTitles = Set<String>(minimumCapacity: existing.count)
+            var existedLinks = Set<String>(minimumCapacity: existing.count)
+            var existedDates = Set<TimeInterval>(minimumCapacity: existing.count)
+            for dict in existing {
+                if let title = dict["title"] as? String {
+                    existedTitles.insert(title)
+                }
+                if let link = dict["link"] as? String {
+                    existedLinks.insert(link)
+                }
+                if let date = dict["publishDate"] as? Date {
+                    existedDates.insert(date.timeIntervalSince1970)
+                }
+            }
+
+            // Step 2: Compare each incoming parsed item against the three dedup sets.
+            // An item must differ in ALL three fields to be considered unique.
+            for itemData in items {
+                let isUniqueTitle = !existedTitles.contains(itemData.title)
+                let isUniqueLink = !existedLinks.contains(itemData.link)
+                let isUniqueDate = !existedDates.contains(itemData.publishDate.timeIntervalSince1970)
+
+                guard isUniqueTitle && isUniqueLink && isUniqueDate else {
+                    continue
+                }
+
+                // Step 3: Create a Core Data entity only for items not already in the feed.
+                guard let feedItem = try? self.createFeedItem(in: context) else {
+                    continue
+                }
+                feedItem.title = itemData.title
+                feedItem.link = itemData.link
+                feedItem.htmlContent = itemData.htmlContent
+                feedItem.publishDate = itemData.publishDate
+
+                /// Create a relationship
+                feedItem.feed = feed
+            }
+
+            // Step 4: Persist newly added items; the view context picks the changes
+            // up through `automaticallyMergesChangesFromParent`.
+            try? self.saveContext(context)
+        }
     }
 
     /// Returns all saved RSS URLs in a single fetch so callers can do O(1) `Set`

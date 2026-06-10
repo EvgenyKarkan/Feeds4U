@@ -107,7 +107,10 @@ extension ExploreFeedsService: ExploreFeedsServiceProtocol {
     func searchFeeds(on webPage: String, completion: @escaping ExploreFeedsServiceResultCompletion) {
         Task { [weak self] in
             guard let self else {
-                completion(.failure(ExploreFeedsError.dataDecoding))
+                /// The service was deallocated, so its owning module is gone and
+                /// nobody is left to present a result. Reporting `.dataDecoding`
+                /// here (as before) would surface a misleading "can't parse data"
+                /// alert — dropping the request silently is the honest outcome.
                 return
             }
             do {

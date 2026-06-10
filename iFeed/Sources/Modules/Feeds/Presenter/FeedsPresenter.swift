@@ -34,6 +34,19 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
     func onViewDidLoad() {
         let viewState = buildViewState()
         view?.updateOnDidLoad(with: viewState)
+
+        /// The persistent store loads asynchronously at launch — rebuild the
+        /// list once it is available so the first screen is not stuck empty.
+        interactor.performWhenStorageReady { [weak self] in
+            /// Storage contractually delivers this callback on the main queue.
+            MainActor.assumeIsolated {
+                guard let self else {
+                    return
+                }
+                let viewState = self.buildViewState()
+                self.view?.reloadFeedsList(with: viewState)
+            }
+        }
     }
 
     func onViewWillAppear() {

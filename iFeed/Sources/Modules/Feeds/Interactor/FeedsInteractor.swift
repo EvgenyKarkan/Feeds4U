@@ -19,7 +19,7 @@ final class FeedsInteractor {
     // MARK: - Properties
     private let parser: any ParserProtocol
     private let storage: any StorageProtocol
-    private var localSearchService: any Searchable
+    private let localSearchService: any Searchable
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
     private let folderManager: any FeedFolderManaging
     private let keyedStorage: any KeyedStorageProtocol
@@ -48,6 +48,10 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 
     func getAllFeeds() -> [Feed] {
         return storage.loadFeeds()
+    }
+
+    func performWhenStorageReady(_ completion: @escaping @Sendable () -> Void) {
+        storage.performWhenStoreReady(completion)
     }
 
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool {
@@ -120,6 +124,9 @@ extension FeedsInteractor: FeedsInteractorProtocol {
         folderManager.removeFeed(url: feed.rssURL)
         storage.delete(feed)
         try? saveContext()
+
+        /// The corpus shrank — the search index must be rebuilt before the next query.
+        localSearchService.markIndexDirty()
     }
 
     // MARK: - Folder operations
@@ -152,37 +159,41 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 // MARK: - ParserDelegateProtocol
 extension FeedsInteractor: ParserDelegateProtocol {
 
+    /// Hands the parsed data to storage, which creates and saves the feed with
+    /// all its items on a background context — large imports no longer stall
+    /// the main thread. The completion fires back on the main actor.
     func didEndParsingFeed(with data: ParsedFeedData) {
-        guard let feed = storage.makeFeed() else {
-            didFailParsingFeed(with: StorageError.feedCreationFailed)
+        /// Nobody is waiting for the result (e.g. the parse was cancelled) — skip the import.
+        /// The URL is unwrapped here rather than defaulted: `rssURL` is the feed's
+        /// identity, and persisting a feed with an empty URL would silently break
+        /// refresh, duplicate detection, and folder membership. If the invariant
+        /// "completion and URL are set together" ever breaks, fail loudly instead.
+        guard parsingCompletion != nil, let rssURL = parsingURL else {
+            parsingCompletion?(.failure(StorageError.feedCreationFailed))
+            parsingCompletion = nil
+            parsingURL = nil
             return
         }
 
-        feed.title = data.title
-        feed.rssURL = parsingURL ?? ""
-        feed.summary = data.summary
+        storage.importFeed(data, rssURL: rssURL) { [weak self] feedID in
+            /// Storage contractually delivers this callback on the main actor
+            /// (see `StorageProtocol.importFeed`).
+            MainActor.assumeIsolated {
+                guard let self else {
+                    return
+                }
 
-        for itemData in data.items {
-            guard let feedItem = storage.makeFeedItem() else {
-                continue
+                if let feedID, let feed = self.storage.loadFeed(withID: feedID) {
+                    /// The corpus changed — the search index must be rebuilt before the next query.
+                    self.localSearchService.markIndexDirty()
+                    self.parsingCompletion?(.success(feed))
+                } else {
+                    self.parsingCompletion?(.failure(StorageError.feedCreationFailed))
+                }
+                self.parsingCompletion = nil
+                self.parsingURL = nil
             }
-            feedItem.title = itemData.title
-            feedItem.link = itemData.link
-            feedItem.htmlContent = itemData.htmlContent
-            feedItem.publishDate = itemData.publishDate
-
-            /// Create a relationship
-            feedItem.feed = feed
         }
-
-        /// Persist together with creation so the new objects cannot linger
-        /// unsaved in the view context (and leak into an unrelated later save)
-        /// if the caller that received the completion is already gone.
-        storage.saveChanges()
-
-        parsingCompletion?(.success(feed))
-        parsingCompletion = nil
-        parsingURL = nil
     }
 
     func didFailParsingFeed(with error: any Error) {

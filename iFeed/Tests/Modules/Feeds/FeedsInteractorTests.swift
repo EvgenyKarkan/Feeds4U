@@ -78,9 +78,19 @@ struct FeedsInteractorTests {
         return ParsedFeedData(title: title, summary: nil, items: [])
     }
 
-    private func stubStorageMakeFeed() {
-        storage._makeFeed.implementation = .uncheckedInvokes { [container] in
-            return Feed(context: container.viewContext)
+    /// Stubs `importFeed` to synchronously build a feed from the passed data and
+    /// report its object ID through the completion, mimicking a successful
+    /// background import; `loadFeed(withID:)` resolves the ID back to the feed.
+    private func stubStorageImportFeed() {
+        storage._importFeed.implementation = .uncheckedInvokes { [container] data, rssURL, completion in
+            let feed = Feed(context: container.viewContext)
+            feed.title = data.title
+            feed.rssURL = rssURL
+            feed.summary = data.summary
+            completion(feed.objectID)
+        }
+        storage._loadFeed.implementation = .uncheckedInvokes { [container] id in
+            return (try? container.viewContext.existingObject(with: id)) as? Feed
         }
     }
 
@@ -96,6 +106,25 @@ struct FeedsInteractorTests {
         // Then
         #expect(feeds.isEmpty)
         #expect(storage._loadFeeds.callCount == 1)
+    }
+
+    // MARK: - performWhenStorageReady
+
+    @Test func performWhenStorageReady_delegatesToStorageAndForwardsCallback() {
+        // Given
+        storage._performWhenStoreReady.implementation = .uncheckedInvokes { callback in
+            callback()
+        }
+        nonisolated(unsafe) var callbackRan = false
+
+        // When
+        sut.performWhenStorageReady {
+            callbackRan = true
+        }
+
+        // Then
+        #expect(storage._performWhenStoreReady.callCount == 1)
+        #expect(callbackRan)
     }
 
     // MARK: - checkIfFeedIsAlreadySaved
@@ -160,7 +189,7 @@ struct FeedsInteractorTests {
 
     @Test func startParsingFeed_onParsingSuccess_callsCompletionWithFeed() {
         // Given
-        stubStorageMakeFeed()
+        stubStorageImportFeed()
         let parsedData = makeParsedFeedData(title: "Parsed Feed")
         var receivedResult: Result<Feed, any Error>?
 
@@ -178,8 +207,10 @@ struct FeedsInteractorTests {
         }
         #expect(receivedFeed.rssURL == testFeedURL)
         #expect(receivedFeed.title == "Parsed Feed")
-        // Creation and persistence are atomic: the interactor saves before completing.
-        #expect(storage._saveChanges.callCount == 1)
+        // Creation and persistence happen inside the storage import; a successful
+        // import must also invalidate the search index.
+        #expect(storage._importFeed.callCount == 1)
+        #expect(search._markIndexDirty.callCount == 1)
     }
 
     @Test func startParsingFeed_onParsingFailure_callsCompletionWithError() {
@@ -225,9 +256,11 @@ struct FeedsInteractorTests {
         }
     }
 
-    @Test func didEndParsingFeed_whenStorageFailsToMakeFeed_callsCompletionWithFailure() {
+    @Test func didEndParsingFeed_whenImportFails_callsCompletionWithFailure() {
         // Given
-        storage._makeFeed.implementation = .uncheckedInvokes { nil }
+        storage._importFeed.implementation = .uncheckedInvokes { _, _, completion in
+            completion(nil)
+        }
         var receivedResult: Result<Feed, any Error>?
 
         sut.startParsingFeed(testFeedURL) { result in
@@ -243,18 +276,13 @@ struct FeedsInteractorTests {
             return
         }
         #expect(error is StorageError)
-        // Nothing was created, so nothing must be saved.
-        #expect(storage._saveChanges.callCount == 0)
+        // A failed import must not invalidate the search index.
+        #expect(search._markIndexDirty.callCount == 0)
     }
 
-    @Test func didEndParsingFeed_withItems_populatesFeedAndItems() {
+    @Test func didEndParsingFeed_passesDataAndURLToStorage() {
         // Given
-        stubStorageMakeFeed()
-
-        // Mock makeFeedItem
-        storage._makeFeedItem.implementation = .uncheckedInvokes { [container] in
-            return FeedItem(context: container.viewContext)
-        }
+        stubStorageImportFeed()
 
         let itemData = ParsedFeedItemData(
             title: "Item 1",
@@ -273,26 +301,25 @@ struct FeedsInteractorTests {
         sut.didEndParsingFeed(with: parsedData)
 
         // Then
+        // Object-graph creation lives in the storage layer (covered by
+        // CoreDataManagerTests); the interactor must forward the parsed payload as-is.
+        #expect(storage._importFeed.callCount == 1)
+        let invocation = storage._importFeed.lastInvocation
+        #expect(invocation?.0.title == "Feed")
+        #expect(invocation?.0.summary == "Summary")
+        #expect(invocation?.0.items.count == 1)
+        #expect(invocation?.1 == testFeedURL)
+
         guard case .success(let feed) = receivedResult else {
             Issue.record("Expected success")
             return
         }
         #expect(feed.title == "Feed")
-        #expect(feed.summary == "Summary")
-        #expect(feed.feedItems.count == 1)
-
-        let firstItem = feed.feedItems.allObjects.first as? FeedItem
-        #expect(firstItem?.title == "Item 1")
-        #expect(firstItem?.link == "https://item.com")
-        #expect(firstItem?.htmlContent == "Content")
-        #expect(firstItem?.feed === feed)
-        // Creation and persistence are atomic: the interactor saves before completing.
-        #expect(storage._saveChanges.callCount == 1)
+        #expect(feed.rssURL == testFeedURL)
     }
 
     @Test func didCancelParsingFeed_nilsOutProperties() {
         // Given
-        stubStorageMakeFeed()
         var callCount = 0
         sut.startParsingFeed(testFeedURL) { _ in
             callCount += 1
@@ -305,9 +332,11 @@ struct FeedsInteractorTests {
         // completion should NOT be called
         #expect(callCount == 0)
 
-        // Verify it is indeed nilled out by calling didEndParsingFeed and seeing no callback
+        // Verify it is indeed nilled out by calling didEndParsingFeed and seeing no callback —
+        // with no pending completion the interactor must not even start an import.
         sut.didEndParsingFeed(with: makeParsedFeedData())
         #expect(callCount == 0)
+        #expect(storage._importFeed.callCount == 0)
     }
 
     // MARK: - fillSearchMatchingEngine
@@ -401,6 +430,8 @@ struct FeedsInteractorTests {
         #expect(storage._delete.callCount == 1)
         #expect(storage._delete.lastInvocation === feed)
         #expect(storage._saveChanges.callCount == 1)
+        // Removing a feed shrinks the search corpus — the index must be invalidated.
+        #expect(search._markIndexDirty.callCount == 1)
     }
 
     // MARK: - Folder operations

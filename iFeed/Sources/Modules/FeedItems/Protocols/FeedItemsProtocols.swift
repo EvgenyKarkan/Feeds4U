@@ -67,6 +67,7 @@ protocol FeedItemsViewDelegate: AnyObject {
 protocol FeedItemsDependencies: AnyObject {
     func parser() -> any ParserProtocol
     func storage() -> any StorageProtocol
+    func localSearch() -> any Searchable
 }
 
 /// Wireframe -> AppCoordinator

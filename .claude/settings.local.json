@@ -5,7 +5,13 @@
       "Bash(python3:*)",
       "Bash(xcodebuild build:*)",
       "Bash(xcodebuild test:*)",
-      "Bash(xcodebuild build-for-testing:*)"
+      "Bash(xcodebuild build-for-testing:*)",
+      "Bash(sed -n '1,60p')",
+      "Bash(sed -n '1,80p' iFeed/Tests/Services/Search/SearchTests.swift)",
+      "Bash(sed -n '1,140p' iFeed/Tests/Modules/Feeds/FeedsInteractorTests.swift)",
+      "Bash(sed -n '380,420p' iFeed/Tests/Modules/Feeds/FeedsInteractorTests.swift)",
+      "Bash(sed -n '625,640p' iFeed/iFeed.xcodeproj/project.pbxproj)",
+      "Bash(sed -n '995,1010p' iFeed/iFeed.xcodeproj/project.pbxproj)"
     ]
   }
 }

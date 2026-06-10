@@ -613,7 +613,7 @@ struct CoreDataManagerTests {
     @Test("saveContext with explicit background context")
     func saveContextExplicit() throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When
@@ -674,7 +674,7 @@ struct CoreDataManagerTests {
     @Test("saveContextAsync async saves pending changes")
     func saveContextAsyncAwaitSuccess() async throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
         await bgContext.perform {
             let feed = Feed(context: bgContext)
@@ -694,7 +694,7 @@ struct CoreDataManagerTests {
     @Test("saveContextAsync async with no changes does not throw")
     func saveContextAsyncAwaitNoChanges() async throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When / Then — should return without throwing
@@ -704,7 +704,7 @@ struct CoreDataManagerTests {
     @Test("saveContextAsync async rolls back and throws on save failure")
     func saveContextAsyncAwaitRollsBackOnFailure() async throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
         await bgContext.perform {
             let feed = Feed(context: bgContext)
@@ -823,7 +823,7 @@ struct CoreDataManagerTests {
     @Test("createFeed in explicit context inserts into that context")
     func createFeedExplicitContext() throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When
@@ -840,7 +840,7 @@ struct CoreDataManagerTests {
     @Test("createFeedItem in explicit context inserts into that context")
     func createFeedItemExplicitContext() throws {
         // Given
-        nonisolated(unsafe) let manager = try Self.makeTemporaryManager()
+        let manager = try Self.makeTemporaryManager()
         let bgContext = manager.newBackgroundContext()
 
         // When
@@ -1082,6 +1082,199 @@ struct CoreDataManagerTests {
         // When / Then — should not throw
         try manager.batchDelete(entityName: "Feed")
         #expect(try manager.fetchFeeds().isEmpty)
+    }
+
+    // MARK: - Per-feed item list (feedItems(for:))
+
+    @Test("feedItems(for:) returns only the feed's items, newest first with link tie-break")
+    func feedItemsForFeedSortedDeterministically() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let otherFeed = try Self.populateFeed(in: manager, rssURL: "https://other.com/feed", title: "Other")
+
+        let sharedDate = Date(timeIntervalSince1970: 1_000)
+        let newestDate = Date(timeIntervalSince1970: 2_000)
+
+        // Two equal-date items (inserted out of link order) plus one newer item,
+        // and an item in another feed that must not leak into the result.
+        for (title, link, date) in [
+            ("Tie B", "https://example.com/b", sharedDate),
+            ("Newest", "https://example.com/n", newestDate),
+            ("Tie A", "https://example.com/a", sharedDate)
+        ] {
+            let item = try manager.createFeedItem()
+            item.title = title
+            item.link = link
+            item.publishDate = date
+            item.feed = feed
+        }
+        let foreign = try manager.createFeedItem()
+        foreign.title = "Foreign"
+        foreign.link = "https://other.com/item"
+        foreign.publishDate = newestDate
+        foreign.feed = otherFeed
+        try manager.saveViewContext()
+
+        // When
+        let first = manager.feedItems(for: feed).map(\.title)
+        let second = manager.feedItems(for: feed).map(\.title)
+
+        // Then
+        #expect(first == ["Newest", "Tie A", "Tie B"])
+        #expect(first == second)
+    }
+
+    // MARK: - Per-feed unread count
+
+    @Test("unreadCount(for:) counts only the feed's unread items")
+    func unreadCountForFeed() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let otherFeed = try Self.populateFeed(in: manager, rssURL: "https://other.com/feed", title: "Other")
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Read", wasRead: true)
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Unread", link: "https://example.com/2", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: otherFeed, title: "Foreign unread", link: "https://other.com/1", wasRead: false)
+
+        // When / Then
+        #expect(manager.unreadCount(for: feed) == 1)
+        #expect(manager.unreadCount(for: otherFeed) == 1)
+    }
+
+    // MARK: - Per-feed mark all as read
+
+    @Test("markAllAsRead(in:) marks only the feed's items and merges into the context")
+    func markAllAsReadInFeed() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let otherFeed = try Self.populateFeed(in: manager, rssURL: "https://other.com/feed", title: "Other")
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "One", wasRead: false)
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Two", link: "https://example.com/2", wasRead: false)
+        let foreign = try Self.populateFeedItem(in: manager, feed: otherFeed, title: "Foreign", link: "https://other.com/1", wasRead: false)
+
+        // When
+        manager.markAllAsRead(in: feed)
+
+        // Then
+        #expect(manager.unreadCount(for: feed) == 0)
+        // The other feed's item is untouched.
+        #expect(foreign.wasRead.boolValue == false)
+        #expect(manager.unreadCount(for: otherFeed) == 1)
+    }
+
+    // MARK: - Store readiness
+
+    @Test("performWhenStoreReady with a loaded store calls back synchronously")
+    func performWhenStoreReadyWithLoadedStoreIsSynchronous() throws {
+        // Given — the test manager's store is loaded eagerly by `init(container:)`.
+        let manager = try Self.makeTemporaryManager()
+        #expect(manager.isReady())
+
+        nonisolated(unsafe) var callbackRan = false
+
+        // When
+        manager.performWhenStoreReady {
+            callbackRan = true
+        }
+
+        // Then — no waiting: the callback must have run before this line.
+        #expect(callbackRan)
+    }
+
+    // MARK: - Background feed import
+
+    @Test("importFeed creates and saves the whole feed graph off the view context")
+    func importFeedCreatesGraph() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let items = [
+            ParsedFeedItemData(title: "A", link: "https://e.com/a", publishDate: Date(timeIntervalSince1970: 1_000), htmlContent: "<p>A</p>"),
+            ParsedFeedItemData(title: "B", link: "https://e.com/b", publishDate: Date(timeIntervalSince1970: 2_000), htmlContent: nil)
+        ]
+        let data = ParsedFeedData(title: "Imported", summary: "Sum", items: items)
+
+        // When — only the Sendable object ID crosses the continuation.
+        let feedID: NSManagedObjectID? = await withCheckedContinuation { continuation in
+            manager.importFeed(data, rssURL: "https://e.com/feed") { feedID in
+                continuation.resume(returning: feedID)
+            }
+        }
+
+        // Then
+        let id = try #require(feedID)
+        let feed = try #require(try manager.fetchFeeds().first)
+        #expect(feed.objectID == id)
+        #expect(feed.title == "Imported")
+        #expect(feed.summary == "Sum")
+        #expect(feed.rssURL == "https://e.com/feed")
+
+        let fetchedItems = manager.feedItems(for: feed)
+        #expect(fetchedItems.map(\.title) == ["B", "A"]) // newest first
+        // Article HTML landed in the separate content entity.
+        #expect(fetchedItems.last?.htmlContent == "<p>A</p>")
+        #expect(fetchedItems.first?.htmlContent == nil)
+    }
+
+    // MARK: - Background feed refresh (dedup merge)
+
+    @Test("refreshFeedItems merges only items unique in title, link, and date")
+    func refreshFeedItemsDeduplicates() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        let fixedDate = Date(timeIntervalSince1970: 123_456_789)
+        let existing = try Self.populateFeedItem(in: manager, feed: feed, title: "Existing", link: "https://exist.com")
+        existing.publishDate = fixedDate
+        try manager.saveViewContext()
+
+        // Mirrors the original interactor-level dedup matrix:
+        // 1. fully duplicate, 2. duplicate title, 3. duplicate link,
+        // 4. duplicate date, 5. unique — only #5 may be inserted.
+        let incoming = [
+            ParsedFeedItemData(title: "Existing", link: "https://exist.com", publishDate: fixedDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Existing", link: "https://new1.com", publishDate: Date(), htmlContent: nil),
+            ParsedFeedItemData(title: "New1", link: "https://exist.com", publishDate: Date(), htmlContent: nil),
+            ParsedFeedItemData(title: "New2", link: "https://new2.com", publishDate: fixedDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Unique", link: "https://unique.com", publishDate: Date(), htmlContent: nil)
+        ]
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            manager.refreshFeedItems(with: incoming, forFeedWith: feed.objectID) {
+                continuation.resume()
+            }
+        }
+
+        // Then
+        let titles = Set(manager.feedItems(for: feed).map(\.title))
+        #expect(titles == ["Existing", "Unique"])
+    }
+
+    @Test("refreshFeedItems completes even when the feed no longer exists")
+    func refreshFeedItemsWithDeletedFeedCompletes() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let feedID = feed.objectID
+        manager.delete(feed)
+        try manager.saveViewContext()
+
+        let incoming = [
+            ParsedFeedItemData(title: "Orphan", link: "https://o.com", publishDate: Date(), htmlContent: nil)
+        ]
+
+        // When / Then — the completion must still fire so callers are never stuck.
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            manager.refreshFeedItems(with: incoming, forFeedWith: feedID) {
+                continuation.resume()
+            }
+        }
+        #expect(try manager.fetchFeedItems().isEmpty)
     }
 }
 
