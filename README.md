@@ -49,6 +49,7 @@ Available in 23 languages: Albanian, Arabic, Belarusian, Bengali, Chinese (Simpl
 - **async/await bridging** — callback-based APIs are wrapped into structured concurrency via `withCheckedContinuation`
 - **String Catalogs** (`.xcstrings`) driving localization into 23 languages
 - **Settings bundle** integration with the iOS Settings app
+- **Custom URL scheme** for deep linking into the app
 - Minimum deployment target: **iOS 18.0**
 
 ### Architecture
@@ -56,11 +57,10 @@ Available in 23 languages: Albanian, Arabic, Belarusian, Bengali, Chinese (Simpl
 - **Coordinator pattern** — a single Coordinator owns all navigation; wireframes report back via coordinating-delegate protocols
 - **Dependency Injection container** — shared services are wired centrally and exposed through narrow, per-module dependency protocols (Interface Segregation)
 
-### UIKit Details
-- Programmatic UI with a small number of XIBs (launch screen, table view cells)
+### UI
+- Programmatic UIKit with a small number of XIBs (launch screen, table view cells)
 - **UITableView drag & drop API** powering feed reorganization between folders
 - **SFSafariViewController** for the in-app Safari experience
-- **Custom URL scheme** for deep linking into the app
 
 ### Dependencies (Swift Package Manager)
 - [FeedKit](https://github.com/nmdias/FeedKit) — RSS / Atom / JSON Feed parsing
