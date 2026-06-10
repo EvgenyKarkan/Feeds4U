@@ -62,7 +62,8 @@ Available in 23 languages: Albanian, Arabic, Belarusian, Bengali, Chinese (Simpl
 - **UITableView drag & drop API** powering feed reorganization between folders
 - **SFSafariViewController** for the in-app Safari experience
 
-### Dependencies (Swift Package Manager)
+### Dependencies
+- Swift Package Manager
 - [FeedKit](https://github.com/nmdias/FeedKit) — RSS / Atom / JSON Feed parsing
 - [SimpleSimilarity](https://github.com/EvgenyKarkan/SimpleSimilarity) — fuzzy text matching for search
 - [KRProgressHUD](https://github.com/krimpedance/KRProgressHUD) & [KRActivityIndicatorView](https://github.com/krimpedance/KRActivityIndicatorView) — progress and activity indicators
