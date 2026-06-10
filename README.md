@@ -72,7 +72,7 @@ Available in 23 languages: Albanian, Arabic, Belarusian, Bengali, Chinese (Simpl
 - **Swift Testing** (`@Test`, `#expect`, `#require`) for the unit test suite, mirroring the source layout
 - [swift-mocking](https://github.com/fetch-rewards/swift-mocking) — compile-time generated mocks via the `@Mocked` macro; no hand-written mocks
 - [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) — network stubbing in tests
-- **SwiftLint** as an Xcode build phase, enforcing a no-force-unwrapping policy
+- **SwiftLint** as an Xcode build phase, enforcing a no-force-unwrapping policy and others
 - Three build schemes: **DEV / ADHOC / RELEASE**
 
 ## Contributions
