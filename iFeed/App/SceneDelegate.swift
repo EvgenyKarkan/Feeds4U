@@ -60,7 +60,6 @@ private extension SceneDelegate {
         appCoordinator = coordinator
 
         window = UIWindow(windowScene: windowScene)
-        window?.tintColor = .label
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }

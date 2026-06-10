@@ -21,10 +21,11 @@ final class CloudflareBypassViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.title = String.localized(key: LocalizableKeys.Cloudflare.verifyHuman)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+            barButtonSystemItem: .close,
             target: self,
             action: #selector(donePressed)
         )
+        navigationItem.rightBarButtonItem?.tintColor = .systemBlue
     }
 
     override func viewDidDisappear(_ animated: Bool) {

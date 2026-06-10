@@ -150,6 +150,7 @@ private extension FeedItemsViewController {
             image: UIImage(systemName: "checkmark.rectangle.stack"),
             menu: menu
         )
+        barButtonItem.tintColor = .systemBlue
 
         navigationItem.setRightBarButton(barButtonItem, animated: true)
     }

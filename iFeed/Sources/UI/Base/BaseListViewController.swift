@@ -29,8 +29,11 @@ class BaseListViewController: UIViewController {
             target: nil,
             action: nil
         )
+
+        navigationItem.backBarButtonItem?.tintColor = .systemBlue
     }
 
+    // Override in subclass
     func addFeedPressed(_ URL: String) {
         fatalError()
     }

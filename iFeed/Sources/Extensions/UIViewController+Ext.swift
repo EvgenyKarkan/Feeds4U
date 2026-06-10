@@ -74,8 +74,8 @@ extension UIViewController {
     ///
     func showSpinner() {
         KRProgressHUD
-            .set(style: .custom(background: .label, text: .systemBackground, icon: nil))
-            .set(activityIndicatorViewColors: [.label, .systemBackground])
+            .set(style: .custom(background: .secondarySystemBackground, text: .label, icon: nil))
+            .set(activityIndicatorViewColors: [.label])
             .show()
     }
 

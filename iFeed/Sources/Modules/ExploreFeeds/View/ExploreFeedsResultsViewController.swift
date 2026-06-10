@@ -216,10 +216,11 @@ extension ExploreFeedsResultsViewController: @MainActor ExploreFeedsViewProtocol
     func updateOnDidLoad(with viewState: ExploreFeedsViewState) {
         navigationItem.title = viewState.webPageTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+            barButtonSystemItem: .close,
             target: self,
             action: #selector(dismissScreen)
         )
+        navigationItem.rightBarButtonItem?.tintColor = .systemBlue
 
         update(with: viewState)
     }

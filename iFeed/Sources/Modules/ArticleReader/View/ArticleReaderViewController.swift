@@ -67,14 +67,8 @@ extension ArticleReaderViewController: @MainActor ArticleReaderViewProtocol {
     func configureInitialState(with viewState: ArticleReaderViewState) {
         navigationItem.title = viewState.title
 
-        let readerBackground: UIColor = viewState.isDarkMode ? .black : .white
-        let titleColor: UIColor = viewState.isDarkMode ? .white : .black
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.titleTextAttributes = [.foregroundColor: titleColor]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
+        let readerBackground = readerBackground(isDarkMode: viewState.isDarkMode)
+        updateNavBarAppearance(isDarkMode: viewState.isDarkMode)
 
         view.backgroundColor = readerBackground
 
@@ -89,19 +83,13 @@ extension ArticleReaderViewController: @MainActor ArticleReaderViewProtocol {
     }
 
     func applyThemeChange(isDarkMode: Bool) {
-        let readerBackground: UIColor = isDarkMode ? .black : .white
-        let titleColor: UIColor = isDarkMode ? .white : .black
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.titleTextAttributes = [.foregroundColor: titleColor]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
+        let background = readerBackground(isDarkMode: isDarkMode)
+        updateNavBarAppearance(isDarkMode: isDarkMode)
 
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) {
-            self.view.backgroundColor = readerBackground
-            self.webView.backgroundColor = readerBackground
-            self.webView.scrollView.backgroundColor = readerBackground
+            self.view.backgroundColor = background
+            self.webView.backgroundColor = background
+            self.webView.scrollView.backgroundColor = background
             self.webView.scrollView.indicatorStyle = isDarkMode ? .white : .black
         }
 
@@ -159,6 +147,19 @@ extension ArticleReaderViewController: WKNavigationDelegate {
 
 // MARK: - Private
 private extension ArticleReaderViewController {
+
+    func readerBackground(isDarkMode: Bool) -> UIColor {
+        return isDarkMode ? .black : .white
+    }
+
+    func updateNavBarAppearance(isDarkMode: Bool) {
+        let titleColor: UIColor = isDarkMode ? .white : .black
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.titleTextAttributes = [.foregroundColor: titleColor]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+    }
 
     func configureNavigationBarButtons(hasArticleURL: Bool) {
         let buttonSize: CGFloat = 28

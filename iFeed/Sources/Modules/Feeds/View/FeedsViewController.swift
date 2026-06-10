@@ -67,11 +67,14 @@ final class FeedsViewController: BaseListViewController {
     }()
 
     private lazy var trashButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(
+        let button = UIBarButtonItem(
             barButtonSystemItem: .trash,
             target: self,
             action: #selector(trashButtonItemDidPress)
         )
+        button.tintColor = .systemBlue
+
+        return button
     }()
 
     private var searchButton: UIButton?
@@ -166,13 +169,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
     }
 
     func updateOnWillAppear(with viewState: FeedsViewState) {
-        tableViewProvider?.sections = viewState.sections
-        tableViewProvider?.unreadCounts = viewState.unreadCounts
-        feedListView?.reloadTableView()
-
-        if !viewState.allFeeds.isEmpty {
-            feedListView?.tableView.alpha = 1
-        }
+        applyViewState(viewState)
     }
 
     func showActivityIndicator() {
@@ -311,29 +308,14 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
     }
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState) {
-        tableViewProvider?.sections = viewState.sections
-        tableViewProvider?.unreadCounts = viewState.unreadCounts
-        feedListView?.reloadTableView()
-
-        /// Add `trash` only if there is no `leftBarButtonItem`
-        if navigationItem.leftBarButtonItems == nil {
-            addTrashButton(true)
-            feedListView?.tableView.alpha = 1
-        }
-
-        if navigationItem.rightBarButtonItems?.count == 1 {
-            navigationItem.rightBarButtonItems?.append(contentsOf: [fixedSpace, searchButtonItem])
-        }
+        applyViewState(viewState)
     }
 
     /// Animates row/section removal. If the deleted feed was the last one in a folder,
     /// `sectionIndex` is non-nil and the entire folder section is removed.
     func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState) {
         guard let tableView = feedListView?.tableView else {
-            tableViewProvider?.sections = viewState.sections
-            tableViewProvider?.unreadCounts = viewState.unreadCounts
-            feedListView?.reloadTableView()
-            updateNavigationButtons(for: viewState)
+            applyViewState(viewState)
             return
         }
 
@@ -352,11 +334,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
     }
 
     func reloadFeedsList(with viewState: FeedsViewState) {
-        tableViewProvider?.sections = viewState.sections
-        tableViewProvider?.unreadCounts = viewState.unreadCounts
-        feedListView?.reloadTableView()
-
-        updateNavigationButtons(for: viewState)
+        applyViewState(viewState)
     }
 
     /// Animates expanding/collapsing a folder section. Deletes `oldRowCount` rows first,
@@ -548,10 +526,14 @@ private extension FeedsViewController {
         navigationItem.setLeftBarButtonItems(items, animated: true)
     }
 
+    /// Configures the navigation bar buttons and table view visibility based on the current feed count.
     func updateNavigationButtons(for viewState: FeedsViewState) {
         let allFeeds = viewState.allFeeds
 
         if allFeeds.isEmpty {
+            // What: Reset UI for the empty state.
+            // Why: Hides deletion and search controls when there is no content to act upon,
+            // focusing the user's attention solely on the 'Add' action.
             Task { @MainActor [weak self] in
                 self?.addTrashButton(false)
                 self?.feedListView?.tableView.setEditing(false, animated: false)
@@ -559,10 +541,15 @@ private extension FeedsViewController {
                 self?.navigationItem.rightBarButtonItems = [self?.addButtonItem].compactMap { $0 }
             }
         } else {
+            // What: Restore UI for the populated state.
+            // Why: Ensures search and deletion capabilities are available once feeds are present,
+            // and reveals the table view if it was previously hidden.
             if navigationItem.leftBarButtonItems == nil {
                 addTrashButton(true)
             }
-            feedListView?.tableView.alpha = 1
+            if feedListView?.tableView.alpha == .zero {
+                feedListView?.tableView.alpha = 1
+            }
             if navigationItem.rightBarButtonItems?.count == 1 {
                 navigationItem.rightBarButtonItems?.append(contentsOf: [fixedSpace, searchButtonItem])
             }
@@ -610,5 +597,13 @@ private extension FeedsViewController {
         }
 
         present(alert, animated: true)
+    }
+
+    func applyViewState(_ viewState: FeedsViewState) {
+        tableViewProvider?.sections = viewState.sections
+        tableViewProvider?.unreadCounts = viewState.unreadCounts
+        feedListView?.reloadTableView()
+
+        updateNavigationButtons(for: viewState)
     }
 }

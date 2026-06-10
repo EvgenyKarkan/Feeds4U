@@ -113,6 +113,8 @@ private extension FeedFolderHeaderView {
 //            blue: .random(in: 0.3...1),
 //            alpha: 1
 //        )
+
+        contentView.backgroundColor = .systemBackground
     }
 
     @objc func headerTapped() {

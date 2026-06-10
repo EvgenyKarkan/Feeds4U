@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "icon_light_1024_4.png",
+      "filename" : "1024.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icon_dark_1024_3.png",
+      "filename" : "1024 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "icon_tinted_1024_1.png",
+      "filename" : "1024 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

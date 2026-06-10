@@ -35,6 +35,7 @@ final class Coordinator {
     // MARK: - Init
     init(container: any DIContainerProtocol, controller: UINavigationController?) {
         navigationController = controller
+        navigationController?.navigationBar.tintColor = .systemBlue
 
         moduleFactory = ModuleFactory(container: container)
     }

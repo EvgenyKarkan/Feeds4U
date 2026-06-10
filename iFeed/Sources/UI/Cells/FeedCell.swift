@@ -86,7 +86,7 @@ final class FeedCell: UITableViewCell, Reusable {
             dotView.layer.cornerRadius = dotView.bounds.midY
             dotView.layer.cornerCurve = .continuous
             dotView.layer.masksToBounds = true
-            dotView.backgroundColor = .label
+            dotView.backgroundColor = .systemBlue
 
             let pixelHeight = 1.0 / UIScreen.main.scale
             contentView.addSubview(bottomSeparator)
