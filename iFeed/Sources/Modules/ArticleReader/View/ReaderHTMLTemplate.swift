@@ -243,25 +243,57 @@ enum ReaderHTMLTemplate {
     html[data-theme="dark"] .hljs-tag .hljs-attr { color: #D9C97C; }
     """
 
+    // MARK: - Bundled syntax-highlighting scripts
+
+    /// highlight.js core, loaded once from the app bundle and inlined into the page.
+    ///
+    /// Inlined (instead of referenced via `<script src>`) for three reasons:
+    /// - the reader must work fully **offline**, as advertised;
+    /// - an external script in `<head>` blocks HTML parsing until the network
+    ///   answers, delaying article rendering on a slow connection;
+    /// - every article open would otherwise ping a CDN (battery, data, privacy).
+    private static let highlightJS = loadBundledScript(named: "highlight.min")
+
+    /// Swift grammar for highlight.js — bundled and inlined for the same reasons.
+    private static let swiftLanguageJS = loadBundledScript(named: "swift.min")
+
+    /// Reads a bundled JavaScript resource, or returns an empty string when the
+    /// resource is missing — the article still renders, just without highlighting.
+    private static func loadBundledScript(named name: String) -> String {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "js"),
+              let source = try? String(contentsOf: url, encoding: .utf8) else {
+            return ""
+        }
+        return source
+    }
+
     static func wrapInReaderTemplate(_ body: String, title: String, isDarkMode: Bool) -> String {
-        """
-        <!DOCTYPE html>
-        <html lang="en" data-theme="\(isDarkMode ? "dark" : "light")">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/swift.min.js"></script>
-            <style>
-              \(readerCSS)
-              \(syntaxHighlightingCSS)
-            </style>
+        /// Highlighting machinery is included only when the article actually
+        /// contains code markup — parsing ~130 KB of JavaScript for a plain
+        /// text article would waste CPU on every open.
+        let needsHighlighting = body.contains("<pre") || body.contains("<code")
+        let highlightingScripts = needsHighlighting ? """
+            <script>\(highlightJS)</script>
+            <script>\(swiftLanguageJS)</script>
             <script>
                 document.addEventListener('DOMContentLoaded', (event) => {
                     hljs.configure({ languages: ['swift', 'kotlin', 'objectivec', 'json'] });
                     hljs.highlightAll();
                 });
             </script>
+            """ : ""
+
+        return """
+        <!DOCTYPE html>
+        <html lang="en" data-theme="\(isDarkMode ? "dark" : "light")">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
+            <style>
+              \(readerCSS)
+              \(syntaxHighlightingCSS)
+            </style>
+            \(highlightingScripts)
           </head>
           <body>
             <h1>\(title)</h1>

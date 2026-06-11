@@ -85,9 +85,13 @@ protocol StorageProtocol {
     /// Returns unread item counts grouped by feed object ID.
     func unreadCountsByFeed() -> [NSManagedObjectID: Int]
 
-    /// Loads only titles and object IDs for all feed items.
-    /// Used for memory-efficient search indexing.
-    func loadFeedItemIndex() -> [(title: String, objectID: NSManagedObjectID)]?
+    /// Loads only titles and object IDs for all feed items on a background
+    /// context. Used for memory-efficient search indexing.
+    ///
+    /// `completion` is always invoked **on the main actor** with the index, or
+    /// `nil` when the fetch failed — see `importFeed` for why the closure type
+    /// is plain `@Sendable`.
+    func fetchFeedItemIndex(_ completion: @escaping @Sendable ([(title: String, objectID: NSManagedObjectID)]?) -> Void)
 
     /// Returns all saved RSS URLs.
     func savedFeedURLs() -> Set<String>

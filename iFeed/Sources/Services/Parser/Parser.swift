@@ -197,13 +197,21 @@ private extension Parser {
     /// Atomic completion handler.
     /// Safely cleans up the `activeTask` reference only if it still belongs to this
     /// specific parse version, ensuring we don't nil out a newer Task started in the meantime.
+    ///
+    /// `didCancelParsingFeed` is version-gated for the same reason: when a parse is
+    /// cancelled *because a newer one superseded it* on this parser, the delegate's
+    /// state already belongs to the new parse — delivering the stale cancel callback
+    /// would wipe the new parse's pending completion (stuck spinner). The callback
+    /// is delivered only for a direct `cancelParsing()`/`deinit` with no successor.
     func handleCompletion(version: Int, wasCancelled: Bool) {
+        guard taskVersion == version else {
+            return
+        }
+
         if wasCancelled {
             delegate?.didCancelParsingFeed()
         }
 
-        if taskVersion == version {
-            activeTask = nil
-        }
+        activeTask = nil
     }
 }

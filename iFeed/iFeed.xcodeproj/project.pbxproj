@@ -17,6 +17,7 @@
 		0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */; };
 		0845E16E2BB4B86800BB318A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0845E16D2BB4B86800BB318A /* String+Ext.swift */; };
 		0847EBB42FD38A6D00FCA66C /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847EBB32FD38A6D00FCA66C /* ParserTests.swift */; };
+		08AD11FE2FDD000000000002 /* CoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDD000000000001 /* CoordinatorTests.swift */; };
 		08AD11FE2FDB000000000002 /* ParseContinuationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000001 /* ParseContinuationBox.swift */; };
 		08AD11FE2FDB000000000004 /* FeedItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000003 /* FeedItemContent.swift */; };
 		08AD11FE2FDB000000000006 /* ParseContinuationBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDB000000000005 /* ParseContinuationBoxTests.swift */; };
@@ -100,6 +101,8 @@
 		08E20D642F90483500059CED /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08E20D632F90483500059CED /* OHHTTPStubsSwift */; };
 		2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304B92954ABBA00B1F930 /* Colors.xcassets */; };
 		2E2304C12954ABBA00B1F930 /* iFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */; };
+		08AD11FE2FDC000000000002 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDC000000000001 /* highlight.min.js */; };
+		08AD11FE2FDC000000000004 /* swift.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 08AD11FE2FDC000000000003 /* swift.min.js */; };
 		2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */; };
 		2E2304C32954ABBA00B1F930 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E2304BD2954ABBA00B1F930 /* Images.xcassets */; };
 		2E2304C42954ABBA00B1F930 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2304BE2954ABBA00B1F930 /* AppDelegate.swift */; };
@@ -141,6 +144,7 @@
 		0845E16B2BB4AC7B00BB318A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0845E16D2BB4B86800BB318A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		0847EBB32FD38A6D00FCA66C /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		08AD11FE2FDD000000000001 /* CoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTests.swift; sourceTree = "<group>"; };
 		08AD11FE2FDB000000000001 /* ParseContinuationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseContinuationBox.swift; sourceTree = "<group>"; };
 		08AD11FE2FDB000000000003 /* FeedItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemContent.swift; sourceTree = "<group>"; };
 		08AD11FE2FDB000000000005 /* ParseContinuationBoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseContinuationBoxTests.swift; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 		08DC3B5D2FA2F34500E8771F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		08E20D562F90478C00059CED /* iFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E2304B92954ABBA00B1F930 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		08AD11FE2FDC000000000001 /* highlight.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = highlight.min.js; sourceTree = "<group>"; };
+		08AD11FE2FDC000000000003 /* swift.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = swift.min.js; sourceTree = "<group>"; };
 		2E2304BB2954ABBA00B1F930 /* iFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iFeed.xcdatamodel; sourceTree = "<group>"; };
 		2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		2E2304BD2954ABBA00B1F930 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -759,9 +765,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		08AD11FE2FDD000000000003 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				08AD11FE2FDD000000000001 /* CoordinatorTests.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		08E20D6B2F90573400059CED /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				08AD11FE2FDD000000000003 /* Coordinator */,
 				08A9780B2FBA4D620004E40D /* DIContainer */,
 				08AB10A52FCA5F1600E190D1 /* Modules */,
 				08B083142FB2A60C007C63DD /* Services */,
@@ -779,6 +794,8 @@
 				08B00C112FB3BB88007BD039 /* SceneDelegate.swift */,
 				2E2304BC2954ABBA00B1F930 /* LaunchScreen.xib */,
 				2E2304B92954ABBA00B1F930 /* Colors.xcassets */,
+				08AD11FE2FDC000000000001 /* highlight.min.js */,
+				08AD11FE2FDC000000000003 /* swift.min.js */,
 				2E2304BD2954ABBA00B1F930 /* Images.xcassets */,
 				2E2304BA2954ABBA00B1F930 /* iFeed.xcdatamodeld */,
 				2E2304BF2954ABBA00B1F930 /* Info.plist */,
@@ -968,6 +985,8 @@
 				2E2304C32954ABBA00B1F930 /* Images.xcassets in Resources */,
 				2E2304C22954ABBA00B1F930 /* LaunchScreen.xib in Resources */,
 				2E2304C02954ABBA00B1F930 /* Colors.xcassets in Resources */,
+				08AD11FE2FDC000000000002 /* highlight.min.js in Resources */,
+				08AD11FE2FDC000000000004 /* swift.min.js in Resources */,
 				0845E16C2BB4B75000BB318A /* Localizable.xcstrings in Resources */,
 				2E2305012954ABDB00B1F930 /* FeedCell.xib in Resources */,
 				08B00C072FB3AB66007BD039 /* ExploreFeedsResultsViewController.xib in Resources */,
@@ -1011,6 +1030,7 @@
 				08B083162FB2A60C007C63DD /* ParsedFeedDataTests.swift in Sources */,
 				08AB10AB2FCA623500E190D1 /* FeedFolderTests.swift in Sources */,
 				0847EBB42FD38A6D00FCA66C /* ParserTests.swift in Sources */,
+				08AD11FE2FDD000000000002 /* CoordinatorTests.swift in Sources */,
 				08AD11FE2FDB000000000006 /* ParseContinuationBoxTests.swift in Sources */,
 				08BA94A02FCCA82D004F7FF6 /* FeedsViewStateTests.swift in Sources */,
 				0847EBDC2FD4466200FCA66C /* TestCoreDataModel.swift in Sources */,

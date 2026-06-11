@@ -451,14 +451,47 @@ struct FeedsPresenterTests {
         #expect(view._showActivityIndicator.callCount == 1)
     }
 
-    @Test func onViewNeedsToSearchFeeds_savesRecentSearchAndRefreshesMenu() {
-        // When
-        sut.onViewNeedsToSearchFeeds(by: "swift")
+    @Test func onViewNeedsToSearchFeeds_onSuccess_savesRecentSearchAndRefreshesMenu() async {
+        // Given
+        let feed = makeFeed(itemCount: 1)
+        let items = (feed.feedItems.allObjects as? [FeedItem]) ?? []
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in items }
+        view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
+            completion?()
+        }
 
-        // Then
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            wireframe._navigateToSearchResults.implementation = .uncheckedInvokes { _, _ in
+                continuation.resume()
+            }
+            sut.onViewNeedsToSearchFeeds(by: "swift")
+        }
+
+        // Then — the query is remembered only after it produced results.
         #expect(interactor._saveRecentSearch.callCount == 1)
+        #expect(interactor._saveRecentSearch.lastInvocation == "swift")
         #expect(interactor._recentSearches.callCount >= 1)
         #expect(view._configureSearchButtonMenu.callCount >= 1)
+    }
+
+    @Test func onViewNeedsToSearchFeeds_onNoResults_doesNotSaveRecentSearch() async {
+        // Given
+        interactor._performSearch.implementation = .uncheckedInvokes { _ in nil }
+        view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
+            completion?()
+        }
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._showNoSearchResultsAlert.implementation = .uncheckedInvokes {
+                continuation.resume()
+            }
+            sut.onViewNeedsToSearchFeeds(by: "tpyo")
+        }
+
+        // Then — dead queries must not pollute the recent-searches menu.
+        #expect(interactor._saveRecentSearch.callCount == 0)
     }
 
     @Test func onViewNeedsToSearchFeeds_callsFillSearchMatchingEngine() async throws {

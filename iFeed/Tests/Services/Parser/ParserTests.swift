@@ -174,7 +174,7 @@ struct ParserTests {
         }
 
         nonisolated(unsafe) let unsafeParserMock = feedParsingMock
-        nonisolated(unsafe) let unsafeBox = box
+        let unsafeBox = box
         let parser = Parser(
             parserFactory: { _ in unsafeParserMock },
             continuationBoxFactory: { unsafeBox }
@@ -218,7 +218,7 @@ struct ParserTests {
         }
 
         nonisolated(unsafe) let unsafeParserMock = feedParsingMock
-        nonisolated(unsafe) let unsafeBox = box
+        let unsafeBox = box
         let parser = Parser(
             parserFactory: { _ in unsafeParserMock },
             continuationBoxFactory: { unsafeBox }
@@ -316,7 +316,11 @@ struct ParserTests {
         try await Task.sleep(nanoseconds: 100_000_000)
 
         #expect(delegate._didFailParsingFeed.callCount == 1)
-        #expect(delegate._didCancelParsingFeed.callCount == 1)
+        // Task A was cancelled because Task B superseded it: the stale cancel
+        // callback is suppressed — delivering it would let the (shared) delegate
+        // wipe the state that now belongs to Task B. `didCancelParsingFeed` fires
+        // only for a direct cancelParsing()/deinit with no successor parse.
+        #expect(delegate._didCancelParsingFeed.callCount == 0)
     }
 
     @Test func testDeinit_cancelsActiveTask() async throws {

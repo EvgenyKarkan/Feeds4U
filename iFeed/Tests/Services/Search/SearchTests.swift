@@ -83,7 +83,9 @@ struct SearchTests {
 
     @Test func fillMatchingEngine_whenStorageReturnsNil_returnsImmediately() async {
         // Given
-        storageMock._loadFeedItemIndex.implementation = .returns(nil)
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion(nil)
+        }
         let sut = makeSUT()
 
         // When
@@ -97,7 +99,9 @@ struct SearchTests {
 
     @Test func fillMatchingEngine_whenStorageReturnsEmpty_returnsImmediately() async {
         // Given
-        storageMock._loadFeedItemIndex.implementation = .returns([])
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([])
+        }
         let sut = makeSUT()
 
         // When
@@ -112,9 +116,11 @@ struct SearchTests {
     @Test func fillMatchingEngine_whenIndexIsClean_skipsReindexing() async {
         // Given
         let item = makeFeedItem(title: "Test Article")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test Article", objectID: item.objectID)
         ])
+        }
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
@@ -126,15 +132,17 @@ struct SearchTests {
 
         // Then
         #expect(textMatchingMock._fillMatchingEngine.callCount == 1)
-        #expect(storageMock._loadFeedItemIndex.callCount == 1)
+        #expect(storageMock._fetchFeedItemIndex.callCount == 1)
     }
 
     @Test func markIndexDirty_forcesRebuildOnNextFill() async {
         // Given
         let item = makeFeedItem(title: "Test Article")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test Article", objectID: item.objectID)
         ])
+        }
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
@@ -154,9 +162,11 @@ struct SearchTests {
     @Test func fillMatchingEngine_whenItemsExist_createsEngineAndFillsIt() async {
         // Given
         let item = makeFeedItem(title: "Test Article")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test Article", objectID: item.objectID)
         ])
+        }
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
@@ -173,10 +183,12 @@ struct SearchTests {
         // Given
         let item1 = makeFeedItem(title: "Article One")
         let item2 = makeFeedItem(title: "Article Two")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Article One", objectID: item1.objectID),
             (title: "Article Two", objectID: item2.objectID)
         ])
+        }
 
         nonisolated(unsafe) var capturedCorpus: [TextualData]?
         nonisolated(unsafe) var capturedStopwordsFlag: Bool?
@@ -217,9 +229,11 @@ struct SearchTests {
     @Test func search_whenEngineExistsButNotFilled_returnsNil() async {
         // Given
         let item = makeFeedItem(title: "Test")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test", objectID: item.objectID)
         ])
+        }
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             completion()
         }
@@ -240,9 +254,11 @@ struct SearchTests {
     @Test func search_whenEngineReturnsNilResults_returnsNil() async {
         // Given
         let item = makeFeedItem(title: "Test")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test", objectID: item.objectID)
         ])
+        }
         textMatchingMock._results.implementation = .invokes { _, _, resultsFound in
             resultsFound(nil)
         }
@@ -262,9 +278,11 @@ struct SearchTests {
     @Test func search_whenEngineReturnsEmptyResults_returnsNil() async {
         // Given
         let item = makeFeedItem(title: "Test")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test", objectID: item.objectID)
         ])
+        }
         textMatchingMock._results.implementation = .invokes { _, _, resultsFound in
             resultsFound([])
         }
@@ -284,9 +302,11 @@ struct SearchTests {
     @Test func search_whenEngineReturnsResults_returnsFeedItems() async {
         // Given
         let feedItem = makeFeedItem(title: "Swift Article", publishDate: Date())
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Swift Article", objectID: feedItem.objectID)
         ])
+        }
 
         let textualData = TextualData(
             inputString: "Swift Article",
@@ -322,11 +342,13 @@ struct SearchTests {
         let newer = makeFeedItem(title: "Newer", publishDate: now)
         let oldest = makeFeedItem(title: "Oldest", publishDate: now.addingTimeInterval(-7200))
 
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Older", objectID: older.objectID),
             (title: "Newer", objectID: newer.objectID),
             (title: "Oldest", objectID: oldest.objectID)
         ])
+        }
 
         let results = [older, newer, oldest].map { item in
             SimpleSimilarity.Result(
@@ -363,9 +385,11 @@ struct SearchTests {
     @Test func search_deduplicatesByObjectID() async {
         // Given
         let feedItem = makeFeedItem(title: "Duplicate", publishDate: Date())
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Duplicate", objectID: feedItem.objectID)
         ])
+        }
 
         let textualData = TextualData(
             inputString: "Duplicate",
@@ -395,9 +419,11 @@ struct SearchTests {
     @Test func search_whenNoValidObjectIDsInResults_returnsNil() async {
         // Given
         let item = makeFeedItem(title: "Test")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test", objectID: item.objectID)
         ])
+        }
 
         let textualData = TextualData(inputString: "Test", origin: nil, originObject: nil)
         let searchResult = SimpleSimilarity.Result(textualResults: [textualData], quality: 0.5)
@@ -420,9 +446,11 @@ struct SearchTests {
     @Test func search_whenStorageReturnsNoMatchedItems_returnsNil() async {
         // Given
         let item = makeFeedItem(title: "Test")
-        storageMock._loadFeedItemIndex.implementation = .returns([
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([
             (title: "Test", objectID: item.objectID)
         ])
+        }
 
         let textualData = TextualData(
             inputString: "Test",

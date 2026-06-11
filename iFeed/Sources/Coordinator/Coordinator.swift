@@ -50,8 +50,7 @@ extension Coordinator: Coordinating {
     }
 
     @MainActor func handleDeepLink(url: URL) {
-        guard let specifier = (url as NSURL).resourceSpecifier,
-              !specifier.isEmpty else {
+        guard let feedURL = Self.feedURL(fromDeepLink: url) else {
             return
         }
 
@@ -59,8 +58,43 @@ extension Coordinator: Coordinating {
         navigationController?.popToRootViewController(animated: false)
 
         if let feedsVC = navigationController?.topViewController as? FeedsViewController {
-            feedsVC.showEnterFeedAlertView(specifier)
+            feedsVC.showEnterFeedAlertView(feedURL)
         }
+    }
+
+    /// Converts a deep-link URL into a prefill-ready feed URL.
+    ///
+    /// The custom scheme is a transport wrapper, not part of the feed address:
+    /// `feed://www.example.com/rss` must surface `https://www.example.com/rss`
+    /// in the input field — not the raw resource specifier `//www.example.com/rss`.
+    ///
+    /// Rules:
+    /// - the resource specifier's leading `//` is dropped;
+    /// - when the remainder carries no `http(s)` scheme of its own, `https://`
+    ///   is prepended (`feed://https://…`-style links keep their explicit scheme).
+    ///
+    /// - Returns: An absolute URL string, or `nil` when the link carries no
+    ///   resource specifier at all.
+    static func feedURL(fromDeepLink url: URL) -> String? {
+        guard let specifier = (url as NSURL).resourceSpecifier, !specifier.isEmpty else {
+            return nil
+        }
+
+        var candidate = specifier
+        if candidate.hasPrefix("//") {
+            candidate.removeFirst(2)
+        }
+
+        guard !candidate.isEmpty else {
+            return nil
+        }
+
+        let lowercased = candidate.lowercased()
+        if !lowercased.hasPrefix("http://") && !lowercased.hasPrefix("https://") {
+            candidate = "https://" + candidate
+        }
+
+        return candidate
     }
 }
 
@@ -140,7 +174,14 @@ extension Coordinator: CloudflareBypassModuleOutput {
     }
 
     func cloudflareBypassDidCancel() {
-        finishCloudflareBypass(with: .failure(ExploreFeedsError.cloudflareBlocked))
+        /// The user closed the verification screen themselves — clean up silently.
+        /// Routing this through the failure path would surface a misleading
+        /// "blocked by Cloudflare" error alert right after a deliberate cancel.
+        /// The activity indicator is not stuck: it was already hidden when the
+        /// challenge was presented (`onChallengePresented`).
+        activeCloudflareBypass = nil
+        feedExplorationChallengeCallback = nil
+        feedExplorationResultCallback = nil
     }
 }
 

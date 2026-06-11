@@ -586,26 +586,36 @@ extension CoreDataManager: StorageProtocol {
         return objectIDs.compactMap { try? viewContext.existingObject(with: $0) as? FeedItem }
     }
 
-    func loadFeedItemIndex() -> [(title: String, objectID: NSManagedObjectID)]? {
-        let request = NSFetchRequest<NSDictionary>(entityName: EntityNames.feedItem.rawValue)
-        request.resultType = .dictionaryResultType
+    /// Runs the title/objectID projection fetch on a background context so
+    /// building the search index never blocks the main thread, and hands the
+    /// result back on the main actor. `NSManagedObjectID`s are `Sendable` and
+    /// valid across contexts, so no managed objects cross the boundary.
+    func fetchFeedItemIndex(_ completion: @escaping @Sendable ([(title: String, objectID: NSManagedObjectID)]?) -> Void) {
+        performBackgroundTask { context in
+            let request = NSFetchRequest<NSDictionary>(entityName: EntityNames.feedItem.rawValue)
+            request.resultType = .dictionaryResultType
 
-        let idExpression = NSExpressionDescription()
-        idExpression.name = "objectID"
-        idExpression.expression = NSExpression(format: "self")
-        idExpression.expressionResultType = .objectIDAttributeType
+            let idExpression = NSExpressionDescription()
+            idExpression.name = "objectID"
+            idExpression.expression = NSExpression(format: "self")
+            idExpression.expressionResultType = .objectIDAttributeType
 
-        request.propertiesToFetch = ["title", idExpression]
-        request.includesSubentities = false
+            request.propertiesToFetch = ["title", idExpression]
+            request.includesSubentities = false
 
-        guard let results = try? viewContext.fetch(request) else { return nil }
-
-        return results.compactMap { dict in
-            guard let title = dict["title"] as? String,
-                  let objectID = dict["objectID"] as? NSManagedObjectID else {
-                return nil
+            let index: [(title: String, objectID: NSManagedObjectID)]? = (try? context.fetch(request)).map { results in
+                results.compactMap { dict in
+                    guard let title = dict["title"] as? String,
+                          let objectID = dict["objectID"] as? NSManagedObjectID else {
+                        return nil
+                    }
+                    return (title, objectID)
+                }
             }
-            return (title, objectID)
+
+            Task { @MainActor in
+                completion(index)
+            }
         }
     }
 

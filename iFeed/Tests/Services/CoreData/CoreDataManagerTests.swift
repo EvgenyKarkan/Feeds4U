@@ -326,22 +326,28 @@ struct CoreDataManagerTests {
         #expect(items.contains { $0.title == "Target 2" })
     }
 
-    @Test("loadFeedItemIndex returns titles and object IDs")
-    func loadFeedItemIndex() throws {
+    @Test("fetchFeedItemIndex returns titles and object IDs")
+    func fetchFeedItemIndex() async throws {
         // Given
         let manager = try Self.makeTemporaryManager()
         let feed = try Self.populateFeed(in: manager)
 
         let item1 = try Self.populateFeedItem(in: manager, feed: feed, title: "Item A")
         let item2 = try Self.populateFeedItem(in: manager, feed: feed, title: "Item B", link: "https://example.com/2")
+        let item1ID = item1.objectID
+        let item2ID = item2.objectID
 
-        // When
-        let index = manager.loadFeedItemIndex()
+        // When — the fetch runs on a background context and reports back on the main actor.
+        let index: [(title: String, objectID: NSManagedObjectID)]? = await withCheckedContinuation { continuation in
+            manager.fetchFeedItemIndex { index in
+                continuation.resume(returning: index)
+            }
+        }
 
         // Then
         #expect(index?.count == 2)
-        #expect(index?.contains { $0.title == "Item A" && $0.objectID == item1.objectID } == true)
-        #expect(index?.contains { $0.title == "Item B" && $0.objectID == item2.objectID } == true)
+        #expect(index?.contains { $0.title == "Item A" && $0.objectID == item1ID } == true)
+        #expect(index?.contains { $0.title == "Item B" && $0.objectID == item2ID } == true)
     }
 
     @Test("containsFeed detects existing feed by RSS URL")

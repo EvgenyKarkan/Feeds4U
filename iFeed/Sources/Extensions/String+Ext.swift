@@ -66,11 +66,36 @@ extension String {
         return NSLocalizedString(key, comment: String())
     }
 
+    /// Cached pattern for ``collapsingWhitespace()``.
+    ///
+    /// `replacingOccurrences(options: .regularExpression)` compiles the pattern
+    /// on every call — too expensive for a method that runs per cell during
+    /// scrolling, so the compiled regex is created once and reused.
+    private static let whitespaceRunRegex: NSRegularExpression? = {
+        return try? NSRegularExpression(pattern: "\\s+")
+    }()
+
+    /// Whitespace characters other than a plain space — their presence (or a
+    /// double space) is the only thing that makes collapsing necessary.
+    private static let nonSpaceWhitespace = CharacterSet.whitespacesAndNewlines
+        .subtracting(CharacterSet(charactersIn: " "))
+
     /// Collapses runs of whitespace/newlines into a single space and trims edges.
-    /// Single-pass via regex — avoids intermediate array allocations.
+    ///
+    /// Fast path: the vast majority of feed titles contain no newlines, tabs,
+    /// or double spaces — those return after trimming without touching the
+    /// regex at all, keeping cell configuration cheap during scrolling.
     func collapsingWhitespace() -> String {
-        return trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let needsCollapsing = trimmed.contains("  ")
+            || trimmed.rangeOfCharacter(from: Self.nonSpaceWhitespace) != nil
+        guard needsCollapsing, let regex = Self.whitespaceRunRegex else {
+            return trimmed
+        }
+
+        let range = NSRange(trimmed.startIndex..., in: trimmed)
+        return regex.stringByReplacingMatches(in: trimmed, range: range, withTemplate: " ")
     }
 
     private static let linkDetector: NSDataDetector? = {

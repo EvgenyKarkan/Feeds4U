@@ -180,9 +180,9 @@ extension Search: Searchable {
     /// **Why index only titles?**
     /// Fetching every `FeedItem` as a fully materialised `NSManagedObject` would load all
     /// relationships, binary data, and change-tracking overhead into memory. Instead,
-    /// `loadFeedItemIndex()` returns a lightweight `(title, objectID)` tuple for each item —
-    /// no relationships, no faults. This keeps the indexing footprint proportional to the
-    /// number of titles rather than to the size of the full object graph.
+    /// `fetchFeedItemIndex(_:)` returns a lightweight `(title, objectID)` tuple for each
+    /// item — no relationships, no faults — and runs its fetch on a background context,
+    /// so even a large corpus never blocks the main thread while indexing starts.
     ///
     /// **Why store `NSManagedObjectID` in `originObject`?**
     /// `TextualData.originObject` is an `AnyObject?` slot that `SimpleSimilarity` carries through
@@ -197,11 +197,12 @@ extension Search: Searchable {
     ///
     /// **Process:**
     /// 1. Loads a lightweight `(title, objectID)` index from Core Data via `StorageProtocol`
+    ///    (the fetch itself runs on a background context; the result arrives on the main actor)
     /// 2. Maps each entry to a `TextualData` object, embedding the `NSManagedObjectID` for later retrieval
     /// 3. Creates a fresh engine via the injected factory
     /// 4. Passes the corpus to the engine and suspends until the callback fires
     ///
-    /// - Important: If `loadFeedItemIndex()` returns `nil` or an empty array, the method returns
+    /// - Important: If `fetchFeedItemIndex(_:)` delivers `nil` or an empty array, the method returns
     ///   immediately and the engine is left in its previous state (or remains `nil` if never filled).
     func fillMatchingEngine() async {
         // Skip the rebuild when the index is current — searching repeatedly must not
@@ -210,7 +211,16 @@ extension Search: Searchable {
             return
         }
 
-        guard let itemIndex = storage.loadFeedItemIndex(), !itemIndex.isEmpty else {
+        // Bridge the callback-based index fetch into async/await. Storage
+        // contractually delivers the callback on the main actor, and only
+        // Sendable values (strings and object IDs) cross the boundary.
+        let itemIndex: [(title: String, objectID: NSManagedObjectID)]? = await withCheckedContinuation { continuation in
+            storage.fetchFeedItemIndex { index in
+                continuation.resume(returning: index)
+            }
+        }
+
+        guard let itemIndex, !itemIndex.isEmpty else {
             // Nothing to index — either the store is empty or the fetch failed.
             // Returning early avoids creating a useless empty engine.
             return

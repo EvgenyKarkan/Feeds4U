@@ -17,7 +17,6 @@ extension BaseListViewController {
         let actionTitle: String
         let placeholder: String
         let prefillURL: String?
-        let shouldClearPasteboard: Bool
         let onSubmit: (String) -> Void
 
         static func feedEntry(prefillURL: String? = nil, onSubmit: @escaping (String) -> Void) -> URLInputAlertConfig {
@@ -26,7 +25,6 @@ extension BaseListViewController {
                 actionTitle: String.localized(key: LocalizableKeys.add),
                 placeholder: "https://www.example.com/rss",
                 prefillURL: prefillURL,
-                shouldClearPasteboard: true,
                 onSubmit: onSubmit
             )
         }
@@ -37,7 +35,6 @@ extension BaseListViewController {
                 actionTitle: String.localized(key: LocalizableKeys.Search.search),
                 placeholder: "https://www.example.com",
                 prefillURL: nil,
-                shouldClearPasteboard: true,
                 onSubmit: onSubmit
             )
         }
@@ -127,12 +124,72 @@ private extension BaseListViewController {
                 textField,
                 placeholder: config.placeholder,
                 prefillURL: config.prefillURL,
-                submitAction: submitAction,
-                shouldClearPasteboard: config.shouldClearPasteboard
+                submitAction: submitAction
             )
         }
 
-        present(alertController, animated: true)
+        present(alertController, animated: true) { [weak alertController] in
+            /// Pasteboard prefill is deferred until the alert is fully on screen.
+            /// Reading `UIPasteboard.url` can suspend the call behind the system
+            /// "Allow Paste" prompt — doing that inside the text-field
+            /// configuration handler (mid-presentation) left the field empty
+            /// even after the user tapped "Allow", because the alert finished
+            /// configuring its fields while the prompt was still pending.
+            guard (config.prefillURL ?? "").isEmpty,
+                  let textField = alertController?.textFields?.first else {
+                return
+            }
+            Self.prefillFromPasteboard(textField, submitAction: submitAction)
+        }
+    }
+
+    /// Prefills the field with a URL from the pasteboard, if it holds one.
+    ///
+    /// Two clipboard shapes are supported:
+    /// - a real URL object (`hasURLs` — e.g. copied from Safari's address bar);
+    /// - a URL copied as plain text (e.g. from a messenger or a terminal),
+    ///   detected via `detectedPatterns(for: [\.probableWebURL])`.
+    ///
+    /// Both `hasURLs`/`hasStrings` and pattern detection inspect the clipboard
+    /// WITHOUT counting as access — the system "Allow Paste" prompt appears
+    /// only at the final `.url`/`.string` read, and only when the clipboard
+    /// actually contains something URL-shaped. The clipboard is never cleared:
+    /// it belongs to the user, and wiping it here would silently destroy
+    /// content copied for other purposes.
+    static func prefillFromPasteboard(_ textField: UITextField, submitAction: UIAlertAction) {
+        let pasteboard = UIPasteboard.general
+
+        if pasteboard.hasURLs {
+            applyPasteboardURL(pasteboard.url?.absoluteString, to: textField, submitAction: submitAction)
+            return
+        }
+
+        guard pasteboard.hasStrings else {
+            return
+        }
+
+        Task { @MainActor in
+            /// Pattern detection is asynchronous and prompt-free; the paste
+            /// prompt fires only on the `.string` read below, which happens
+            /// only when a probable web URL was actually detected.
+            let patterns = try? await pasteboard.detectedPatterns(for: [\.probableWebURL])
+            guard patterns?.contains(\.probableWebURL) == true else {
+                return
+            }
+            applyPasteboardURL(pasteboard.string, to: textField, submitAction: submitAction)
+        }
+    }
+
+    /// Applies a pasteboard value to the field when it survives URL validation —
+    /// garbage never gets prefilled, regardless of how it was typed in the clipboard.
+    static func applyPasteboardURL(_ urlString: String?, to textField: UITextField, submitAction: UIAlertAction) {
+        guard let urlString = urlString?.trimmingCharacters(in: .whitespacesAndNewlines),
+              urlString.isValidURL else {
+            return
+        }
+
+        textField.text = urlString
+        submitAction.isEnabled = true
     }
 
     /// Configures the URL text field with validation and autofill
@@ -140,8 +197,7 @@ private extension BaseListViewController {
         _ textField: UITextField,
         placeholder: String,
         prefillURL: String?,
-        submitAction: UIAlertAction,
-        shouldClearPasteboard: Bool
+        submitAction: UIAlertAction
     ) {
         textField.placeholder = placeholder
         textField.keyboardType = .URL
@@ -153,18 +209,12 @@ private extension BaseListViewController {
             for: .editingChanged
         )
 
-        /// Prefill logic with priority: explicit URL > pasteboard
+        /// Explicit prefill only (e.g. a deep-link URL). Pasteboard prefill is
+        /// intentionally NOT done here — it happens after the alert finishes
+        /// presenting, see `showURLInputAlert(config:)`.
         if let feedURL = prefillURL, !feedURL.isEmpty {
             textField.text = feedURL
             submitAction.isEnabled = feedURL.isValidURL
-        } else if let pasteboardURL = UIPasteboard.general.url?.absoluteString {
-            textField.text = pasteboardURL
-            submitAction.isEnabled = pasteboardURL.isValidURL
-
-            if shouldClearPasteboard {
-                UIPasteboard.general.url = nil
-                UIPasteboard.general.string = nil
-            }
         }
     }
 }

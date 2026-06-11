@@ -143,9 +143,6 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         view?.disableTableViewEditingStateIfNeeded()
         view?.showActivityIndicator()
 
-        interactor.saveRecentSearch(searchTerm)
-        refreshSearchButtonMenu()
-
         Task { [weak self] in
             guard let self else {
                 return
@@ -160,6 +157,12 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
                     self?.view?.showNoSearchResultsAlert()
                     return
                 }
+
+                /// Remember only queries that produced results — typos and dead
+                /// queries must not pollute the recent-searches menu.
+                self?.interactor.saveRecentSearch(searchTerm)
+                self?.refreshSearchButtonMenu()
+
                 self?.wireframe.navigateToSearchResults(with: results, matching: searchTerm)
             }
         }
