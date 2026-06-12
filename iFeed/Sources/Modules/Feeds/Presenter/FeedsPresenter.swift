@@ -187,8 +187,11 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
 
     @MainActor
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath) {
+        /// Item presence is checked with a SQL `COUNT(*)` — reading
+        /// `feed.feedItems.count` here would fire the to-many fault and
+        /// materialise every item of the feed on the main thread per tap.
         guard let feed = feedForIndexPath(indexPath),
-              feed.feedItems.count > .zero else {
+              interactor.itemCount(for: feed) > .zero else {
             return
         }
         wireframe.navigateToFeedItems(for: feed)

@@ -32,6 +32,7 @@ struct FeedsPresenterTests {
         interactor._getAllFolders.implementation = .returns([])
         interactor._recentSearches.implementation = .returns([])
         interactor._performSearch.implementation = .uncheckedInvokes { _ in nil }
+        interactor._itemCount.implementation = .uncheckedInvokes { _ in 0 }
 
         sut = FeedsPresenter(
             interactor: interactor,
@@ -249,14 +250,16 @@ struct FeedsPresenterTests {
 
     @Test func onViewDidSelectFeedAtIndexPath_whenFeedHasNoItems_doesNotNavigate() {
         // Given
-        let feed = makeFeed(itemCount: 0)
+        let feed = makeFeed()
         stubBuildViewState(feeds: [feed])
+        interactor._itemCount.implementation = .uncheckedInvokes { _ in 0 }
         sut.onViewDidLoad()
 
         // When
         sut.onViewDidSelectFeedAtIndexPath(IndexPath(row: 0, section: 0))
 
         // Then
+        #expect(interactor._itemCount.callCount == 1)
         #expect(wireframe._navigateToFeedItems.callCount == 0)
     }
 
@@ -264,12 +267,30 @@ struct FeedsPresenterTests {
         // Given
         let feed = makeFeed(itemCount: 3)
         stubBuildViewState(feeds: [feed])
+        interactor._itemCount.implementation = .uncheckedInvokes { _ in 3 }
         sut.onViewDidLoad()
 
         // When
         sut.onViewDidSelectFeedAtIndexPath(IndexPath(row: 0, section: 0))
 
         // Then
+        #expect(wireframe._navigateToFeedItems.callCount == 1)
+    }
+
+    @Test func onViewDidSelectFeedAtIndexPath_usesInteractorCountInsteadOfRelationship() {
+        // Given — the feed's `feedItems` relationship is deliberately EMPTY.
+        // Navigation must rely on the interactor's SQL count, never on firing
+        // the to-many fault (which would materialise every item on the main thread).
+        let feed = makeFeed(itemCount: 0)
+        stubBuildViewState(feeds: [feed])
+        interactor._itemCount.implementation = .uncheckedInvokes { _ in 42 }
+        sut.onViewDidLoad()
+
+        // When
+        sut.onViewDidSelectFeedAtIndexPath(IndexPath(row: 0, section: 0))
+
+        // Then — navigates despite the empty relationship: the count was consulted.
+        #expect(interactor._itemCount.callCount == 1)
         #expect(wireframe._navigateToFeedItems.callCount == 1)
     }
 

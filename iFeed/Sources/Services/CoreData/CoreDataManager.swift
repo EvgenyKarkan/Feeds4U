@@ -684,6 +684,14 @@ extension CoreDataManager: StorageProtocol {
         return (try? count(entityName: EntityNames.feedItem.rawValue, predicate: predicate)) ?? 0
     }
 
+    /// Counts all items of a single feed via `COUNT(*)` — unlike reading
+    /// `feed.feedItems.count`, this never fires the to-many relationship fault,
+    /// so checking item presence stays O(1) in memory regardless of feed size.
+    func itemCount(for feed: Feed) -> Int {
+        let predicate = Self.itemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
+        return (try? count(entityName: EntityNames.feedItem.rawValue, predicate: predicate)) ?? 0
+    }
+
     /// Marks all unread items of a feed as read with an `NSBatchUpdateRequest`.
     ///
     /// Runs at the SQL level — no `FeedItem` objects are loaded or saved — and
@@ -756,11 +764,15 @@ extension CoreDataManager: StorageProtocol {
     /// Merges freshly parsed feed items into an existing feed on a background
     /// context, persisting only new (unique) entries.
     ///
-    /// Performs a **three-field deduplication** — an incoming item is considered
-    /// unique only when its title, link, AND publish date are all absent from the
-    /// feed's current items. This strict check prevents both exact duplicates and
-    /// partial matches (e.g. same link with an updated title) from creating
-    /// duplicate entries.
+    /// Performs a **link-identity deduplication** — the link is an article's
+    /// canonical identity, so an incoming item is skipped when its link is
+    /// already stored (covers exact duplicates and "same link with an updated
+    /// title"). An item with a new link is additionally skipped only when its
+    /// title AND publish date both match existing values — the signature of an
+    /// article republished under a new URL. Requiring all three fields to be
+    /// new (the previous rule) silently dropped real articles: a second item
+    /// published at the same date-only timestamp, or a recurring title like
+    /// "Weekly digest", could never be inserted.
     ///
     /// The existing-item snapshot is a `dictionaryResultType` projection of just
     /// the three dedup fields — no `FeedItem` objects (and no article HTML) are
@@ -807,14 +819,16 @@ extension CoreDataManager: StorageProtocol {
                 }
             }
 
-            // Step 2: Compare each incoming parsed item against the three dedup sets.
-            // An item must differ in ALL three fields to be considered unique.
+            // Step 2: Compare each incoming parsed item against the dedup sets.
+            // The link is the article's identity: a known link is always a duplicate.
+            // A new link is rejected only when title AND date both match — the
+            // signature of the same article republished under a new URL.
             for itemData in items {
-                let isUniqueTitle = !existedTitles.contains(itemData.title)
-                let isUniqueLink = !existedLinks.contains(itemData.link)
-                let isUniqueDate = !existedDates.contains(itemData.publishDate.timeIntervalSince1970)
+                let isDuplicateLink = existedLinks.contains(itemData.link)
+                let isRepublished = existedTitles.contains(itemData.title)
+                    && existedDates.contains(itemData.publishDate.timeIntervalSince1970)
 
-                guard isUniqueTitle && isUniqueLink && isUniqueDate else {
+                guard !isDuplicateLink && !isRepublished else {
                     continue
                 }
 
@@ -829,6 +843,12 @@ extension CoreDataManager: StorageProtocol {
 
                 /// Create a relationship
                 feedItem.feed = feed
+
+                // Track the inserted item's fields so a duplicate appearing
+                // later in the same incoming batch is also rejected.
+                existedTitles.insert(itemData.title)
+                existedLinks.insert(itemData.link)
+                existedDates.insert(itemData.publishDate.timeIntervalSince1970)
             }
 
             // Step 4: Persist newly added items; the view context picks the changes

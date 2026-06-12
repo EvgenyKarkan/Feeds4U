@@ -139,6 +139,22 @@ final class Search {
     /// reset to `false` after a successful fill and flipped back by ``markIndexDirty()``.
     private var needsReindex = true
 
+    /// Monotonic version of the feed-item corpus, bumped by every ``markIndexDirty()`` call.
+    ///
+    /// A rebuild snapshots this value when it starts and clears ``needsReindex``
+    /// only when the generation is still the same when it finishes. Without the
+    /// guard, a corpus change landing *while* the index is being built (e.g. a
+    /// pull-to-refresh completing during a search's rebuild) would be silently
+    /// lost, leaving a stale index until the next unrelated mutation.
+    private var corpusGeneration = 0
+
+    /// The in-flight index rebuild, if one is running.
+    ///
+    /// `fillMatchingEngine()` suspends at two points, so actor reentrancy lets a
+    /// second caller enter mid-rebuild. Concurrent callers await this shared task
+    /// instead of passing the dirty-flag guard and indexing the corpus twice.
+    private var fillTask: Task<Void, Never>?
+
     /// The storage layer used to read feed data from Core Data.
     ///
     /// Injected at init time so the same `CoreDataManager` instance that the rest of the app uses
@@ -205,11 +221,36 @@ extension Search: Searchable {
     /// - Important: If `fetchFeedItemIndex(_:)` delivers `nil` or an empty array, the method returns
     ///   immediately and the engine is left in its previous state (or remains `nil` if never filled).
     func fillMatchingEngine() async {
+        // A rebuild is already running — actor reentrancy means a second caller
+        // can arrive while the first is suspended. Await the shared task instead
+        // of fetching every title and indexing the whole corpus a second time.
+        if let fillTask {
+            await fillTask.value
+            return
+        }
+
         // Skip the rebuild when the index is current — searching repeatedly must not
         // re-fetch every title and re-index the whole corpus.
         guard needsReindex || matchingEngine == nil else {
             return
         }
+
+        let task = Task { await rebuildIndex() }
+        fillTask = task
+        await task.value
+        // Only the creator clears the shared task, and new rebuilds can only
+        // start while `fillTask` is nil — so this never clobbers a newer task.
+        fillTask = nil
+    }
+
+    /// Performs one full index rebuild: fetches the `(title, objectID)` corpus,
+    /// creates a fresh engine, and fills it. Factored out of
+    /// ``fillMatchingEngine()`` so concurrent callers can await a single shared
+    /// rebuild task instead of each running their own.
+    private func rebuildIndex() async {
+        // Snapshot the corpus version: if `markIndexDirty()` fires while this
+        // rebuild is suspended below, the dirty flag must survive the rebuild.
+        let generation = corpusGeneration
 
         // Bridge the callback-based index fetch into async/await. Storage
         // contractually delivers the callback on the main actor, and only
@@ -253,15 +294,20 @@ extension Search: Searchable {
             )
         }
 
-        // Index is current again — subsequent fills are no-ops until the corpus changes.
-        needsReindex = false
+        // Index is current again — unless the corpus changed while it was being
+        // built, in which case the dirty flag survives for the next fill.
+        if corpusGeneration == generation {
+            needsReindex = false
+        }
     }
 
     /// Flags the index as stale after the feed-item corpus changed
     /// (feed added, refreshed, or deleted). The next ``fillMatchingEngine()``
-    /// call performs a full rebuild.
+    /// call performs a full rebuild — also when the flag is raised while a
+    /// rebuild is already running (see ``corpusGeneration``).
     func markIndexDirty() {
         needsReindex = true
+        corpusGeneration += 1
     }
 
     /// Returns feed items whose titles fuzzy-match the given search term, sorted newest-first.

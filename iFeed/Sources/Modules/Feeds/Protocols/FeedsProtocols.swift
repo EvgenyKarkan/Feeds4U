@@ -84,6 +84,10 @@ protocol FeedsInteractorProtocol {
 
     func unreadCountsByFeed() -> [NSManagedObjectID: Int]
 
+    /// Returns the number of items stored for `feed` via a SQL `COUNT(*)` —
+    /// never fires the `feedItems` relationship fault.
+    func itemCount(for feed: Feed) -> Int
+
     func saveContext() throws
 
     func deleteFeed(_ feed: Feed)

@@ -62,6 +62,12 @@ protocol StorageProtocol {
     /// no managed objects are materialised.
     func unreadCount(for feed: Feed) -> Int
 
+    /// Returns the total number of items in `feed` using `COUNT(*)`.
+    ///
+    /// Unlike reading `feed.feedItems.count`, this never fires the to-many
+    /// relationship fault, so no item objects are materialised.
+    func itemCount(for feed: Feed) -> Int
+
     /// Marks every unread item of `feed` as read using a batch update that
     /// runs directly in the store; affected objects are merged back into the
     /// context so in-memory state stays consistent.
@@ -135,7 +141,9 @@ protocol StorageProtocol {
                     completion: @escaping @Sendable (NSManagedObjectID?) -> Void)
 
     /// Merges parsed items into an existing feed on a background context,
-    /// persisting only entries whose title, link, and publish date are all new.
+    /// persisting only entries that are genuinely new: an entry is skipped
+    /// when its link is already stored, or when its title and publish date
+    /// both match an existing item (a republish under a new URL).
     ///
     /// `completion` is always invoked **on the main actor** once the merge (and
     /// save) finished — see `importFeed` for why the type is plain `@Sendable`.

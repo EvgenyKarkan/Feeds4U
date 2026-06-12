@@ -1149,6 +1149,34 @@ struct CoreDataManagerTests {
         #expect(manager.unreadCount(for: otherFeed) == 1)
     }
 
+    // MARK: - Per-feed item count
+
+    @Test("itemCount(for:) counts only the feed's items")
+    func itemCountForFeed() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let otherFeed = try Self.populateFeed(in: manager, rssURL: "https://other.com/feed", title: "Other")
+
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "One")
+        _ = try Self.populateFeedItem(in: manager, feed: feed, title: "Two", link: "https://example.com/2")
+        _ = try Self.populateFeedItem(in: manager, feed: otherFeed, title: "Foreign", link: "https://other.com/1")
+
+        // When / Then
+        #expect(manager.itemCount(for: feed) == 2)
+        #expect(manager.itemCount(for: otherFeed) == 1)
+    }
+
+    @Test("itemCount(for:) returns zero for a feed without items")
+    func itemCountEmptyFeed() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        // When / Then
+        #expect(manager.itemCount(for: feed) == 0)
+    }
+
     // MARK: - Per-feed mark all as read
 
     @Test("markAllAsRead(in:) marks only the feed's items and merges into the context")
@@ -1227,25 +1255,32 @@ struct CoreDataManagerTests {
 
     // MARK: - Background feed refresh (dedup merge)
 
-    @Test("refreshFeedItems merges only items unique in title, link, and date")
+    @Test("refreshFeedItems dedups by link identity and republish signature")
     func refreshFeedItemsDeduplicates() async throws {
         // Given
         let manager = try Self.makeTemporaryManager()
         let feed = try Self.populateFeed(in: manager)
 
         let fixedDate = Date(timeIntervalSince1970: 123_456_789)
+        let laterDate = Date(timeIntervalSince1970: 987_654_321)
         let existing = try Self.populateFeedItem(in: manager, feed: feed, title: "Existing", link: "https://exist.com")
         existing.publishDate = fixedDate
         try manager.saveViewContext()
 
-        // Mirrors the original interactor-level dedup matrix:
-        // 1. fully duplicate, 2. duplicate title, 3. duplicate link,
-        // 4. duplicate date, 5. unique — only #5 may be inserted.
+        // Link-identity dedup matrix:
+        // 1. exact duplicate                          → skipped (link known)
+        // 2. same link, edited title                  → skipped (link known)
+        // 3. new link, same title AND date            → skipped (republish signature)
+        // 4. new link, new title, same date           → inserted (date-only feeds
+        //    publish several articles at the same timestamp)
+        // 5. new link, recurring title, new date      → inserted (e.g. "Weekly digest")
+        // 6. everything new                           → inserted
         let incoming = [
             ParsedFeedItemData(title: "Existing", link: "https://exist.com", publishDate: fixedDate, htmlContent: nil),
-            ParsedFeedItemData(title: "Existing", link: "https://new1.com", publishDate: Date(), htmlContent: nil),
-            ParsedFeedItemData(title: "New1", link: "https://exist.com", publishDate: Date(), htmlContent: nil),
-            ParsedFeedItemData(title: "New2", link: "https://new2.com", publishDate: fixedDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Edited title", link: "https://exist.com", publishDate: laterDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Existing", link: "https://republished.com", publishDate: fixedDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Same-day scoop", link: "https://same-date.com", publishDate: fixedDate, htmlContent: nil),
+            ParsedFeedItemData(title: "Existing", link: "https://weekly.com", publishDate: laterDate, htmlContent: nil),
             ParsedFeedItemData(title: "Unique", link: "https://unique.com", publishDate: Date(), htmlContent: nil)
         ]
 
@@ -1256,9 +1291,34 @@ struct CoreDataManagerTests {
             }
         }
 
+        // Then — links are the identity, so assert on them (titles repeat).
+        let links = Set(manager.feedItems(for: feed).map(\.link))
+        #expect(links == [
+            "https://exist.com",
+            "https://same-date.com",
+            "https://weekly.com",
+            "https://unique.com"
+        ])
+    }
+
+    @Test("refreshFeedItems rejects duplicates within one incoming batch")
+    func refreshFeedItemsDeduplicatesWithinBatch() async throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        let date = Date(timeIntervalSince1970: 555_555)
+        let duplicated = ParsedFeedItemData(title: "Dup", link: "https://dup.com", publishDate: date, htmlContent: nil)
+
+        // When — the same article appears twice in a single parse result.
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            manager.refreshFeedItems(with: [duplicated, duplicated], forFeedWith: feed.objectID) {
+                continuation.resume()
+            }
+        }
+
         // Then
-        let titles = Set(manager.feedItems(for: feed).map(\.title))
-        #expect(titles == ["Existing", "Unique"])
+        #expect(manager.itemCount(for: feed) == 1)
     }
 
     @Test("refreshFeedItems completes even when the feed no longer exists")

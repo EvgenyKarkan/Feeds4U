@@ -405,6 +405,22 @@ struct FeedsInteractorTests {
         #expect(storage._unreadCountsByFeed.callCount == 1)
     }
 
+    // MARK: - itemCount
+
+    @Test func itemCount_delegatesToStorage() {
+        // Given
+        let feed = makeFeed()
+        storage._itemCount.implementation = .uncheckedInvokes { _ in 7 }
+
+        // When
+        let count = sut.itemCount(for: feed)
+
+        // Then
+        #expect(count == 7)
+        #expect(storage._itemCount.callCount == 1)
+        #expect(storage._itemCount.lastInvocation === feed)
+    }
+
     // MARK: - saveContext
 
     @Test func saveContext_delegatesToStorage() throws {

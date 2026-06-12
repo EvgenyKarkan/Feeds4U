@@ -157,6 +157,62 @@ struct SearchTests {
         #expect(textMatchingMock._fillMatchingEngine.callCount == 2)
     }
 
+    @Test func markIndexDirty_duringInFlightRebuild_isNotLost() async {
+        // Given — markIndexDirty fires from inside the engine-fill callback,
+        // i.e. exactly while the rebuild is in flight. Driving the mutation from
+        // the mock keeps the test fully synchronous: no spawned tasks, no
+        // polling, no way to hang under full-suite load.
+        let item = makeFeedItem(title: "Test Article")
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            completion([(title: "Test Article", objectID: item.objectID)])
+        }
+        let sut = makeSUT()
+        nonisolated(unsafe) let sutRef = sut
+        textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
+            /// The engine mock is invoked synchronously on the main actor
+            /// from `rebuildIndex()` — `assumeIsolated` makes that explicit.
+            MainActor.assumeIsolated {
+                sutRef.markIndexDirty()
+            }
+            completion()
+        }
+
+        // When — the rebuild runs while the corpus mutates mid-flight.
+        await sut.fillMatchingEngine()
+
+        // Then — the mid-flight dirty flag must survive: the next fill rebuilds
+        // instead of treating the now-stale index as current.
+        await sut.fillMatchingEngine()
+        #expect(textMatchingMock._fillMatchingEngine.callCount == 2)
+    }
+
+    @Test func fillMatchingEngine_concurrentCalls_rebuildIndexOnlyOnce() async {
+        // Given — the index fetch completes after a main-actor hop, keeping the
+        // first rebuild suspended long enough for the second caller to arrive.
+        // The completion always fires, so the test can never hang.
+        let item = makeFeedItem(title: "Test Article")
+        nonisolated(unsafe) let itemID = item.objectID
+        storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
+            Task { @MainActor in
+                completion([(title: "Test Article", objectID: itemID)])
+            }
+        }
+        textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
+            completion()
+        }
+        let sut = makeSUT()
+
+        // When — two callers race; whichever enters second must coalesce onto
+        // the in-flight rebuild (or find the index already current).
+        async let first: Void = sut.fillMatchingEngine()
+        async let second: Void = sut.fillMatchingEngine()
+        _ = await (first, second)
+
+        // Then — one corpus fetch and one engine rebuild served both callers.
+        #expect(storageMock._fetchFeedItemIndex.callCount == 1)
+        #expect(textMatchingMock._fillMatchingEngine.callCount == 1)
+    }
+
     // MARK: - fillMatchingEngine — with items
 
     @Test func fillMatchingEngine_whenItemsExist_createsEngineAndFillsIt() async {

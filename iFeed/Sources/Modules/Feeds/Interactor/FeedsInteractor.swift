@@ -116,6 +116,10 @@ extension FeedsInteractor: FeedsInteractorProtocol {
         return storage.unreadCountsByFeed()
     }
 
+    func itemCount(for feed: Feed) -> Int {
+        return storage.itemCount(for: feed)
+    }
+
     func saveContext() throws {
         storage.saveChanges()
     }
