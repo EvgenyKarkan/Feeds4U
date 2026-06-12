@@ -80,6 +80,12 @@ extension FeedItemsPresenter: FeedItemsViewDelegate {
         } else if let url {
             wireframe.presentSafari(for: url, zoomingFrom: cell)
         }
+
+        /// Reading `htmlContent` above fired the content fault, and this list's
+        /// `displayedItems` snapshot keeps the item alive — without releasing,
+        /// every opened article's full body stays in memory until the list is
+        /// dismissed. The reader received its own copy of the string.
+        interactor.releaseHTMLContent(of: item)
     }
 
     func onViewDidPullToRefresh() {

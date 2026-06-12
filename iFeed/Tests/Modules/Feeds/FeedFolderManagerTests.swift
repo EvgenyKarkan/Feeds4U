@@ -21,6 +21,17 @@ private final class FailingEncoder: JSONEncoder, @unchecked Sendable {
     }
 }
 
+/// Counts decode invocations so tests can assert the manager's folder cache
+/// prevents re-decoding the UserDefaults blob on every `loadFolders()` call.
+private final class CountingDecoder: JSONDecoder, @unchecked Sendable {
+    private(set) var decodeCount = 0
+
+    override func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        decodeCount += 1
+        return try super.decode(type, from: data)
+    }
+}
+
 @Suite("FeedFolderManager Tests", .serialized)
 struct FeedFolderManagerTests {
 
@@ -64,6 +75,43 @@ struct FeedFolderManagerTests {
         #expect(folders.count == 2)
         #expect(folders[0].name == "Tech")
         #expect(folders[1].name == "News")
+    }
+
+    @Test("Load folders decodes the persisted blob only once across repeated loads")
+    func loadFoldersCachesDecodedResult() {
+        // Given — a folder persisted by a separate manager so the SUT starts cold.
+        let seeder = FeedFolderManager(defaults: defaults)
+        seeder.createFolder(name: "Tech", feedURLs: ["https://a.com/rss"])
+
+        let countingDecoder = CountingDecoder()
+        let cachingSut = FeedFolderManager(defaults: defaults, decoder: countingDecoder)
+
+        // When
+        let first = cachingSut.loadFolders()
+        let second = cachingSut.loadFolders()
+        let third = cachingSut.loadFolders()
+
+        // Then — one decode serves all loads.
+        #expect(first.count == 1)
+        #expect(second == first)
+        #expect(third == first)
+        #expect(countingDecoder.decodeCount == 1)
+    }
+
+    @Test("Cache stays in sync with persisted state after mutations")
+    func cacheStaysInSyncAfterMutations() {
+        // Given — a warm cache.
+        sut.createFolder(name: "Tech", feedURLs: ["https://a.com/rss"])
+        _ = sut.loadFolders()
+
+        // When — a mutation persists a new list.
+        sut.createFolder(name: "News", feedURLs: ["https://b.com/rss"])
+
+        // Then — the cached view reflects the write, and a cold reader of the
+        // same defaults sees the identical persisted state.
+        #expect(sut.loadFolders().map(\.name) == ["Tech", "News"])
+        let coldReader = FeedFolderManager(defaults: defaults)
+        #expect(coldReader.loadFolders().map(\.name) == ["Tech", "News"])
     }
 
     // MARK: - createFolder

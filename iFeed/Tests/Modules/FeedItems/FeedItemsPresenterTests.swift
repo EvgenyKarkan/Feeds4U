@@ -272,6 +272,10 @@ struct FeedItemsPresenterTests {
         #expect(wireframe._pushArticleReader.lastInvocation?.0 == "Article Title")
         #expect(wireframe._pushArticleReader.lastInvocation?.1 == longHTML)
         #expect(wireframe._presentSafari.callCount == 0)
+        // The reader received its own copy — the content row must be released
+        // so the article body does not stay resident while the list is open.
+        #expect(interactor._releaseHTMLContent.callCount == 1)
+        #expect(interactor._releaseHTMLContent.lastInvocation === item)
     }
 
     @Test func onViewDidSelectFeedItem_whenShortHtmlContent_presentsSafari() {
@@ -290,6 +294,8 @@ struct FeedItemsPresenterTests {
         // Then
         #expect(wireframe._presentSafari.callCount == 1)
         #expect(wireframe._pushArticleReader.callCount == 0)
+        // Checking the length above fired the content fault too — release it.
+        #expect(interactor._releaseHTMLContent.callCount == 1)
     }
 
     @Test func onViewDidSelectFeedItem_whenNilHtmlContentAndValidURL_presentsSafari() {

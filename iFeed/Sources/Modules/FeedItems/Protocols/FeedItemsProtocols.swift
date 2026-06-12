@@ -36,6 +36,11 @@ protocol FeedItemsInteractorProtocol: AnyObject {
     func markItemAsReadIfNeeded(item: FeedItem)
     func markAllItemsAsRead()
     func hasUnreadItems() -> Bool
+
+    /// Releases the in-memory HTML body of `item` by re-faulting its content
+    /// row in storage. Call after the HTML has been handed to the article
+    /// reader so opened articles don't accumulate in memory.
+    func releaseHTMLContent(of item: FeedItem)
     func startParsingFeed(_ url: String, completion: @escaping (Result<Void, any Error>) -> Void)
 }
 

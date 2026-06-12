@@ -85,6 +85,10 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
         return storage.unreadCount(for: feed) > 0
     }
 
+    func releaseHTMLContent(of item: FeedItem) {
+        storage.releaseContent(of: item)
+    }
+
     func startParsingFeed(_ url: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         enum ParsingError: Error {
             case invalidURL

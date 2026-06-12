@@ -37,6 +37,16 @@ final class FeedFolderManager {
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
 
+    /// In-memory mirror of the persisted folder list.
+    ///
+    /// `loadFolders()` is called several times per feeds-list rebuild (cleanup
+    /// pass plus section building), and every mutation starts with a load —
+    /// without the cache each call re-decodes the UserDefaults JSON blob.
+    /// The cache always mirrors disk: it is filled on first load and updated
+    /// only by a successful `persist(_:)`; this manager is the sole writer of
+    /// its storage key.
+    private var cachedFolders: [FeedFolder]?
+
     // MARK: - Init
     init(defaults: UserDefaults = .standard,
          encoder: JSONEncoder = JSONEncoder(),
@@ -52,11 +62,22 @@ extension FeedFolderManager: FeedFolderManaging {
     // MARK: - Read
 
     /// Returns all persisted folders, or an empty array if none exist.
+    ///
+    /// Served from ``cachedFolders`` after the first call; the UserDefaults
+    /// blob is decoded at most once until a mutation persists a new list.
     func loadFolders() -> [FeedFolder] {
+        if let cachedFolders {
+            return cachedFolders
+        }
+
         guard let data = defaults.data(forKey: Self.storageKey) else {
+            cachedFolders = []
             return []
         }
-        return (try? decoder.decode([FeedFolder].self, from: data)) ?? []
+
+        let folders = (try? decoder.decode([FeedFolder].self, from: data)) ?? []
+        cachedFolders = folders
+        return folders
     }
 
     // MARK: - Write
@@ -155,11 +176,16 @@ extension FeedFolderManager: FeedFolderManaging {
 private extension FeedFolderManager {
 
     /// Encodes the folder array to JSON and writes it to UserDefaults.
+    ///
+    /// ``cachedFolders`` is updated only after a successful write so the cache
+    /// always mirrors what is actually on disk (an encoding failure leaves
+    /// both the store and the cache at their previous state).
     func persist(_ folders: [FeedFolder]) {
         guard let data = try? encoder.encode(folders) else {
             return
         }
         defaults.set(data, forKey: Self.storageKey)
+        cachedFolders = folders
     }
 
     /// Strips any folders with zero feed URLs, then persists the result.

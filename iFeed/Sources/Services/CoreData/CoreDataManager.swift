@@ -582,8 +582,17 @@ extension CoreDataManager: StorageProtocol {
         return try? fetchFeedItems()
     }
 
+    /// Materialises the items for `objectIDs` with a single `self IN %@` fetch —
+    /// `existingObject(with:)` per ID was one SQLite round-trip per match on the
+    /// main thread. Deleted IDs are silently omitted and duplicate IDs collapse
+    /// into one object; results arrive newest-first like every item fetch, and
+    /// callers needing a specific order apply their own sort.
     func loadFeedItems(withIDs objectIDs: [NSManagedObjectID]) -> [FeedItem] {
-        return objectIDs.compactMap { try? viewContext.existingObject(with: $0) as? FeedItem }
+        guard !objectIDs.isEmpty else {
+            return []
+        }
+        let predicate = NSPredicate(format: "self IN %@", objectIDs)
+        return (try? fetchFeedItems(filteredBy: predicate)) ?? []
     }
 
     /// Runs the title/objectID projection fetch on a background context so
@@ -690,6 +699,24 @@ extension CoreDataManager: StorageProtocol {
     func itemCount(for feed: Feed) -> Int {
         let predicate = Self.itemsOfFeedPredicateTemplate.withSubstitutionVariables(["FEED": feed])
         return (try? count(entityName: EntityNames.feedItem.rawValue, predicate: predicate)) ?? 0
+    }
+
+    /// Re-faults the item's ``FeedItemContent`` row, releasing the article HTML
+    /// it holds in memory.
+    ///
+    /// Reading `htmlContent` fires the content fault; without this call, every
+    /// article opened from a list keeps its full body resident for as long as
+    /// the list (whose snapshot retains the item) stays on screen. Skipped when
+    /// the content has unsaved changes — `refresh(_:mergeChanges: false)` would
+    /// silently discard them.
+    func releaseContent(of item: FeedItem) {
+        guard let content = item.content,
+              !content.isFault,
+              !content.hasChanges,
+              let context = content.managedObjectContext else {
+            return
+        }
+        context.refresh(content, mergeChanges: false)
     }
 
     /// Marks all unread items of a feed as read with an `NSBatchUpdateRequest`.

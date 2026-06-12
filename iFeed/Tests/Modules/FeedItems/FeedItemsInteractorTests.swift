@@ -175,6 +175,21 @@ struct FeedItemsInteractorTests {
         #expect(storage._unreadCount.callCount == 0)
     }
 
+    @Test func releaseHTMLContent_delegatesToStorage() {
+        // Given
+        let item = FeedItem(context: container.viewContext)
+        item.title = "Article"
+        item.feed = testFeed
+        let sut = makeSUT(feed: testFeed)
+
+        // When
+        sut.releaseHTMLContent(of: item)
+
+        // Then
+        #expect(storage._releaseContent.callCount == 1)
+        #expect(storage._releaseContent.lastInvocation === item)
+    }
+
     @Test func markAllItemsAsRead_whenFeedNil_doesNothing() throws {
         let sut = makeSUT(feed: nil)
         sut.markAllItemsAsRead()

@@ -326,6 +326,35 @@ struct CoreDataManagerTests {
         #expect(items.contains { $0.title == "Target 2" })
     }
 
+    @Test("loadFeedItems(withIDs:) omits deleted IDs and collapses duplicates")
+    func loadFeedItemsByIDEdgeCases() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+
+        let alive = try Self.populateFeedItem(in: manager, feed: feed, title: "Alive")
+        let deleted = try Self.populateFeedItem(in: manager, feed: feed, title: "Deleted", link: "https://example.com/2")
+        let deletedID = deleted.objectID
+        manager.delete(deleted)
+        try manager.saveViewContext()
+
+        // When — the alive ID twice plus a deleted ID in a single request.
+        let items = manager.loadFeedItems(withIDs: [alive.objectID, alive.objectID, deletedID])
+
+        // Then — one object: the duplicate collapses, the deleted ID is omitted.
+        #expect(items.count == 1)
+        #expect(items.first?.title == "Alive")
+    }
+
+    @Test("loadFeedItems(withIDs:) returns empty for empty input")
+    func loadFeedItemsByIDEmptyInput() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+
+        // When / Then
+        #expect(manager.loadFeedItems(withIDs: []).isEmpty)
+    }
+
     @Test("fetchFeedItemIndex returns titles and object IDs")
     func fetchFeedItemIndex() async throws {
         // Given
@@ -1198,6 +1227,60 @@ struct CoreDataManagerTests {
         // The other feed's item is untouched.
         #expect(foreign.wasRead.boolValue == false)
         #expect(manager.unreadCount(for: otherFeed) == 1)
+    }
+
+    // MARK: - Content release
+
+    @Test("releaseContent re-faults the saved content row and keeps it re-readable")
+    func releaseContentRefaults() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let item = try Self.populateFeedItem(in: manager, feed: feed)
+        item.htmlContent = "<p>Large article body</p>"
+        try manager.saveViewContext()
+
+        // Fire the content fault, as tapping a row does.
+        #expect(item.htmlContent == "<p>Large article body</p>")
+        let content = try #require(item.content)
+        #expect(content.isFault == false)
+
+        // When
+        manager.releaseContent(of: item)
+
+        // Then — the row is a fault again (HTML released) and transparently re-readable.
+        #expect(content.isFault == true)
+        #expect(item.htmlContent == "<p>Large article body</p>")
+    }
+
+    @Test("releaseContent preserves unsaved content changes")
+    func releaseContentKeepsUnsavedChanges() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let item = try Self.populateFeedItem(in: manager, feed: feed)
+        item.htmlContent = "<p>Saved</p>"
+        try manager.saveViewContext()
+
+        item.htmlContent = "<p>Edited, not saved</p>"
+
+        // When — re-faulting would silently discard the pending edit, so it must be skipped.
+        manager.releaseContent(of: item)
+
+        // Then
+        #expect(item.htmlContent == "<p>Edited, not saved</p>")
+    }
+
+    @Test("releaseContent is a no-op for items without content")
+    func releaseContentWithoutContent() throws {
+        // Given
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        let item = try Self.populateFeedItem(in: manager, feed: feed)
+
+        // When / Then — must not crash and the item stays content-free.
+        manager.releaseContent(of: item)
+        #expect(item.htmlContent == nil)
     }
 
     // MARK: - Store readiness

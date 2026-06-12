@@ -269,12 +269,15 @@ private extension FeedsPresenter {
         let folders = interactor.getAllFolders()
         let folderedURLs = Set(folders.flatMap(\.feedURLs))
 
+        /// O(1) lookups while matching folder URLs below — scanning `allFeeds`
+        /// once per foldered URL made every rebuild quadratic. "First feed wins"
+        /// on a duplicate URL, matching the previous `allFeeds.first` semantics.
+        let feedsByURL = Dictionary(allFeeds.map { ($0.rssURL, $0) }, uniquingKeysWith: { first, _ in first })
+
         var sections: [FeedsSection] = []
 
         for folder in folders {
-            let folderFeeds = folder.feedURLs.compactMap { url in
-                allFeeds.first { $0.rssURL == url }
-            }
+            let folderFeeds = folder.feedURLs.compactMap { feedsByURL[$0] }
             sections.append(FeedsSection(folder: folder, feeds: folderFeeds))
         }
 

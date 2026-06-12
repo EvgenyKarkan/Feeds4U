@@ -45,7 +45,10 @@ protocol StorageProtocol {
     /// - Returns: Saved feed items, or `nil` when storage cannot fetch them.
     func loadFeedItems() -> [FeedItem]?
 
-    /// Loads specific feed items by their object IDs.
+    /// Loads specific feed items by their object IDs in a single fetch.
+    ///
+    /// IDs of deleted objects are silently omitted and duplicate IDs collapse
+    /// into one object. Result order is newest-first, not input order.
     func loadFeedItems(withIDs objectIDs: [NSManagedObjectID]) -> [FeedItem]
 
     /// Loads the items of a single feed, newest first.
@@ -67,6 +70,14 @@ protocol StorageProtocol {
     /// Unlike reading `feed.feedItems.count`, this never fires the to-many
     /// relationship fault, so no item objects are materialised.
     func itemCount(for feed: Feed) -> Int
+
+    /// Re-faults `item`'s content row, releasing its article HTML from memory.
+    ///
+    /// Call after the HTML has been handed off (e.g. copied into the article
+    /// reader) — the next `htmlContent` read transparently re-fetches it.
+    /// A no-op when the content is already a fault or carries unsaved changes
+    /// (re-faulting would discard them).
+    func releaseContent(of item: FeedItem)
 
     /// Marks every unread item of `feed` as read using a batch update that
     /// runs directly in the store; affected objects are merged back into the
