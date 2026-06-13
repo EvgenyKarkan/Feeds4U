@@ -28,4 +28,11 @@ extension UIView {
 
         layer.add(animation, forKey: animationKey)
     }
+
+    /// One physical pixel in points, derived from the current `displayScale`.
+    /// Falls back to `1.0` while the scale is still unknown (view not yet in a window).
+    var hairlineHeight: CGFloat {
+        let scale = traitCollection.displayScale
+        return scale > 0 ? 1.0 / scale : 1.0
+    }
 }

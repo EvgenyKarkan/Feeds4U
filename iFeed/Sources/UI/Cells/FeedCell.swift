@@ -78,6 +78,10 @@ final class FeedCell: UITableViewCell, Reusable {
         return view
     }()
 
+    /// Height of `bottomSeparator`, kept at one physical pixel. Updated whenever
+    /// the cell's `displayScale` trait changes (e.g. moving between displays).
+    private var separatorHeightConstraint: NSLayoutConstraint?
+
     // MARK: - Base override
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -88,14 +92,23 @@ final class FeedCell: UITableViewCell, Reusable {
             dotView.layer.masksToBounds = true
             dotView.backgroundColor = .systemBlue
 
-            let pixelHeight = 1.0 / UIScreen.main.scale
             contentView.addSubview(bottomSeparator)
+
+            let separatorHeight = bottomSeparator.heightAnchor.constraint(equalToConstant: hairlineHeight)
+            separatorHeightConstraint = separatorHeight
+
             NSLayoutConstraint.activate([
                 bottomSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
                 bottomSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
                 bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                bottomSeparator.heightAnchor.constraint(equalToConstant: pixelHeight)
+                separatorHeight
             ])
+
+            /// `displayScale` is 0 until the cell is in a window; this keeps the
+            /// hairline at exactly one physical pixel once that becomes known.
+            registerForTraitChanges([UITraitDisplayScale.self]) { (cell: Self, _) in
+                cell.separatorHeightConstraint?.constant = cell.hairlineHeight
+            }
 
             resetContent()
         }

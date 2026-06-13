@@ -48,11 +48,21 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
         return view
     }()
 
+    /// Height of `bottomSeparator`, kept at one physical pixel. Updated whenever
+    /// the view's `displayScale` trait changes (e.g. moving between displays).
+    private var separatorHeightConstraint: NSLayoutConstraint?
+
     // MARK: - Init
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
         setupUI()
+
+        /// `displayScale` is 0 until the view is in a window; this keeps the
+        /// hairline at exactly one physical pixel once that becomes known.
+        registerForTraitChanges([UITraitDisplayScale.self]) { (header: Self, _) in
+            header.separatorHeightConstraint?.constant = header.hairlineHeight
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -84,10 +94,11 @@ private extension FeedFolderHeaderView {
         contentView.addSubview(stack)
         contentView.addSubview(bottomSeparator)
 
-        let pixelHeight = 1.0 / UIScreen.main.scale
-
         let stackBottomConstraint = stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         stackBottomConstraint.priority = .defaultHigh
+
+        let separatorHeight = bottomSeparator.heightAnchor.constraint(equalToConstant: hairlineHeight)
+        separatorHeightConstraint = separatorHeight
 
         NSLayoutConstraint.activate([
             chevronImageView.widthAnchor.constraint(equalToConstant: 16),
@@ -101,7 +112,7 @@ private extension FeedFolderHeaderView {
             bottomSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             bottomSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomSeparator.heightAnchor.constraint(equalToConstant: pixelHeight)
+            separatorHeight
         ])
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))

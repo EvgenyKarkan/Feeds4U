@@ -19,7 +19,10 @@ final class FeedItemsViewController: BaseListViewController {
     override func loadView() {
         provider = FeedItemsTableProvider(delegate: self)
 
-        feedItemsView = FeedItemsView(frame: UIScreen.main.bounds)
+        /// `.zero` is intentional — once this view is assigned to the controller's
+        /// `view`, the system resizes it to fill the window, so a real frame here
+        /// would be overwritten anyway. Avoids the multi-scene-deprecated `UIScreen.main`.
+        feedItemsView = FeedItemsView(frame: .zero)
         feedItemsView?.tableView.delegate = provider
         feedItemsView?.tableView.dataSource = provider
         feedItemsView?.delegate = self
