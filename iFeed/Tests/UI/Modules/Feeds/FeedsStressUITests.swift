@@ -155,6 +155,33 @@ final class FeedsStressUITests: FeedsUITestCase {
         XCTAssertEqual(app.state, .runningForeground, "Bulk deletion must not crash")
     }
 
+    /// Hammers a folder header's expand/collapse. The toggle animates row
+    /// insert/delete inside `performBatchUpdates`, so rapid taps are the classic
+    /// trigger for a data-source/table desync crash ("invalid number of rows").
+    /// After the churn the folder is driven to a known-expanded state and its
+    /// contents are verified intact — proving no rows were lost or duplicated.
+    func testStress_rapidFolderToggle() {
+        launch(scenario: .folders)
+
+        let header = folderHeader("Tech")
+        assertExists(header, "Seeded folder header should be present")
+
+        for _ in 0..<24 {
+            header.tap()
+        }
+
+        XCTAssertEqual(app.state, .runningForeground, "Rapid folder toggling must not crash")
+
+        // Drive to a deterministic expanded state, then verify data synchronisation:
+        // both grouped feeds and the ungrouped feed must be present and correct.
+        if !feedCell("Swift Blog").exists {
+            header.tap()
+        }
+        assertExists(feedCell("Swift Blog"), "Grouped feed must survive the churn")
+        assertExists(feedCell("Apple Newsroom"), "Grouped feed must survive the churn")
+        assertExists(feedCell("Hacker News"), "Ungrouped feeds must remain unaffected")
+    }
+
     // MARK: - Helpers
 
     private func performRandomGesture(on window: XCUIElement) {

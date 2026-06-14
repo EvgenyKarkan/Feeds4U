@@ -19,6 +19,7 @@ final class ArticleReaderViewController: UIViewController {
         let config = WKWebViewConfiguration()
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.accessibilityIdentifier = AccessibilityID.articleReaderWebView
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
         return webView

@@ -35,6 +35,11 @@ extension DIContainer: DIContainerProtocol {
     /// module hijack another module's active parse (and deliver its cancel callback
     /// to the wrong delegate), e.g. adding a feed while a pull-to-refresh is running.
     func parser() -> any ParserProtocol {
+        #if DEBUG
+        if UITestSupport.isUITesting {
+            return UITestParser()
+        }
+        #endif
         return Parser()
     }
 

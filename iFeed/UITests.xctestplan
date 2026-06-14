@@ -21,6 +21,7 @@
   "testTargets" : [
     {
       "skippedTests" : [
+        "FeedItemsStressUITests",
         "FeedsStressUITests"
       ],
       "target" : {

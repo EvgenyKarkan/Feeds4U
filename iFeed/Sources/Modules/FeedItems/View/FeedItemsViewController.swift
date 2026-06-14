@@ -154,6 +154,7 @@ private extension FeedItemsViewController {
             menu: menu
         )
         barButtonItem.tintColor = .systemBlue
+        barButtonItem.accessibilityIdentifier = AccessibilityID.markAllAsReadButton
 
         navigationItem.setRightBarButton(barButtonItem, animated: true)
     }

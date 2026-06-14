@@ -31,6 +31,12 @@ enum AccessibilityID {
     static let createFolderAlert = "feeds.alert.createFolder"
     static let alertTextField = "feeds.alert.textField"
 
+    // MARK: - Feed items
+    static let markAllAsReadButton = "feedItems.markAllAsReadButton"
+
+    // MARK: - Article reader
+    static let articleReaderWebView = "articleReader.webView"
+
     // MARK: - Dynamic
     /// Identifier for a feed row, derived from the feed's title.
     static func feedCell(title: String) -> String {

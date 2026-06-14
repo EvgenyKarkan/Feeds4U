@@ -34,9 +34,10 @@ final class SearchUITests: FeedsUITestCase {
         app.alerts.buttons[Labels.search].tap()
 
         // A match pushes the results screen, so the Feeds controls go away. The
-        // engine indexes the corpus on first query, so allow generous time for a
-        // cold index build under a loaded simulator.
-        assertGone(addButton, "A matching search should navigate to results", timeout: 30)
+        // engine indexes the corpus on first query; allow a generous timeout so a
+        // cold index build on a loaded simulator (e.g. at the tail of a long plan
+        // run) doesn't flake.
+        assertGone(addButton, "A matching search should navigate to results", timeout: 45)
     }
 
     func testSearch_withoutMatches_showsNoResultsAlert() {

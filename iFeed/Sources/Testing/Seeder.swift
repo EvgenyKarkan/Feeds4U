@@ -29,6 +29,11 @@ enum Seeder {
     // Stable recent-searches key — must match `FeedsInteractor.Constants.recentSearchesKey`.
     private static let recentSearchesKey = "com.ifeed.recentSearches"
 
+    /// Item titles seeded WITHOUT inline HTML. Tapping such a row routes to
+    /// `SFSafariViewController` (the presenter's < 300-char fallback) instead of
+    /// the in-app reader — used by the Safari-routing UI test.
+    static let bodylessItemTitles: Set<String> = ["Open in Safari"]
+
     private static let feeds: [FeedSpec] = [
         FeedSpec(title: "Swift Blog", url: "https://swift.org/feed.xml",
                  itemTitles: ["Swift 6 concurrency", "Embedded Swift", "Swift on Server"]),
@@ -37,7 +42,7 @@ enum Seeder {
         FeedSpec(title: "Hacker News", url: "https://news.ycombinator.com/rss",
                  itemTitles: ["Show HN: a tiny RSS reader", "Ask HN: best practices"]),
         FeedSpec(title: "The Verge", url: "https://theverge.com/rss",
-                 itemTitles: ["Gadgets of the year", "Tech policy update"])
+                 itemTitles: ["Gadgets of the year", "Tech policy update", "Open in Safari"])
     ]
 
     static func seed(scenario: UITestScenario,
@@ -65,6 +70,13 @@ enum Seeder {
         }
     }
 
+    /// Builds a deterministic article body comfortably over the 300-character
+    /// threshold the presenter uses to choose the in-app reader.
+    private static func articleHTML(for title: String) -> String {
+        let paragraph = String(repeating: "\(title) — sample article body for UI testing. ", count: 8)
+        return "<html><body><h1>\(title)</h1><p>\(paragraph)</p></body></html>"
+    }
+
     // MARK: - Core Data
     private static func insert(_ specs: [FeedSpec], into container: NSPersistentContainer) {
         let context = container.viewContext
@@ -87,6 +99,12 @@ enum Seeder {
                 item.link = "\(spec.url)#item\(offset)"
                 item.publishDate = Date(timeIntervalSince1970: TimeInterval(1_700_000_000 - offset * 3_600))
                 item.wasRead = NSNumber(value: false)
+                // ≥300 chars so a row tap opens the in-app ArticleReader (loads
+                // this local HTML into a WKWebView). Items in `bodylessItemTitles`
+                // are left without HTML so they fall back to SFSafariViewController.
+                if !Self.bodylessItemTitles.contains(itemTitle) {
+                    item.htmlContent = Self.articleHTML(for: itemTitle)
+                }
                 item.feed = feed
             }
         }
