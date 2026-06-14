@@ -17,6 +17,7 @@ extension BaseListViewController {
         let actionTitle: String
         let placeholder: String
         let prefillURL: String?
+        let accessibilityIdentifier: String
         let onSubmit: (String) -> Void
 
         static func feedEntry(prefillURL: String? = nil, onSubmit: @escaping (String) -> Void) -> URLInputAlertConfig {
@@ -25,6 +26,7 @@ extension BaseListViewController {
                 actionTitle: String.localized(key: LocalizableKeys.add),
                 placeholder: "https://www.example.com/rss",
                 prefillURL: prefillURL,
+                accessibilityIdentifier: AccessibilityID.enterFeedAlert,
                 onSubmit: onSubmit
             )
         }
@@ -35,6 +37,7 @@ extension BaseListViewController {
                 actionTitle: String.localized(key: LocalizableKeys.Search.search),
                 placeholder: "https://www.example.com",
                 prefillURL: nil,
+                accessibilityIdentifier: AccessibilityID.exploreFeedAlert,
                 onSubmit: onSubmit
             )
         }
@@ -90,6 +93,7 @@ private extension BaseListViewController {
             message: config.message,
             preferredStyle: .alert
         )
+        alertController.view.accessibilityIdentifier = config.accessibilityIdentifier
 
         // Cancel action
         alertController.addAction(UIAlertAction(
@@ -200,6 +204,7 @@ private extension BaseListViewController {
         submitAction: UIAlertAction
     ) {
         textField.placeholder = placeholder
+        textField.accessibilityIdentifier = AccessibilityID.alertTextField
         textField.keyboardType = .URL
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no

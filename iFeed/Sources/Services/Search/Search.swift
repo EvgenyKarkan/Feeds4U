@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import SimpleSimilarity
+import Synchronization
 #if DEBUG
 import Mocking
 #endif
@@ -370,11 +371,27 @@ extension Search: Searchable {
         // The `do/catch` handles `MatchingEngineNotFilledError`; in normal operation the guard
         // above prevents this, but the catch makes the path explicit and safe.
         let objectIDs: [NSManagedObjectID]? = await withCheckedContinuation { continuation in
+            // `SimpleSimilarity` can invoke `resultsFound` more than once (observed
+            // on the no-match path), but a `CheckedContinuation` must be resumed
+            // exactly once or the runtime traps. This Mutex-guarded latch drops
+            // every resume after the first, mirroring ``ParseContinuationBox``.
+            let hasResumed = Mutex(false)
+            let resumeOnce: ([NSManagedObjectID]?) -> Void = { value in
+                let isFirst = hasResumed.withLock { resumed -> Bool in
+                    guard !resumed else { return false }
+                    resumed = true
+                    return true
+                }
+                if isFirst {
+                    continuation.resume(returning: value)
+                }
+            }
+
             do {
                 try engine.results(betterThan: 0.005, for: query) { results in
                     guard let results, !results.isEmpty else {
                         // Engine found nothing above the threshold — signal no match.
-                        continuation.resume(returning: nil)
+                        resumeOnce(nil)
                         return
                     }
                     // Flatten all result entries and collect their embedded NSManagedObjectIDs.
@@ -383,11 +400,11 @@ extension Search: Searchable {
                     let ids = results.flatMap { result in
                         result.textualResults.compactMap { $0.originObject as? NSManagedObjectID }
                     }
-                    continuation.resume(returning: ids.isEmpty ? nil : ids)
+                    resumeOnce(ids.isEmpty ? nil : ids)
                 }
             } catch {
                 // Engine threw (e.g. not filled) — treat as no results.
-                continuation.resume(returning: nil)
+                resumeOnce(nil)
             }
         }
 

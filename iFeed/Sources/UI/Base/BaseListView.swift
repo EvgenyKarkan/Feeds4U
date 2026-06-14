@@ -22,6 +22,7 @@ class BaseListView: UIView {
         table.rowHeight = UITableView.automaticDimension
         table.sectionHeaderTopPadding = .zero
         table.separatorStyle = .none
+        table.accessibilityIdentifier = AccessibilityID.feedsTable
 
         // Register cell once during initialization
         let nib = UINib(nibName: String(describing: FeedCell.self), bundle: nil)
@@ -39,6 +40,7 @@ class BaseListView: UIView {
         lbl.text = String.localized(key: LocalizableKeys.Feed.addNew)
         lbl.textColor = .label
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.accessibilityIdentifier = AccessibilityID.feedsEmptyLabel
         return lbl
     }()
 

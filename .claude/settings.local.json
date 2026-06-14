@@ -7,7 +7,9 @@
       "Bash(xcodebuild test:*)",
       "Bash(xcodebuild build-for-testing:*)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(xcodebuild *)",
+      "Bash(gem list *)"
     ]
   }
 }

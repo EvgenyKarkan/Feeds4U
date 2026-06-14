@@ -50,6 +50,16 @@
                ReferencedContainer = "container:iFeed.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4E0F7400FD2EDF7D973DCA61"
+               BuildableName = "iFeedUITests.xctest"
+               BlueprintName = "iFeedUITests"
+               ReferencedContainer = "container:iFeed.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

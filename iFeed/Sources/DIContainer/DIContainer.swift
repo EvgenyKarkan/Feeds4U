@@ -51,18 +51,35 @@ extension DIContainer: DIContainerProtocol {
     }
 
     func storage() -> any StorageProtocol {
+        #if DEBUG
+        if let override = UITestSupport.storageOverride {
+            return override
+        }
+        #endif
         return shared {
             return CoreDataManager()
         }
     }
 
     func foldersManager() -> any FeedFolderManaging {
+        #if DEBUG
+        if let defaults = UITestSupport.foldersDefaultsOverride {
+            return shared {
+                return FeedFolderManager(defaults: defaults)
+            }
+        }
+        #endif
         return shared {
             return FeedFolderManager()
         }
     }
 
     func keyedStorage() -> any KeyedStorageProtocol {
+        #if DEBUG
+        if let override = UITestSupport.keyedStorageOverride {
+            return override
+        }
+        #endif
         return shared {
             return UserDefaults.standard
         }

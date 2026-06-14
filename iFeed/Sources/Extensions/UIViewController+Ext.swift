@@ -73,6 +73,16 @@ extension UIViewController {
     /// Shows the app-wide loading spinner using the `KRProgressHUD` with theme styling.
     ///
     func showSpinner() {
+        #if DEBUG
+        // The HUD's activity indicator animates indefinitely, which prevents
+        // XCUI from ever seeing the app as "idle" — every subsequent query then
+        // blocks on a 60s idle timeout, hanging monkey/stress runs. Skip it under
+        // UI testing; the spinner is a cosmetic affordance, not tested behaviour.
+        if UITestSupport.isUITesting {
+            return
+        }
+        #endif
+
         KRProgressHUD
             .set(style: .custom(background: .secondarySystemBackground, text: .label, icon: nil))
             .set(activityIndicatorViewColors: [.label])
@@ -84,6 +94,15 @@ extension UIViewController {
     /// - Parameter completion: An optional closure that runs after `KRProgressHUD` finishes
     ///   dismissing the spinner.
     func hideSpinner(_ completion: (() -> Void)? = nil) {
+        #if DEBUG
+        // Mirror ``showSpinner()``: nothing was shown under UI testing, so just
+        // run the completion synchronously to keep the calling flow intact.
+        if UITestSupport.isUITesting {
+            completion?()
+            return
+        }
+        #endif
+        
         KRProgressHUD.dismiss(completion)
     }
 }

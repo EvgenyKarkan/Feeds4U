@@ -73,6 +73,7 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
     func configure(name: String, feedCount: Int, isExpanded: Bool) {
         nameLabel.text = name.uppercased()
         countLabel.text = "\(feedCount)"
+        accessibilityIdentifier = AccessibilityID.folderHeader(name: name)
 
         let angle: CGFloat = isExpanded ? .pi / 2 : .zero
         UIView.animate(withDuration: CATransaction.animationDuration()) {

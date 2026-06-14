@@ -20,10 +20,12 @@ final class FeedCell: UITableViewCell, Reusable {
         didSet {
             guard let text = titleText, !text.isEmpty else {
                 topLabel.isHidden = true
+                accessibilityIdentifier = nil
                 return
             }
             topLabel.text = text.collapsingWhitespace()
             topLabel.isHidden = false
+            accessibilityIdentifier = AccessibilityID.feedCell(title: text)
         }
     }
 

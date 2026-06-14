@@ -19,9 +19,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        // Quick return if running unit tests
+        // A UI-test run drives the real UI, so it must build the window. Boot it
+        // on a seeded in-memory store and skip the unit-test early return below.
+        #if DEBUG
+        let isUITesting = UITestSupport.isUITesting
+        if isUITesting {
+            UITestSupport.bootstrap()
+        }
+        #else
+        let isUITesting = false
+        #endif
+
+        // Quick return if running unit tests (which have no UI).
         #if DEBUG || __DEBUG__
-        if isRunningUnitTests {
+        if !isUITesting, isRunningUnitTests {
             return
         }
         #endif

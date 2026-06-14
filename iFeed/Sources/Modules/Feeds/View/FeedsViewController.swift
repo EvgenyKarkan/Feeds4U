@@ -59,6 +59,7 @@ final class FeedsViewController: BaseListViewController {
             button.setImage(image, for: .normal)
             button.menu = contextMenu
             button.showsMenuAsPrimaryAction = true
+            button.accessibilityIdentifier = AccessibilityID.addFeedButton
 
             return button
         }
@@ -73,6 +74,7 @@ final class FeedsViewController: BaseListViewController {
             action: #selector(trashButtonItemDidPress)
         )
         button.tintColor = .systemBlue
+        button.accessibilityIdentifier = AccessibilityID.trashButton
 
         return button
     }()
@@ -83,6 +85,7 @@ final class FeedsViewController: BaseListViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.addTarget(self, action: #selector(searchButtonItemDidPress), for: .touchUpInside)
+        button.accessibilityIdentifier = AccessibilityID.searchButton
         searchButton = button
         return UIBarButtonItem(customView: button)
     }()
@@ -231,6 +234,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
             message: String.localized(key: LocalizableKeys.Search.description),
             preferredStyle: .alert
         )
+        alertController.view.accessibilityIdentifier = AccessibilityID.searchInputAlert
 
         let cancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.cancel), style: .cancel) { [weak self] _ in
             self?.nextAction = nil
@@ -253,6 +257,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         alertController.addAction(nextAction)
         alertController.addTextField { [weak self] textField in
             textField.placeholder = String.localized(key: LocalizableKeys.Search.placeholder)
+            textField.accessibilityIdentifier = AccessibilityID.alertTextField
             textField.addTarget(self,
                                 action: #selector(self?.textFieldDidChangeForSearchInput(_:)),
                                 for: .editingChanged)
@@ -267,6 +272,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
             message: String.localized(key: LocalizableKeys.Errors.noSearchResults),
             preferredStyle: .alert
         )
+        noResultsAlert.view.accessibilityIdentifier = AccessibilityID.noSearchResultsAlert
         let noResultsCancelAction = UIAlertAction(title: String.localized(key: LocalizableKeys.confirmation),
                                                   style: .cancel)
         noResultsAlert.addAction(noResultsCancelAction)
@@ -282,6 +288,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
             message: String.localized(key: LocalizableKeys.Errors.noFeedsDiscovered),
             preferredStyle: .alert
         )
+        alert.view.accessibilityIdentifier = AccessibilityID.noFeedsDiscoveredAlert
         let okAction = UIAlertAction(title: String.localized(key: LocalizableKeys.confirmation),
                                      style: .cancel)
         alert.addAction(okAction)
@@ -566,6 +573,7 @@ private extension FeedsViewController {
             message: String.localized(key: LocalizableKeys.Folder.createMessage),
             preferredStyle: .alert
         )
+        alert.view.accessibilityIdentifier = AccessibilityID.createFolderAlert
 
         let cancelAction = UIAlertAction(
             title: String.localized(key: LocalizableKeys.cancel),
@@ -592,6 +600,7 @@ private extension FeedsViewController {
 
         alert.addTextField { [weak self] textField in
             textField.placeholder = String.localized(key: LocalizableKeys.Folder.namePlaceholder)
+            textField.accessibilityIdentifier = AccessibilityID.alertTextField
             textField.autocapitalizationType = .words
             textField.addTarget(
                 self,
