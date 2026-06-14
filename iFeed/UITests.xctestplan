@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "B4636FF6-F192-45D2-AE8A-63E0C74799E2",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "language" : "en",
+    "region" : "US",
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:iFeed.xcodeproj",
+      "identifier" : "DE763D131B7E841300C8B54A",
+      "name" : "iFeed"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "FeedsStressUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:iFeed.xcodeproj",
+        "identifier" : "4E0F7400FD2EDF7D973DCA61",
+        "name" : "iFeedUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

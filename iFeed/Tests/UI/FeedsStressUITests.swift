@@ -172,9 +172,9 @@ final class FeedsStressUITests: FeedsUITestCase {
 
     private func randomCoordinate(in element: XCUIElement) -> XCUICoordinate {
         // Keep within the content area, away from the status bar / very edges.
-        let dx = Double.random(in: 0.05...0.95, using: &rng)
-        let dy = Double.random(in: 0.12...0.90, using: &rng)
-        return element.coordinate(withNormalizedOffset: CGVector(dx: dx, dy: dy))
+        let offsetX = Double.random(in: 0.05...0.95, using: &rng)
+        let offsetY = Double.random(in: 0.12...0.90, using: &rng)
+        return element.coordinate(withNormalizedOffset: CGVector(dx: offsetX, dy: offsetY))
     }
 
     /// Dismisses any presented alert (Cancel / OK first, else the first button).
