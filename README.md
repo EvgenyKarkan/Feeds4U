@@ -70,6 +70,14 @@ Available in 23 languages: Albanian, Arabic, Belarusian, Bengali, Chinese (Simpl
 
 ### Testing & Tooling
 - **Swift Testing** (`@Test`, `#expect`, `#require`) for the unit test suite, mirroring the source layout
+- **XCUITest UI suite** (`iFeedUITests`) covering the Feeds module end-to-end — empty state, list rendering, navigation, swipe- and editing-mode deletion, folder collapse/expand, add/explore/search alerts, and search results
+  - Driven by **deterministic in-memory seeding**: a DEBUG-only launch path (`-uiTesting` / `-uiScenario`) boots the app on an ephemeral Core Data store and an isolated `UserDefaults` suite, so the tests run fully offline, fast, and without touching real user data
+  - Elements are located through shared **`AccessibilityID`** constants compiled into both the app and the test target, so identifiers never drift
+- **Stress / monkey UI tests** — seeded random-gesture fuzzing (a SplitMix64 `SeededGenerator` makes any failure reproducible) plus targeted churn tests (rapid editing, add-menu, navigation, search, and bulk deletion), asserting the screen never crashes and always recovers under rapid interaction
+- **Xcode Test Plans** decouple test selection from the scheme:
+  - **Unit** (default) — unit tests only, with code coverage scoped to the app target
+  - **UITests** — functional UI tests (stress suite excluded)
+  - **Stress** — monkey/stress suite only, with randomized execution order and on-failure retries
 - [swift-mocking](https://github.com/fetch-rewards/swift-mocking) — compile-time generated mocks via the `@Mocked` macro; no hand-written mocks
 - [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) — network stubbing in tests
 - **SwiftLint** as an Xcode build phase, enforcing a no-force-unwrapping policy and others
