@@ -45,50 +45,30 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 
 ## Tech Stack
 
-### Language & Platform
-- **Swift 6** with the strict-concurrency model — compiles clean of data-race diagnostics
-- **UIKit**, programmatic, scene-based lifecycle (`AppDelegate` + `SceneDelegate`); scene-safe APIs throughout (no deprecated `UIScreen.main`)
-- **Core Data** persistence with a lightweight-migration store loaded asynchronously off the launch path
-- **WKWebView** powering on-site feed discovery and the Cloudflare verification flow
-- **String Catalogs** (`.xcstrings`) for localization across 23 languages, plus a **Settings bundle** and a **custom URL scheme** for deep links
-- Minimum deployment target: **iOS 18.0**
+### Platform
+- **Swift 6** (strict concurrency) and programmatic **UIKit**, targeting **iOS 18+** on iPhone and iPad
+- **Core Data** for persistence, **WKWebView** for feed discovery and the Cloudflare flow
+- Localization via **String Catalogs** (23 languages), with a Settings bundle and a deep-link URL scheme
 
 ### Architecture
-- **VIPER** — every feature module (Feeds, FeedItems, ArticleReader, ExploreFeeds, CloudflareBypass) is split into View · Interactor · Presenter · Wireframe · Builder layers that talk only through protocols
-- **Coordinator** — a single object owns all navigation; wireframes report outward via coordinating-delegate protocols, keeping view controllers navigation-free
-- **DI container** — shared services are wired centrally and exposed through narrow, per-module dependency protocols (Interface Segregation); every collaborator is injected behind a protocol and mockable
-- **State as value types** — the view renders from immutable `ViewState` snapshots produced by the presenter
+- **VIPER** feature modules talking only through protocols, with a **Coordinator** owning all navigation
+- A **dependency-injection** container wiring services behind narrow, mockable protocols
+- Modern Swift Concurrency throughout — `async`/`await`, `Sendable`, `@MainActor`, and `Mutex`-guarded state
 
-### Concurrency & Performance Engineering
-- **`Sendable`** types and **`@MainActor`** isolation for UI-bound code; `Synchronization.Mutex` (iOS 18) guards shared state instead of locks
-- **async/await bridging** of callback APIs via `withCheckedContinuation` + `withTaskCancellationHandler`, with a **resume-once continuation box** that guarantees the bridge can never leak or double-resume — cancellation unblocks it immediately
-- **Re-entrancy guards** across the UI: navigation keeps a single push in flight, pull-to-refresh ignores overlapping parses, and modal/alert presentation collapses rapid "double-trigger" taps — no double-pushes, stranded spinners, or "present while presenting" warnings
-- **Background Core Data** for imports, refreshes, and the search index — only `Sendable` `NSManagedObjectID`s cross actor boundaries; the `viewContext` is reserved for UI reads
-- **Projection fetches** (`dictionaryResultType`) build the search index and run link-identity de-duplication without materialising a single `NSManagedObject` or faulting article HTML; unread counts come from a grouped `NSExpressionDescription` aggregate (`COUNT(*)`), never by loading items
-- **Storage shaped for memory** — each article's heavy HTML lives in a separate `FeedItemContent` row, so list/search/dedup fetches stay lightweight and the body is faulted in (and explicitly released) only when read
-- **Crash-proof table animations** — folder expand/collapse drives `performBatchUpdates` from the table's *authoritative* row counts, so it stays consistent under rapid/chaotic input
-
-### UI
-- Programmatic UIKit with a handful of XIBs (launch screen, cells)
-- **UITableView drag & drop** (`NSItemProvider`) for feed reorganization between folders
-- **SFSafariViewController** with a zoom transition for the in-app web experience
-- `KRProgressHUD` / `KRActivityIndicatorView` for progress affordances
+### Engineering highlights
+- Heavy work (parsing, imports, search indexing) runs on **background Core Data** contexts; the UI reads from the view context only
+- **Re-entrancy guards** keep navigation, pull-to-refresh, and modal presentation single-flight under rapid taps
+- Memory-conscious storage — article HTML is split into its own row and faulted in only when read
 
 ### Dependencies (Swift Package Manager)
 - [FeedKit](https://github.com/nmdias/FeedKit) — RSS / Atom / JSON Feed parsing
 - [SimpleSimilarity](https://github.com/EvgenyKarkan/SimpleSimilarity) — fuzzy text matching for search
 - [KRProgressHUD](https://github.com/krimpedance/KRProgressHUD) & [KRActivityIndicatorView](https://github.com/krimpedance/KRActivityIndicatorView) — progress / activity indicators
 
-### Testing & Quality
-- **400+ unit tests** in **Swift Testing** (`@Test`, `#expect`, `#require`), mirroring the source layout — every type is covered behind its protocol seam, including regression tests for the concurrency guards (single-flight navigation, pull-to-refresh re-entrancy, continuation resume-once)
-- [swift-mocking](https://github.com/fetch-rewards/swift-mocking) — compile-time `@Mocked` mocks; no hand-written doubles. [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) for network stubbing
-- **Layered XCUITest suite** covering the Feeds and FeedItems flows end-to-end — empty state, list rendering, navigation, swipe/edit-mode deletion, folders, add/explore/search, the in-app reader, and Safari routing
-  - Driven by **deterministic, isolated seeding**: a DEBUG-only launch path (`-uiTesting` / `-uiScenario`) boots the app on an **ephemeral, wiped-on-launch** Core Data store and a private `UserDefaults` suite — fully offline, fast, and never touching real user data or polluting the disk
-  - A stubbed parser makes pull-to-refresh resolve instantly offline; elements are addressed through shared **`AccessibilityID`** constants compiled into both targets so identifiers never drift
-- **Stress / monkey / chaos tests** — seeded random-gesture fuzzing (a reproducible SplitMix64 generator) plus targeted churn and re-entrancy "double-trigger" probes, asserting the app never crashes and always recovers
-- **Xcode Test Plans** decouple selection from the scheme: **Unit** (default, app-scoped coverage) · **UITests** (functional only) · **Stress** (monkey/chaos, randomized order with on-failure retries)
-- **SwiftLint** as a build phase enforcing a strict **no-force-unwrapping** policy, among others
-- Build schemes: **DEV / ADHOC / RELEASE**
+### Testing
+- **Unit tests** in **Swift Testing**, with [swift-mocking](https://github.com/fetch-rewards/swift-mocking) mocks and [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) network stubbing
+- **UI tests** (XCUITest) over the main flows on deterministic, isolated seeded data — plus a stress / monkey suite, organized into Xcode **Test Plans**
+- **SwiftLint** (strict no-force-unwrapping) and three build schemes: **DEV / ADHOC / RELEASE**
 
 ## Contributions
 Please ensure that all pull requests are directed to the `develop` branch.
