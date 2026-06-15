@@ -4,6 +4,8 @@ Feeds4U
 ![Swift 6](https://img.shields.io/badge/Swift-6-orange.svg)
 ![Platform](https://img.shields.io/badge/iOS-18%2B-blue.svg)
 ![UIKit](https://img.shields.io/badge/UI-UIKit-2396F3.svg)
+![Unit Tests](https://img.shields.io/badge/unit_tests-Swift_Testing-brightgreen.svg)
+![UI Tests](https://img.shields.io/badge/UI_tests-XCUITest-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 Your personal RSS reader for iPhone and iPad.    
