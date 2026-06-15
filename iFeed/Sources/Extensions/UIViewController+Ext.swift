@@ -11,6 +11,28 @@ import KRProgressHUD
 
 extension UIViewController {
 
+    // MARK: - Guarded Presentation
+
+    /// Presents a view controller only when this controller is not already
+    /// presenting (or mid-transition).
+    ///
+    /// Rapid "double-trigger" taps — two fast taps on a button/menu item, or a
+    /// chaotic burst — otherwise call `present(_:animated:)` twice before the
+    /// first presentation commits, producing UIKit's "attempt to present X while
+    /// a presentation is in progress" warning and a stuck or duplicated modal.
+    /// `presentedViewController` is set synchronously by the first `present`, so
+    /// checking it here collapses the burst into a single modal.
+    func presentGuarded(_ viewControllerToPresent: UIViewController,
+                        animated: Bool = true,
+                        completion: (() -> Void)? = nil) {
+        guard presentedViewController == nil,
+              !isBeingDismissed,
+              !isBeingPresented else {
+            return
+        }
+        present(viewControllerToPresent, animated: animated, completion: completion)
+    }
+
     // MARK: - Instance From Nib
 
     /// Creates a view controller instance from a nib file named after the view controller type.

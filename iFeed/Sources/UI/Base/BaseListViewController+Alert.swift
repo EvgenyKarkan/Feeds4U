@@ -78,7 +78,7 @@ extension BaseListViewController {
             style: .default
         ))
 
-        present(alertController, animated: true)
+        presentGuarded(alertController)
     }
 }
 
@@ -132,7 +132,7 @@ private extension BaseListViewController {
             )
         }
 
-        present(alertController, animated: true) { [weak alertController] in
+        presentGuarded(alertController) { [weak alertController] in
             /// Pasteboard prefill is deferred until the alert is fully on screen.
             /// Reading `UIPasteboard.url` can suspend the call behind the system
             /// "Allow Paste" prompt — doing that inside the text-field

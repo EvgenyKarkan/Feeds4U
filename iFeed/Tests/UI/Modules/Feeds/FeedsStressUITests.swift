@@ -34,12 +34,14 @@ final class FeedsStressUITests: FeedsUITestCase {
     /// points and asserts the app never crashes and the Feeds screen stays
     /// reachable afterwards.
     func testMonkey_randomGesturesKeepAppAlive() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
         assertExists(addButton)
 
         let window = app.windows.firstMatch
         let iterations = 80
 
+        // When — a long stream of random gestures.
         for index in 0..<iterations {
             performRandomGesture(on: window)
             // Clear any transient modal and return to the Feeds root after every
@@ -55,6 +57,7 @@ final class FeedsStressUITests: FeedsUITestCase {
             }
         }
 
+        // Then — the app survives and the Feeds screen stays reachable.
         XCTAssertEqual(app.state, .runningForeground, "App must survive monkey testing")
         recoverToFeeds()
         assertExists(addButton, "Feeds screen must remain reachable after monkey testing")
@@ -64,15 +67,17 @@ final class FeedsStressUITests: FeedsUITestCase {
 
     /// Hammers the trash button to flip in/out of editing mode many times.
     func testStress_rapidEditingToggle() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
         assertExists(trashButton)
 
+        // When — hammering the trash button.
         for _ in 0..<30 {
             trashButton.tap()
         }
 
+        // Then — no crash; leaving editing mode, the list is intact.
         XCTAssertEqual(app.state, .runningForeground, "Editing toggling must not crash")
-        // Leave editing mode and confirm the list is intact.
         if app.tables.buttons[Labels.delete].firstMatch.exists {
             trashButton.tap()
         }
@@ -81,8 +86,10 @@ final class FeedsStressUITests: FeedsUITestCase {
 
     /// Repeatedly opens the add menu + enter-feed alert and cancels it.
     func testStress_rapidAddMenuChurn() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
 
+        // When — repeatedly opening the enter-feed alert and cancelling it.
         for _ in 0..<15 {
             addButton.tap()
             tapMenuItem(Labels.enterNewFeedMenu)
@@ -91,6 +98,7 @@ final class FeedsStressUITests: FeedsUITestCase {
             assertGone(alertTextField, timeout: 3)
         }
 
+        // Then — no crash; the list is still usable.
         XCTAssertEqual(app.state, .runningForeground, "Add-menu churn must not crash")
         assertExists(addButton)
     }
@@ -98,8 +106,10 @@ final class FeedsStressUITests: FeedsUITestCase {
     /// Pushes into a feed's items and pops back many times in quick succession,
     /// stressing module construction/teardown and the navigation stack.
     func testStress_rapidNavigationChurn() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
 
+        // When — pushing into a feed's items and popping back, repeatedly.
         for _ in 0..<12 {
             feedCell("Swift Blog").tap()
             let back = app.navigationBars.buttons.element(boundBy: 0)
@@ -108,6 +118,7 @@ final class FeedsStressUITests: FeedsUITestCase {
             assertExists(addButton, timeout: 8)
         }
 
+        // Then — no crash from the module construction/teardown churn.
         XCTAssertEqual(app.state, .runningForeground, "Navigation churn must not crash")
     }
 
@@ -115,8 +126,11 @@ final class FeedsStressUITests: FeedsUITestCase {
     /// the result/no-result continuation paths — a direct regression guard for
     /// the search-continuation double-resume crash.
     func testStress_rapidSearchChurn() {
+        // Given — the search scenario.
         launch(scenario: .search)
 
+        // When — running many searches back-to-back, driving both the result and
+        // no-result continuation paths (regression guard for the double-resume crash).
         let queries = ["apple", "verge", "macbook", "zzqxnomatch", "hacker", "apple"]
         for query in queries {
             openSearchInput()
@@ -133,14 +147,17 @@ final class FeedsStressUITests: FeedsUITestCase {
             }
         }
 
+        // Then — no crash from the repeated index build + continuation churn.
         XCTAssertEqual(app.state, .runningForeground, "Search churn must not crash")
     }
 
     /// Deletes every feed in rapid succession and verifies the empty state is
     /// reached cleanly (no orphaned rows, no crash).
     func testStress_deleteAllFeedsRapidly() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
 
+        // When — swipe-deleting every feed in rapid succession.
         for title in ["Swift Blog", "Apple Newsroom", "Hacker News", "The Verge"] {
             let cell = feedCell(title)
             guard cell.exists else { continue }
@@ -151,6 +168,7 @@ final class FeedsStressUITests: FeedsUITestCase {
             }
         }
 
+        // Then — the empty state is reached cleanly, with no crash.
         assertExists(emptyLabel, "Deleting all feeds rapidly should reach the empty state")
         XCTAssertEqual(app.state, .runningForeground, "Bulk deletion must not crash")
     }
@@ -161,19 +179,19 @@ final class FeedsStressUITests: FeedsUITestCase {
     /// After the churn the folder is driven to a known-expanded state and its
     /// contents are verified intact — proving no rows were lost or duplicated.
     func testStress_rapidFolderToggle() {
+        // Given — a folder with grouped feeds.
         launch(scenario: .folders)
-
         let header = folderHeader("Tech")
         assertExists(header, "Seeded folder header should be present")
 
+        // When — hammering the folder header's expand/collapse.
         for _ in 0..<24 {
             header.tap()
         }
 
+        // Then — no crash; driven to a known-expanded state, every feed (grouped
+        // and ungrouped) is present, proving no rows were lost or duplicated.
         XCTAssertEqual(app.state, .runningForeground, "Rapid folder toggling must not crash")
-
-        // Drive to a deterministic expanded state, then verify data synchronisation:
-        // both grouped feeds and the ungrouped feed must be present and correct.
         if !feedCell("Swift Blog").exists {
             header.tap()
         }

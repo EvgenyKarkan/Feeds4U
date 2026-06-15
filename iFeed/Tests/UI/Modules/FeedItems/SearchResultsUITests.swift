@@ -13,19 +13,20 @@ import XCTest
 final class SearchResultsUITests: FeedItemsUITestCase {
 
     func testSearchResults_renderAsItemsListWithoutMarkAll() {
+        // Given — the search scenario, with the input alert open.
         launch(scenario: .search)
-
         searchButton.tap()
         tapMenuItem(Labels.newSearch)
         assertExists(alertTextField)
+
+        // When — running a matching search.
         alertTextField.typeText("apple")
         app.alerts.buttons[Labels.search].tap()
 
-        // A match pushes the results list, so the Feeds add button goes away. The
-        // engine indexes on first query, so allow generous time for the navigation.
+        // Then — the match is presented as a FeedItems list (the Feeds add button
+        // goes away). The engine indexes on first query, so allow generous time.
         assertGone(addButton, "Search should navigate to a results list", timeout: 30)
         assertExists(feedCell("Apple announces WWDC"), "The matching item should be listed", timeout: 10)
-
         XCTAssertFalse(markAllAsReadButton.exists,
                        "Search results must not offer mark-all-as-read")
     }

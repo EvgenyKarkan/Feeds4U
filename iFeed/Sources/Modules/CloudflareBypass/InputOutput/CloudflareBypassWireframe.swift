@@ -35,7 +35,7 @@ extension CloudflareBypassWireframe: CloudflareBypassWireframeProtocol {
         nav.modalPresentationStyle = .fullScreen
         challengeNavController = nav
 
-        presentingController.present(nav, animated: true)
+        presentingController.presentGuarded(nav)
     }
 
     func dismissChallenge(completion: (() -> Void)?) {

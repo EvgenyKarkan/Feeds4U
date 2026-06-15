@@ -129,7 +129,7 @@ protocol FeedsViewProtocol: AnyObject {
     func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState)
 
     func reloadFeedsList(with viewState: FeedsViewState)
-    func animateFolderToggle(at sectionIndex: Int, oldRowCount: Int, with viewState: FeedsViewState)
+    func animateFolderToggle(at sectionIndex: Int, with viewState: FeedsViewState)
 }
 
 /// View ---> Presenter

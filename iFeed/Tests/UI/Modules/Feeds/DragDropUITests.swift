@@ -15,15 +15,17 @@ import XCTest
 final class DragDropUITests: FeedsUITestCase {
 
     func testDragFeedOntoFeed_promptsToCreateFolder() {
+        // Given — two ungrouped feeds.
         launch(scenario: .populated)
-
         let source = feedCell("Swift Blog")
         let destination = feedCell("Apple Newsroom")
         assertExists(source)
         assertExists(destination)
 
+        // When — dragging one feed onto another.
         source.press(forDuration: 1.0, thenDragTo: destination)
 
+        // Then — the create-folder prompt appears.
         assertExists(app.staticTexts[Labels.newFolderMessage],
                      "Dropping a feed onto another should prompt to create a folder")
         app.buttons[Labels.cancel].tap()

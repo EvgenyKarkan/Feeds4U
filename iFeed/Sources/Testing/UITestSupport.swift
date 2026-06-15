@@ -68,20 +68,47 @@ enum UITestSupport {
         return defaults
     }
 
-    /// An `NSPersistentContainer` backed by an ephemeral store, loaded
-    /// **synchronously** so seeding and the first UI read see a ready store.
-    ///
-    /// Uses a real SQLite store at a fresh temp-file URL (wiped first) rather
-    /// than `NSInMemoryStoreType` or a `/dev/null` store: the in-memory store
-    /// does not support `GROUP BY` (the unread-count aggregate uses one), and a
-    /// `/dev/null` store does not reliably share writes with the private-queue
-    /// context the search index fetch runs on. A temp-file SQLite store has full
-    /// query support and is shared across all of the coordinator's contexts.
-    private static func inMemoryContainer() -> NSPersistentContainer {
-        let container = NSPersistentContainer(name: "iFeed")
+    /// Dedicated, self-cleaning directory (under the app's temporary directory)
+    /// that holds the single UI-test SQLite store. Living under `tmp` keeps it out
+    /// of the user-visible Documents/Application Support areas, and wiping it on
+    /// every launch (see ``inMemoryContainer()``) means at most one store ever
+    /// exists on disk and it never accumulates across runs.
+    private static var storeDirectory: URL {
+        return FileManager.default.temporaryDirectory
+            .appendingPathComponent("iFeedUITestStore", isDirectory: true)
+    }
 
-        let storeURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("ui-tests-\(UUID().uuidString).sqlite")
+    /// An `NSPersistentContainer` backed by an **ephemeral, wiped-on-launch**
+    /// SQLite store, loaded synchronously so seeding and the first UI read see a
+    /// ready store.
+    ///
+    /// A real (tiny) SQLite file is used rather than `NSInMemoryStoreType` or a
+    /// `/dev/null` store: the in-memory store does not support `GROUP BY` (the
+    /// unread-count aggregate uses one), and a `/dev/null` store does not reliably
+    /// share writes with the private-queue context the search index fetch runs on.
+    /// To avoid polluting the disk, the store lives in a single fixed location
+    /// (``storeDirectory``) that is **deleted and recreated on every launch** — so
+    /// each run starts from a cleared store and nothing is left to pile up.
+    private static func inMemoryContainer() -> NSPersistentContainer {
+        let fileManager = FileManager.default
+
+        // Clear any store left by a previous run (.sqlite plus its -wal/-shm
+        // sidecars), then recreate the directory fresh.
+        try? fileManager.removeItem(at: storeDirectory)
+        try? fileManager.createDirectory(at: storeDirectory, withIntermediateDirectories: true)
+
+        // Self-heal: sweep stores left by the earlier UUID-per-launch
+        // implementation so any pre-existing debris is cleared too. A no-op once
+        // those are gone.
+        if let leftovers = try? fileManager.contentsOfDirectory(
+            at: fileManager.temporaryDirectory, includingPropertiesForKeys: nil) {
+            for url in leftovers where url.lastPathComponent.hasPrefix("ui-tests-") {
+                try? fileManager.removeItem(at: url)
+            }
+        }
+
+        let container = NSPersistentContainer(name: "iFeed")
+        let storeURL = storeDirectory.appendingPathComponent("store.sqlite")
 
         let description = NSPersistentStoreDescription(url: storeURL)
         description.type = NSSQLiteStoreType

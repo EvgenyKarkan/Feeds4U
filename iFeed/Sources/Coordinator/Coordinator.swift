@@ -32,12 +32,24 @@ final class Coordinator {
     private var feedExplorationChallengeCallback: (() -> Void)?
     private var feedExplorationResultCallback: ((Result<ExploreFeedsDTO, any Error>) -> Void)?
 
+    /// Re-entrancy guard for module pushes. A second tap on a row can request
+    /// another push while the first push transition is still animating, which
+    /// double-pushes the module and trips UIKit's "unbalanced calls to begin/end
+    /// appearance transitions". The flag is raised for the duration of a push and
+    /// cleared on the transition's completion, so only the first of a rapid burst
+    /// is honoured.
+    private var isPushInFlight = false
+
     // MARK: - Init
-    init(container: any DIContainerProtocol, controller: UINavigationController?) {
+    /// - Parameter moduleFactory: Injectable for testing. Defaults to the
+    ///   production `ModuleFactory` built from the DI container.
+    init(container: any DIContainerProtocol,
+         controller: UINavigationController?,
+         moduleFactory: (any ModuleFactoryProtocol)? = nil) {
         navigationController = controller
         navigationController?.navigationBar.tintColor = .systemBlue
 
-        moduleFactory = ModuleFactory(container: container)
+        self.moduleFactory = moduleFactory ?? ModuleFactory(container: container)
     }
 }
 
@@ -102,19 +114,15 @@ extension Coordinator: Coordinating {
 extension Coordinator: AppCoordinating {
 
     func onNeedToShowFeedDetails(for feed: Feed) {
-        guard let navigationController else {
-            return
+        pushModule { [self] in
+            moduleFactory.makeFeedItemsModule(for: feed, delegate: self)
         }
-        let feedItemsVC = moduleFactory.makeFeedItemsModule(for: feed, delegate: self)
-        navigationController.pushViewController(feedItemsVC, animated: true)
     }
 
     func onNeedToShowSearchResults(with items: [FeedItem], matching query: String) {
-        guard let navigationController else {
-            return
+        pushModule { [self] in
+            moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query, delegate: self)
         }
-        let feedItemsVC = moduleFactory.makeFeedItemsModuleForSearchResults(with: items, matching: query, delegate: self)
-        navigationController.pushViewController(feedItemsVC, animated: true)
     }
 
     func onNeedToShowExploreFeeds(with results: ExploreFeedsDTO, webPage: String) {
@@ -126,7 +134,7 @@ extension Coordinator: AppCoordinating {
         let navigationVC = UINavigationController(rootViewController: exploreFeedsVC)
         navigationVC.modalPresentationStyle = .fullScreen
 
-        navigationController.present(navigationVC, animated: true)
+        navigationController.presentGuarded(navigationVC)
     }
 
     func onNeedToStartFeedExploration(for webPage: String,
@@ -149,15 +157,48 @@ extension Coordinator: AppCoordinating {
     }
 
     func onNeedToShowArticleReader(for title: String, htmlContent: String, articleURL: URL?) {
-        guard let navigationController else {
+        pushModule { [self] in
+            moduleFactory.makeArticleReaderModule(
+                for: title,
+                htmlContent: htmlContent,
+                articleURL: articleURL
+            )
+        }
+    }
+}
+
+// MARK: - Navigation
+private extension Coordinator {
+
+    /// Pushes a freshly built module, ignoring the request when a push transition
+    /// is already in flight. This serialises rapid "double-trigger" taps into a
+    /// single push and prevents a corrupted navigation stack.
+    ///
+    /// - Parameter makeViewController: Builds the view controller to push. Called
+    ///   only when the push is actually performed (never for a suppressed burst).
+    func pushModule(_ makeViewController: () -> UIViewController) {
+        guard let navigationController, !isPushInFlight else {
             return
         }
-        let articleReaderVC = moduleFactory.makeArticleReaderModule(
-            for: title,
-            htmlContent: htmlContent,
-            articleURL: articleURL
-        )
-        navigationController.pushViewController(articleReaderVC, animated: true)
+
+        isPushInFlight = true
+        navigationController.pushViewController(makeViewController(), animated: true)
+
+        /// The transition coordinator exists immediately after an animated push;
+        /// its completion fires when the push animation finishes. The fallback
+        /// covers the (unexpected) non-animated case so the guard never sticks.
+        if let transitionCoordinator = navigationController.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: nil) { [weak self] _ in
+                self?.isPushInFlight = false
+            }
+        } else {
+            /// No active transition (e.g. no window in a test, or a non-animated
+            /// push). Clear on the next run-loop tick rather than synchronously,
+            /// so a same-tick double-trigger is still collapsed to one push.
+            DispatchQueue.main.async { [weak self] in
+                self?.isPushInFlight = false
+            }
+        }
     }
 }
 

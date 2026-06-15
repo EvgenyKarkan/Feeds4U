@@ -11,33 +11,36 @@ import XCTest
 final class FeedDeletionUITests: FeedsUITestCase {
 
     func testSwipeToDelete_removesRow() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
-
         let target = feedCell("Hacker News")
         assertExists(target)
 
+        // When — swiping the row and confirming Delete (scoped to the table, since
+        // the system trash bar button also carries the "Delete" label).
         target.swipeLeft()
-        // Scope to the table: the system trash bar button also carries the
-        // accessibility label "Delete".
         let deleteButton = app.tables.buttons[Labels.delete]
         assertExists(deleteButton, "Swipe should reveal a Delete action")
         deleteButton.tap()
 
+        // Then — the feed is removed; the others remain.
         assertGone(target, "Deleted feed should disappear")
         assertExists(feedCell("Swift Blog"), "Other feeds must remain")
     }
 
     func testDeleteLastFeed_returnsToEmptyState() {
+        // Given — a single seeded feed.
         launch(scenario: .singleFeed)
-
         let only = feedCell("Swift Blog")
         assertExists(only)
 
+        // When — swipe-deleting the only feed.
         only.swipeLeft()
         let deleteButton = app.tables.buttons[Labels.delete]
         assertExists(deleteButton)
         deleteButton.tap()
 
+        // Then — the empty state is restored.
         assertGone(only)
         assertExists(emptyLabel, "Deleting the last feed should reveal the empty prompt")
         assertGone(trashButton, "Trash button should disappear in the empty state")
@@ -45,22 +48,23 @@ final class FeedDeletionUITests: FeedsUITestCase {
     }
 
     func testTrashButton_entersEditingAndDeletes() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
-
         assertExists(trashButton)
-        trashButton.tap()
 
-        // Editing mode exposes a leading delete control (a red minus) on each row.
+        // When — entering editing mode and tapping a row's delete control.
+        trashButton.tap()
         let minus = feedCell("Swift Blog").buttons.firstMatch
         assertExists(minus, "Editing mode should expose a per-row delete control")
         minus.tap()
 
-        // The trailing confirmation is labelled "Delete"; scope to the table so the
-        // system trash bar button's identical label is excluded.
+        // When — confirming via the trailing "Delete" (scoped to the table so the
+        // system trash bar button's identical label is excluded).
         let confirm = app.tables.buttons[Labels.delete]
         assertExists(confirm, "Tapping the delete control should reveal a Delete confirmation")
         confirm.tap()
 
+        // Then — the feed is removed; the others remain.
         assertGone(feedCell("Swift Blog"))
         assertExists(feedCell("Apple Newsroom"), "Remaining feeds stay in the list")
     }

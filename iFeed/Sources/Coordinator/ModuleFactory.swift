@@ -8,7 +8,13 @@
 
 import Foundation
 import UIKit
+#if DEBUG
+import Mocking
+#endif
 
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol ModuleFactoryProtocol {
     func makeFeedsModule(delegate: any FeedsCoordinatingDelegate) -> UIViewController

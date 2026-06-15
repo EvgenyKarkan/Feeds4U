@@ -104,7 +104,7 @@ extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
             return cell
         }
 
-        controller.present(safariVC, animated: true)
+        controller.presentGuarded(safariVC)
     }
 
     func pushArticleReader(title: String, htmlContent: String, articleURL: URL?) {

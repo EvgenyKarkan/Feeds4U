@@ -20,6 +20,13 @@ final class FeedItemsInteractor {
 
     private var parsingCompletion: ((Result<Void, any Error>) -> Void)?
 
+    /// Re-entrancy guard for ``startParsingFeed(_:completion:)``. A second refresh
+    /// started while one is already in flight makes the parser cancel the first,
+    /// and that cancellation nils out the second refresh's completion — so
+    /// `didEndParsingFeed` early-returns and the pull-to-refresh spinner is never
+    /// dismissed. Ignoring overlapping requests keeps a single refresh in flight.
+    private var isParsing = false
+
     // MARK: - Init
     init(parser: any ParserProtocol,
          storage: any StorageProtocol,
@@ -99,6 +106,13 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
             return
         }
 
+        /// Ignore a refresh requested while one is already running. The in-flight
+        /// parse will dismiss the (single) refresh control when it finishes.
+        guard !isParsing else {
+            return
+        }
+        isParsing = true
+
         parsingCompletion = completion
 
         parser.setDelegate(self)
@@ -125,6 +139,7 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
     /// - Parameter data: Normalized, `Sendable` representation of the remote feed content.
     func didEndParsingFeed(with data: ParsedFeedData) {
         guard let currentFeed = self.feed, parsingCompletion != nil else {
+            isParsing = false
             return
         }
 
@@ -142,6 +157,7 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
                 /// Items may have been added — the search index must be rebuilt before the next query.
                 self.localSearchService.markIndexDirty()
 
+                self.isParsing = false
                 self.parsingCompletion?(.success(()))
                 self.parsingCompletion = nil
             }
@@ -149,11 +165,13 @@ extension FeedItemsInteractor: ParserDelegateProtocol {
     }
 
     func didFailParsingFeed(with error: any Error) {
+        isParsing = false
         parsingCompletion?(.failure(error))
         parsingCompletion = nil
     }
 
     func didCancelParsingFeed() {
+        isParsing = false
         parsingCompletion = nil
     }
 }

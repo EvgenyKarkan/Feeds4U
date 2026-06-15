@@ -616,7 +616,7 @@ struct FeedsPresenterTests {
 
     // MARK: - onViewNeedsToToggleFolder (collapsed folder)
 
-    @Test func onViewNeedsToToggleFolder_whenFolderCollapsed_passesZeroOldRowCount() {
+    @Test func onViewNeedsToToggleFolder_whenFolderCollapsed_animatesTheToggle() {
         // Given
         let folderId = UUID()
         var folder = FeedFolder(id: folderId, name: "Tech", feedURLs: ["https://example.com/feed"])
@@ -625,18 +625,21 @@ struct FeedsPresenterTests {
         stubBuildViewState(feeds: [feed], folders: [folder])
         sut.onViewDidLoad()
 
-        nonisolated(unsafe) var capturedOldRowCount = -1
-        view._animateFolderToggle.implementation = .uncheckedInvokes { _, oldRowCount, _ in
-            capturedOldRowCount = oldRowCount
+        nonisolated(unsafe) var capturedSectionIndex = -1
+        view._animateFolderToggle.implementation = .uncheckedInvokes { sectionIndex, _ in
+            capturedSectionIndex = sectionIndex
         }
 
         // When
         sut.onViewNeedsToToggleFolder(id: folderId)
 
-        // Then
+        // Then — the folder is present in `sections`, so the toggle is animated.
+        // The number of rows to delete/insert is derived by the view from the
+        // table itself (not passed by the presenter), so only the targeted
+        // section index is asserted here.
         #expect(interactor._toggleFolderExpanded.callCount == 1)
         #expect(view._animateFolderToggle.callCount == 1)
-        #expect(capturedOldRowCount == 0)
+        #expect(capturedSectionIndex == 0)
     }
 
     // MARK: - onViewNeedsToSearchFeeds (callback paths)

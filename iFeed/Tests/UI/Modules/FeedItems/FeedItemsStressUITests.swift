@@ -24,9 +24,11 @@ final class FeedItemsStressUITests: FeedItemsUITestCase {
     /// Opens and closes an article in rapid succession, stressing the
     /// ArticleReader push/pop, WKWebView lifecycle, and mark-as-read writes.
     func testStress_rapidArticleOpenClose() {
+        // Given — a feed's items.
         openFeedItems()
-
         let item = feedCell(itemTitles[0])
+
+        // When — opening and closing an article in rapid succession.
         for _ in 0..<12 {
             item.tap()
             assertExists(articleReader, "Reader should open", timeout: 8)
@@ -34,6 +36,7 @@ final class FeedItemsStressUITests: FeedItemsUITestCase {
             assertExists(item, "Should return to the items list", timeout: 8)
         }
 
+        // Then — no crash from the reader push/pop + WKWebView churn.
         XCTAssertEqual(app.state, .runningForeground, "Rapid article open/close must not crash")
     }
 
@@ -41,13 +44,16 @@ final class FeedItemsStressUITests: FeedItemsUITestCase {
     /// no rows lost, no duplicates, no crash (parser is stubbed, so each refresh
     /// completes instantly with no new items).
     func testStress_rapidPullToRefresh() {
+        // Given — a feed's items.
         openFeedItems()
-
         let table = app.tables.firstMatch
+
+        // When — pulling to refresh repeatedly.
         for _ in 0..<8 {
             table.swipeDown()
         }
 
+        // Then — no crash, and the list stays consistent (no rows lost/duplicated).
         XCTAssertEqual(app.state, .runningForeground, "Rapid refresh must not crash")
         for title in itemTitles {
             assertExists(feedCell(title), "Item '\(title)' must persist across refreshes")
@@ -60,11 +66,14 @@ final class FeedItemsStressUITests: FeedItemsUITestCase {
     /// the monkey keeps stressing FeedItems (and its reader/refresh) rather than
     /// wandering off. Asserts the app never crashes and the list stays reachable.
     func testStress_feedItemsMonkey() {
+        // Given — a feed's items.
         openFeedItems()
 
         let window = app.windows.firstMatch
         let iterations = 50
 
+        // When — random gestures on the items screen, recovering to the list after
+        // each so the monkey keeps stressing FeedItems rather than wandering off.
         for index in 0..<iterations {
             performRandomGesture(on: window)
             dismissTransientUI()
@@ -76,6 +85,7 @@ final class FeedItemsStressUITests: FeedItemsUITestCase {
             }
         }
 
+        // Then — the app survives and the items list stays reachable.
         XCTAssertEqual(app.state, .runningForeground, "FeedItems must survive monkey testing")
         returnToItems()
         assertExists(feedCell(itemTitles[0]), "Items list must remain reachable after monkey testing")

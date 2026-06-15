@@ -8,6 +8,9 @@
 
 import Foundation
 import Testing
+import Mocking
+import CoreData
+import UIKit
 @testable import iFeed
 
 @Suite("Coordinator Tests")
@@ -63,5 +66,100 @@ struct CoordinatorTests {
 
         // When / Then
         #expect(Coordinator.feedURL(fromDeepLink: url) == nil)
+    }
+
+    // MARK: - Push re-entrancy guard
+
+    @Test func onNeedToShowArticleReader_pushesReaderOnce() {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        factory._makeArticleReaderModule.implementation = .uncheckedInvokes { _, _, _ in UIViewController() }
+
+        // When
+        sut.onNeedToShowArticleReader(for: "Title", htmlContent: "<p>x</p>", articleURL: nil)
+
+        // Then — exactly one module pushed onto the root.
+        #expect(factory._makeArticleReaderModule.callCount == 1)
+        #expect(nav.viewControllers.count == 2)
+    }
+
+    @Test func onNeedToShowArticleReader_whilePushInFlight_ignoresSecondPush() {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        factory._makeArticleReaderModule.implementation = .uncheckedInvokes { _, _, _ in UIViewController() }
+
+        // When — a synchronous double-trigger before the first push settles.
+        sut.onNeedToShowArticleReader(for: "Title", htmlContent: "<p>x</p>", articleURL: nil)
+        sut.onNeedToShowArticleReader(for: "Title", htmlContent: "<p>x</p>", articleURL: nil)
+
+        // Then — the second request is ignored; no double-push.
+        #expect(factory._makeArticleReaderModule.callCount == 1)
+        #expect(nav.viewControllers.count == 2)
+    }
+
+    @Test func onNeedToShowArticleReader_afterPushSettles_allowsNextPush() async {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        factory._makeArticleReaderModule.implementation = .uncheckedInvokes { _, _, _ in UIViewController() }
+
+        // When — the guard is released on the next run-loop tick (no window).
+        sut.onNeedToShowArticleReader(for: "A", htmlContent: "<p>a</p>", articleURL: nil)
+        try? await Task.sleep(for: .milliseconds(50))
+        sut.onNeedToShowArticleReader(for: "B", htmlContent: "<p>b</p>", articleURL: nil)
+
+        // Then — both pushes are honoured once the first has settled.
+        #expect(factory._makeArticleReaderModule.callCount == 2)
+        #expect(nav.viewControllers.count == 3)
+    }
+
+    @Test func onNeedToShowFeedDetails_whilePushInFlight_ignoresSecondPush() throws {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        factory._makeFeedItemsModule.implementation = .uncheckedInvokes { _, _ in UIViewController() }
+        let feed = try makeFeed()
+
+        // When — rapid double-tap on a feed row.
+        sut.onNeedToShowFeedDetails(for: feed)
+        sut.onNeedToShowFeedDetails(for: feed)
+
+        // Then — only one FeedItems module is pushed.
+        #expect(factory._makeFeedItemsModule.callCount == 1)
+        #expect(nav.viewControllers.count == 2)
+    }
+
+    @Test func onNeedToShowSearchResults_whilePushInFlight_ignoresSecondPush() {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        factory._makeFeedItemsModuleForSearchResults.implementation = .uncheckedInvokes { _, _, _ in UIViewController() }
+
+        // When
+        sut.onNeedToShowSearchResults(with: [], matching: "swift")
+        sut.onNeedToShowSearchResults(with: [], matching: "swift")
+
+        // Then
+        #expect(factory._makeFeedItemsModuleForSearchResults.callCount == 1)
+        #expect(nav.viewControllers.count == 2)
+    }
+
+    // MARK: - Helpers
+
+    private func makeCoordinator() -> (Coordinator, UINavigationController, ModuleFactoryProtocolMock) {
+        let nav = UINavigationController(rootViewController: UIViewController())
+        let factory = ModuleFactoryProtocolMock()
+        let sut = Coordinator(container: DIContainer(), controller: nav, moduleFactory: factory)
+        return (sut, nav, factory)
+    }
+
+    private func makeFeed() throws -> Feed {
+        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: TestCoreDataModel.shared)
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { _, _ in }
+
+        let feed = Feed(context: container.viewContext)
+        feed.rssURL = "https://example.com/rss"
+        feed.title = "Example"
+        return feed
     }
 }

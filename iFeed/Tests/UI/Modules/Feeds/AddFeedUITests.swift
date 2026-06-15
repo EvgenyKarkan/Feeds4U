@@ -14,11 +14,14 @@ import XCTest
 final class AddFeedUITests: FeedsUITestCase {
 
     func testAddMenu_enterFeedAlert_validatesAndCancels() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
 
+        // When — opening the "+" menu and choosing "Enter a new feed".
         addButton.tap()
         tapMenuItem(Labels.enterNewFeedMenu)
 
+        // Then — the enter-feed alert appears and validates input.
         assertExists(app.staticTexts[Labels.enterFeedMessage], "Enter-feed alert should appear")
         assertExists(alertTextField)
 
@@ -28,20 +31,29 @@ final class AddFeedUITests: FeedsUITestCase {
         alertTextField.typeText("https://example.com/rss")
         XCTAssertTrue(addAction.isEnabled, "Submit should enable for a valid URL")
 
+        // When — cancelling.
         app.buttons[Labels.cancel].tap()
+
+        // Then — the alert is dismissed.
         assertGone(alertTextField, "Cancel should dismiss the alert")
     }
 
     func testAddMenu_exploreAlert_appearsAndCancels() {
+        // Given — a populated feeds list.
         launch(scenario: .populated)
 
+        // When — opening the "+" menu and choosing "Explore feeds".
         addButton.tap()
         tapMenuItem(Labels.exploreFeedsMenu)
 
+        // Then — the explore alert appears.
         assertExists(app.staticTexts[Labels.exploreMessage], "Explore alert should appear")
         assertExists(alertTextField)
 
+        // When — cancelling.
         app.buttons[Labels.cancel].tap()
+
+        // Then — the alert is dismissed.
         assertGone(alertTextField, "Cancel should dismiss the alert")
     }
 }

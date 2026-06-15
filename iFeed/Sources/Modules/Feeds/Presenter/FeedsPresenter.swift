@@ -241,13 +241,10 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
             return
         }
 
-        let section = currentSections[sectionIndex]
-        let oldRowCount = section.folder?.isExpanded == true ? section.feeds.count : 0
-
         interactor.toggleFolderExpanded(id: id)
 
         let viewState = buildViewState()
-        view?.animateFolderToggle(at: sectionIndex, oldRowCount: oldRowCount, with: viewState)
+        view?.animateFolderToggle(at: sectionIndex, with: viewState)
     }
 }
 

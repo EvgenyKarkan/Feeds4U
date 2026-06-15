@@ -264,6 +264,38 @@ struct FeedItemsInteractorTests {
         #expect(parser._beginParsingURL.lastInvocation == URL(string: testRSSURL))
     }
 
+    @Test func startParsingFeed_whileAlreadyParsing_ignoresSecondRequest() {
+        // Given — a refresh is in flight (the mocked parser never auto-completes,
+        // so `isParsing` stays raised).
+        let sut = makeSUT(feed: testFeed)
+        sut.startParsingFeed(testRSSURL) { _ in }
+        #expect(parser._beginParsingURL.callCount == 1)
+
+        // When — a second refresh is requested before the first finishes.
+        sut.startParsingFeed(testRSSURL) { _ in }
+
+        // Then — it is ignored; only one parse is ever started. Without the guard
+        // the second parse cancels the first, whose cancellation nils the second's
+        // completion and strands the pull-to-refresh spinner.
+        #expect(parser._beginParsingURL.callCount == 1)
+    }
+
+    @Test func startParsingFeed_afterCompletion_isAllowedAgain() {
+        // Given — the first refresh runs to completion, releasing the guard.
+        storage._refreshFeedItems.implementation = .uncheckedInvokes { _, _, completion in
+            completion()
+        }
+        let sut = makeSUT(feed: testFeed)
+        sut.startParsingFeed(testRSSURL) { _ in }
+        sut.didEndParsingFeed(with: ParsedFeedData(title: "T", summary: "S", items: []))
+
+        // When — a new refresh after the previous one finished.
+        sut.startParsingFeed(testRSSURL) { _ in }
+
+        // Then — permitted again; the guard is reset on completion.
+        #expect(parser._beginParsingURL.callCount == 2)
+    }
+
     @Test func didEndParsingFeed_whenNoFeed_doesNothing() {
         let sut = makeSUT(feed: nil)
         let data = ParsedFeedData(title: "T", summary: "S", items: [])
@@ -316,6 +348,32 @@ struct FeedItemsInteractorTests {
         #expect(callCount == 0)
         sut.didEndParsingFeed(with: ParsedFeedData(title: "T", summary: "S", items: []))
         #expect(callCount == 0)
+    }
+
+    @Test func startParsingFeed_afterFailure_isAllowedAgain() {
+        // Given — the first refresh fails, which must release the re-entrancy guard.
+        let sut = makeSUT(feed: testFeed)
+        sut.startParsingFeed(testRSSURL) { _ in }
+        sut.didFailParsingFeed(with: URLError(.notConnectedToInternet))
+
+        // When
+        sut.startParsingFeed(testRSSURL) { _ in }
+
+        // Then — a new refresh is permitted after a failed one.
+        #expect(parser._beginParsingURL.callCount == 2)
+    }
+
+    @Test func startParsingFeed_afterCancellation_isAllowedAgain() {
+        // Given — the first refresh is cancelled, which must release the guard.
+        let sut = makeSUT(feed: testFeed)
+        sut.startParsingFeed(testRSSURL) { _ in }
+        sut.didCancelParsingFeed()
+
+        // When
+        sut.startParsingFeed(testRSSURL) { _ in }
+
+        // Then
+        #expect(parser._beginParsingURL.callCount == 2)
     }
 
     @Test func delegateMethods_withoutActiveParsing_doNothing() {

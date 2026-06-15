@@ -263,7 +263,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
                                 for: .editingChanged)
         }
 
-        present(alertController, animated: true)
+        presentGuarded(alertController)
     }
 
     func showNoSearchResultsAlert() {
@@ -277,9 +277,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
                                                   style: .cancel)
         noResultsAlert.addAction(noResultsCancelAction)
 
-        if presentedViewController == nil {
-            present(noResultsAlert, animated: true)
-        }
+        presentGuarded(noResultsAlert)
     }
 
     func showNoFeedsDiscoveredAlert() {
@@ -293,9 +291,7 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
                                      style: .cancel)
         alert.addAction(okAction)
 
-        if presentedViewController == nil {
-            present(alert, animated: true)
-        }
+        presentGuarded(alert)
     }
 
     func disableTableViewEditingStateIfNeeded() {
@@ -347,12 +343,20 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         applyViewState(viewState)
     }
 
-    /// Animates expanding/collapsing a folder section. Deletes `oldRowCount` rows first,
-    /// then inserts the new row count — this two-step approach handles both expand and collapse
-    /// within a single `performBatchUpdates` call. Also refreshes the header's chevron state.
-    func animateFolderToggle(at sectionIndex: Int, oldRowCount: Int, with viewState: FeedsViewState) {
+    /// Animates expanding/collapsing a folder section by replacing the section's
+    /// rows in a single `performBatchUpdates` — deleting the rows currently shown,
+    /// then inserting the new set. Also refreshes the header's chevron state.
+    ///
+    /// The delete count is read straight from the table view, never from a
+    /// caller-supplied snapshot, so it always equals what the table actually
+    /// displays. Under rapid/chaotic toggling the presenter's snapshot can drift
+    /// from the table, and a mismatched delete count is exactly what raises
+    /// "invalid number of rows in section". Deleting all current rows and
+    /// inserting all new rows is always count-consistent (old − old + new == new).
+    func animateFolderToggle(at sectionIndex: Int, with viewState: FeedsViewState) {
         guard let tableView = feedListView?.tableView,
-              sectionIndex < viewState.sections.count else {
+              sectionIndex < viewState.sections.count,
+              sectionIndex < tableView.numberOfSections else {
             tableViewProvider?.sections = viewState.sections
             tableViewProvider?.unreadCounts = viewState.unreadCounts
             feedListView?.reloadTableView()
@@ -362,13 +366,14 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         let section = viewState.sections[sectionIndex]
         let isExpanded = section.folder?.isExpanded ?? true
         let newRowCount = isExpanded ? section.feeds.count : 0
+        let currentRowCount = tableView.numberOfRows(inSection: sectionIndex)
 
         tableView.performBatchUpdates {
             self.tableViewProvider?.sections = viewState.sections
             self.tableViewProvider?.unreadCounts = viewState.unreadCounts
 
-            if oldRowCount > 0 {
-                let paths = (0..<oldRowCount).map { IndexPath(row: $0, section: sectionIndex) }
+            if currentRowCount > 0 {
+                let paths = (0..<currentRowCount).map { IndexPath(row: $0, section: sectionIndex) }
                 tableView.deleteRows(at: paths, with: .fade)
             }
             if newRowCount > 0 {
@@ -609,7 +614,7 @@ private extension FeedsViewController {
             )
         }
 
-        present(alert, animated: true)
+        presentGuarded(alert)
     }
 
     func applyViewState(_ viewState: FeedsViewState) {

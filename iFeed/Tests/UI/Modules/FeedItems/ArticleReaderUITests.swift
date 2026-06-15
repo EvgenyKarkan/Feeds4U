@@ -13,16 +13,21 @@ import XCTest
 final class ArticleReaderUITests: FeedItemsUITestCase {
 
     func testTapItem_opensReaderThenBackReturnsToList() {
+        // Given — a feed's items.
         openFeedItems()
-
         let item = feedCell(itemTitles[0])
+
+        // When — tapping an item.
         item.tap()
 
-        // The in-app reader's web view appears, titled with the article.
+        // Then — the in-app reader's web view appears, titled with the article.
         assertExists(articleReader, "Tapping an item should open the in-app article reader")
         assertExists(app.navigationBars[itemTitles[0]], "Reader nav title should be the article title")
 
+        // When — going back.
         backButton.tap()
+
+        // Then — the reader is dismissed and the items list is shown again.
         assertGone(articleReader, "Leaving the reader should dismiss the web view")
         assertExists(feedCell(itemTitles[0]), "Back should return to the items list")
     }

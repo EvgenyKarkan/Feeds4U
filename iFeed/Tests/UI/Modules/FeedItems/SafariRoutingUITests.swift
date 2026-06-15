@@ -14,17 +14,19 @@ import XCTest
 final class SafariRoutingUITests: FeedItemsUITestCase {
 
     func testTapBodylessItem_routesToSafari() {
+        // Given — a feed containing a body-less item (no inline HTML).
         launch(scenario: .populated)
-
         feedCell("The Verge").tap()
         assertGone(addButton)
-
         let item = feedCell("Open in Safari")
         assertExists(item)
+
+        // When — tapping the body-less item.
         item.tap()
 
-        // SFSafariViewController is system UI hosting an out-of-process web view;
-        // its chrome (the top browser bar + address button) is what XCUI can see.
+        // Then — it routes to SFSafariViewController (out-of-process system UI),
+        // whose chrome (top browser bar + address button) is what XCUI can see —
+        // not the in-app reader.
         assertExists(app.otherElements["TopBrowserBar"],
                      "Tapping a body-less item should route to Safari")
         XCTAssertTrue(app.buttons["URL"].exists, "Safari's address bar should be present")

@@ -11,8 +11,10 @@ import XCTest
 final class ListUITests: FeedsUITestCase {
 
     func testPopulatedList_rendersFeedsAndAllControls() {
+        // Given / When — the app launches with seeded feeds.
         launch(scenario: .populated)
 
+        // Then — every feed renders, alongside all list controls.
         assertExists(feedsTable)
         assertExists(feedCell("Swift Blog"))
         assertExists(feedCell("Apple Newsroom"))
