@@ -85,8 +85,14 @@ extension Coordinator: Coordinating {
     /// - when the remainder carries no `http(s)` scheme of its own, `https://`
     ///   is prepended (`feed://https://…`-style links keep their explicit scheme).
     ///
-    /// - Returns: An absolute URL string, or `nil` when the link carries no
-    ///   resource specifier at all.
+    /// - Returns: An absolute web (`http`/`https`) URL string, or `nil` when the
+    ///   link carries no resource specifier at all.
+    ///
+    /// The result always carries an `http`/`https` scheme: an explicit web scheme
+    /// is preserved, otherwise `https://` is prepended. A crafted non-web scheme
+    /// (e.g. `file:`) is therefore neutralised — it cannot survive as the result's
+    /// scheme — and the prefilled string still has to clear `String.isValidURL`
+    /// before the add-feed button enables.
     static func feedURL(fromDeepLink url: URL) -> String? {
         guard let specifier = (url as NSURL).resourceSpecifier, !specifier.isEmpty else {
             return nil

@@ -45,8 +45,14 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<!-- Arbitrary loads are required: FeedKit fetches user-supplied RSS/Atom feed
+	     URLs (some of which are HTTP-only), and WKWebView loads arbitrary web pages
+	     during feed discovery. The set of hosts is unknowable at build time, so no
+	     NSExceptionDomains allow-list is possible. -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

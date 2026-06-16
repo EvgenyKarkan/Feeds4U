@@ -101,7 +101,7 @@ extension FeedItemsInteractor: FeedItemsInteractorProtocol {
             case invalidURL
         }
 
-        guard !url.isEmpty, let feedURL = URL(string: url) else {
+        guard !url.isEmpty, url.isValidURL, let feedURL = URL(string: url) else {
             completion(.failure(ParsingError.invalidURL))
             return
         }

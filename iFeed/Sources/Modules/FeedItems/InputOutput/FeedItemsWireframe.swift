@@ -100,7 +100,11 @@ extension FeedItemsWireframe: @MainActor FeedItemsWireframeProtocol {
         let zoomOptions = UIViewController.Transition.ZoomOptions()
         zoomOptions.dimmingVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
 
-        safariVC.preferredTransition = .zoom(options: zoomOptions) { _ in
+        // Capture the cell weakly: the zoom provider is retained by Safari for the
+        // whole presentation, so a strong capture would pin the cell and block its
+        // reuse. If the row is recycled while Safari is up, the provider simply
+        // returns nil and the dismissal falls back to a non-zoom transition.
+        safariVC.preferredTransition = .zoom(options: zoomOptions) { [weak cell] _ in
             return cell
         }
 

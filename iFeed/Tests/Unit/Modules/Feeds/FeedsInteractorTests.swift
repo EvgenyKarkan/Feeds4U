@@ -174,6 +174,24 @@ struct FeedsInteractorTests {
         #expect(parser._beginParsingURL.callCount == 0)
     }
 
+    @Test func startParsingFeed_withNonWebScheme_callsCompletionWithFailure() {
+        // Given — a dangerous non-web scheme must never reach the parser.
+        var receivedResult: Result<Feed, any Error>?
+
+        // When
+        sut.startParsingFeed("file:///etc/passwd") { result in
+            receivedResult = result
+        }
+
+        // Then
+        guard case .failure = receivedResult else {
+            Issue.record("Expected failure result for non-web scheme")
+            return
+        }
+        #expect(parser._setDelegate.callCount == 0)
+        #expect(parser._beginParsingURL.callCount == 0)
+    }
+
     @Test func startParsingFeed_withValidURL_setsParserDelegateAndBeginsParsingURL() {
         // Given
         let urlString = testFeedURL

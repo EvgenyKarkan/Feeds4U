@@ -112,8 +112,13 @@ extension String {
         return try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
     }()
 
-    /// Whether the string contains a valid URL, as determined by `NSDataDetector` link checking.
-    /// Returns `false` for empty or whitespace-only strings.
+    /// Whether the string is a valid **web** URL, as determined by `NSDataDetector`
+    /// link checking, restricted to the `http`/`https` schemes.
+    ///
+    /// Returns `false` for empty or whitespace-only strings, and for links that
+    /// resolve to any non-web scheme (`javascript:`, `file:`, `data:`, `ftp:`, …).
+    /// `NSDataDetector` normalises a bare host such as `www.example.com` to an
+    /// `http` URL, so scheme-less input that names a real host still passes.
     var isValidURL: Bool {
         guard !isEmpty, !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return false
@@ -127,7 +132,10 @@ extension String {
             options: [],
             range: NSRange(location: .zero, length: utf16.count)
         )
-        return !matches.isEmpty
+        guard let scheme = matches.first?.url?.scheme?.lowercased() else {
+            return false
+        }
+        return scheme == "http" || scheme == "https"
     }
 }
 

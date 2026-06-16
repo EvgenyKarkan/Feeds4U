@@ -233,11 +233,14 @@ struct FeedItemsInteractorTests {
     // MARK: - Feed Parsing Lifecycle
 
     @Test func startParsingFeed_withEmptyURL_callsCompletionWithFailure() {
+        // Given
         let sut = makeSUT()
         var receivedResult: Result<Void, any Error>?
 
+        // When
         sut.startParsingFeed("") { receivedResult = $0 }
 
+        // Then
         guard case .failure = receivedResult else {
             Issue.record("Expected failure for empty URL")
             return
@@ -245,15 +248,35 @@ struct FeedItemsInteractorTests {
     }
 
     @Test func startParsingFeed_withInvalidURL_callsCompletionWithFailure() {
+        // Given
         let sut = makeSUT()
         var receivedResult: Result<Void, any Error>?
 
+        // When
         sut.startParsingFeed(" http://[") { receivedResult = $0 }
 
+        // Then
         guard case .failure = receivedResult else {
             Issue.record("Expected failure for invalid URL")
             return
         }
+    }
+
+    @Test func startParsingFeed_withNonWebScheme_callsCompletionWithFailure() {
+        // Given — a dangerous non-web scheme must never reach the parser.
+        let sut = makeSUT()
+        var receivedResult: Result<Void, any Error>?
+
+        // When
+        sut.startParsingFeed("file:///etc/passwd") { receivedResult = $0 }
+
+        // Then
+        guard case .failure = receivedResult else {
+            Issue.record("Expected failure for non-web scheme")
+            return
+        }
+        #expect(parser._setDelegate.callCount == 0)
+        #expect(parser._beginParsingURL.callCount == 0)
     }
 
     @Test func startParsingFeed_withValidURL_startsParser() {

@@ -68,6 +68,15 @@ struct CoordinatorTests {
         #expect(Coordinator.feedURL(fromDeepLink: url) == nil)
     }
 
+    @Test func feedURLFromDeepLink_withNonWebScheme_isForcedToHTTPS() throws {
+        // Given — a crafted link wrapping a non-web scheme.
+        let url = try #require(URL(string: "feed://file:///etc/passwd"))
+
+        // When / Then — `file:` cannot survive as the scheme; `https://` is
+        // prepended, so the result can never address a local file.
+        #expect(Coordinator.feedURL(fromDeepLink: url)?.hasPrefix("https://") == true)
+    }
+
     // MARK: - Push re-entrancy guard
 
     @Test func onNeedToShowArticleReader_pushesReaderOnce() {
