@@ -24,7 +24,7 @@ Requires iOS 18.0 or later.
 - One unified inbox for RSS, Atom, and JSON Feed sources
 
 ### Read Comfortably
-- Pull to refresh for the latest articles
+- Pull to refresh for the latest articles — with a subtle haptic tap to confirm
 - Unread badges and a per-article dot indicator show what's new at a glance
 - **Mark a whole feed as read** with one tap; individual articles are marked read as you open them
 - A built-in **offline reader** renders articles with clean, readable typography
@@ -48,6 +48,10 @@ Requires iOS 18.0 or later.
 - **Deep linking** — open `feed://…` or `Feeds4U://…` links straight from other apps or Safari
 - Integrates with the iOS **Settings** app
 
+### Accessible
+- Full **VoiceOver** support — feeds and articles announce their title, unread state and badge counts; folders announce their expanded/collapsed state and can be toggled; pull-to-refresh and the reader's actions are reachable and labelled
+- **Dynamic Type** so text scales with your preferred reading size
+
 ### Localized
 Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (Simplified), English, Filipino, French, German, Hindi, Indonesian, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Portuguese (Portugal), Punjabi, Russian, Spanish, Thai, Turkish, and Ukrainian.
 
@@ -56,6 +60,7 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 ### Platform
 - **Swift 6** (strict concurrency) and programmatic **UIKit** — **Auto Layout** with **`UIStackView`** — targeting **iOS 18+** on iPhone and iPad
 - **Core Data** for persistence, **WKWebView** for feed discovery and the Cloudflare flow
+- **Accessibility** — VoiceOver labels/values, custom actions, and Dynamic Type
 - Localization via **String Catalogs** (23 languages), with a Settings bundle and a deep-link URL scheme
 
 ### Architecture

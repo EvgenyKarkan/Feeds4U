@@ -74,11 +74,31 @@ final class FeedFolderHeaderView: UITableViewHeaderFooterView, Reusable {
         nameLabel.text = name.uppercased()
         countLabel.text = "\(feedCount)"
         accessibilityIdentifier = AccessibilityID.folderHeader(name: name)
+        configureAccessibility(name: name, feedCount: feedCount, isExpanded: isExpanded)
 
         let angle: CGFloat = isExpanded ? .pi / 2 : .zero
         UIView.animate(withDuration: CATransaction.animationDuration()) {
             self.chevronImageView.transform = CGAffineTransform(rotationAngle: angle)
         }
+    }
+
+    // MARK: - Accessibility
+    /// Exposes the header as a single button so VoiceOver announces the folder
+    /// name, its feed count, and its expanded/collapsed state — and can toggle it.
+    private func configureAccessibility(name: String, feedCount: Int, isExpanded: Bool) {
+        isAccessibilityElement = true
+        accessibilityTraits = .button
+        accessibilityLabel = name
+
+        let stateKey = isExpanded
+            ? LocalizableKeys.Accessibility.expanded
+            : LocalizableKeys.Accessibility.collapsed
+        accessibilityValue = "\(feedCount), \(String.localized(key: stateKey))"
+    }
+
+    override func accessibilityActivate() -> Bool {
+        onToggle?()
+        return true
     }
 }
 

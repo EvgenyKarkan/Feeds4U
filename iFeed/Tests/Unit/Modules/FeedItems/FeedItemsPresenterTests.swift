@@ -429,4 +429,29 @@ struct FeedItemsPresenterTests {
         let viewState = view._updateOnDidEndParsingFeed.lastInvocation
         #expect(viewState?.isMarkAllAsReadVisible == false)
     }
+
+    // MARK: - FeedItemsView accessibility
+
+    @Test func feedItemsView_exposesRefreshAccessibilityAction() {
+        // Given / When
+        let feedItemsView = FeedItemsView()
+
+        // Then — a single custom action lets VoiceOver users trigger a refresh
+        // (the pull gesture is unavailable under VoiceOver).
+        let actions = feedItemsView.tableView.accessibilityCustomActions
+        #expect(actions?.count == 1)
+        #expect(actions?.first?.name == String.localized(key: LocalizableKeys.Accessibility.refresh))
+    }
+
+    @Test func feedItemsView_hideRefreshControl_removesAccessibilityAction() {
+        // Given
+        let feedItemsView = FeedItemsView()
+
+        // When — search-results mode hides the refresh control.
+        feedItemsView.hideRefreshControl()
+
+        // Then — the now-meaningless refresh action is dropped too.
+        #expect(feedItemsView.tableView.refreshControl == nil)
+        #expect(feedItemsView.tableView.accessibilityCustomActions == nil)
+    }
 }

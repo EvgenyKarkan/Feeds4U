@@ -34,7 +34,8 @@ class BaseListView: UIView {
     private(set) lazy var label: UILabel = {
         let lbl = UILabel()
         lbl.backgroundColor = backgroundColor
-        lbl.font = .systemFont(ofSize: 18)
+        lbl.font = .preferredFont(forTextStyle: .body)
+        lbl.adjustsFontForContentSizeCategory = true
         lbl.textAlignment = .center
         lbl.numberOfLines = .zero
         lbl.text = String.localized(key: LocalizableKeys.Feed.addNew)

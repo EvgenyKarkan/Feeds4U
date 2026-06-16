@@ -41,6 +41,25 @@ final class ExploreFeedsResultCell: UITableViewCell, Reusable {
         update(descriptionLabel, with: description)
         updateStatusImage(isAdded: isAdded)
     }
+
+    // MARK: - Accessibility
+    /// VoiceOver reads the feed's title + description as the label, and "Added"
+    /// as the value once it has been subscribed to. Computed from the live state
+    /// so it stays correct across reuse.
+    override var accessibilityLabel: String? {
+        get {
+            let parts = [titleLabel, descriptionLabel]
+                .compactMap { $0.isHidden ? nil : $0.text }
+                .filter { !$0.isEmpty }
+            return parts.isEmpty ? nil : parts.joined(separator: ", ")
+        }
+        set { }
+    }
+
+    override var accessibilityValue: String? {
+        get { isShowingAddedState ? String.localized(key: LocalizableKeys.Accessibility.added) : nil }
+        set { }
+    }
 }
 
 // MARK: - Private

@@ -70,7 +70,11 @@ class FeedsUITestCase: XCTestCase {
     }
 
     func folderHeader(_ name: String) -> XCUIElement {
-        return app.otherElements[AccessibilityID.folderHeader(name: name)]
+        // Type-agnostic: the header is exposed to accessibility as a button, but
+        // query by identifier across any element type to stay robust.
+        return app.descendants(matching: .any)
+            .matching(identifier: AccessibilityID.folderHeader(name: name))
+            .firstMatch
     }
 
     // MARK: - Helpers

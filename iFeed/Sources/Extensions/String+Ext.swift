@@ -55,6 +55,16 @@ enum LocalizableKeys {
         static let namePlaceholder = "Folder name"
         static let create = "Create"
     }
+
+    enum Accessibility {
+        static let refresh = "Refresh"
+        static let unread = "Unread"
+        static let expanded = "Expanded"
+        static let collapsed = "Collapsed"
+        static let readingTheme = "Reading theme"
+        static let openInSafari = "Open in Safari"
+        static let added = "Added"
+    }
 }
 
 extension String {

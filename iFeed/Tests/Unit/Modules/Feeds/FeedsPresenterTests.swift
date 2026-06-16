@@ -181,21 +181,6 @@ struct FeedsPresenterTests {
         #expect(view._configureSearchButtonMenu.callCount == 1)
     }
 
-    // MARK: - getAllFeeds
-
-    @Test func getAllFeeds_delegatesToInteractor() {
-        // Given
-        let feed = makeFeed()
-        interactor._getAllFeeds.implementation = .uncheckedInvokes { return [feed] }
-
-        // When
-        let result = sut.getAllFeeds()
-
-        // Then
-        #expect(result.count == 1)
-        #expect(result.first === feed)
-    }
-
     // MARK: - feedForIndexPath
 
     @Test func feedForIndexPath_whenSectionOutOfBounds_returnsNil() {
@@ -864,5 +849,85 @@ struct FeedsPresenterTests {
         // Then
         #expect(view._disableTableViewEditingStateIfNeeded.callCount == 2)
         #expect(view._showFeedIsAlreadySavedError.callCount == 1)
+    }
+
+    // MARK: - FeedCell accessibility
+
+    @Test func feedCell_announcesTitleSubtitleAndUnreadCount() throws {
+        // Given — a cell configured like a feed row (title + summary + unread count).
+        let cell = try makeFeedCell()
+
+        // When
+        cell.titleText = "Swift Blog"
+        cell.subTitleText = "Latest from Swift"
+        cell.itemsCountText = "3"
+
+        // Then — VoiceOver reads the title, then subtitle and "3 Unread".
+        #expect(cell.accessibilityLabel == "Swift Blog")
+        let value = cell.accessibilityValue ?? ""
+        #expect(value.contains("Latest from Swift"))
+        #expect(value.contains("3"))
+        #expect(value.contains(String.localized(key: LocalizableKeys.Accessibility.unread)))
+    }
+
+    @Test func feedCell_unreadArticle_announcesUnread() throws {
+        // Given / When — an unread article row.
+        let cell = try makeFeedCell()
+        cell.titleText = "Swift 6 concurrency"
+        cell.wasReadCell = false
+
+        // Then
+        #expect(cell.accessibilityValue?.contains(String.localized(key: LocalizableKeys.Accessibility.unread)) == true)
+    }
+
+    @Test func feedCell_readArticle_omitsUnread() throws {
+        // Given / When — a read article row.
+        let cell = try makeFeedCell()
+        cell.titleText = "Swift 6 concurrency"
+        cell.wasReadCell = true
+
+        // Then
+        let value = cell.accessibilityValue ?? ""
+        #expect(!value.contains(String.localized(key: LocalizableKeys.Accessibility.unread)))
+    }
+
+    // MARK: - FeedFolderHeaderView accessibility
+
+    @Test func folderHeader_announcesNameCountAndExpandedState() {
+        // Given / When
+        let header = FeedFolderHeaderView(reuseIdentifier: nil)
+        header.configure(name: "Tech", feedCount: 2, isExpanded: true)
+
+        // Then — a single button announcing the folder, its count, and its state.
+        #expect(header.isAccessibilityElement)
+        #expect(header.accessibilityTraits.contains(.button))
+        #expect(header.accessibilityLabel == "Tech")
+        let value = header.accessibilityValue ?? ""
+        #expect(value.contains("2"))
+        #expect(value.contains(String.localized(key: LocalizableKeys.Accessibility.expanded)))
+    }
+
+    @Test func folderHeader_collapsed_announcesCollapsed_andActivateToggles() {
+        // Given
+        let header = FeedFolderHeaderView(reuseIdentifier: nil)
+        header.configure(name: "Tech", feedCount: 2, isExpanded: false)
+        #expect(header.accessibilityValue?.contains(String.localized(key: LocalizableKeys.Accessibility.collapsed)) == true)
+
+        nonisolated(unsafe) var toggled = false
+        header.onToggle = { toggled = true }
+
+        // When — VoiceOver activates the header.
+        let handled = header.accessibilityActivate()
+
+        // Then — the toggle fires.
+        #expect(handled)
+        #expect(toggled)
+    }
+
+    // MARK: - Helpers
+
+    private func makeFeedCell() throws -> FeedCell {
+        let nib = UINib(nibName: String(describing: FeedCell.self), bundle: Bundle(for: FeedCell.self))
+        return try #require(nib.instantiate(withOwner: nil).first as? FeedCell)
     }
 }

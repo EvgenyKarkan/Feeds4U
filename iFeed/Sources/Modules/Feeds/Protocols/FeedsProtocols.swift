@@ -145,9 +145,6 @@ protocol FeedsViewDelegate: AnyObject {
     func onViewNeedsToSearchFeeds(by searchTerm: String)
     func onViewNeedsToClearRecentSearches()
 
-    func getAllFeeds() -> [Feed]
-    func feedForIndexPath(_ indexPath: IndexPath) -> Feed?
-
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath)
     func onViewNeedsToDeleteFeedAtIndexPath(_ indexPath: IndexPath)
 

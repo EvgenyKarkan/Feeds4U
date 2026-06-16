@@ -29,11 +29,37 @@ final class FeedItemsView: BaseListView {
 
         tableView.refreshControl = refreshControl
         refreshControl.layer.zPosition = tableView.layer.zPosition - 1
+
+        configureRefreshAccessibility()
     }
 
     // MARK: - Action
     @objc private func refresh(_ sender: UIRefreshControl) {
+        triggerRefreshHaptic()
         delegate?.didPullToRefresh(sender)
+    }
+
+    /// A light tap confirms a refresh was initiated — whether by the pull gesture
+    /// or the VoiceOver custom action.
+    private func triggerRefreshHaptic() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+
+    /// Exposes pull-to-refresh to assistive technologies. The pull gesture is not
+    /// available under VoiceOver, so a custom action lets those users trigger a
+    /// refresh from the list's rotor.
+    private func configureRefreshAccessibility() {
+        let title = String.localized(key: LocalizableKeys.Accessibility.refresh)
+        let action = UIAccessibilityCustomAction(name: title) { [weak self] _ in
+            guard let self else {
+                return false
+            }
+            self.triggerRefreshHaptic()
+            self.refreshControl.beginRefreshing()
+            self.delegate?.didPullToRefresh(self.refreshControl)
+            return true
+        }
+        tableView.accessibilityCustomActions = [action]
     }
 
     // MARK: - Public
@@ -45,7 +71,9 @@ final class FeedItemsView: BaseListView {
     }
 
     func hideRefreshControl() {
-        refreshControl.removeFromSuperview()
+        tableView.refreshControl = nil
+        /// Search-results mode has no refresh — drop the accessibility action too.
+        tableView.accessibilityCustomActions = nil
     }
 
     func scrollToTop() {

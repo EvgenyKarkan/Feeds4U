@@ -143,6 +143,7 @@ struct CoordinatorTests {
 
     // MARK: - Helpers
 
+    // swiftlint:disable:next large_tuple
     private func makeCoordinator() -> (Coordinator, UINavigationController, ModuleFactoryProtocolMock) {
         let nav = UINavigationController(rootViewController: UIViewController())
         let factory = ModuleFactoryProtocolMock()

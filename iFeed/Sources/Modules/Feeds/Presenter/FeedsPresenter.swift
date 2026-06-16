@@ -168,10 +168,9 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         }
     }
 
-    func getAllFeeds() -> [Feed] {
-        return interactor.getAllFeeds()
-    }
-
+    /// Internal section-indexing helper — resolves the feed at a table index path
+    /// from the current sections. Used by the selection/deletion handlers below;
+    /// no longer part of the View-facing protocol (the View never pulls data).
     func feedForIndexPath(_ indexPath: IndexPath) -> Feed? {
         guard indexPath.section < currentSections.count else {
             return nil

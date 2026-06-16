@@ -24,6 +24,10 @@ final class ArticleReaderUITests: FeedItemsUITestCase {
         assertExists(articleReader, "Tapping an item should open the in-app article reader")
         assertExists(app.navigationBars[itemTitles[0]], "Reader nav title should be the article title")
 
+        // Then — the image-only nav buttons carry accessibility labels for VoiceOver.
+        assertExists(app.buttons["Open in Safari"], "Safari button should be VoiceOver-labelled")
+        assertExists(app.buttons["Reading theme"], "Theme button should be VoiceOver-labelled")
+
         // When — going back.
         backButton.tap()
 

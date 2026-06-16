@@ -169,6 +169,7 @@ private extension ArticleReaderViewController {
         themeButton.setImage(UIImage(systemName: "moon"), for: .normal)
         themeButton.addTarget(self, action: #selector(toggleThemeTapped), for: .touchUpInside)
         themeButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+        themeButton.accessibilityLabel = String.localized(key: LocalizableKeys.Accessibility.readingTheme)
 
         let stack = UIStackView(arrangedSubviews: [themeButton])
         stack.axis = .horizontal
@@ -179,6 +180,7 @@ private extension ArticleReaderViewController {
             safariButton.setImage(UIImage(systemName: "safari"), for: .normal)
             safariButton.addTarget(self, action: #selector(openInSafariTapped), for: .touchUpInside)
             safariButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+            safariButton.accessibilityLabel = String.localized(key: LocalizableKeys.Accessibility.openInSafari)
             stack.insertArrangedSubview(safariButton, at: 0)
         }
 

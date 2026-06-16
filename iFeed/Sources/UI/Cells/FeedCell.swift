@@ -94,6 +94,10 @@ final class FeedCell: UITableViewCell, Reusable {
             dotView.layer.masksToBounds = true
             dotView.backgroundColor = .systemBlue
 
+            /// The title/subtitle labels already scale via the nib; the count
+            /// badge did not — opt it into Dynamic Type to match.
+            countLabel.adjustsFontForContentSizeCategory = true
+
             contentView.addSubview(bottomSeparator)
 
             let separatorHeight = bottomSeparator.heightAnchor.constraint(equalToConstant: hairlineHeight)
@@ -150,6 +154,52 @@ final class FeedCell: UITableViewCell, Reusable {
         bottomLabel.text = nil
         bottomLabel.fadeTransition(0.33)
         bottomLabel.text = subTitleText
+    }
+
+    // MARK: - Accessibility
+    /// VoiceOver reads the title as the label and the subtitle + unread state as
+    /// the value (e.g. "Swift Blog" · "3 Unread", or "Swift 6 concurrency" ·
+    /// "Jun 16, Unread"). Computed from the live cell state so it stays correct
+    /// across reuse regardless of the order properties are set, and without
+    /// making the cell a single element — which would hide the editing-mode
+    /// delete control from assistive tech.
+    override var accessibilityLabel: String? {
+        get {
+            guard !topLabel.isHidden else {
+                return nil
+            }
+            return topLabel.text
+        }
+        set { }
+    }
+
+    override var accessibilityValue: String? {
+        get {
+            var parts: [String] = []
+            if !bottomLabel.isHidden, let subtitle = bottomLabel.text, !subtitle.isEmpty {
+                parts.append(subtitle)
+            }
+            if let unread = unreadAccessibilityDescription {
+                parts.append(unread)
+            }
+            return parts.isEmpty ? nil : parts.joined(separator: ", ")
+        }
+        set { }
+    }
+
+    /// Spoken unread state — a count for feed rows ("3 Unread") or a flag for an
+    /// unread article row ("Unread"). `nil` when there is nothing unread.
+    private var unreadAccessibilityDescription: String? {
+        let unread = String.localized(key: LocalizableKeys.Accessibility.unread)
+
+        if !countLabel.isHidden, let count = countLabel.text,
+           !count.isEmpty, count != Int.zero.description {
+            return "\(count) \(unread)"
+        }
+        if !dotView.isHidden {
+            return unread
+        }
+        return nil
     }
 }
 
