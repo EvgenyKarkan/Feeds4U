@@ -7,8 +7,14 @@
 //
 
 import WebKit
+#if DEBUG
+import Mocking
+#endif
 
 /// Presenter ---> Wireframe
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol CloudflareBypassWireframeProtocol: AnyObject {
     func presentChallenge(with webView: WKWebView)
@@ -16,6 +22,9 @@ protocol CloudflareBypassWireframeProtocol: AnyObject {
 }
 
 /// Presenter ---> Interactor
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol CloudflareBypassInteractorProtocol: AnyObject {
     func startFeedSearch(for webPage: String,
@@ -37,12 +46,18 @@ protocol CloudflareBypassViewDelegate: AnyObject {
 }
 
 /// Module input (parent ---> CloudflareBypass module)
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol CloudflareBypassModuleInput: AnyObject {
     func startSearch()
 }
 
 /// Module output (CloudflareBypass module ---> parent)
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol CloudflareBypassModuleOutput: AnyObject {
     func cloudflareBypassDidPresentChallenge()

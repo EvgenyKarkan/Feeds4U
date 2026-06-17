@@ -7,14 +7,23 @@
 //
 
 import Foundation
+#if DEBUG
+import Mocking
+#endif
 
 /// Presenter ---> Wireframe
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol ExploreFeedsWireframeProtocol: AnyObject {
 
 }
 
 /// Presenter ---> Interactor
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol ExploreFeedsInteractorProtocol: AnyObject {
     func getWebPageTitle() -> String
@@ -28,6 +37,9 @@ protocol ExploreFeedsInteractorProtocol: AnyObject {
 }
 
 /// Presenter ---> View
+#if DEBUG
+@Mocked(compilationCondition: .debug)
+#endif
 @MainActor
 protocol ExploreFeedsViewProtocol: AnyObject {
     func updateOnDidLoad(with viewState: ExploreFeedsViewState)

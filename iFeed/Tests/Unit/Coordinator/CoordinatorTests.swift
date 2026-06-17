@@ -150,6 +150,161 @@ struct CoordinatorTests {
         #expect(nav.viewControllers.count == 2)
     }
 
+    // MARK: - start()
+
+    @Test func start_setsFeedsModuleAsTheSingleRoot() {
+        // Given
+        let (sut, nav, factory) = makeCoordinator()
+        let feedsVC = UIViewController()
+        factory._makeFeedsModule.implementation = .uncheckedInvokes { _ in feedsVC }
+
+        // When
+        sut.start()
+
+        // Then — the feeds module replaces the stack as the sole root.
+        #expect(factory._makeFeedsModule.callCount == 1)
+        #expect(nav.viewControllers == [feedsVC])
+    }
+
+    // MARK: - handleDeepLink(url:)
+
+    @Test func handleDeepLink_withUnusableLink_leavesStackUntouched() throws {
+        // Given — `feed://` yields no resource specifier, so feedURL is nil.
+        let (sut, nav, _) = makeCoordinator()
+        let rootBefore = nav.viewControllers
+        let url = try #require(URL(string: "feed://"))
+
+        // When
+        sut.handleDeepLink(url: url)
+
+        // Then — the early-return guard fires; nothing is pushed or popped.
+        #expect(nav.viewControllers == rootBefore)
+    }
+
+    @Test func handleDeepLink_withValidLink_popsToRootWithoutCrashing() throws {
+        // Given — a usable deep link; the top controller is not a FeedsViewController,
+        // so the alert is skipped but the reset-to-root path still runs.
+        let (sut, nav, _) = makeCoordinator()
+        let root = try #require(nav.viewControllers.first)
+        let url = try #require(URL(string: "feed://www.example.com/rss"))
+
+        // When
+        sut.handleDeepLink(url: url)
+
+        // Then — the stack is reset to its single root.
+        #expect(nav.viewControllers == [root])
+    }
+
+    // MARK: - Missing navigation controller
+
+    @Test func onNeedToShowExploreFeeds_withoutNavigation_doesNothing() {
+        // Given — a coordinator whose navigation controller was never set.
+        let factory = ModuleFactoryProtocolMock()
+        let sut = Coordinator(container: DIContainer(), controller: nil, moduleFactory: factory)
+
+        // When
+        sut.onNeedToShowExploreFeeds(with: [], webPage: "https://example.com")
+
+        // Then — the guard short-circuits; no module is built.
+        #expect(factory._makeExploreFeedsModule.callCount == 0)
+    }
+
+    @Test func onNeedToStartFeedExploration_withoutNavigation_doesNothing() {
+        // Given
+        let factory = ModuleFactoryProtocolMock()
+        let sut = Coordinator(container: DIContainer(), controller: nil, moduleFactory: factory)
+
+        // When
+        sut.onNeedToStartFeedExploration(for: "https://example.com", onChallengePresented: {}, onResult: { _ in })
+
+        // Then — no CloudflareBypass module is built without a presenter.
+        #expect(factory._makeCloudflareBypassModule.callCount == 0)
+    }
+
+    // MARK: - onNeedToShowExploreFeeds
+
+    @Test func onNeedToShowExploreFeeds_buildsTheExploreModule() {
+        // Given
+        let (sut, _, factory) = makeCoordinator()
+        factory._makeExploreFeedsModule.implementation = .uncheckedInvokes { _, _ in UIViewController() }
+
+        // When
+        sut.onNeedToShowExploreFeeds(with: [], webPage: "https://example.com")
+
+        // Then
+        #expect(factory._makeExploreFeedsModule.callCount == 1)
+    }
+
+    // MARK: - onNeedToStartFeedExploration
+
+    @Test func onNeedToStartFeedExploration_buildsModuleAndStartsSearch() {
+        // Given
+        let (sut, _, factory) = makeCoordinator()
+        let module = CloudflareBypassModuleInputMock()
+        factory._makeCloudflareBypassModule.implementation = .uncheckedInvokes { _, _, _ in module }
+
+        // When
+        sut.onNeedToStartFeedExploration(for: "https://example.com", onChallengePresented: {}, onResult: { _ in })
+
+        // Then — the module is built once and immediately told to start.
+        #expect(factory._makeCloudflareBypassModule.callCount == 1)
+        #expect(module._startSearch.callCount == 1)
+    }
+
+    // MARK: - CloudflareBypassModuleOutput
+
+    @Test func cloudflareBypassDidPresentChallenge_firesChallengeCallbackOnce() {
+        // Given — a started exploration whose challenge callback counts invocations.
+        let (sut, _, factory) = makeCoordinator()
+        factory._makeCloudflareBypassModule.implementation = .uncheckedInvokes { _, _, _ in CloudflareBypassModuleInputMock() }
+        var challengeCount = 0
+        sut.onNeedToStartFeedExploration(for: "https://example.com",
+                                         onChallengePresented: { challengeCount += 1 },
+                                         onResult: { _ in })
+
+        // When — the challenge is reported twice.
+        sut.cloudflareBypassDidPresentChallenge()
+        sut.cloudflareBypassDidPresentChallenge()
+
+        // Then — the callback fires once; it is cleared after the first call.
+        #expect(challengeCount == 1)
+    }
+
+    @Test func cloudflareBypassDidFinish_forwardsResultToCallback() {
+        // Given
+        let (sut, _, factory) = makeCoordinator()
+        factory._makeCloudflareBypassModule.implementation = .uncheckedInvokes { _, _, _ in CloudflareBypassModuleInputMock() }
+        var receivedResult: Result<ExploreFeedsDTO, any Error>?
+        sut.onNeedToStartFeedExploration(for: "https://example.com",
+                                         onChallengePresented: {},
+                                         onResult: { receivedResult = $0 })
+
+        // When
+        sut.cloudflareBypassDidFinish(with: .success([]))
+
+        // Then
+        guard case .success = receivedResult else {
+            Issue.record("Expected the success result to be forwarded")
+            return
+        }
+    }
+
+    @Test func cloudflareBypassDidCancel_doesNotInvokeResultCallback() {
+        // Given
+        let (sut, _, factory) = makeCoordinator()
+        factory._makeCloudflareBypassModule.implementation = .uncheckedInvokes { _, _, _ in CloudflareBypassModuleInputMock() }
+        var resultCalled = false
+        sut.onNeedToStartFeedExploration(for: "https://example.com",
+                                         onChallengePresented: {},
+                                         onResult: { _ in resultCalled = true })
+
+        // When — the user dismisses the challenge themselves.
+        sut.cloudflareBypassDidCancel()
+
+        // Then — cancellation is silent; no misleading error result is delivered.
+        #expect(resultCalled == false)
+    }
+
     // MARK: - Helpers
 
     // swiftlint:disable:next large_tuple
