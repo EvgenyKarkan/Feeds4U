@@ -19,6 +19,7 @@ protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreF
     func exploreService() -> any ExploreFeedsServiceProtocol
     func storage() -> any StorageProtocol
     func keyedStorage() -> any KeyedStorageProtocol
+    func summarizer() -> any SummarizationServiceProtocol
 }
 
 // MARK: - DIContainer
@@ -52,6 +53,12 @@ extension DIContainer: DIContainerProtocol {
     func exploreService() -> any ExploreFeedsServiceProtocol {
         return shared {
             return ExploreFeedsService()
+        }
+    }
+
+    func summarizer() -> any SummarizationServiceProtocol {
+        return shared {
+            return SummarizationService()
         }
     }
 

@@ -193,4 +193,17 @@ struct DIContainerTests {
         // hijack another's in-flight parse, so each call must produce a new parser.
         #expect(first as AnyObject !== second as AnyObject)
     }
+
+    @Test("summarizer returns the same shared instance")
+    func summarizerIsShared() {
+        // Given
+        let container = DIContainer()
+
+        // When — the summarization service is stateless and memoized.
+        let first = container.summarizer()
+        let second = container.summarizer()
+
+        // Then
+        #expect(first as AnyObject === second as AnyObject)
+    }
 }

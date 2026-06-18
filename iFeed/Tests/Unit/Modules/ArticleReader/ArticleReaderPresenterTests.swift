@@ -11,6 +11,10 @@ import Mocking
 import Foundation
 @testable import iFeed
 
+private enum TestError: Error {
+    case boom
+}
+
 @Suite
 @MainActor
 struct ArticleReaderPresenterTests {
@@ -34,6 +38,7 @@ struct ArticleReaderPresenterTests {
         interactor._htmlContent.getter.implementation = .returns(testHTML)
         interactor._articleURL.getter.implementation = .returns(testURL)
         interactor._isDarkMode.getter.implementation = .returns(false)
+        interactor._isSummarizationAvailable.getter.implementation = .returns(true)
 
         sut = ArticleReaderPresenter(
             interactor: interactor,
@@ -55,6 +60,41 @@ struct ArticleReaderPresenterTests {
         #expect(viewState?.baseURL == testURL)
         #expect(viewState?.isDarkMode == false)
         #expect(viewState?.hasArticleURL == true)
+        #expect(viewState?.isSummarizationAvailable == true)
+    }
+
+    @Test func onViewDidLoad_whenSummarizationUnavailable_setsFlagFalse() {
+        // Given
+        interactor._isSummarizationAvailable.getter.implementation = .returns(false)
+
+        // When
+        sut.onViewDidLoad()
+
+        // Then
+        let viewState = view._configureInitialState.lastInvocation
+        #expect(viewState?.isSummarizationAvailable == false)
+    }
+
+    @Test func onViewDidLoad_whenSummarizationAvailable_prewarmsModel() {
+        // Given
+        interactor._isSummarizationAvailable.getter.implementation = .returns(true)
+
+        // When
+        sut.onViewDidLoad()
+
+        // Then — the model is warmed eagerly so the first tap is fast.
+        #expect(interactor._prewarmSummarization.callCount == 1)
+    }
+
+    @Test func onViewDidLoad_whenSummarizationUnavailable_doesNotPrewarm() {
+        // Given
+        interactor._isSummarizationAvailable.getter.implementation = .returns(false)
+
+        // When
+        sut.onViewDidLoad()
+
+        // Then
+        #expect(interactor._prewarmSummarization.callCount == 0)
     }
 
     @Test func onViewDidLoad_wrapsHTMLInReaderTemplate() {
@@ -173,5 +213,111 @@ struct ArticleReaderPresenterTests {
         // Then
         #expect(wireframe._openInSafari.callCount == 1)
         #expect(wireframe._openInSafari.lastInvocation == url)
+    }
+
+    // MARK: - onSummarizeTapped
+
+    @Test func onSummarizeTapped_streamsSnapshotsAndTogglesLoading() async throws {
+        // Given — two growing snapshots, as the model would stream them.
+        let first = ArticleSummary(summary: "Over", keyPoints: [])
+        let final = ArticleSummary(summary: "Overview", keyPoints: ["x"])
+        let stream = AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+            continuation.yield(first)
+            continuation.yield(final)
+            continuation.finish()
+        }
+        interactor._summarize.implementation = .returns(stream)
+
+        // When
+        sut.onSummarizeTapped()
+        await sut.summarizationTask?.value
+
+        // Then — the card updates per snapshot; loading is raised then dropped
+        // on the first snapshot.
+        #expect(interactor._summarize.callCount == 1)
+        #expect(view._renderSummary.callCount == 2)
+        #expect(view._renderSummary.lastInvocation == final)
+        #expect(view._setSummaryLoading.callCount == 2)
+        #expect(view._setSummaryLoading.lastInvocation == false)
+        #expect(view._showSummaryError.callCount == 0)
+    }
+
+    @Test func onSummarizeTapped_coalescesRapidSnapshots() async throws {
+        // Given — many snapshots emitted in a burst, far faster than the render
+        // throttle interval.
+        let snapshotCount = 20
+        let final = ArticleSummary(summary: "final overview", keyPoints: ["x"])
+        let stream = AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+            for index in 0..<(snapshotCount - 1) {
+                continuation.yield(ArticleSummary(summary: "partial \(index)", keyPoints: []))
+            }
+            continuation.yield(final)
+            continuation.finish()
+        }
+        interactor._summarize.implementation = .returns(stream)
+
+        // When
+        sut.onSummarizeTapped()
+        await sut.summarizationTask?.value
+
+        // Then — the throttle collapses the burst into far fewer renders, yet the
+        // final snapshot is always flushed.
+        #expect(view._renderSummary.callCount < snapshotCount)
+        #expect(view._renderSummary.lastInvocation == final)
+        #expect(view._showSummaryError.callCount == 0)
+    }
+
+    @Test func onSummarizeTapped_whenStreamFails_showsErrorAndStopsLoading() async throws {
+        // Given
+        let stream = AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+            continuation.finish(throwing: SummarizationError.generationFailed(underlying: TestError.boom))
+        }
+        interactor._summarize.implementation = .returns(stream)
+
+        // When
+        sut.onSummarizeTapped()
+        await sut.summarizationTask?.value
+
+        // Then
+        #expect(view._showSummaryError.callCount == 1)
+        #expect(view._renderSummary.callCount == 0)
+        #expect(view._setSummaryLoading.lastInvocation == false)
+    }
+
+    @Test func onSummarizeTapped_whenStreamEmpty_showsError() async throws {
+        // Given — a stream that finishes without ever yielding.
+        let stream = AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+            continuation.finish()
+        }
+        interactor._summarize.implementation = .returns(stream)
+
+        // When
+        sut.onSummarizeTapped()
+        await sut.summarizationTask?.value
+
+        // Then
+        #expect(view._renderSummary.callCount == 0)
+        #expect(view._showSummaryError.callCount == 1)
+        #expect(view._setSummaryLoading.lastInvocation == false)
+    }
+
+    @Test func onSummarizeTapped_whileInFlight_ignoresSecondTap() async throws {
+        // Given — a slow stream so the second tap lands mid-flight.
+        let stream = AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+            Task {
+                try? await Task.sleep(for: .milliseconds(80))
+                continuation.yield(ArticleSummary(summary: "Overview", keyPoints: []))
+                continuation.finish()
+            }
+        }
+        interactor._summarize.implementation = .returns(stream)
+
+        // When
+        sut.onSummarizeTapped()
+        sut.onSummarizeTapped()
+        await sut.summarizationTask?.value
+
+        // Then — the re-entrancy guard collapses the duplicate request.
+        #expect(interactor._summarize.callCount == 1)
     }
 }

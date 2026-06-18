@@ -36,6 +36,7 @@ enum AccessibilityID {
 
     // MARK: - Article reader
     static let articleReaderWebView = "articleReader.webView"
+    static let articleReaderSummaryButton = "articleReader.summaryButton"
 
     // MARK: - Dynamic
     /// Identifier for a feed row, derived from the feed's title.

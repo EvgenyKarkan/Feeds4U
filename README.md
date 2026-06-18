@@ -3,6 +3,7 @@ Feeds4U
 
 ![Swift 6](https://img.shields.io/badge/Swift-6-orange.svg)
 ![Platform](https://img.shields.io/badge/iOS-18%2B-blue.svg)
+![Apple Intelligence](https://img.shields.io/badge/Apple_Intelligence-Foundation_Models-000000.svg)
 ![UIKit](https://img.shields.io/badge/UI-UIKit-2396F3.svg)
 ![SPM](https://img.shields.io/badge/SwiftPM-compatible-DE5C43.svg)
 ![Unit Tests](https://img.shields.io/badge/unit_tests-Swift_Testing-brightgreen.svg)
@@ -28,6 +29,7 @@ Requires iOS 18.0 or later.
 - Unread badges and a per-article dot indicator show what's new at a glance
 - **Mark a whole feed as read** with one tap; individual articles are marked read as you open them
 - A built-in **offline reader** renders articles with clean, readable typography
+- **On-device AI summaries** — tap ✨ for an instant TL;DR (a short overview plus key points), generated entirely on your device with **Apple Intelligence**: private, offline, and streamed into the reader as it's written. Available on supported devices running iOS 26+, and gracefully hidden everywhere else
 - Immersive reading — the navigation bar hides as you scroll, and a fluid **zoom transition** opens articles from their row
 - Need the full site? Open any article in **Safari** — pre-warmed for an instant launch
 
@@ -59,7 +61,8 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 
 ### Platform
 - **Swift 6** (strict concurrency) and programmatic **UIKit** — **Auto Layout** with **`UIStackView`** — targeting **iOS 18+** on iPhone and iPad
-- **Core Data** for persistence, **WKWebView** for feed discovery and the Cloudflare flow
+- **Core Data** for persistence, **WKWebView** for feed discovery, the Cloudflare flow, and the reader
+- **Foundation Models** (Apple Intelligence) for on-device, streaming article summarization — availability-gated to iOS 26+ capable devices with a graceful fallback that hides the feature elsewhere
 - **Accessibility** — VoiceOver labels/values, custom actions, and Dynamic Type
 - Localization via **String Catalogs** (23 languages), with a Settings bundle and a deep-link URL scheme
 
@@ -72,6 +75,7 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 - Heavy work (parsing, imports, search indexing) runs on **background Core Data** contexts; the UI reads from the view context only
 - **Re-entrancy guards** keep navigation, pull-to-refresh, and modal presentation single-flight under rapid taps
 - Memory-conscious storage — article HTML is split into its own row and faulted in only when read
+- On-device summaries **stream** into the reader — the model is **prewarmed** when the article opens, HTML is stripped off the main thread, and renders are **throttled** so token-by-token updates never flood the web view
 
 ### Dependencies (Swift Package Manager)
 - [FeedKit](https://github.com/nmdias/FeedKit) — RSS / Atom / JSON Feed parsing

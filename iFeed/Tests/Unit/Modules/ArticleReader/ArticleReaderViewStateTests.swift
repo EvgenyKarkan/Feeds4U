@@ -24,7 +24,8 @@ struct ArticleReaderViewStateTests {
             fullHTML: "<p>Hello</p>",
             baseURL: url,
             isDarkMode: true,
-            hasArticleURL: true
+            hasArticleURL: true,
+            isSummarizationAvailable: true
         )
 
         // Then
@@ -33,6 +34,7 @@ struct ArticleReaderViewStateTests {
         #expect(sut.baseURL == url)
         #expect(sut.isDarkMode == true)
         #expect(sut.hasArticleURL == true)
+        #expect(sut.isSummarizationAvailable == true)
     }
 
     @Test func init_baseURLDefaultsToNil() {
@@ -41,7 +43,8 @@ struct ArticleReaderViewStateTests {
             title: "Title",
             fullHTML: "<p>Content</p>",
             isDarkMode: false,
-            hasArticleURL: false
+            hasArticleURL: false,
+            isSummarizationAvailable: false
         )
 
         // Then
@@ -54,7 +57,8 @@ struct ArticleReaderViewStateTests {
             title: "Title",
             fullHTML: "<p>Content</p>",
             isDarkMode: false,
-            hasArticleURL: true
+            hasArticleURL: true,
+            isSummarizationAvailable: false
         )
 
         // Then
@@ -67,10 +71,25 @@ struct ArticleReaderViewStateTests {
             title: "Title",
             fullHTML: "<p>Content</p>",
             isDarkMode: true,
-            hasArticleURL: false
+            hasArticleURL: false,
+            isSummarizationAvailable: false
         )
 
         // Then
         #expect(sut.hasArticleURL == false)
+    }
+
+    @Test func init_whenSummarizationUnavailable_storesFalse() {
+        // When
+        let sut = ArticleReaderViewState(
+            title: "Title",
+            fullHTML: "<p>Content</p>",
+            isDarkMode: true,
+            hasArticleURL: true,
+            isSummarizationAvailable: false
+        )
+
+        // Then
+        #expect(sut.isSummarizationAvailable == false)
     }
 }

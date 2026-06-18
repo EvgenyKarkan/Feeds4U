@@ -15,13 +15,16 @@ struct ArticleReaderViewState {
     let baseURL: URL?
     let isDarkMode: Bool
     let hasArticleURL: Bool
+    let isSummarizationAvailable: Bool
 
     // MARK: - Init
-    init(title: String, fullHTML: String, baseURL: URL? = nil, isDarkMode: Bool, hasArticleURL: Bool) {
+    init(title: String, fullHTML: String, baseURL: URL? = nil, isDarkMode: Bool,
+         hasArticleURL: Bool, isSummarizationAvailable: Bool) {
         self.title = title
         self.fullHTML = fullHTML
         self.baseURL = baseURL
         self.isDarkMode = isDarkMode
         self.hasArticleURL = hasArticleURL
+        self.isSummarizationAvailable = isSummarizationAvailable
     }
 }

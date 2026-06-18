@@ -63,7 +63,16 @@ enum LocalizableKeys {
         static let collapsed = "Collapsed"
         static let readingTheme = "Reading theme"
         static let openInSafari = "Open in Safari"
+        static let summarize = "Summarize article"
         static let added = "Added"
+    }
+
+    enum ArticleReader {
+        static let summaryTitle = "Summary"
+        static let summarizing = "Summarizing…"
+        static let keyPointsTitle = "Key points"
+        static let summaryFailedTitle = "Summary unavailable"
+        static let summaryFailedMessage = "The summary could not be generated. Please try again."
     }
 }
 

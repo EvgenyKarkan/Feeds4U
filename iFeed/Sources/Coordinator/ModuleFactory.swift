@@ -85,7 +85,8 @@ extension ModuleFactory: @MainActor ModuleFactoryProtocol {
         return ArticleReaderBuilder.viewController(
             title: title,
             htmlContent: htmlContent,
-            articleURL: articleURL
+            articleURL: articleURL,
+            summarizer: container.summarizer()
         )
     }
 }
