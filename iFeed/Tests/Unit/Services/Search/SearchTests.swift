@@ -167,7 +167,7 @@ struct SearchTests {
             completion([(title: "Test Article", objectID: item.objectID)])
         }
         let sut = makeSUT()
-        nonisolated(unsafe) let sutRef = sut
+        let sutRef = sut
         textMatchingMock._fillMatchingEngine.implementation = .invokes { _, _, completion in
             /// The engine mock is invoked synchronously on the main actor
             /// from `rebuildIndex()` — `assumeIsolated` makes that explicit.
@@ -191,7 +191,7 @@ struct SearchTests {
         // first rebuild suspended long enough for the second caller to arrive.
         // The completion always fires, so the test can never hang.
         let item = makeFeedItem(title: "Test Article")
-        nonisolated(unsafe) let itemID = item.objectID
+        let itemID = item.objectID
         storageMock._fetchFeedItemIndex.implementation = .uncheckedInvokes { completion in
             Task { @MainActor in
                 completion([(title: "Test Article", objectID: itemID)])

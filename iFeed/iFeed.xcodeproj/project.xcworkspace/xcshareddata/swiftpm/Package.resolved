@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/fetch-rewards/swift-mocking.git",
       "state" : {
-        "revision" : "dcab218e90c9a92308c61713315d1b29d753e30c",
-        "version" : "0.2.2"
+        "revision" : "2476b3e76262be5df622e3ce6764a80612eb726d",
+        "version" : "0.3.0"
       }
     },
     {

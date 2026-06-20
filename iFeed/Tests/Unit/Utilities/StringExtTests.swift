@@ -10,8 +10,10 @@ import Foundation
 import Testing
 @testable import iFeed
 
-@Suite("String+Ext isValidURL Tests")
+@Suite("String+Ext Tests")
 struct StringExtTests {
+
+    // MARK: - isValidURL
 
     // MARK: - Accepted web URLs
 
@@ -89,5 +91,166 @@ struct StringExtTests {
 
         // When / Then
         #expect(!url.isValidURL)
+    }
+
+    // MARK: - localized(key:)
+
+    @Test func unknownKey_returnsKeyItself() {
+        // Given
+        let key = "this.key.does.not.exist.\(UUID().uuidString)"
+
+        // When
+        let result = String.localized(key: key)
+
+        // Then
+        #expect(result == key)
+    }
+
+    @Test func emptyKey_returnsEmptyString() {
+        // Given
+        let key = ""
+
+        // When
+        let result = String.localized(key: key)
+
+        // Then
+        #expect(result == "")
+    }
+
+    // MARK: - collapsingWhitespace()
+
+    @Test func plainString_unchanged() {
+        // Given — fast path: no newlines, tabs, or double spaces.
+        let input = "A normal feed title"
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "A normal feed title")
+    }
+
+    @Test func leadingAndTrailingWhitespace_trimmed() {
+        // Given
+        let input = "   trimmed me   "
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "trimmed me")
+    }
+
+    @Test func doubleSpaces_collapsedToSingle() {
+        // Given
+        let input = "too    many     spaces"
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "too many spaces")
+    }
+
+    @Test func newlinesAndTabs_collapsedToSingleSpace() {
+        // Given
+        let input = "line one\n\tline two\r\nline three"
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "line one line two line three")
+    }
+
+    @Test func emptyString_returnsEmpty() {
+        // Given
+        let input = ""
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "")
+    }
+
+    @Test func whitespaceOnly_returnsEmpty() {
+        // Given
+        let input = " \n\t  \r\n "
+
+        // When
+        let result = input.collapsingWhitespace()
+
+        // Then
+        #expect(result == "")
+    }
+
+    // MARK: - isCloudflareChallengePage
+
+    @Test func keywordPhrase_isDetected() {
+        // Given
+        let html = "<html><body>Just a moment...</body></html>"
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func keywordIsCaseInsensitive() {
+        // Given
+        let html = "VERIFY YOU ARE HUMAN by completing the action below."
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func markerToken_isDetected() {
+        // Given — markers are matched case-sensitively.
+        let html = "<script>window._cf_chl_opt={};</script>"
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func cdnCgiChallengePath_isDetected() {
+        // Given
+        let html = "<script src=\"/cdn-cgi/challenge-platform/h/g/orchestrate\"></script>"
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func structuralHints_isDetected() {
+        // Given — both noindex meta and the JS/cookies notice present.
+        let html = """
+        <meta name="robots" content="noindex,nofollow">
+        <noscript>Enable JavaScript and cookies to continue</noscript>
+        """
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func rayIdPattern_isDetected() {
+        // Given
+        let html = "Ray ID: 8af1c2d3e4f5a6b7"
+
+        // When / Then
+        #expect(html.isCloudflareChallengePage)
+    }
+
+    @Test func plainHTML_isNotDetected() {
+        // Given
+        let html = "<html><body><h1>Welcome to my blog</h1></body></html>"
+
+        // When / Then
+        #expect(!html.isCloudflareChallengePage)
+    }
+
+    @Test func emptyString_isNotDetected() {
+        // Given
+        let html = ""
+
+        // When / Then
+        #expect(!html.isCloudflareChallengePage)
     }
 }
