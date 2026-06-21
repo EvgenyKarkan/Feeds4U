@@ -157,8 +157,15 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
             var skipped = 0
             var failed = 0
 
+            /// Snapshot the existing feed URLs once instead of asking storage per
+            /// URL: a per-iteration `checkIfFeedIsAlreadySaved` issues one SQLite
+            /// count fetch each, turning a large import into N round-trips. The
+            /// parser already de-duplicates within `urls`, so a pre-import snapshot
+            /// is enough — feeds added during this run can't collide.
+            let existingURLs = Set(self.interactor.getAllFeeds().map(\.rssURL))
+
             for url in urls {
-                if self.interactor.checkIfFeedIsAlreadySaved(with: url) {
+                if existingURLs.contains(url) {
                     skipped += 1
                     continue
                 }
