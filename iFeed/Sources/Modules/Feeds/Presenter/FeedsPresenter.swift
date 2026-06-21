@@ -129,6 +129,54 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         )
     }
 
+    func onViewNeedsToShowOPMLPicker() {
+        view?.showOPMLPicker()
+    }
+
+    func onViewNeedsToImportOPML(data: Data) {
+        view?.disableTableViewEditingStateIfNeeded()
+
+        let urls = interactor.parseOPML(data)
+        guard !urls.isEmpty else {
+            view?.showImportFoundNoFeeds()
+            return
+        }
+
+        view?.showActivityIndicator()
+
+        /// Feeds are imported one at a time on purpose: the parser holds a single
+        /// delegate and cancels any in-flight parse when a new one starts, so
+        /// firing them concurrently would clobber each other. Awaiting each parse
+        /// serialises the run and keeps a clean added/skipped/failed tally.
+        Task { [weak self] in
+            guard let self else {
+                return
+            }
+
+            var added = 0
+            var skipped = 0
+            var failed = 0
+
+            for url in urls {
+                if self.interactor.checkIfFeedIsAlreadySaved(with: url) {
+                    skipped += 1
+                    continue
+                }
+                let imported = await self.importFeed(from: url)
+                imported ? (added += 1) : (failed += 1)
+            }
+
+            self.view?.hideActivityIndicator { [weak self] in
+                guard let self else {
+                    return
+                }
+                let viewState = self.buildViewState()
+                self.view?.updateOnDidEndParsingFeed(with: viewState)
+                self.view?.showImportSummary(added: added, skipped: skipped, failed: failed)
+            }
+        }
+    }
+
     func onViewNeedsToShowSearchInput() {
         view?.showEnterSearch()
     }
@@ -249,6 +297,22 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
 
 // MARK: - Private
 private extension FeedsPresenter {
+
+    /// Bridges the callback-based single-feed parse into `async`, resolving to
+    /// `true` on success and `false` on any failure. Used by the OPML import loop
+    /// to await each feed before starting the next.
+    func importFeed(from url: String) async -> Bool {
+        await withCheckedContinuation { continuation in
+            interactor.startParsingFeed(url) { result in
+                switch result {
+                case .success:
+                    continuation.resume(returning: true)
+                case .failure:
+                    continuation.resume(returning: false)
+                }
+            }
+        }
+    }
 
     func refreshSearchButtonMenu() {
         let recent = interactor.recentSearches()

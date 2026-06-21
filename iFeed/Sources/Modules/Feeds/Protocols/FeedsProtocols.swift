@@ -66,6 +66,11 @@ protocol FeedsInteractorProtocol {
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void)
 
+    /// Extracts the feed URLs contained in an OPML export, ignoring its folder
+    /// structure (the app's feed list is flat). Returns an empty array when the
+    /// data is not valid OPML or holds no usable feeds.
+    func parseOPML(_ data: Data) -> [String]
+
     // prepares semantic search engine
     func fillSearchMatchingEngine() async
 
@@ -125,6 +130,18 @@ protocol FeedsViewProtocol: AnyObject {
     func showFeedIsAlreadySavedError()
     func showFeedParsingError(_ message: String)
 
+    /// Presents the system file picker so the user can choose an OPML file to import.
+    func showOPMLPicker()
+
+    /// Reports the outcome of an OPML import once all feeds have been processed.
+    /// - Parameters:
+    ///   - added: Feeds newly parsed and saved.
+    ///   - skipped: Feeds already present, left untouched.
+    ///   - failed: Feeds whose URL could not be parsed.
+    func showImportSummary(added: Int, skipped: Int, failed: Int)
+    func showImportFoundNoFeeds()
+    func showImportFileUnreadable()
+
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState)
     func animateFeedDeletion(at indexPath: IndexPath, removeSectionAt sectionIndex: Int?, with viewState: FeedsViewState)
 
@@ -140,6 +157,8 @@ protocol FeedsViewDelegate: AnyObject {
 
     func onViewNeedsToAddFeed(from url: String)
     func onViewNeedsToExploreFeeds(on webSite: String)
+    func onViewNeedsToShowOPMLPicker()
+    func onViewNeedsToImportOPML(data: Data)
 
     func onViewNeedsToShowSearchInput()
     func onViewNeedsToSearchFeeds(by searchTerm: String)
@@ -164,6 +183,7 @@ protocol FeedsDependencies {
     func exploreService() -> any ExploreFeedsServiceProtocol
     func foldersManager() -> any FeedFolderManaging
     func keyedStorage() -> any KeyedStorageProtocol
+    func opmlParser() -> any OPMLParsing
 }
 
 /// Wireframe -> AppCoordinator

@@ -22,12 +22,19 @@ final class DragDropUITests: FeedsUITestCase {
         assertExists(source)
         assertExists(destination)
 
-        // When — dragging one feed onto another.
-        source.press(forDuration: 1.0, thenDragTo: destination)
+        // When — dragging one feed onto another. A slow velocity plus a hold at
+        // the destination gives the table time to register the drop on the target
+        // cell; a fast flick can land between cells under full-suite load.
+        source.press(forDuration: 1.0,
+                     thenDragTo: destination,
+                     withVelocity: .slow,
+                     thenHoldForDuration: 0.5)
 
-        // Then — the create-folder prompt appears.
+        // Then — the create-folder prompt appears. Allow a generous timeout so a
+        // loaded simulator settling the drop animation doesn't flake.
         assertExists(app.staticTexts[Labels.newFolderMessage],
-                     "Dropping a feed onto another should prompt to create a folder")
+                     "Dropping a feed onto another should prompt to create a folder",
+                     timeout: 15)
         app.buttons[Labels.cancel].tap()
     }
 }

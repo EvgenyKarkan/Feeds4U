@@ -37,6 +37,8 @@ class FeedsUITestCase: XCTestCase {
         static let noSearchResults = "There aren't any results that match your search"
         static let newSearch = "New search"
         static let clearRecent = "Clear recent searches"
+        static let importMenu = "Import from OPML"
+        static let importNoFeeds = "No feeds found in this file."
     }
 
     override func setUp() async throws {
@@ -47,13 +49,15 @@ class FeedsUITestCase: XCTestCase {
     }
 
     /// Launches the app into the given seeded scenario in a forced English locale.
-    func launch(scenario: UITestScenario) {
+    /// `extraArguments` are appended verbatim for opt-in launch hooks (e.g. the
+    /// `-uiOPMLImport <key>` payload that drives an import without the picker).
+    func launch(scenario: UITestScenario, extraArguments: [String] = []) {
         app.launchArguments = [
             "-uiTesting",
             "-uiScenario", scenario.rawValue,
             "-AppleLanguages", "(en)",
             "-AppleLocale", "en_US"
-        ]
+        ] + extraArguments
         app.launch()
     }
 

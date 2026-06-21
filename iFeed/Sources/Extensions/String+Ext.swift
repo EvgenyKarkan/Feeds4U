@@ -20,6 +20,14 @@ enum LocalizableKeys {
         static let addNewLite = "addNewFeed.lite"
         static let enterNew = "enterNewFeed"
         static let explore = "exploreFeed"
+        static let importOPML = "importOPML"
+    }
+
+    enum Import {
+        static let title = "import.title"
+        static let summaryFormat = "import.summary"
+        static let noFeeds = "import.noFeeds"
+        static let fileUnreadable = "import.fileUnreadable"
     }
 
     enum Search {

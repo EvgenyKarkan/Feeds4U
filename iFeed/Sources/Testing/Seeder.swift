@@ -45,6 +45,13 @@ enum Seeder {
                  itemTitles: ["Gadgets of the year", "Tech policy update", "Open in Safari"])
     ]
 
+    /// Feed URLs seeded by the `.populated` scenario. Exposed so the OPML-import
+    /// UI test can build an OPML payload whose entries all match already-seeded
+    /// feeds, exercising the "skipped" path without touching the network.
+    static var populatedFeedURLs: [String] {
+        return feeds.map { $0.url }
+    }
+
     static func seed(scenario: UITestScenario,
                      container: NSPersistentContainer,
                      defaults: UserDefaults) {

@@ -22,6 +22,7 @@ Requires iOS 18.0 or later.
 - Add a feed by typing or pasting its URL — and if your clipboard already holds one, the field pre-fills automatically
 - Don't know the feed URL? **Discover feeds from any website** — the app crawls the page and lists what it finds
 - Transparently handles **Cloudflare-protected** sites via a built-in human-verification flow
+- **Import an OPML file** from another reader — pick the export with the system file picker and your subscriptions are added in one go, with a summary of how many were added, skipped, or failed
 - One unified inbox for RSS, Atom, and JSON Feed sources
 
 ### Read Comfortably
@@ -62,6 +63,7 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 ### Platform
 - **Swift 6** (strict concurrency) and programmatic **UIKit** — **Auto Layout** with **`UIStackView`** — targeting **iOS 18+** on iPhone and iPad
 - **Core Data** for persistence, **WKWebView** for feed discovery, the Cloudflare flow, and the reader
+- **OPML import** via `UIDocumentPicker` and a custom `XMLParser`-based parser — validates and de-duplicates feed URLs, then imports them sequentially
 - **Foundation Models** (Apple Intelligence) for on-device, streaming article summarization — availability-gated to iOS 26+ capable devices with a graceful fallback that hides the feature elsewhere
 - **Accessibility** — VoiceOver labels/values, custom actions, and Dynamic Type
 - Localization via **String Catalogs** (23 languages), with a Settings bundle and a deep-link URL scheme

@@ -32,6 +32,43 @@ enum UITestSupport {
         return ProcessInfo.processInfo.arguments.contains("-uiTesting")
     }
 
+    /// Canned OPML payload requested via `-uiOPMLImport <key>`, used to drive the
+    /// import-outcome UI without the system document picker (which XCUITest cannot
+    /// reliably operate). `nil` when the argument is absent or names no known key.
+    ///
+    /// - `allSeeded` — every entry matches a `.populated` feed, so the import loop
+    ///   skips them all (no network) and the summary reports only "Skipped".
+    /// - `noFeeds` — well-formed OPML with outlines but no `xmlUrl`, exercising the
+    ///   "no feeds found" alert.
+    static var pendingOPMLImport: Data? {
+        let args = ProcessInfo.processInfo.arguments
+        guard let index = args.firstIndex(of: "-uiOPMLImport"),
+              args.indices.contains(index + 1) else {
+            return nil
+        }
+
+        switch args[index + 1] {
+        case "allSeeded":
+            let outlines = Seeder.populatedFeedURLs
+                .map { "<outline type=\"rss\" text=\"Seeded\" xmlUrl=\"\($0)\"/>" }
+                .joined(separator: "\n")
+            return opml(body: outlines).data(using: .utf8)
+        case "noFeeds":
+            return opml(body: "<outline text=\"A folder with no feeds\"/>").data(using: .utf8)
+        default:
+            return nil
+        }
+    }
+
+    private static func opml(body: String) -> String {
+        return """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <opml version="2.0"><head><title>UITest</title></head><body>
+        \(body)
+        </body></opml>
+        """
+    }
+
     /// Builds the in-memory store + isolated defaults, seeds the requested
     /// scenario, and publishes them as the DI overrides. Call once, before the
     /// window is built.

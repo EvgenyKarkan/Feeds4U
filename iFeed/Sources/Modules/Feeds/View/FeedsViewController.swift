@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 /// Main screen of the app — displays the user's RSS feed subscriptions organized in sections.
 /// Feeds can be ungrouped (top-level) or grouped into folders. Supports:
@@ -45,10 +46,20 @@ final class FeedsViewController: BaseListViewController {
             return action
         }
 
+        var importAction: UIAction {
+            let action = UIAction(
+                title: String.localized(key: LocalizableKeys.Feed.importOPML),
+                image: UIImage(systemName: "square.and.arrow.down")
+            ) { [weak self] _ in
+                self?.presenter?.onViewNeedsToShowOPMLPicker()
+            }
+            return action
+        }
+
         var contextMenu: UIMenu {
             return UIMenu(
                 title: String.localized(key: LocalizableKeys.Feed.addNewLite),
-                children: [addAction, searchAction]
+                children: [addAction, searchAction, importAction]
             )
         }
 
@@ -143,6 +154,19 @@ final class FeedsViewController: BaseListViewController {
 
         presenter?.onViewWillAppear()
     }
+
+    #if DEBUG
+    /// Drives an OPML import from a canned launch-argument payload, bypassing the
+    /// system document picker that XCUITest cannot operate. Production launches
+    /// never pass `-uiOPMLImport`, so this is inert outside UI tests.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if let data = UITestSupport.pendingOPMLImport {
+            presenter?.onViewNeedsToImportOPML(data: data)
+        }
+    }
+    #endif
 
     // MARK: - Base override
     override func searchForFeedsPressed(with webPage: String) {
@@ -311,6 +335,63 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
 
     func showFeedParsingError(_ message: String) {
         showErrorAlert(message)
+    }
+
+    /// Presents the system file picker scoped to OPML/XML so the user can pick a
+    /// subscription export to import. The picked file is read in the delegate.
+    func showOPMLPicker() {
+        let opmlType = UTType(filenameExtension: "opml") ?? .xml
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [opmlType, .xml])
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+
+        present(picker, animated: true)
+    }
+
+    func showImportSummary(added: Int, skipped: Int, failed: Int) {
+        let template = String.localized(key: LocalizableKeys.Import.summaryFormat)
+        let message = String(format: template, added, skipped, failed)
+
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.Import.title),
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.view.accessibilityIdentifier = AccessibilityID.importSummaryAlert
+        alert.addAction(UIAlertAction(
+            title: String.localized(key: LocalizableKeys.confirmation),
+            style: .default
+        ))
+
+        presentGuarded(alert)
+    }
+
+    func showImportFoundNoFeeds() {
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.Import.title),
+            message: String.localized(key: LocalizableKeys.Import.noFeeds),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: String.localized(key: LocalizableKeys.confirmation),
+            style: .cancel
+        ))
+
+        presentGuarded(alert)
+    }
+
+    func showImportFileUnreadable() {
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.Import.title),
+            message: String.localized(key: LocalizableKeys.Import.fileUnreadable),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: String.localized(key: LocalizableKeys.confirmation),
+            style: .cancel
+        ))
+
+        presentGuarded(alert)
     }
 
     func updateOnDidEndParsingFeed(with viewState: FeedsViewState) {
@@ -519,6 +600,34 @@ extension FeedsViewController: UITableViewDropDelegate {
             /// Dropped past the last row in an ungrouped section — remove from folder
             presenter?.onViewNeedsToRemoveFeedFromFolder(feedURL: sourceURL)
         }
+    }
+}
+
+// MARK: - UIDocumentPickerDelegate
+/// Reads the picked OPML file and forwards its bytes to the presenter. The file
+/// lives outside the app sandbox, so its security-scoped access is opened for the
+/// duration of the read and always released.
+extension FeedsViewController: UIDocumentPickerDelegate {
+
+    func documentPicker(_ controller: UIDocumentPickerViewController,
+                        didPickDocumentsAt urls: [URL]) {
+        guard let fileURL = urls.first else {
+            return
+        }
+
+        let didStartAccess = fileURL.startAccessingSecurityScopedResource()
+        defer {
+            if didStartAccess {
+                fileURL.stopAccessingSecurityScopedResource()
+            }
+        }
+
+        guard let data = try? Data(contentsOf: fileURL) else {
+            showImportFileUnreadable()
+            return
+        }
+
+        presenter?.onViewNeedsToImportOPML(data: data)
     }
 }
 

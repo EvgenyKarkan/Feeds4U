@@ -20,6 +20,7 @@ protocol DIContainerProtocol: FeedsDependencies, FeedItemsDependencies, ExploreF
     func storage() -> any StorageProtocol
     func keyedStorage() -> any KeyedStorageProtocol
     func summarizer() -> any SummarizationServiceProtocol
+    func opmlParser() -> any OPMLParsing
 }
 
 // MARK: - DIContainer
@@ -95,5 +96,11 @@ extension DIContainer: DIContainerProtocol {
         return shared {
             return UserDefaults.standard
         }
+    }
+
+    /// Intentionally NOT shared: `OPMLParser` is a stateless value type with no
+    /// resources to reuse, so a fresh instance per call is the simplest correct wiring.
+    func opmlParser() -> any OPMLParsing {
+        return OPMLParser()
     }
 }

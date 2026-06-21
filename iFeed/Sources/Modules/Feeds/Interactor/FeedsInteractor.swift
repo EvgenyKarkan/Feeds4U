@@ -23,6 +23,7 @@ final class FeedsInteractor {
     private let exploreFeedsService: any ExploreFeedsServiceProtocol
     private let folderManager: any FeedFolderManaging
     private let keyedStorage: any KeyedStorageProtocol
+    private let opmlParser: any OPMLParsing
 
     private var parsingCompletion: ((Result<Feed, any Error>) -> Void)?
     private var parsingURL: String?
@@ -33,13 +34,15 @@ final class FeedsInteractor {
          localSearchService: any Searchable,
          exploreFeedsService: any ExploreFeedsServiceProtocol,
          folderManager: any FeedFolderManaging,
-         keyedStorage: any KeyedStorageProtocol) {
+         keyedStorage: any KeyedStorageProtocol,
+         opmlParser: any OPMLParsing) {
         self.parser = parser
         self.storage = storage
         self.localSearchService = localSearchService
         self.exploreFeedsService = exploreFeedsService
         self.folderManager = folderManager
         self.keyedStorage = keyedStorage
+        self.opmlParser = opmlParser
     }
 }
 
@@ -73,6 +76,10 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 
         parser.setDelegate(self)
         parser.beginParsingURL(feedURL)
+    }
+
+    func parseOPML(_ data: Data) -> [String] {
+        return opmlParser.feedURLs(from: data)
     }
 
     func fillSearchMatchingEngine() async {

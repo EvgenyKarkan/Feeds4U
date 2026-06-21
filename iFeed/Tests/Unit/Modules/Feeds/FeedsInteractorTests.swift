@@ -26,6 +26,7 @@ struct FeedsInteractorTests {
     private let container: NSPersistentContainer
     private let sut: FeedsInteractor
     private let keyedStorage = KeyedStorageProtocolMock()
+    private let opmlParser = OPMLParsingMock()
 
     // Constants
     private let testFeedURL = "https://example.com/feed"
@@ -44,7 +45,8 @@ struct FeedsInteractorTests {
             localSearchService: search,
             exploreFeedsService: explore,
             folderManager: folders,
-            keyedStorage: keyedStorage
+            keyedStorage: keyedStorage,
+            opmlParser: opmlParser
         )
     }
 
@@ -621,6 +623,21 @@ struct FeedsInteractorTests {
         // Then
         #expect(keyedStorage._removeObject.callCount == 1)
         #expect(keyedStorage._removeObject.lastInvocation == recentSearchesKey)
+    }
+
+    @Test func parseOPML_delegatesToOPMLParser_andReturnsItsURLs() {
+        // Given
+        let expected = ["https://a.example.com/rss", "https://b.example.com/rss"]
+        opmlParser._feedURLs.implementation = .returns(expected)
+        let data = Data("<opml/>".utf8)
+
+        // When
+        let result = sut.parseOPML(data)
+
+        // Then
+        #expect(result == expected)
+        #expect(opmlParser._feedURLs.callCount == 1)
+        #expect(opmlParser._feedURLs.lastInvocation == data)
     }
 }
 

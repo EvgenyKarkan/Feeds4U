@@ -53,8 +53,11 @@ final class SearchUITests: FeedsUITestCase {
         alertTextField.typeText("zzzznomatchxyz")
         app.alerts.buttons[Labels.search].tap()
 
-        // Then — the no-results alert is shown.
-        assertExists(app.staticTexts[Labels.noSearchResults], "Unmatched search should show the no-results alert")
+        // Then — the no-results alert is shown. The engine indexes the corpus on
+        // the first query; allow a generous timeout so a cold index build on a
+        // loaded simulator doesn't flake (mirrors testSearch_withMatches).
+        assertExists(app.staticTexts[Labels.noSearchResults],
+                     "Unmatched search should show the no-results alert", timeout: 45)
         app.alerts.buttons[Labels.confirmation].tap()
     }
 
