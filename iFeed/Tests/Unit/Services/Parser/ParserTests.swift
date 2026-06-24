@@ -107,6 +107,70 @@ struct ParserTests {
         #expect(delegate._didFailParsingFeed.lastInvocation is ParserError)
     }
 
+    // MARK: - parse(_:) async — success
+
+    @Test func parseAsync_onSuccess_returnsParsedData() async throws {
+        // Given
+        let feedData = Data(Self.rssFeedXML.utf8)
+        let feedParser = FeedParser(data: feedData)
+        let parsedFeed = try feedParser.parse().get()
+        mockFeedParser._parseAsync.implementation = .invokes { queue, completion in
+            queue.async {
+                completion(.success(parsedFeed))
+            }
+        }
+
+        // When
+        let result = await sut.parse(testURL)
+
+        // Then
+        let data = try result.get()
+        #expect(data.title == "Test Feed")
+        #expect(data.items.count == 1)
+        #expect(data.items.first?.link == "https://example.com/one")
+    }
+
+    // MARK: - parse(_:) async — failure
+
+    @Test func parseAsync_onFailure_returnsError() async {
+        // Given
+        mockFeedParser._parseAsync.implementation = .invokes { queue, completion in
+            queue.async {
+                completion(.failure(.feedNotFound))
+            }
+        }
+
+        // When
+        let result = await sut.parse(testURL)
+
+        // Then
+        guard case .failure(let error) = result else {
+            Issue.record("Expected a failure result")
+            return
+        }
+        #expect(error is ParserError)
+    }
+
+    // MARK: - parse(_:) async — does not disturb the delegate
+
+    @Test func parseAsync_doesNotInvokeDelegate() async throws {
+        // Given
+        let parsedFeed = try FeedParser(data: Data(Self.rssFeedXML.utf8)).parse().get()
+        mockFeedParser._parseAsync.implementation = .invokes { queue, completion in
+            queue.async {
+                completion(.success(parsedFeed))
+            }
+        }
+
+        // When — the stateless parse path must leave the delegate untouched.
+        _ = await sut.parse(testURL)
+
+        // Then
+        #expect(delegate._didStartParsingFeed.callCount == 0)
+        #expect(delegate._didEndParsingFeed.callCount == 0)
+        #expect(delegate._didFailParsingFeed.callCount == 0)
+    }
+
     // MARK: - beginParsingURL — uses factory with correct URL
 
     @Test func beginParsingURL_passesURLToFactory() async throws {

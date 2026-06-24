@@ -48,6 +48,15 @@ protocol ParserProtocol {
     func setDelegate(_ delegate: any ParserDelegateProtocol)
     /// Cancels any in-flight parsing operation.
     func cancelParsing()
+
+    /// Parses the feed at `url` once and returns the result, **without touching**
+    /// the shared delegate / active-task state used by ``beginParsingURL(_:)``.
+    ///
+    /// Each call owns its own continuation box and FeedKit parser, so many calls
+    /// can run concurrently — e.g. a "refresh all feeds" fan-out via a task group.
+    /// Returns `.failure` (with `CancellationError`) if the surrounding task is
+    /// cancelled before FeedKit delivers a result.
+    func parse(_ url: URL) async -> Result<ParsedFeedData, any Error>
 }
 
 // MARK: - FeedParsing
@@ -189,6 +198,36 @@ extension Parser: ParserProtocol {
     func cancelParsing() {
         activeTask?.cancel()
         activeTask = nil
+    }
+
+    /// Stateless, reentrant parse. Mirrors the continuation-box bridge used by
+    /// ``beginParsingURL(_:)`` but keeps everything in locals — no `activeTask`,
+    /// `taskVersion` or `delegate` is read or written — so concurrent invocations
+    /// never interfere. The box is resumed exactly once: by FeedKit's callback or,
+    /// on cancellation, by the cancellation handler.
+    func parse(_ url: URL) async -> Result<ParsedFeedData, any Error> {
+        let box = continuationBoxFactory()
+        let factory = parserFactory
+
+        let result: Result<ParsedFeedData, any Error>? = await withTaskCancellationHandler {
+            await withCheckedContinuation { continuation in
+                box.store(continuation)
+
+                let parser = factory(url)
+                parser.parseAsync(queue: Self.parsingQueue) { parserResult in
+                    switch parserResult {
+                    case .success(let feed):
+                        box.resume(returning: .success(ParsedFeedData(parsedFeed: feed)))
+                    case .failure(let error):
+                        box.resume(returning: .failure(error))
+                    }
+                }
+            }
+        } onCancel: {
+            box.resume(returning: nil)
+        }
+
+        return result ?? .failure(CancellationError())
     }
 }
 

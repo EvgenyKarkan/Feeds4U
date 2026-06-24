@@ -184,6 +184,24 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         }
     }
 
+    func onViewNeedsToRefreshAllFeeds() {
+        /// Lock the list and its controls so nothing is tapped, scrolled or
+        /// reorganised mid-refresh; the refresh control owns the spinner and keeps
+        /// spinning until the awaited refresh-all completes, then
+        /// `finishRefreshingAll` ends it and reloads the freshly merged data and
+        /// interaction is restored.
+        view?.setInteractionEnabled(false)
+
+        Task { [weak self] in
+            guard let self else {
+                return
+            }
+            await self.interactor.refreshAllFeeds()
+            self.view?.finishRefreshingAll(with: self.buildViewState())
+            self.view?.setInteractionEnabled(true)
+        }
+    }
+
     func onViewNeedsToShowSearchInput() {
         view?.showEnterSearch()
     }

@@ -27,6 +27,7 @@ Requires iOS 18.0 or later.
 
 ### Read Comfortably
 - Pull to refresh for the latest articles — with a subtle haptic tap to confirm
+- **Refresh everything at once** — pull the feeds list down to update all your subscriptions in parallel; the spinner stays until every feed has finished
 - Unread badges and a per-article dot indicator show what's new at a glance
 - **Mark a whole feed as read** with one tap; individual articles are marked read as you open them
 - A built-in **offline reader** renders articles with clean, readable typography
@@ -72,6 +73,7 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 - **VIPER** feature modules talking only through protocols, with a **Coordinator** owning all navigation
 - A **dependency-injection** container wiring services behind narrow, mockable protocols
 - Modern Swift Concurrency throughout — `async`/`await`, `Sendable`, `@MainActor`, and `Mutex`-guarded state
+- **Refresh-all** fans out across feeds with a bounded `TaskGroup` (parses run concurrently off the main thread, merges land on background Core Data contexts)
 
 ### Engineering highlights
 - Heavy work (parsing, imports, search indexing) runs on **background Core Data** contexts; the UI reads from the view context only

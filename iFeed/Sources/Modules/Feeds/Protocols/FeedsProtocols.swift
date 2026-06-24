@@ -66,6 +66,11 @@ protocol FeedsInteractorProtocol {
     func checkIfFeedIsAlreadySaved(with url: String) -> Bool
     func startParsingFeed(_ url: String, completion: @escaping (Result<Feed, any Error>) -> Void)
 
+    /// Re-fetches every saved feed and merges any new items into storage,
+    /// returning only once all feeds have finished. Parses run concurrently
+    /// (bounded fan-out) so the whole refresh is as fast as the slowest batch.
+    func refreshAllFeeds() async
+
     /// Extracts the feed URLs contained in an OPML export, ignoring its folder
     /// structure (the app's feed list is flat). Returns an empty array when the
     /// data is not valid OPML or holds no usable feeds.
@@ -147,6 +152,13 @@ protocol FeedsViewProtocol: AnyObject {
 
     func reloadFeedsList(with viewState: FeedsViewState)
     func animateFolderToggle(at sectionIndex: Int, with viewState: FeedsViewState)
+
+    /// Reloads the list with refreshed data and ends the pull-to-refresh control.
+    func finishRefreshingAll(with viewState: FeedsViewState)
+
+    /// Locks (`false`) or unlocks (`true`) user interaction with the feeds list
+    /// and its navigation controls while a refresh-all is in progress.
+    func setInteractionEnabled(_ enabled: Bool)
 }
 
 /// View ---> Presenter
@@ -163,6 +175,9 @@ protocol FeedsViewDelegate: AnyObject {
     func onViewNeedsToShowSearchInput()
     func onViewNeedsToSearchFeeds(by searchTerm: String)
     func onViewNeedsToClearRecentSearches()
+
+    /// Pull-to-refresh on the feeds list: re-fetch every saved feed.
+    func onViewNeedsToRefreshAllFeeds()
 
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath)
     func onViewNeedsToDeleteFeedAtIndexPath(_ indexPath: IndexPath)

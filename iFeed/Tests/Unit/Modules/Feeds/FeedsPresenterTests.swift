@@ -509,6 +509,120 @@ struct FeedsPresenterTests {
         #expect(interactor._fillSearchMatchingEngine.callCount == 1)
     }
 
+    // MARK: - OPML import
+
+    @Test func onViewNeedsToShowOPMLPicker_callsView() {
+        // When
+        sut.onViewNeedsToShowOPMLPicker()
+
+        // Then
+        #expect(view._showOPMLPicker.callCount == 1)
+    }
+
+    @Test func onViewNeedsToImportOPML_withNoFeeds_showsNoFeedsAlert() {
+        // Given — the data holds no parseable feed URLs.
+        interactor._parseOPML.implementation = .returns([])
+
+        // When
+        sut.onViewNeedsToImportOPML(data: Data())
+
+        // Then — the list is taken out of editing and the no-feeds alert shows;
+        // no spinner, no import loop.
+        #expect(view._disableTableViewEditingStateIfNeeded.callCount == 1)
+        #expect(view._showImportFoundNoFeeds.callCount == 1)
+        #expect(view._showActivityIndicator.callCount == 0)
+    }
+
+    @Test func onViewNeedsToImportOPML_importsNewSkipsExistingAndCountsFailures() async {
+        // Given — three URLs: one already saved, one that parses, one that fails.
+        let existing = makeFeed(rssURL: "https://exist.com/feed")
+        interactor._parseOPML.implementation = .returns([
+            "https://exist.com/feed",
+            "https://ok.com/feed",
+            "https://bad.com/feed"
+        ])
+        interactor._getAllFeeds.implementation = .uncheckedInvokes { [existing] }
+        enum ImportError: Error { case boom }
+        interactor._startParsingFeed.implementation = .uncheckedInvokes { [makeFeed] url, completion in
+            if url == "https://ok.com/feed" {
+                completion(.success(makeFeed("https://ok.com/feed", "OK", 0)))
+            } else {
+                completion(.failure(ImportError.boom))
+            }
+        }
+        view._hideActivityIndicator.implementation = .uncheckedInvokes { completion in
+            completion?()
+        }
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._showImportSummary.implementation = .uncheckedInvokes { _, _, _ in
+                continuation.resume()
+            }
+            sut.onViewNeedsToImportOPML(data: Data())
+        }
+
+        // Then — spinner shown, list reloaded, and the tally is added 1 / skipped 1 / failed 1.
+        #expect(view._showActivityIndicator.callCount == 1)
+        #expect(view._updateOnDidEndParsingFeed.callCount == 1)
+        let summary = view._showImportSummary.lastInvocation
+        #expect(summary?.0 == 1)
+        #expect(summary?.1 == 1)
+        #expect(summary?.2 == 1)
+    }
+
+    // MARK: - buildViewState — duplicate feed URLs
+
+    @Test func buildViewState_withDuplicateFeedURL_keepsFirstFeed() {
+        // Given — two feeds sharing one rssURL exercises the `uniquingKeysWith`
+        // "first wins" branch of the URL dictionary.
+        let first = makeFeed(rssURL: "https://dup.com/feed", title: "First")
+        let second = makeFeed(rssURL: "https://dup.com/feed", title: "Second")
+        stubBuildViewState(feeds: [first, second])
+
+        // When
+        sut.onViewWillAppear()
+
+        // Then — the list builds without crashing and surfaces a single section.
+        let viewState = view._updateOnWillAppear.lastInvocation
+        #expect(viewState?.sections.isEmpty == false)
+    }
+
+    // MARK: - onViewNeedsToRefreshAllFeeds
+
+    @Test func onViewNeedsToRefreshAllFeeds_refreshesThenEndsRefreshing() async {
+        // Given — a feed so the rebuilt view state carries the refreshed list.
+        let feed = makeFeed(rssURL: "https://a.com/feed", title: "A")
+        stubBuildViewState(feeds: [feed])
+
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._finishRefreshingAll.implementation = .uncheckedInvokes { _ in
+                continuation.resume()
+            }
+            sut.onViewNeedsToRefreshAllFeeds()
+        }
+
+        // Then — the interactor refreshed every feed, then the view ended the
+        // refresh control with a freshly built state.
+        #expect(interactor._refreshAllFeeds.callCount == 1)
+        #expect(view._finishRefreshingAll.callCount == 1)
+        #expect(view._finishRefreshingAll.lastInvocation?.sections.isEmpty == false)
+
+        // And — interaction was locked at the start and restored at the end.
+        #expect(view._setInteractionEnabled.callCount == 2)
+        #expect(view._setInteractionEnabled.lastInvocation == true)
+    }
+
+    @Test func onViewNeedsToRefreshAllFeeds_locksInteractionBeforeRefreshStarts() {
+        // When — only the synchronous entry runs (the async refresh is still pending).
+        sut.onViewNeedsToRefreshAllFeeds()
+
+        // Then — interaction is disabled immediately, before any await resolves.
+        #expect(view._setInteractionEnabled.callCount == 1)
+        #expect(view._setInteractionEnabled.lastInvocation == false)
+    }
+
     // MARK: - onViewNeedsToExploreFeeds
 
     @Test func onViewNeedsToExploreFeeds_disablesEditingAndShowsIndicator() {

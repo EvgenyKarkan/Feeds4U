@@ -34,5 +34,12 @@ final class UITestParser: ParserProtocol {
     func cancelParsing() {
         delegate?.didCancelParsingFeed()
     }
+
+    /// Resolves immediately with an empty success so a refresh-all fan-out under
+    /// UI testing ends right away (the seeded URLs are fake) and the seeded item
+    /// list is left unchanged.
+    func parse(_ url: URL) async -> Result<ParsedFeedData, any Error> {
+        return .success(ParsedFeedData(title: nil, summary: nil, items: []))
+    }
 }
 #endif

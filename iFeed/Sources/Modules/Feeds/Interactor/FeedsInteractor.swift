@@ -12,6 +12,10 @@ import CoreData.NSManagedObjectID
 private enum Constants {
     static let recentSearchesKey = "com.ifeed.recentSearches"
     static let maxRecentSearches = 10
+    /// Cap on simultaneous feed parses during a refresh-all. Keeps a large
+    /// library from opening dozens of network requests at once while still
+    /// parallelising enough to be much faster than a sequential refresh.
+    static let maxConcurrentRefreshes = 6
 }
 
 @MainActor
@@ -80,6 +84,68 @@ extension FeedsInteractor: FeedsInteractorProtocol {
 
     func parseOPML(_ data: Data) -> [String] {
         return opmlParser.feedURLs(from: data)
+    }
+
+    func refreshAllFeeds() async {
+        /// Snapshot the (Sendable) URL + object-ID pairs on the main actor before
+        /// fanning out — `Feed` managed objects must not cross task boundaries.
+        let targets: [(url: URL, id: NSManagedObjectID)] = storage.loadFeeds().compactMap { feed in
+            guard feed.rssURL.isValidURL, let url = URL(string: feed.rssURL) else {
+                return nil
+            }
+            return (url, feed.objectID)
+        }
+
+        guard !targets.isEmpty else {
+            return
+        }
+
+        /// Bounded fan-out: keep at most `maxConcurrentRefreshes` parses in flight,
+        /// starting the next as each finishes. Each child parses its feed off the
+        /// main thread (the parser bridges to a background queue) and merges new
+        /// items via storage's background context, so the refresh runs in parallel.
+        await withTaskGroup(of: Void.self) { group in
+            let limit = min(Constants.maxConcurrentRefreshes, targets.count)
+            var next = 0
+
+            for _ in 0..<limit {
+                let target = targets[next]
+                next += 1
+                group.addTask { [weak self] in
+                    await self?.refreshFeed(url: target.url, id: target.id)
+                }
+            }
+
+            while await group.next() != nil {
+                guard next < targets.count else {
+                    continue
+                }
+                let target = targets[next]
+                next += 1
+                group.addTask { [weak self] in
+                    await self?.refreshFeed(url: target.url, id: target.id)
+                }
+            }
+        }
+
+        /// New items may have landed across any number of feeds — rebuild the
+        /// search index before the next query.
+        localSearchService.markIndexDirty()
+    }
+
+    /// Parses a single feed and merges its items, awaiting the background save.
+    /// Failures (network, malformed feed) are swallowed: one bad feed must not
+    /// abort the rest of a refresh-all.
+    private func refreshFeed(url: URL, id: NSManagedObjectID) async {
+        guard case .success(let data) = await parser.parse(url) else {
+            return
+        }
+
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            storage.refreshFeedItems(with: data.items, forFeedWith: id) {
+                continuation.resume()
+            }
+        }
     }
 
     func fillSearchMatchingEngine() async {

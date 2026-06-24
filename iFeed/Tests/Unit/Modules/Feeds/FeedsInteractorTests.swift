@@ -110,6 +110,90 @@ struct FeedsInteractorTests {
         #expect(storage._loadFeeds.callCount == 1)
     }
 
+    // MARK: - refreshAllFeeds
+
+    /// Stubs the parse + merge pair so a refresh-all resolves synchronously:
+    /// every parse succeeds with empty data and every merge invokes its completion.
+    private func stubSuccessfulRefresh() {
+        parser._parse.implementation = .returns(.success(makeParsedFeedData()))
+        storage._refreshFeedItems.implementation = .uncheckedInvokes { _, _, completion in
+            completion()
+        }
+    }
+
+    @Test func refreshAllFeeds_parsesEachFeedAndMergesItems() async {
+        // Given
+        storage._loadFeeds.implementation = .uncheckedInvokes { [makeFeed] in
+            [makeFeed("https://a.com/feed", "A"),
+             makeFeed("https://b.com/feed", "B"),
+             makeFeed("https://c.com/feed", "C")]
+        }
+        stubSuccessfulRefresh()
+
+        // When
+        await sut.refreshAllFeeds()
+
+        // Then
+        #expect(parser._parse.callCount == 3)
+        #expect(storage._refreshFeedItems.callCount == 3)
+        #expect(search._markIndexDirty.callCount == 1)
+    }
+
+    @Test func refreshAllFeeds_skipsFeedsWithInvalidURL() async {
+        // Given — one valid feed, one with an unparseable URL.
+        storage._loadFeeds.implementation = .uncheckedInvokes { [makeFeed] in
+            [makeFeed("https://valid.com/feed", "Valid"),
+             makeFeed("not a url", "Invalid")]
+        }
+        stubSuccessfulRefresh()
+
+        // When
+        await sut.refreshAllFeeds()
+
+        // Then — only the valid feed is parsed and merged.
+        #expect(parser._parse.callCount == 1)
+        #expect(storage._refreshFeedItems.callCount == 1)
+        #expect(search._markIndexDirty.callCount == 1)
+    }
+
+    @Test func refreshAllFeeds_withNoFeeds_doesNothing() async {
+        // Given
+        storage._loadFeeds.implementation = .uncheckedInvokes { [] }
+
+        // When
+        await sut.refreshAllFeeds()
+
+        // Then — no parse, no merge, and the index is left alone.
+        #expect(parser._parse.callCount == 0)
+        #expect(storage._refreshFeedItems.callCount == 0)
+        #expect(search._markIndexDirty.callCount == 0)
+    }
+
+    @Test func refreshAllFeeds_continuesPastAParseFailure() async {
+        // Given — the first feed fails to parse, the second succeeds.
+        storage._loadFeeds.implementation = .uncheckedInvokes { [makeFeed] in
+            [makeFeed("https://bad.com/feed", "Bad"),
+             makeFeed("https://good.com/feed", "Good")]
+        }
+        enum RefreshError: Error { case boom }
+        nonisolated(unsafe) var calls = 0
+        parser._parse.implementation = .uncheckedInvokes { _ in
+            calls += 1
+            return calls == 1 ? .failure(RefreshError.boom) : .success(self.makeParsedFeedData())
+        }
+        storage._refreshFeedItems.implementation = .uncheckedInvokes { _, _, completion in
+            completion()
+        }
+
+        // When
+        await sut.refreshAllFeeds()
+
+        // Then — both feeds are attempted; only the successful one is merged.
+        #expect(parser._parse.callCount == 2)
+        #expect(storage._refreshFeedItems.callCount == 1)
+        #expect(search._markIndexDirty.callCount == 1)
+    }
+
     // MARK: - performWhenStorageReady
 
     @Test func performWhenStorageReady_delegatesToStorageAndForwardsCallback() {

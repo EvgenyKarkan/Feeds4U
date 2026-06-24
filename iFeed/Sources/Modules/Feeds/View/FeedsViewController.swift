@@ -122,6 +122,7 @@ final class FeedsViewController: BaseListViewController {
         /// `view`, the system resizes it to fill the window, so a real frame here
         /// would be overwritten anyway. Avoids the multi-scene-deprecated `UIScreen.main`.
         feedListView = FeedsView(frame: .zero)
+        feedListView?.refreshDelegate = self
 
         guard let tableView = feedListView?.tableView else {
             view = feedListView
@@ -424,6 +425,24 @@ extension FeedsViewController: @MainActor FeedsViewProtocol {
         applyViewState(viewState)
     }
 
+    func finishRefreshingAll(with viewState: FeedsViewState) {
+        applyViewState(viewState)
+        feedListView?.endRefreshing()
+    }
+
+    /// Blocks taps, scrolling, drag-and-drop and the navigation controls during a
+    /// refresh-all. The nav items are custom-view buttons reused across reloads,
+    /// so both their `isEnabled` flag and the custom view's interaction are toggled.
+    func setInteractionEnabled(_ enabled: Bool) {
+        feedListView?.tableView.isUserInteractionEnabled = enabled
+
+        let items = (navigationItem.leftBarButtonItems ?? []) + (navigationItem.rightBarButtonItems ?? [])
+        for item in items {
+            item.isEnabled = enabled
+            item.customView?.isUserInteractionEnabled = enabled
+        }
+    }
+
     /// Animates expanding/collapsing a folder section by replacing the section's
     /// rows in a single `performBatchUpdates` — deleting the rows currently shown,
     /// then inserting the new set. Also refreshes the header's chevron state.
@@ -628,6 +647,14 @@ extension FeedsViewController: UIDocumentPickerDelegate {
         }
 
         presenter?.onViewNeedsToImportOPML(data: data)
+    }
+}
+
+// MARK: - FeedsListViewDelegate
+extension FeedsViewController: FeedsListViewDelegate {
+
+    func didPullToRefreshAllFeeds() {
+        presenter?.onViewNeedsToRefreshAllFeeds()
     }
 }
 
