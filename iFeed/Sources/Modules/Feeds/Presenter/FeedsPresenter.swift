@@ -18,6 +18,14 @@ final class FeedsPresenter {
 
     private var currentSections: [FeedsSection] = []
 
+    private static let storageSizeFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+
     // MARK: - Init
     init(interactor: any FeedsInteractorProtocol,
          wireframe: any FeedsWireframeProtocol,
@@ -215,12 +223,7 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
             /// separator. MB is 1000-based to match Settings.
             let megabytes = Double(bytes) / 1_000_000
 
-            #warning("CACHE ME !!!")
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.minimumFractionDigits = 0
-            numberFormatter.maximumFractionDigits = 2
-            let value = numberFormatter.string(from: NSNumber(value: megabytes))
+            let value = Self.storageSizeFormatter.string(from: NSNumber(value: megabytes))
                 ?? String(format: "%.2f", megabytes)
 
             completion("\(value) MB")

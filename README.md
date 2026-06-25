@@ -40,7 +40,7 @@ Requires iOS 18.0 or later.
 - **Drag & drop** feeds to create folders, move them between folders, or ungroup them
 - Collapse and expand folders to keep your list tidy
 - Swipe to delete, or open the trash menu to enter edit mode for bulk cleanup
-- **Delete All** — the trash menu shows how many megabytes the local cache occupies and, after a confirmation, wipes every feed and article in one go
+- **Delete All** — the trash menu shows how many megabytes of cache you'll reclaim (calculated live) and, after a confirmation, wipes every feed and article in one go
 
 ### Find What You Need
 - **Fuzzy full-text search** across every article in all your feeds at once
@@ -80,6 +80,7 @@ Available in **23 languages**: Albanian, Arabic, Belarusian, Bengali, Chinese (S
 - Heavy work (parsing, imports, search indexing) runs on **background Core Data** contexts; the UI reads from the view context only
 - **Re-entrancy guards** keep navigation, pull-to-refresh, and modal presentation single-flight under rapid taps
 - Memory-conscious storage — article HTML is split into its own row and faulted in only when read
+- **Accurate cache size** — the Delete All label reports *live* data (`(page_count − freelist_count) × page_size` via read-only SQLite pragmas), so it stays correct in WAL mode and shrinks as feeds are deleted, without a `VACUUM`
 - On-device summaries **stream** into the reader — the model is **prewarmed** when the article opens, HTML is stripped off the main thread, and renders are **throttled** so token-by-token updates never flood the web view
 
 ### Dependencies (Swift Package Manager)
