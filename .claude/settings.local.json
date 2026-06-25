@@ -9,7 +9,8 @@
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
       "Bash(xcodebuild *)",
-      "Bash(gem list *)"
+      "Bash(gem list *)",
+      "Bash(xcrun xccov *)"
     ]
   }
 }

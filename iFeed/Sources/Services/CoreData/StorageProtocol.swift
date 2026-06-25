@@ -161,4 +161,13 @@ protocol StorageProtocol {
     func refreshFeedItems(with items: [ParsedFeedItemData],
                           forFeedWith feedID: NSManagedObjectID,
                           completion: @escaping @Sendable () -> Void)
+
+    /// Deletes every stored object of every entity, leaving an empty store.
+    /// Used by the "Delete All" flow to zero the local cache.
+    func clearAllData() throws
+
+    /// Total size, in bytes, the on-disk store currently occupies (the SQLite
+    /// file plus its `-wal`/`-shm` sidecars). Returns `0` when the store has no
+    /// file backing (e.g. an in-memory store) or cannot be measured.
+    func storageSizeBytes() -> Int64
 }

@@ -39,6 +39,8 @@ class FeedsUITestCase: XCTestCase {
         static let clearRecent = "Clear recent searches"
         static let importMenu = "Import from OPML"
         static let importNoFeeds = "No feeds found in this file."
+        static let editMode = "Edit Mode"
+        static let deleteAll = "Delete All"
     }
 
     override func setUp() async throws {

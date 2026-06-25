@@ -62,7 +62,7 @@ final class SummarizationService: SummarizationServiceProtocol {
     }
 
     func summarize(title: String, htmlContent: String) -> AsyncThrowingStream<ArticleSummary, any Error> {
-        AsyncThrowingStream<ArticleSummary, any Error> { continuation in
+        return AsyncThrowingStream<ArticleSummary, any Error> { continuation in
             let task = Task { [weak self] in
                 guard let self else {
                     continuation.finish()

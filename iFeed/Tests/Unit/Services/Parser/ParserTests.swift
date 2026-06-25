@@ -171,6 +171,25 @@ struct ParserTests {
         #expect(delegate._didFailParsingFeed.callCount == 0)
     }
 
+    // MARK: - parse(_:) async — cancellation
+
+    @Test func parseAsync_whenCancelled_returnsFailure() async {
+        // Given — the parser never delivers a result, so only cancellation can
+        // resolve the await (exercises the cancellation handler + fallback).
+        mockFeedParser._parseAsync.implementation = .invokes { _, _ in }
+
+        // When — the surrounding task is cancelled before any result arrives.
+        let task = Task { await self.sut.parse(self.testURL) }
+        task.cancel()
+        let result = await task.value
+
+        // Then — the cancelled parse resolves to a failure rather than hanging.
+        guard case .failure = result else {
+            Issue.record("Expected a failure result on cancellation")
+            return
+        }
+    }
+
     // MARK: - beginParsingURL — uses factory with correct URL
 
     @Test func beginParsingURL_passesURLToFactory() async throws {

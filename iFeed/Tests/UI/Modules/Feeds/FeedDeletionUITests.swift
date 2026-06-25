@@ -52,8 +52,10 @@ final class FeedDeletionUITests: FeedsUITestCase {
         launch(scenario: .populated)
         assertExists(trashButton)
 
-        // When — entering editing mode and tapping a row's delete control.
+        // When — opening the trash menu, choosing Edit Mode, and tapping a row's
+        // delete control.
         trashButton.tap()
+        tapMenuItem(Labels.editMode)
         let minus = feedCell("Swift Blog").buttons.firstMatch
         assertExists(minus, "Editing mode should expose a per-row delete control")
         minus.tap()
@@ -67,5 +69,66 @@ final class FeedDeletionUITests: FeedsUITestCase {
         // Then — the feed is removed; the others remain.
         assertGone(feedCell("Swift Blog"))
         assertExists(feedCell("Apple Newsroom"), "Remaining feeds stay in the list")
+    }
+
+    func testTrashButton_whileEditing_exitsEditingInsteadOfShowingMenu() {
+        // Given — a populated list put into editing mode via the trash menu.
+        launch(scenario: .populated)
+        assertExists(trashButton)
+        trashButton.tap()
+        tapMenuItem(Labels.editMode)
+        let minus = feedCell("Swift Blog").buttons.firstMatch
+        assertExists(minus, "Editing mode should expose a per-row delete control")
+
+        // When — tapping the trash button again while editing.
+        trashButton.tap()
+
+        // Then — editing is turned off (no menu); the delete controls disappear.
+        assertGone(minus, "Tapping trash while editing should exit editing mode")
+    }
+
+    func testDeleteAll_cancel_keepsAllFeeds() {
+        // Given — a populated feeds list.
+        launch(scenario: .populated)
+        assertExists(feedCell("Swift Blog"))
+
+        // When — opening the sized Delete All action but cancelling the
+        // destructive confirmation.
+        trashButton.tap()
+        let deleteAllItem = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label BEGINSWITH %@", "\(Labels.deleteAll) ("))
+            .firstMatch
+        assertExists(deleteAllItem, "Trash menu should offer a sized Delete All action", timeout: 10)
+        deleteAllItem.tap()
+        app.alerts.buttons[Labels.cancel].tap()
+
+        // Then — nothing is deleted; the feeds remain.
+        assertExists(feedCell("Swift Blog"))
+        assertExists(feedCell("Apple Newsroom"))
+    }
+
+    func testDeleteAll_zerosTheCacheAndReturnsToEmptyState() {
+        // Given — a populated feeds list.
+        launch(scenario: .populated)
+        assertExists(feedCell("Swift Blog"))
+
+        // When — opening the trash menu and choosing the deferred, sized
+        // "Delete All (… MB)" action (it appears once the cache size resolves).
+        trashButton.tap()
+        let deleteAllItem = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label BEGINSWITH %@", "\(Labels.deleteAll) ("))
+            .firstMatch
+        assertExists(deleteAllItem, "Trash menu should offer a sized Delete All action", timeout: 10)
+        deleteAllItem.tap()
+
+        // When — confirming the destructive alert.
+        let confirm = app.alerts.buttons[Labels.deleteAll]
+        assertExists(confirm, "A destructive confirmation should appear")
+        confirm.tap()
+
+        // Then — the whole cache is gone and the empty state returns.
+        assertExists(emptyLabel, "Deleting everything should reveal the empty prompt", timeout: 10)
+        assertGone(feedCell("Swift Blog"))
+        assertGone(feedCell("Apple Newsroom"))
     }
 }

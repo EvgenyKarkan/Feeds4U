@@ -133,6 +133,18 @@ extension FeedsInteractor: FeedsInteractorProtocol {
         localSearchService.markIndexDirty()
     }
 
+    func storageSize() async -> Int64 {
+        return storage.storageSizeBytes()
+    }
+
+    func deleteAllData() async {
+        try? storage.clearAllData()
+
+        /// The corpus is now empty — the search index must be rebuilt before the
+        /// next query.
+        localSearchService.markIndexDirty()
+    }
+
     /// Parses a single feed and merges its items, awaiting the background save.
     /// Failures (network, malformed feed) are swallowed: one bad feed must not
     /// abort the rest of a refresh-all.

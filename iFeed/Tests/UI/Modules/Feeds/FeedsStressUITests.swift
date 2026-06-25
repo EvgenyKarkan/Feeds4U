@@ -45,9 +45,10 @@ final class FeedsStressUITests: FeedsUITestCase {
         for index in 0..<iterations {
             performRandomGesture(on: window)
             // Clear any transient modal and return to the Feeds root after every
-            // gesture. This keeps the monkey on the screen under test and — since
-            // the root list has no pull-to-refresh — prevents it wandering into a
-            // network refresh that would never let XCUI settle.
+            // gesture. This keeps the monkey on the screen under test. The root
+            // list now has pull-to-refresh, but under UI testing the parser
+            // resolves every parse instantly (see `UITestParser`), so a stray
+            // swipe-down refresh ends immediately and never stalls XCUI.
             dismissTransientUI()
             returnToRoot()
 
@@ -63,25 +64,136 @@ final class FeedsStressUITests: FeedsUITestCase {
         assertExists(addButton, "Feeds screen must remain reachable after monkey testing")
     }
 
+    /// "Cat walked on the keyboard": a seeded chaos monkey that, unlike the
+    /// pure-coordinate one, randomly fires *real* feature actions — pull-to-refresh,
+    /// the trash menu (Edit Mode / Delete All → cancel), the add menu + junk text,
+    /// search with garbage queries, feed navigation, row swipes — interleaved with
+    /// raw gestures. Every branch is soft (no hard asserts mid-loop) so the run
+    /// keeps churning; only liveness and recoverability are asserted.
+    func testMonkey_chaoticFeatureActionsKeepAppAlive() {
+        // Given — a populated feeds list.
+        launch(scenario: .populated)
+        assertExists(addButton)
+
+        let window = app.windows.firstMatch
+        let iterations = 60
+
+        // When — a long stream of chaotic, mixed feature actions and gestures.
+        for index in 0..<iterations {
+            performChaoticAction(on: window)
+            dismissTransientUI()
+            returnToRoot()
+
+            if index % 15 == 0 {
+                XCTAssertEqual(app.state, .runningForeground,
+                               "App terminated during chaotic action #\(index)")
+            }
+        }
+
+        // Then — the app survives and the Feeds screen stays reachable.
+        XCTAssertEqual(app.state, .runningForeground, "App must survive chaotic feature testing")
+        recoverToFeeds()
+        assertExists(addButton, "Feeds screen must remain reachable after chaotic testing")
+    }
+
+    /// Stresses OPML import: relaunches into the import hook (`-uiOPMLImport`) so a
+    /// real import + summary fires on appear, while a burst of random gestures
+    /// hammers the screen during the import window. Repeats across relaunches.
+    func testStress_opmlImportUnderChaos() {
+        let window = app.windows.firstMatch
+
+        // When — repeatedly importing on launch while firing random gestures.
+        for _ in 0..<3 {
+            app.terminate()
+            launch(scenario: .populated, extraArguments: ["-uiOPMLImport", "allSeeded"])
+
+            for _ in 0..<8 {
+                performRandomGesture(on: window)
+            }
+            dismissTransientUI() // clears the import summary alert if present
+            recoverToFeeds()
+
+            // Then — each import-under-chaos cycle leaves the app alive.
+            XCTAssertEqual(app.state, .runningForeground, "OPML import under chaos must not crash")
+        }
+
+        assertExists(addButton, "Feeds screen must remain reachable after OPML import chaos")
+    }
+
     // MARK: - Targeted stress
 
-    /// Hammers the trash button to flip in/out of editing mode many times.
+    /// Flips in/out of editing mode many times through the trash menu: open menu →
+    /// Edit Mode (enter editing) → tap trash (exit editing). Stresses the menu vs.
+    /// exit-editing mode switch (`showsMenuAsPrimaryAction` toggling).
     func testStress_rapidEditingToggle() {
         // Given — a populated feeds list.
         launch(scenario: .populated)
         assertExists(trashButton)
 
-        // When — hammering the trash button.
-        for _ in 0..<30 {
-            trashButton.tap()
+        // When — repeatedly entering editing via the menu and exiting via a tap.
+        for _ in 0..<10 {
+            trashButton.tap()                 // not editing → opens the menu
+            tapMenuItem(Labels.editMode)      // enter editing
+            trashButton.tap()                 // editing → exits (menu suppressed)
         }
 
-        // Then — no crash; leaving editing mode, the list is intact.
+        // Then — no crash; not stuck in editing; the list is intact.
         XCTAssertEqual(app.state, .runningForeground, "Editing toggling must not crash")
         if app.tables.buttons[Labels.delete].firstMatch.exists {
             trashButton.tap()
         }
         assertExists(feedCell("Swift Blog"), "Feeds must remain after editing churn")
+    }
+
+    /// Hammers pull-to-refresh on the feeds list. Under UI testing the parser
+    /// resolves instantly, so each refresh-all locks then unlocks interaction in
+    /// quick succession — a stress on that lock/unlock cycle and the spawned task.
+    func testStress_rapidPullToRefreshChurn() {
+        // Given — a populated feeds list.
+        launch(scenario: .populated)
+        assertExists(feedCell("Swift Blog"))
+
+        // When — pulling to refresh many times back-to-back.
+        for _ in 0..<12 {
+            feedsTable.swipeDown(velocity: .fast)
+        }
+
+        // Then — no crash; the list stays intact and interactive.
+        XCTAssertEqual(app.state, .runningForeground, "Refresh churn must not crash")
+        assertExists(feedCell("Swift Blog"), "Feeds must remain after refresh churn")
+        assertExists(addButton)
+    }
+
+    /// Repeatedly opens the deferred, sized "Delete All" action and cancels the
+    /// destructive confirmation. Stresses the deferred-menu size resolution and
+    /// the confirm/cancel path without ever wiping the data.
+    func testStress_rapidDeleteAllCancelChurn() {
+        // Given — a populated feeds list.
+        launch(scenario: .populated)
+        assertExists(feedCell("Swift Blog"))
+
+        // When — opening Delete All and cancelling, repeatedly.
+        for _ in 0..<8 {
+            trashButton.tap()
+            let deleteAllItem = app.descendants(matching: .any)
+                .matching(NSPredicate(format: "label BEGINSWITH %@", "\(Labels.deleteAll) ("))
+                .firstMatch
+            if deleteAllItem.waitForExistence(timeout: 8) {
+                deleteAllItem.tap()
+                if app.alerts.buttons[Labels.cancel].waitForExistence(timeout: 3) {
+                    app.alerts.buttons[Labels.cancel].tap()
+                }
+            } else {
+                // Deferred item didn't appear — dismiss the menu with a neutral tap.
+                app.windows.firstMatch
+                    .coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+                    .tap()
+            }
+        }
+
+        // Then — no crash; cancelling never deletes, so the feeds remain.
+        XCTAssertEqual(app.state, .runningForeground, "Delete-All cancel churn must not crash")
+        assertExists(feedCell("Swift Blog"), "Cancelling must never delete feeds")
     }
 
     /// Repeatedly opens the add menu + enter-feed alert and cancels it.
@@ -201,6 +313,87 @@ final class FeedsStressUITests: FeedsUITestCase {
     }
 
     // MARK: - Helpers
+
+    private let feedTitles = ["Swift Blog", "Apple Newsroom", "Hacker News", "The Verge"]
+
+    /// One chaotic step: randomly a real feature action or a raw gesture. Every
+    /// branch is best-effort — missing elements are skipped, not asserted — so a
+    /// transient state can never abort the churn.
+    private func performChaoticAction(on window: XCUIElement) {
+        switch Int.random(in: 0..<9, using: &rng) {
+        case 0:
+            feedsTable.swipeDown(velocity: .fast) // pull-to-refresh
+
+        case 1 where trashButton.exists:
+            trashButton.tap() // trash menu
+            if Bool.random(using: &rng) {
+                tapSoftMenuItem(Labels.editMode)
+            } else {
+                let deleteAll = app.descendants(matching: .any)
+                    .matching(NSPredicate(format: "label BEGINSWITH %@", "\(Labels.deleteAll) ("))
+                    .firstMatch
+                if deleteAll.waitForExistence(timeout: 4) {
+                    deleteAll.tap()
+                    if app.alerts.buttons[Labels.cancel].waitForExistence(timeout: 2) {
+                        app.alerts.buttons[Labels.cancel].tap() // never wipe — keep churning
+                    }
+                }
+            }
+
+        case 2:
+            addButton.tap() // add menu → enter-feed alert → junk → cancel
+            tapSoftMenuItem(Labels.enterNewFeedMenu)
+            if alertTextField.waitForExistence(timeout: 2) {
+                alertTextField.typeText(randomJunk())
+                if app.alerts.buttons[Labels.cancel].exists {
+                    app.alerts.buttons[Labels.cancel].tap()
+                }
+            }
+
+        case 3:
+            let cell = feedCell(feedTitles.randomElement(using: &rng) ?? "Swift Blog")
+            if cell.exists { cell.tap() } // navigate into items
+
+        case 4 where searchButton.exists:
+            openSearchInput() // search with garbage
+            if alertTextField.exists {
+                alertTextField.typeText(randomJunk())
+                if app.alerts.buttons[Labels.search].exists {
+                    app.alerts.buttons[Labels.search].tap()
+                }
+            }
+
+        case 5:
+            let cell = feedCell(feedTitles.randomElement(using: &rng) ?? "Swift Blog")
+            if cell.exists { cell.swipeLeft() } // reveal swipe actions
+
+        default:
+            performRandomGesture(on: window)
+        }
+    }
+
+    /// Best-effort menu-item tap (menu item or plain button), never asserting.
+    private func tapSoftMenuItem(_ label: String) {
+        let menuItem = app.menuItems[label]
+        let button = app.buttons[label]
+        if menuItem.waitForExistence(timeout: 2) {
+            menuItem.tap()
+        } else if button.waitForExistence(timeout: 1) {
+            button.tap()
+        }
+    }
+
+    /// Cat-on-keyboard text: random length, random alphanumeric/punctuation/URL-ish
+    /// characters (no newline, which would submit an alert prematurely).
+    private func randomJunk() -> String {
+        let alphabet = Array("asdfghjklqwertyuiopzxcvbnm 1234567890 !@#%&*()-_+=:/.https")
+        let length = Int.random(in: 1...14, using: &rng)
+        var result = ""
+        for _ in 0..<length {
+            result.append(alphabet.randomElement(using: &rng) ?? "x")
+        }
+        return result
+    }
 
     private func performRandomGesture(on window: XCUIElement) {
         let point = randomCoordinate(in: window)

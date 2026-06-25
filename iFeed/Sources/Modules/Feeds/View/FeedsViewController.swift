@@ -78,16 +78,23 @@ final class FeedsViewController: BaseListViewController {
         return UIBarButtonItem(customView: button)
     }()
 
+    private var trashButton: UIButton?
+
     private lazy var trashButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            barButtonSystemItem: .trash,
-            target: self,
-            action: #selector(trashButtonItemDidPress)
-        )
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
         button.tintColor = .systemBlue
         button.accessibilityIdentifier = AccessibilityID.trashButton
 
-        return button
+        /// While editing, the tap exits editing (`touchUpInside` fires); otherwise
+        /// it opens the menu. `showsMenuAsPrimaryAction` suppresses the action when
+        /// the menu is primary, so toggling it switches between the two behaviours.
+        button.menu = makeTrashMenu()
+        button.showsMenuAsPrimaryAction = true
+        button.addTarget(self, action: #selector(trashButtonDidPress), for: .touchUpInside)
+
+        trashButton = button
+        return UIBarButtonItem(customView: button)
     }()
 
     private var searchButton: UIButton?
@@ -661,11 +668,91 @@ extension FeedsViewController: FeedsListViewDelegate {
 // MARK: - Private
 private extension FeedsViewController {
 
-    @objc func trashButtonItemDidPress() {
+    /// Builds the trash-icon menu: an immediate "Edit Mode" toggle plus a
+    /// deferred "Delete All" entry. The deferred element makes the system show a
+    /// spinner and keep the action disabled until the cache size resolves, then
+    /// reveals an enabled, destructive action labelled with that size.
+    func makeTrashMenu() -> UIMenu {
+        let editMode = UIAction(
+            title: String.localized(key: LocalizableKeys.DeleteAll.editMode),
+            image: UIImage(systemName: "minus.circle")
+        ) { [weak self] _ in
+            self?.toggleEditMode()
+        }
+
+        let deleteAll = UIDeferredMenuElement.uncached { [weak self] completion in
+            guard let self else {
+                completion([])
+                return
+            }
+            self.presenter?.onViewNeedsStorageSize { [weak self] sizeString in
+                guard let self else {
+                    completion([])
+                    return
+                }
+                let title = String(
+                    format: String.localized(key: LocalizableKeys.DeleteAll.actionFormat),
+                    sizeString
+                )
+                let action = UIAction(
+                    title: title,
+                    image: UIImage(systemName: "trash"),
+                    attributes: .destructive
+                ) { [weak self] _ in
+                    self?.showDeleteAllConfirmation()
+                }
+                completion([action])
+            }
+        }
+
+        return UIMenu(
+            title: String.localized(key: LocalizableKeys.DeleteAll.menuTitle),
+            children: [editMode, deleteAll]
+        )
+    }
+
+    func toggleEditMode() {
         guard let tableView = feedListView?.tableView else {
             return
         }
         tableView.setEditing(!tableView.isEditing, animated: true)
+        syncTrashButtonMode()
+    }
+
+    /// Direct tap on the trash button. Only reaches here when the menu is *not*
+    /// primary — i.e. while editing — so it exits editing mode.
+    @objc func trashButtonDidPress() {
+        feedListView?.tableView.setEditing(false, animated: true)
+        syncTrashButtonMode()
+    }
+
+    /// Keeps the trash button's behaviour in step with the table's editing state:
+    /// menu when idle, exit-editing tap while editing.
+    func syncTrashButtonMode() {
+        let isEditing = feedListView?.tableView.isEditing ?? false
+        trashButton?.showsMenuAsPrimaryAction = !isEditing
+    }
+
+    /// Destructive confirmation before zeroing the local cache.
+    func showDeleteAllConfirmation() {
+        let alert = UIAlertController(
+            title: String.localized(key: LocalizableKeys.DeleteAll.confirmTitle),
+            message: String.localized(key: LocalizableKeys.DeleteAll.confirmMessage),
+            preferredStyle: .alert
+        )
+        alert.view.accessibilityIdentifier = AccessibilityID.deleteAllConfirmAlert
+        alert.addAction(UIAlertAction(
+            title: String.localized(key: LocalizableKeys.cancel),
+            style: .cancel
+        ))
+        alert.addAction(UIAlertAction(
+            title: String.localized(key: LocalizableKeys.DeleteAll.confirmButton),
+            style: .destructive
+        ) { [weak self] _ in
+            self?.presenter?.onViewNeedsToDeleteAllData()
+        })
+
+        presentGuarded(alert)
     }
 
     @objc func searchButtonItemDidPress() {
@@ -706,6 +793,10 @@ private extension FeedsViewController {
                 navigationItem.rightBarButtonItems?.append(contentsOf: [fixedSpace, searchButtonItem])
             }
         }
+
+        /// Editing may have been turned off above (empty state) — keep the trash
+        /// button's tap behaviour in sync.
+        syncTrashButtonMode()
     }
 
     func showCreateFolderAlert(feedURLs: [String]) {

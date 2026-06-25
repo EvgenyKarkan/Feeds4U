@@ -31,6 +31,7 @@ enum AccessibilityID {
     static let createFolderAlert = "feeds.alert.createFolder"
     static let alertTextField = "feeds.alert.textField"
     static let importSummaryAlert = "feeds.alert.importSummary"
+    static let deleteAllConfirmAlert = "feeds.alert.deleteAllConfirm"
 
     // MARK: - Feed items
     static let markAllAsReadButton = "feedItems.markAllAsReadButton"

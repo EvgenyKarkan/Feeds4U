@@ -202,6 +202,44 @@ extension FeedsPresenter: @MainActor FeedsViewDelegate {
         }
     }
 
+    func onViewNeedsStorageSize(completion: @escaping (String) -> Void) {
+        Task { [weak self] in
+            guard let self else {
+                return
+            }
+            let bytes = await self.interactor.storageSize()
+
+            /// Up to 2 decimals in MB, trailing zeros trimmed (1.93, 1.9, 2).
+            /// `ByteCountFormatter` can't control the fraction length, so format the
+            /// value directly; `NumberFormatter` keeps the locale's decimal
+            /// separator. MB is 1000-based to match Settings.
+            let megabytes = Double(bytes) / 1_000_000
+
+            #warning("CACHE ME !!!")
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.minimumFractionDigits = 0
+            numberFormatter.maximumFractionDigits = 2
+            let value = numberFormatter.string(from: NSNumber(value: megabytes))
+                ?? String(format: "%.2f", megabytes)
+
+            completion("\(value) MB")
+        }
+    }
+
+    func onViewNeedsToDeleteAllData() {
+        Task { [weak self] in
+            guard let self else {
+                return
+            }
+            await self.interactor.deleteAllData()
+
+            /// The cache is empty now — rebuilding the state also drops any folders
+            /// left without feeds (handled by `cleanupFolders` inside the builder).
+            self.view?.reloadFeedsList(with: self.buildViewState())
+        }
+    }
+
     func onViewNeedsToShowSearchInput() {
         view?.showEnterSearch()
     }

@@ -194,6 +194,48 @@ struct FeedsInteractorTests {
         #expect(search._markIndexDirty.callCount == 1)
     }
 
+    @Test func refreshAllFeeds_withMoreFeedsThanConcurrencyLimit_refreshesEvery() async {
+        // Given — more feeds than the bounded fan-out limit, forcing the task
+        // group's "start the next as each finishes" re-add path to run.
+        storage._loadFeeds.implementation = .uncheckedInvokes { [makeFeed] in
+            (0..<8).map { makeFeed("https://example.com/feed\($0)", "Feed \($0)") }
+        }
+        stubSuccessfulRefresh()
+
+        // When
+        await sut.refreshAllFeeds()
+
+        // Then — all eight are parsed and merged despite the in-flight cap.
+        #expect(parser._parse.callCount == 8)
+        #expect(storage._refreshFeedItems.callCount == 8)
+        #expect(search._markIndexDirty.callCount == 1)
+    }
+
+    // MARK: - storageSize
+
+    @Test func storageSize_delegatesToStorage() async {
+        // Given
+        storage._storageSizeBytes.implementation = .returns(2_048)
+
+        // When
+        let bytes = await sut.storageSize()
+
+        // Then
+        #expect(bytes == 2_048)
+        #expect(storage._storageSizeBytes.callCount == 1)
+    }
+
+    // MARK: - deleteAllData
+
+    @Test func deleteAllData_clearsStorageAndMarksIndexDirty() async {
+        // When
+        await sut.deleteAllData()
+
+        // Then — the store is zeroed and the now-empty corpus is flagged for reindex.
+        #expect(storage._clearAllData.callCount == 1)
+        #expect(search._markIndexDirty.callCount == 1)
+    }
+
     // MARK: - performWhenStorageReady
 
     @Test func performWhenStorageReady_delegatesToStorageAndForwardsCallback() {

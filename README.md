@@ -39,7 +39,8 @@ Requires iOS 18.0 or later.
 - Group feeds into **folders** by topic, project, or however you like
 - **Drag & drop** feeds to create folders, move them between folders, or ungroup them
 - Collapse and expand folders to keep your list tidy
-- Swipe to delete, or enter edit mode for bulk cleanup
+- Swipe to delete, or open the trash menu to enter edit mode for bulk cleanup
+- **Delete All** — the trash menu shows how many megabytes the local cache occupies and, after a confirmation, wipes every feed and article in one go
 
 ### Find What You Need
 - **Fuzzy full-text search** across every article in all your feeds at once

@@ -71,6 +71,14 @@ protocol FeedsInteractorProtocol {
     /// (bounded fan-out) so the whole refresh is as fast as the slowest batch.
     func refreshAllFeeds() async
 
+    /// Current on-disk size of the local store, in bytes. Used to label the
+    /// "Delete All" action with the cache size it will reclaim.
+    func storageSize() async -> Int64
+
+    /// Deletes every stored feed and its items (cascading), zeroing the local
+    /// Core Data cache, and marks the search index dirty.
+    func deleteAllData() async
+
     /// Extracts the feed URLs contained in an OPML export, ignoring its folder
     /// structure (the app's feed list is flat). Returns an empty array when the
     /// data is not valid OPML or holds no usable feeds.
@@ -178,6 +186,13 @@ protocol FeedsViewDelegate: AnyObject {
 
     /// Pull-to-refresh on the feeds list: re-fetch every saved feed.
     func onViewNeedsToRefreshAllFeeds()
+
+    /// Asks for the current cache size, formatted for display (e.g. "12.3 MB"),
+    /// to label the "Delete All" action. Delivered on the main actor.
+    func onViewNeedsStorageSize(completion: @escaping (String) -> Void)
+
+    /// Confirmed "Delete All": zero the local cache and reload the (empty) list.
+    func onViewNeedsToDeleteAllData()
 
     func onViewDidSelectFeedAtIndexPath(_ indexPath: IndexPath)
     func onViewNeedsToDeleteFeedAtIndexPath(_ indexPath: IndexPath)

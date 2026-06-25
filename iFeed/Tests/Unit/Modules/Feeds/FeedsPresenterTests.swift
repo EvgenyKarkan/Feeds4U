@@ -588,6 +588,45 @@ struct FeedsPresenterTests {
         #expect(viewState?.sections.isEmpty == false)
     }
 
+    // MARK: - Delete All
+
+    @Test func onViewNeedsStorageSize_formatsBytesAsMegabytes() async {
+        // Given — a couple of megabytes of cache.
+        interactor._storageSize.implementation = .returns(2_500_000)
+
+        // When
+        let size = await withCheckedContinuation { (continuation: CheckedContinuation<String, Never>) in
+            sut.onViewNeedsStorageSize { sizeString in
+                continuation.resume(returning: sizeString)
+            }
+        }
+
+        // Then — the label shows MB with up to two decimals, trailing zeros
+        // trimmed (locale-independent: built from the same NumberFormatter config
+        // the presenter uses). 2_500_000 bytes → 2.5 MB.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 2
+        let expectedValue = numberFormatter.string(from: NSNumber(value: 2.5))
+        #expect(interactor._storageSize.callCount == 1)
+        #expect(size == "\(expectedValue ?? "2.5") MB")
+    }
+
+    @Test func onViewNeedsToDeleteAllData_clearsCacheAndReloadsList() async {
+        // When
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            view._reloadFeedsList.implementation = .uncheckedInvokes { _ in
+                continuation.resume()
+            }
+            sut.onViewNeedsToDeleteAllData()
+        }
+
+        // Then — the interactor zeroed the cache and the list was rebuilt.
+        #expect(interactor._deleteAllData.callCount == 1)
+        #expect(view._reloadFeedsList.callCount == 1)
+    }
+
     // MARK: - onViewNeedsToRefreshAllFeeds
 
     @Test func onViewNeedsToRefreshAllFeeds_refreshesThenEndsRefreshing() async {

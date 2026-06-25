@@ -577,6 +577,67 @@ struct CoreDataManagerTests {
         #expect(try manager.fetchFeedItems().count == 0)
     }
 
+    // MARK: - Storage Size
+
+    @Test("storageSizeBytes is positive for an on-disk store with data")
+    func storageSizeBytesPositive() throws {
+        // Given — a real SQLite-backed store with some content.
+        let manager = try Self.makeTemporaryManager()
+        let feed = try Self.populateFeed(in: manager)
+        _ = try Self.populateFeedItem(in: manager, feed: feed)
+
+        // When
+        let bytes = manager.storageSizeBytes()
+
+        // Then — the file (and/or its WAL) occupies measurable space.
+        #expect(bytes > 0)
+    }
+
+    @Test("deleting data shrinks the reported store size")
+    func storageSizeShrinksOnDelete() throws {
+        // Given — an on-disk store with a fair amount of content.
+        let manager = try Self.makeTemporaryManager()
+        for feedIndex in 0..<5 {
+            let feed = try Self.populateFeed(in: manager, rssURL: "https://example.com/feed\(feedIndex)")
+            for itemIndex in 0..<40 {
+                _ = try Self.populateFeedItem(
+                    in: manager,
+                    feed: feed,
+                    title: String(repeating: "padding ", count: 50),
+                    link: "https://example.com/item\(feedIndex)-\(itemIndex)"
+                )
+            }
+        }
+        let sizeBefore = manager.storageSizeBytes()
+
+        // When — clearing everything.
+        try manager.clearAllData()
+        let sizeAfter = manager.storageSizeBytes()
+
+        // Then — compaction (checkpoint + VACUUM) reclaims the freed pages, so the
+        // reported size actually drops rather than staying flat or growing.
+        #expect(sizeAfter < sizeBefore)
+    }
+
+    @Test("storageSizeBytes is zero for an in-memory store")
+    func storageSizeBytesInMemory() {
+        // Given — an in-memory store has no real file backing.
+        let container = NSPersistentContainer(name: "iFeed", managedObjectModel: TestCoreDataModel.shared)
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        description.shouldAddStoreAsynchronously = false
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { _, error in
+            if let error {
+                fatalError("In-memory store failed to load: \(error)")
+            }
+        }
+        let manager = CoreDataManager(container: container)
+
+        // When / Then
+        #expect(manager.storageSizeBytes() == 0)
+    }
+
     // MARK: - Context Management
 
     @Test("Reset view context clears pending changes")

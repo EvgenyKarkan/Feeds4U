@@ -30,6 +30,15 @@ enum LocalizableKeys {
         static let fileUnreadable = "import.fileUnreadable"
     }
 
+    enum DeleteAll {
+        static let menuTitle = "deleteAll.menuTitle"
+        static let editMode = "deleteAll.editMode"
+        static let actionFormat = "deleteAll.actionFormat"
+        static let confirmTitle = "deleteAll.confirmTitle"
+        static let confirmMessage = "deleteAll.confirmMessage"
+        static let confirmButton = "deleteAll.confirmButton"
+    }
+
     enum Search {
         static let search = "search"
         static let description = "search.description"

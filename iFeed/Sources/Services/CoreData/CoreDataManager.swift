@@ -8,6 +8,7 @@
 
 import CoreData
 import Foundation
+import SQLite3
 import Synchronization
 
 /// Typed errors surfaced by ``CoreDataManager`` operations.
@@ -502,6 +503,61 @@ final class CoreDataManager: @unchecked Sendable {
         for entityName in entityNames {
             try batchDelete(entityName: entityName)
         }
+    }
+
+    /// Bytes of live data the local store holds.
+    ///
+    /// Measuring the raw `.sqlite` file is misleading: in WAL mode the file never
+    /// shrinks on delete (SQLite keeps freed pages on a free list for reuse) and
+    /// the `-wal` sidecar grows on every write — so a delete can leave the file
+    /// size flat or even larger. Instead of the physical file, this reports the
+    /// *used* size from SQLite's own page accounting:
+    ///
+    ///     (page_count − freelist_count) × page_size
+    ///
+    /// Deleting feeds moves their pages onto the free list, so this figure drops
+    /// straight away — no `VACUUM` (which a second connection can't run while Core
+    /// Data holds the store) and no file rewrite. The pragmas are read-only, so
+    /// they never contend with Core Data's connection.
+    ///
+    /// Returns 0 for a store with no file backing (e.g. an in-memory store) or if
+    /// the database cannot be opened.
+    func storageSizeBytes() -> Int64 {
+        guard let storeURL = persistentContainer.persistentStoreCoordinator
+            .persistentStores.first?.url, storeURL.isFileURL else {
+            return 0
+        }
+
+        var database: OpaquePointer?
+        guard sqlite3_open(storeURL.path, &database) == SQLITE_OK else {
+            sqlite3_close(database)
+            return 0
+        }
+        defer {
+            sqlite3_close(database)
+        }
+
+        let pageSize = pragmaInt(database, "PRAGMA page_size;")
+        let pageCount = pragmaInt(database, "PRAGMA page_count;")
+        let freeCount = pragmaInt(database, "PRAGMA freelist_count;")
+
+        return max(0, pageCount - freeCount) * pageSize
+    }
+
+    /// Runs a single-row, single-column integer `PRAGMA` and returns its value
+    /// (0 if the statement cannot be prepared or yields no row).
+    private func pragmaInt(_ database: OpaquePointer?, _ sql: String) -> Int64 {
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(database, sql, -1, &statement, nil) == SQLITE_OK else {
+            return 0
+        }
+        defer {
+            sqlite3_finalize(statement)
+        }
+        guard sqlite3_step(statement) == SQLITE_ROW else {
+            return 0
+        }
+        return sqlite3_column_int64(statement, 0)
     }
 
     /// Returns `true` once the persistent store has finished loading.
