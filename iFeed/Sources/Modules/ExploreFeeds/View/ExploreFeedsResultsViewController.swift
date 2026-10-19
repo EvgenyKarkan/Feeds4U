@@ -185,8 +185,12 @@ private extension ExploreFeedsResultsViewController {
         cell.update(title: viewModel.title, description: viewModel.description, isAdded: viewModel.isAdded)
     }
 
+    /// Width available to cell content. Cells inset their content view by the horizontal
+    /// safe area, which can be large and asymmetric (e.g. a vertical bar on one edge),
+    /// so both edges' insets are subtracted from the table width.
     func effectiveContentWidth() -> CGFloat {
-        return max(tableView.bounds.width, view.bounds.width)
+        let horizontalSafeAreaInsets = tableView.safeAreaInsets.left + tableView.safeAreaInsets.right
+        return max(tableView.bounds.width, view.bounds.width) - horizontalSafeAreaInsets
     }
 
     private func makeCellViewModels(from results: [ExploreFeedsResult], contentWidth: CGFloat) -> [CellViewModel] {
