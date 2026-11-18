@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2630"
+   LastUpgradeVersion = "2710"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,14 +29,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Unit.xctestplan"
+            reference = "container:App/Unit.xctestplan"
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:UITests.xctestplan">
+            reference = "container:App/UITests.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Stress.xctestplan">
+            reference = "container:App/Stress.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

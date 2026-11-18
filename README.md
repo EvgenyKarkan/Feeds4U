@@ -1,6 +1,7 @@
 Feeds4U
 ===========
 
+[![Unit Tests](https://github.com/EvgenyKarkan/Feeds4U/actions/workflows/unit-tests.yml/badge.svg?branch=develop)](https://github.com/EvgenyKarkan/Feeds4U/actions/workflows/unit-tests.yml)
 ![Swift 6](https://img.shields.io/badge/Swift-6-orange.svg)
 ![Platform](https://img.shields.io/badge/iOS-18%2B-blue.svg)
 ![Apple Intelligence](https://img.shields.io/badge/Apple_Intelligence-Foundation_Models-000000.svg)

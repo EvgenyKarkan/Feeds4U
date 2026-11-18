@@ -1,0 +1,93 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: unit-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Require Xcode 27 or later
+        run: |
+          xcodebuild -version
+          major=$(xcodebuild -version | awk '/^Xcode/ { split($2, parts, "."); print parts[1] }')
+          if [ "$major" -lt 27 ]; then
+            echo "::error title=Xcode version::Xcode 27+ required, found $(xcodebuild -version | head -1)"
+            exit 1
+          fi
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: spm-${{ hashFiles('iFeed/iFeed.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+
+      - name: List available simulators
+        run: xcrun simctl list devices available iOS
+
+      - name: Run unit tests on iOS Simulator
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project iFeed/iFeed.xcodeproj \
+            -scheme "iFeed - DEV" \
+            -testPlan Unit \
+            -destination "platform=iOS Simulator,name=iPhone 18 Pro" \
+            -skipMacroValidation \
+            -skipPackagePluginValidation \
+            -resultBundlePath TestResults.xcresult \
+            -enableCodeCoverage YES \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
+      - name: Extract code coverage
+        if: always() && hashFiles('TestResults.xcresult/**') != ''
+        run: |
+          xcrun xccov view --report --only-targets TestResults.xcresult | tee coverage.txt
+          xcrun xccov view --report --json TestResults.xcresult > coverage.json
+
+          total=$(jq -r '[.targets[] | select(.name == "iFeed.app")][0]
+            | "\(.lineCoverage * 10000 | round / 100)% (\(.coveredLines)/\(.executableLines) lines)"' coverage.json)
+
+          echo "::notice title=Code Coverage::iFeed.app — $total"
+
+          {
+            echo "## 🧪 Code Coverage: $total"
+            echo
+            echo "| Target | Coverage | Covered / Executable |"
+            echo "|---|---:|---:|"
+            jq -r '.targets[]
+              | "| \(.name) | \(.lineCoverage * 10000 | round / 100)% | \(.coveredLines) / \(.executableLines) |"' coverage.json
+            echo
+            echo "<details><summary>Per-file coverage (lowest first)</summary>"
+            echo
+            echo "| File | Coverage | Covered / Executable |"
+            echo "|---|---:|---:|"
+            jq -r '[.targets[] | select(.name == "iFeed.app") | .files[]]
+              | sort_by(.lineCoverage)[]
+              | "| \(.name) | \(.lineCoverage * 10000 | round / 100)% | \(.coveredLines) / \(.executableLines) |"' coverage.json
+            echo
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: TestResults
+          path: |
+            TestResults.xcresult
+            coverage.txt
+            coverage.json
+          if-no-files-found: ignore
